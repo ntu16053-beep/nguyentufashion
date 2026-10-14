@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGUYEN TU FASHION | Thời Trang Cá Tính - Phong Cách Giới Trẻ Ninh Bình</title>
+  <meta name="description" content="Thương hiệu thời trang Local Brand dẫn đầu phong cách giới trẻ tại Ninh Bình. Streetwear, Oversize Tee, Hoodie, Parachute Pants chất lượng cao, hỏa tốc 2H tại Ninh Bình.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Google Fonts: Syne (Fashion Editorial) & Plus Jakarta Sans (Clean Modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       ANNOUNCEMENT BAR (LUNORA STYLE)
+       ========================================== -->
+  <aside class="announcement-bar">
+    <div class="container announcement-content">
+      <div class="announcement-links">
+        <span>📍 Showroom: TP. Ninh Bình</span>
+        <span>⚡ Hỏa Tốc 2H Nội Thành</span>
+      </div>
+
+      <div class="announcement-text">
+        <span class="badge-tag">Ninh Bình Drop</span>
+        <span>Freeship toàn TP. Ninh Bình cho đơn từ 299K • Mã: <strong>NINHBINH</strong> giảm 15%</span>
+      </div>
+
+      <div class="announcement-links">
+        <a href="#size-calc">📐 Bảng Tính Size</a>
+        <a href="#store-hub">🏪 Hệ Thống Cửa Hàng</a>
+        <a href="tel:0988888888">📞 Hotline: 0988.xxx.xxx</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       STICKY HEADER & NAVIGATION
+       ========================================== -->
+  <header class="header">
+    <div class="container nav-container">
+      <!-- Mobile Hamburger -->
+      <button class="mobile-menu-btn" aria-label="Menu" onclick="window.toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Brand Identity (From User Assets) -->
+      <a href="#" class="brand-wrapper">
+        <img src="assets/images/logo.png" alt="Nguyen Tu Fashion Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NGUYEN TU</span>
+          <span class="brand-sub">FASHION • EST. 2025</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#hero" class="nav-link active">Trang Chủ</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('all')">Hàng Mới <span class="nav-badge hot">HOT</span></a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('tee')">Áo Phông</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('hoodie')">Hoodie & Jacket</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('pants')">Quần Streetwear</a>
+        <a href="#lookbook" class="nav-link">Ninh Bình Lookbook</a>
+        <a href="#store-hub" class="nav-link">Store Ninh Bình</a>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Live Instant Search -->
+        <button class="action-btn" title="Tìm kiếm sản phẩm" onclick="window.openSearchModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Wishlist -->
+        <button class="action-btn" title="Danh sách yêu thích" onclick="window.filterByCircle('all'); document.getElementById('catalog').scrollIntoView({behavior:'smooth'});">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="action-badge wishlist-count-badge">0</span>
+        </button>
+
+        <!-- Cart Drawer Button -->
+        <button class="action-btn" title="Giỏ hàng" onclick="window.openCartDrawer()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="action-badge cart-count-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         HERO SECTION (USING BRAND BANNER FROM TAI_NGUYEN)
+         ========================================== -->
+    <section class="hero-section" id="hero">
+      <div class="hero-background">
+        <img src="assets/images/hero-banner.png" alt="Nguyen Tu Fashion - Streetwear Ninh Binh" class="hero-bg-img">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="container hero-content">
+        <div class="hero-tagline-wrapper">
+          <span class="hero-dot"></span>
+          <span class="hero-tagline">STYLE • COMFORT • CONFIDENCE • EST. 2025</span>
+        </div>
+
+        <h1 class="hero-title">
+          THỜI TRANG CÁ TÍNH<br>
+          <span class="highlight">PHONG CÁCH GIỚI TRẺ</span>
+        </h1>
+
+        <p class="hero-desc">
+          Local brand dành riêng cho giới trẻ Ninh Bình. Nơi hội tụ tinh thần streetwear tự do, cá tính nổi bật và chất lượng may đo cao cấp dẫn đầu xu hướng.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#catalog" class="btn btn-primary">
+            <span>Khám Phá Bộ Sưu Tập</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#lookbook" class="btn btn-outline-white">
+            <span>Ninh Bình Lookbook '26</span>
+          </a>
+        </div>
+
+        <!-- Trust Highlights Bar (Lunora Reference) -->
+        <div class="hero-trust-bar">
+          <div class="trust-item">
+            <div class="trust-icon">⚡</div>
+            <div>
+              <div class="trust-label">Hỏa Tốc 2H Ninh Bình</div>
+              <div class="trust-sub">Nội thành TP. Ninh Bình & Hoa Lư</div>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-icon">🔄</div>
+            <div>
+              <div class="trust-label">Đổi Size Miễn Phí 7 Ngày</div>
+              <div class="trust-sub">Hỗ trợ tận nơi linh hoạt</div>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-icon">📦</div>
+            <div>
+              <div class="trust-label">Đồng Kiểm Khi Nhận</div>
+              <div class="trust-sub">Thử đồ ưng ý mới thanh toán</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         QUICK CATEGORIES CIRCLES (LUNORA STYLE)
+         ========================================== -->
+    <section class="quick-categories">
+      <div class="container">
+        <div class="category-pill-slider">
+          <!-- Item 1: Best Sellers -->
+          <div class="category-circle-item active" onclick="window.filterByCircle('all')">
+            <div class="circle-avatar-wrap">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200&auto=format&fit=crop&q=80" alt="Tất cả">
+            </div>
+            <span class="circle-label">Tất Cả</span>
+          </div>
+
+          <!-- Item 2: Graphic Tee -->
+          <div class="category-circle-item" onclick="window.filterByCircle('tee')">
+            <div class="circle-avatar-wrap">
+              <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=200&auto=format&fit=crop&q=80" alt="Áo Phông">
+            </div>
+            <span class="circle-label">Áo Phông</span>
+          </div>
+
+          <!-- Item 3: Hoodie & Jacket -->
+          <div class="category-circle-item" onclick="window.filterByCircle('hoodie')">
+            <div class="circle-avatar-wrap">
+              <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=200&auto=format&fit=crop&q=80" alt="Hoodie & Khoác">
+            </div>
+            <span class="circle-label">Hoodie & Khoác</span>
+          </div>
+
+          <!-- Item 4: Quần Streetwear -->
+          <div class="category-circle-item" onclick="window.filterByCircle('pants')">
+            <div class="circle-avatar-wrap">
+              <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&auto=format&fit=crop&q=80" alt="Quần Dài / Cargo">
+            </div>
+            <span class="circle-label">Quần Street</span>
+          </div>
+
+          <!-- Item 5: Phụ Kiện -->
+          <div class="category-circle-item" onclick="window.filterByCircle('accessories')">
+            <div class="circle-avatar-wrap">
+              <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&auto=format&fit=crop&q=80" alt="Nón & Phụ Kiện">
+            </div>
+            <span class="circle-label">Nón & Túi</span>
+          </div>
+
+          <!-- Item 6: Ninh Binh Drop -->
+          <div class="category-circle-item" onclick="window.filterByCircle('local')">
+            <div class="circle-avatar-wrap" style="border-color: #059669;">
+              <img src="assets/images/logo.png" alt="Ninh Binh Drop" style="background:#000; padding:6px;">
+            </div>
+            <span class="circle-label">Ninh Bình Drop</span>
+          </div>
+
+          <!-- Item 7: Flash Sale -->
+          <div class="category-circle-item" onclick="document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'})">
+            <div class="circle-avatar-wrap sale-badge">
+              SALE
+            </div>
+            <span class="circle-label" style="color:var(--accent-red)">Ưu Đãi Sốc</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FEATURED BANNER CARDS (ELEVN / FASHIONABLE STYLE)
+         ========================================== -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Collections 2026</span>
+          <h2 class="section-title">Định Hình Phong Cách Giới Trẻ</h2>
+          <p class="section-desc">Những bộ sưu tập được thiết kế riêng phù hợp với khí hậu miền Bắc và phong cách sống năng động của giới trẻ Ninh Bình.</p>
+        </div>
+
+        <div class="promo-grid">
+          <!-- Promo 1 -->
+          <div class="promo-card" onclick="window.filterByCircle('tee')">
+            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&auto=format&fit=crop&q=80" alt="Streetwear Drop" class="promo-card-img">
+            <div class="promo-card-overlay">
+              <span class="promo-tag">Streetwear Edition</span>
+              <h3 class="promo-title">Oversized & Graphic Drop</h3>
+              <div class="promo-btn">
+                <span>Khám Phá BST</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Promo 2 -->
+          <div class="promo-card" onclick="window.filterByCircle('local')">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80" alt="Ninh Bình Check-in Style" class="promo-card-img">
+            <div class="promo-card-overlay">
+              <span class="promo-tag">Ninh Binh Hangout</span>
+              <h3 class="promo-title">Outfit Đi Cafe & Sống Ảo Phố Cổ</h3>
+              <div class="promo-btn">
+                <span>Xem Ngay</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Promo 3 -->
+          <div class="promo-card" onclick="window.filterByCircle('hoodie')">
+            <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800&auto=format&fit=crop&q=80" alt="Urban Essentials" class="promo-card-img">
+            <div class="promo-card-overlay">
+              <span class="promo-tag">Everyday Fit</span>
+              <h3 class="promo-title">Hoodie & Bomber Chống Gió</h3>
+              <div class="promo-btn">
+                <span>Mua Ngay</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FLASH SALE & COUNTDOWN (FASHIONABLE STYLE)
+         ========================================== -->
+    <section class="flash-sale-section" id="flash-sale">
+      <div class="container">
+        <div class="flash-sale-inner">
+          <div class="flash-sale-info">
+            <span class="flash-sale-badge">⚡ Giảm Tới 40% Cuối Tuần</span>
+            <h2 class="flash-sale-title">Flash Sale Giới Trẻ Ninh Bình</h2>
+            <p class="flash-sale-desc">Chỉ còn vài giờ để săn các items streetwear hot hit với mức giá độc quyền cho cộng đồng fan NGUYEN TU FASHION tại Ninh Bình!</p>
+            <button class="btn btn-primary" onclick="window.filterByCircle('all'); document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
+              Săn Sale Ngay Bây Giờ
+            </button>
+          </div>
+
+          <!-- Live Countdown Timer -->
+          <div class="countdown-box">
+            <div class="countdown-unit">
+              <span class="countdown-num" id="timer-hours">14</span>
+              <span class="countdown-label">Giờ</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="timer-mins">42</span>
+              <span class="countdown-label">Phút</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="timer-secs">18</span>
+              <span class="countdown-label">Giây</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MAIN PRODUCT CATALOG (LUNORA / ELEVN STYLE)
+         ========================================== -->
+    <section class="catalog-section" id="catalog">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">New Arrivals & Best Sellers</span>
+          <h2 class="section-title">Sản Phẩm Đang Được Săn Đón</h2>
+          <p class="section-desc">Chất vải cao cấp dệt riêng, phom dáng chuẩn người trẻ Việt, đường may tỉ mỉ.</p>
+        </div>
+
+        <!-- Filter & Sorting Bar -->
+        <div class="catalog-toolbar">
+          <div class="catalog-tabs">
+            <button class="tab-btn active" data-filter="all">Tất Cả</button>
+            <button class="tab-btn" data-filter="tee">Áo Phông / Tee</button>
+            <button class="tab-btn" data-filter="hoodie">Hoodie & Áo Khoác</button>
+            <button class="tab-btn" data-filter="pants">Quần Streetwear</button>
+            <button class="tab-btn" data-filter="accessories">Nón & Phụ Kiện</button>
+            <button class="tab-btn" data-filter="local" style="border: 1px solid #059669; color:#059669;">Ninh Bình Edition</button>
+          </div>
+
+          <div class="catalog-sort">
+            <span style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; color:var(--text-secondary);">Sắp xếp:</span>
+            <select class="sort-select" id="product-sort-select">
+              <option value="default">Nổi Bật Nhất</option>
+              <option value="price-asc">Giá: Thấp đến Cao</option>
+              <option value="price-desc">Giá: Cao đến Thấp</option>
+              <option value="rating">Được Đánh Giá Cao Nhất</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic Product Grid -->
+        <div class="product-grid" id="product-grid">
+          <!-- Rendered via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         INTERACTIVE LOOKBOOK: NINH BINH STREET STYLE
+         ========================================== -->
+    <section class="lookbook-section" id="lookbook">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Lookbook Ninh Binh '26</span>
+          <h2 class="section-title">Phong Cách Check-in Ninh Bình</h2>
+          <p class="section-desc">Gợi ý cách phối đồ cực cháy khi đi cafe phố cổ Hoa Lư, dạo phố Tràng An hay chụp hình cuối tuần cùng bạn bè.</p>
+        </div>
+
+        <div class="lookbook-grid">
+          <!-- Interactive Image with Hotspot Pins -->
+          <div class="lookbook-spotlight">
+            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=1200&auto=format&fit=crop&q=80" alt="Lookbook Phố Cổ Hoa Lư" class="lookbook-img">
+
+            <!-- Pin 1: Nón NT -->
+            <div class="pin-hotspot" style="top: 18%; left: 48%;" onclick="window.openQuickView('nt-04')">
+              <span>+</span>
+              <div class="pin-tooltip">Nón Kết NT Crown • 189.000đ (Bấm xem)</div>
+            </div>
+
+            <!-- Pin 2: Áo Tee Tràng An Soul -->
+            <div class="pin-hotspot" style="top: 42%; left: 52%;" onclick="window.openQuickView('nt-01')">
+              <span>+</span>
+              <div class="pin-tooltip">Tee Tràng An Soul • 299.000đ (Bấm xem)</div>
+            </div>
+
+            <!-- Pin 3: Quần Parachute Cargo -->
+            <div class="pin-hotspot" style="top: 76%; left: 45%;" onclick="window.openQuickView('nt-03')">
+              <span>+</span>
+              <div class="pin-tooltip">Quần Parachute Cargo • 389.000đ (Bấm xem)</div>
+            </div>
+          </div>
+
+          <!-- Matching Lookbook Items Cards -->
+          <div class="lookbook-card-list">
+            <div style="margin-bottom:8px;">
+              <span class="badge-tag">Gợi Ý Set Đồ Đang Trình Diễn</span>
+              <h3 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; margin-top:8px;">SET "HOA LƯ STREET VIBE"</h3>
+              <p style="font-size:0.875rem; color:var(--text-secondary);">Combo hoàn hảo cho buổi chiều dạo chơi và chụp hình tại Ninh Bình. Đặt cả set được giảm thêm 15%.</p>
+            </div>
+
+            <div class="lookbook-card-item" onclick="window.openQuickView('nt-01')">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200&auto=format&fit=crop&q=80" alt="Tee" class="lookbook-card-thumb">
+              <div class="lookbook-card-info">
+                <span class="lookbook-card-spot">Item 01 • Áo Phông</span>
+                <h4 class="lookbook-card-title">Tee Oversize "Tràng An Soul"</h4>
+                <div class="lookbook-card-price">299.000đ <span style="font-size:0.75rem; color:#888; text-decoration:line-through;">380.000đ</span></div>
+              </div>
+              <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;">Xem</button>
+            </div>
+
+            <div class="lookbook-card-item" onclick="window.openQuickView('nt-03')">
+              <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&auto=format&fit=crop&q=80" alt="Quần" class="lookbook-card-thumb">
+              <div class="lookbook-card-info">
+                <span class="lookbook-card-spot">Item 02 • Quần</span>
+                <h4 class="lookbook-card-title">Quần Parachute Cargo Pants</h4>
+                <div class="lookbook-card-price">389.000đ <span style="font-size:0.75rem; color:#888; text-decoration:line-through;">480.000đ</span></div>
+              </div>
+              <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;">Xem</button>
+            </div>
+
+            <div class="lookbook-card-item" onclick="window.openQuickView('nt-04')">
+              <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&auto=format&fit=crop&q=80" alt="Nón" class="lookbook-card-thumb">
+              <div class="lookbook-card-info">
+                <span class="lookbook-card-spot">Item 03 • Phụ Kiện</span>
+                <h4 class="lookbook-card-title">Nón Kết NT Crown Thêu Nổi</h4>
+                <div class="lookbook-card-price">189.000đ</div>
+              </div>
+              <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;">Xem</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SMART SIZE FIT CALCULATOR FOR GEN Z
+         ========================================== -->
+    <section class="size-calculator-section" id="size-calc">
+      <div class="container">
+        <div class="calc-wrapper">
+          <div style="text-align:center;">
+            <span style="color:var(--accent-gold); font-size:0.75rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;">Size Recommender</span>
+            <h2 style="font-family:var(--font-heading); font-size:2rem; font-weight:900; margin:6px 0 10px; text-transform:uppercase;">Công Cụ Gợi Ý Size Chuẩn Form</h2>
+            <p style="font-size:0.875rem; color:#a1a1aa; max-width:520px; margin:0 auto;">Kéo thanh chiều cao và cân nặng để tìm size áo chuẩn dáng nhất theo phong cách streetwear bạn thích.</p>
+          </div>
+
+          <div class="calc-grid">
+            <div>
+              <!-- Height slider -->
+              <div class="calc-slider-group">
+                <div class="calc-slider-label">
+                  <span>Chiều cao của bạn:</span>
+                  <span class="calc-slider-val" id="calc-height-val">172 cm</span>
+                </div>
+                <input type="range" id="calc-height" min="150" max="190" value="172">
+              </div>
+
+              <!-- Weight slider -->
+              <div class="calc-slider-group">
+                <div class="calc-slider-label">
+                  <span>Cân nặng của bạn:</span>
+                  <span class="calc-slider-val" id="calc-weight-val">63 kg</span>
+                </div>
+                <input type="range" id="calc-weight" min="40" max="95" value="63">
+              </div>
+
+              <!-- Fit preference -->
+              <div>
+                <div style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; margin-bottom:8px; color:#e5e5e5;">Gu mặc mong muốn:</div>
+                <div class="fit-preference-group">
+                  <button class="fit-btn" onclick="window.setFitPreference('slim', this)">Ôm nhẹ</button>
+                  <button class="fit-btn" onclick="window.setFitPreference('regular', this)">Vừa vặn</button>
+                  <button class="fit-btn active" onclick="window.setFitPreference('oversized', this)">Oversized Rộng</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Result Box -->
+            <div class="calc-result-box">
+              <span style="font-size:0.8125rem; color:#bbb; text-transform:uppercase; letter-spacing:0.08em;">Gợi ý size tối ưu cho bạn</span>
+              <div class="calc-size-badge" id="calc-size-output">SIZE L</div>
+              <p class="calc-feedback" id="calc-feedback-text">Form áo thả suông rộng rủ, vai trễ phóng khoáng chuẩn vibe streetwear sành điệu.</p>
+              <button class="btn btn-primary" style="font-size:0.8125rem; padding:10px 24px;" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
+                Chọn Đồ Size Này Ngay
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SHOWROOM & NINH BINH LOCAL HUB
+         ========================================== -->
+    <section class="ninhbinh-hub-section" id="store-hub">
+      <div class="container">
+        <div class="hub-container">
+          <!-- Text Info -->
+          <div>
+            <span class="section-tag">Ninh Binh Flagship</span>
+            <h2 class="section-title">Ghé Thăm Showroom Nguyen Tu Tại Ninh Bình</h2>
+            <p class="section-desc">Không gian trải nghiệm thời trang hiện đại với phòng thử đồ rộng rãi, gương sống ảo check-in cực đỉnh và dàn loa phát nhạc hiphop chill suốt ngày.</p>
+
+            <div class="hub-features">
+              <div class="hub-feature-item">
+                <div class="hub-icon-wrap">📍</div>
+                <div class="hub-text">
+                  <h4>Địa chỉ Showroom</h4>
+                  <p>Số 68 Đường Trần Hưng Đạo, Phường Đông Thành, TP. Ninh Bình (Gần Cầu Lim)</p>
+                </div>
+              </div>
+
+              <div class="hub-feature-item">
+                <div class="hub-icon-wrap">⏰</div>
+                <div class="hub-text">
+                  <h4>Giờ mở cửa</h4>
+                  <p>08:30 - 22:30 hàng ngày (kể cả Thứ Bảy & Chủ Nhật)</p>
+                </div>
+              </div>
+
+              <div class="hub-feature-item">
+                <div class="hub-icon-wrap">🎓</div>
+                <div class="hub-text">
+                  <h4>Đặc quyền Học Sinh - Sinh Viên Ninh Bình</h4>
+                  <p>Giảm ngay 10% cho các bạn học sinh THPT Chuyên Lương Văn Tụy, THPT Ninh Bình - Bạc Liêu, ĐH Hoa Lư khi ghé mua tại cửa hàng hoặc nhập mã <strong>LUONGVANTUY</strong>.</p>
+                </div>
+              </div>
+
+              <div class="hub-feature-item">
+                <div class="hub-icon-wrap">🛵</div>
+                <div class="hub-text">
+                  <h4>Ship Hỏa Tốc Trong 2H</h4>
+                  <p>Giao siêu tốc tới tận nhà tại TP. Ninh Bình, TP. Tam Điệp và Huyện Hoa Lư.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image & Map Card -->
+          <div class="hub-map-card">
+            <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=900&auto=format&fit=crop&q=80" alt="Showroom Nguyen Tu Fashion Ninh Binh">
+            <div class="hub-store-floating-card">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <h4 style="font-size:1rem; font-weight:800;">NGUYEN TU FASHION STORE</h4>
+                  <p style="font-size:0.75rem; color:#666;">TP. Ninh Bình • Đang Mở Cửa (Tới 22:30)</p>
+                </div>
+                <a href="https://maps.google.com" target="_blank" class="btn btn-dark" style="font-size:0.75rem; padding:8px 16px;">Chỉ Đường</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       FOOTER (LUNORA / ELEVN STYLE)
+       ========================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <!-- Brand Info -->
+        <div>
+          <div class="footer-brand-logo">
+            <img src="assets/images/logo.png" alt="Logo Nguyen Tu Fashion">
+            <span style="font-family:var(--font-heading); font-size:1.3rem; font-weight:900; letter-spacing:0.1em;">NGUYEN TU</span>
+          </div>
+          <p class="footer-desc">
+            Thương hiệu thời trang đường phố tiên phong cho giới trẻ tại Ninh Bình. Sứ mệnh mang đến sự tự tin, phong cách cá tính và chất lượng vượt trội trong từng sản phẩm.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-circle" title="Facebook">FB</a>
+            <a href="#" class="social-circle" title="TikTok">TT</a>
+            <a href="#" class="social-circle" title="Instagram">IG</a>
+            <a href="#" class="social-circle" title="Zalo">ZL</a>
+          </div>
+        </div>
+
+        <!-- Links: Mua Sắm -->
+        <div>
+          <h4 class="footer-heading">Mua Sắm</h4>
+          <ul class="footer-links">
+            <li><a href="#catalog" onclick="window.filterByCircle('tee')">Áo Thun Oversize</a></li>
+            <li><a href="#catalog" onclick="window.filterByCircle('hoodie')">Hoodie & Áo Khoác</a></li>
+            <li><a href="#catalog" onclick="window.filterByCircle('pants')">Quần Parachute / Cargo</a></li>
+            <li><a href="#catalog" onclick="window.filterByCircle('accessories')">Nón & Phụ Kiện</a></li>
+            <li><a href="#flash-sale">Sản Phẩm Sale Sốc</a></li>
+          </ul>
+        </div>
+
+        <!-- Links: Hỗ Trợ -->
+        <div>
+          <h4 class="footer-heading">Hỗ Trợ</h4>
+          <ul class="footer-links">
+            <li><a href="#size-calc">Hướng Dẫn Chọn Size</a></li>
+            <li><a href="#">Chính Sách Đổi Trả 7 Ngày</a></li>
+            <li><a href="#">Vận Chuyển Hỏa Tốc Ninh Bình</a></li>
+            <li><a href="#">Hình Thức Thanh Toán (VietQR / COD)</a></li>
+            <li><a href="#">Câu Hỏi Thường Gặp (FAQs)</a></li>
+          </ul>
+        </div>
+
+        <!-- Links: Địa Chỉ & Bản Tin -->
+        <div>
+          <h4 class="footer-heading">Showroom Ninh Bình</h4>
+          <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:12px; line-height:1.6;">
+            Số 68 Đường Trần Hưng Đạo, P. Đông Thành, TP. Ninh Bình<br>
+            Hotline: 0988.xxx.xxx<br>
+            Email: contact@nguyentufashion.vn
+          </p>
+
+          <div style="margin-top:16px;">
+            <div style="font-size:0.75rem; text-transform:uppercase; color:#fff; font-weight:700; margin-bottom:6px;">Nhận mã giảm giá 10%:</div>
+            <div style="display:flex; gap:6px;">
+              <input type="email" placeholder="Nhập email của bạn..." style="background:#222; border:1px solid #333; padding:8px 12px; border-radius:6px; font-size:0.8125rem; color:#fff; flex:1;">
+              <button class="btn btn-primary" style="padding:8px 16px; font-size:0.75rem;">Đăng Ký</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 NGUYEN TU FASHION. All Rights Reserved. Thiết kế phong cách thời trang giới trẻ Ninh Bình.
+        </div>
+        <div>
+          Style • Comfort • Confidence • Est. 2025
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       SHOPPING CART DRAWER
+       ========================================== -->
+  <div class="drawer-backdrop" id="drawer-backdrop" onclick="window.closeCartDrawer()"></div>
+
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="drawer-header">
+      <h3 class="drawer-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        Giỏ Hàng Của Bạn
+      </h3>
+      <button class="drawer-close" onclick="window.closeCartDrawer()" aria-label="Đóng">✕</button>
+    </div>
+
+    <!-- Free Shipping Indicator -->
+    <div class="free-ship-bar">
+      <span id="free-ship-message">Freeship đơn từ <strong>299.000đ</strong> tại Ninh Bình</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="free-ship-progress-bar" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Item List -->
+    <div class="drawer-body" id="drawer-cart-items">
+      <!-- Items dynamically populated by JS -->
+    </div>
+
+    <!-- Drawer Footer & Checkout -->
+    <div class="drawer-footer">
+      <!-- Voucher Code -->
+      <div class="voucher-input-group">
+        <input type="text" id="voucher-code-input" class="voucher-input" placeholder="Nhập mã voucher (VD: NINHBINH)">
+        <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;" onclick="window.applyVoucher()">Áp Dụng</button>
+      </div>
+
+      <div class="subtotal-row">
+        <span>Tạm tính:</span>
+        <strong id="cart-subtotal-val">0 ₫</strong>
+      </div>
+
+      <div class="subtotal-row" style="color:var(--accent-red);">
+        <span>Giảm giá:</span>
+        <strong id="cart-discount-val">-0 ₫</strong>
+      </div>
+
+      <div class="total-row">
+        <span>Tổng thanh toán:</span>
+        <span id="cart-final-total" style="color:var(--accent-red);">0 ₫</span>
+      </div>
+
+      <button class="btn btn-dark" style="width:100%; padding:14px; font-size:0.9375rem;" onclick="window.openCheckoutModal()">
+        Tiến Hành Đặt Hàng Nhanh →
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       CHECKOUT MODAL (VIETQR / COD)
+       ========================================== -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="window.closeCheckoutModal()">✕</button>
+      
+      <div id="checkout-form-container">
+        <span class="badge-tag">Đặt Hàng Siêu Tốc</span>
+        <h2 style="font-family:var(--font-heading); font-size:1.5rem; font-weight:800; margin:8px 0 20px; text-transform:uppercase;">
+          Xác Nhận Đơn Hàng • <span id="checkout-order-total" style="color:var(--accent-red);">0 ₫</span>
+        </h2>
+
+        <form onsubmit="window.submitOrder(event)">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label class="form-label">Họ và tên *</label>
+              <input type="text" id="checkout-name" class="form-control" placeholder="Nguyễn Văn A" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Số điện thoại *</label>
+              <input type="tel" id="checkout-phone" class="form-control" placeholder="0988xxxxxx" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Khu vực giao hàng tại Ninh Bình *</label>
+            <select id="checkout-district" class="form-control" required>
+              <option value="TP. Ninh Bình">TP. Ninh Bình (Hỏa tốc 2H)</option>
+              <option value="Huyện Hoa Lư">Huyện Hoa Lư (Hỏa tốc 2H)</option>
+              <option value="TP. Tam Điệp">TP. Tam Điệp (Hỏa tốc 2H)</option>
+              <option value="Huyện Yên Khánh">Huyện Yên Khánh (Giao trong ngày)</option>
+              <option value="Huyện Gia Viễn">Huyện Gia Viễn (Giao trong ngày)</option>
+              <option value="Huyện Nho Quan">Huyện Nho Quan (Giao trong ngày)</option>
+              <option value="Huyện Kim Sơn">Huyện Kim Sơn (Giao trong ngày)</option>
+              <option value="Huyện Yên Mô">Huyện Yên Mô (Giao trong ngày)</option>
+              <option value="Tỉnh thành khác">Tỉnh thành khác (Ship COD toàn quốc)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Địa chỉ chi tiết (Số nhà, tên đường, thôn xóm) *</label>
+            <input type="text" id="checkout-address" class="form-control" placeholder="VD: 123 Đường Lương Văn Tụy, P. Tân Thành" required>
+          </div>
+
+          <!-- Payment Options -->
+          <div class="form-group" style="margin-top:20px;">
+            <label class="form-label">Hình thức thanh toán</label>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+              <label style="display:flex; align-items:center; gap:10px; padding:12px; border:1px solid #ddd; border-radius:8px; cursor:pointer;">
+                <input type="radio" name="payment_method" value="cod" checked onchange="window.handlePaymentMethodChange('cod')">
+                <div>
+                  <strong>Thanh toán khi nhận hàng (Ship COD)</strong>
+                  <div style="font-size:0.75rem; color:#666;">Được mở hàng kiểm tra và thử đồ trước khi thanh toán.</div>
+                </div>
+              </label>
+
+              <label style="display:flex; align-items:center; gap:10px; padding:12px; border:1px solid #ddd; border-radius:8px; cursor:pointer;">
+                <input type="radio" name="payment_method" value="vietqr" onchange="window.handlePaymentMethodChange('vietqr')">
+                <div>
+                  <strong>Chuyển khoản VietQR tức thì (Miễn phí GD)</strong>
+                  <div style="font-size:0.75rem; color:#666;">Quét mã QR tự động điền số tiền & nội dung qua App Ngân hàng / MoMo.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic VietQR section -->
+          <div id="vietqr-section" style="display:none; margin:16px 0;">
+            <div id="vietqr-display-box"></div>
+          </div>
+
+          <button type="submit" class="btn btn-dark" style="width:100%; padding:14px; margin-top:16px;">
+            ✓ Hoàn Tất Đặt Hàng
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       QUICK VIEW MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="quick-view-modal">
+    <div class="modal-card" style="max-width:800px;">
+      <button class="modal-close-btn" onclick="window.closeQuickView()">✕</button>
+      <div id="quick-view-content"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       SEARCH MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <button class="modal-close-btn" onclick="window.closeSearchModal()">✕</button>
+      <h3 style="font-family:var(--font-heading); font-size:1.2rem; font-weight:800; margin-bottom:12px;">TÌM KIẾM SẢN PHẨM</h3>
+      <input type="text" id="search-input" class="form-control" placeholder="Tìm theo tên áo, quần, nón..." oninput="window.handleSearchInput(event)">
+      <div id="search-results-list" style="margin-top:16px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MOBILE BOTTOM NAVIGATION (GEN Z APP VIBE)
+       ========================================== -->
+  <nav class="mobile-bottom-nav">
+    <a href="#hero" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span>Trang Chủ</span>
+    </a>
+    <a href="#catalog" class="mobile-nav-item" onclick="window.filterByCircle('all')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Cửa Hàng</span>
+    </a>
+    <a href="#lookbook" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+      <span>Lookbook</span>
+    </a>
+    <div class="mobile-nav-item" onclick="window.openCartDrawer()" style="cursor:pointer;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+      <span class="action-badge cart-count-badge" style="top:-2px; right:10px;">0</span>
+      <span>Giỏ Hàng</span>
+    </div>
+    <a href="https://zalo.me" target="_blank" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      <span>Zalo Chat</span>
+    </a>
+  </nav>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
