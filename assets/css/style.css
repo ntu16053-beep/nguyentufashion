@@ -131,31 +131,56 @@ ul, ol {
 }
 
 /* ==========================================================================
-   ANNOUNCEMENT BAR
+   ANNOUNCEMENT BAR (TOP ROW - WHITE & VERTICAL DIVIDERS)
    ========================================================================== */
 .announcement-bar {
-  background-color: var(--bg-dark);
-  color: #e5e5e5;
+  background-color: #ffffff;
+  color: #374151;
   font-size: 0.8125rem;
   font-weight: 500;
-  padding: 8px 16px;
+  padding: 0;
   position: relative;
   z-index: 101;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .announcement-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 0 32px;
 }
 
-.announcement-text {
+.announcement-group {
   display: flex;
   align-items: center;
+}
+
+.announcement-item {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-  margin: 0 auto;
-  letter-spacing: 0.02em;
+  padding: 9px 18px;
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: #374151;
+  border-right: 1px solid #e5e7eb;
+  transition: color var(--transition-fast);
+}
+
+.announcement-group:first-child .announcement-item:first-child {
+  padding-left: 0;
+}
+
+.announcement-group:last-child .announcement-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.announcement-item a:hover,
+a.announcement-item:hover {
+  color: #000000;
 }
 
 .badge-tag {
@@ -168,6 +193,7 @@ ul, ol {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   animation: pulse-glow 2s infinite;
+  margin-right: 6px;
 }
 
 @keyframes pulse-glow {
@@ -175,28 +201,17 @@ ul, ol {
   50% { opacity: 0.85; transform: scale(1.03); }
 }
 
-.announcement-links {
-  display: flex;
-  gap: 16px;
-  font-size: 0.75rem;
-  color: #a3a3a3;
-}
-
-.announcement-links a:hover {
-  color: #ffffff;
-}
-
 /* ==========================================================================
-   HEADER & NAVBAR
+   HEADER & NAVBAR (ROW 2 - FLUID, TU CENTERED, VERTICAL DIVIDERS)
    ========================================================================== */
 .header {
   position: sticky;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.96);
+  background-color: #ffffff;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 100;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid #e5e7eb;
   transition: all var(--transition-smooth);
 }
 
@@ -208,13 +223,18 @@ ul, ol {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 82px;
+  width: 100%;
+  padding: 0 32px;
 }
 
 .brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  padding-right: 28px;
+  border-right: 1px solid #e5e7eb;
+  height: 82px;
 }
 
 .brand-logo-img {
@@ -233,6 +253,8 @@ ul, ol {
 .brand-text {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .brand-name {
@@ -241,32 +263,55 @@ ul, ol {
   font-weight: 800;
   letter-spacing: 0.05em;
   color: var(--text-primary);
-  line-height: 1.15;
+  line-height: 1.05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand-name-top {
+  display: block;
+  text-align: center;
+}
+
+.brand-name-bottom {
+  display: block;
+  text-align: center;
+  letter-spacing: 0.28em;
+  margin-left: 0.28em;
 }
 
 .brand-sub {
-  font-size: 0.65rem;
+  font-size: 0.625rem;
   letter-spacing: 0.16em;
   color: var(--text-secondary);
   font-weight: 600;
   text-transform: uppercase;
+  margin-top: 3px;
+  text-align: center;
 }
 
-/* Navigation Links */
+/* Navigation Links with Vertical Dividers */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  height: 82px;
 }
 
 .nav-link {
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 700;
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   position: relative;
-  padding: 6px 0;
+  padding: 0 20px;
+  height: 82px;
+  display: inline-flex;
+  align-items: center;
+  border-right: 1px solid #e5e7eb;
+  transition: all var(--transition-fast);
 }
 
 .nav-link::after {
@@ -275,9 +320,13 @@ ul, ol {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 3px;
   background-color: var(--text-primary);
   transition: width var(--transition-smooth);
+}
+
+.nav-link:hover {
+  background-color: #f8fafc;
 }
 
 .nav-link:hover::after,
@@ -291,8 +340,7 @@ ul, ol {
   font-size: 0.625rem;
   padding: 2px 6px;
   border-radius: var(--radius-full);
-  margin-left: 4px;
-  vertical-align: super;
+  margin-left: 5px;
   font-weight: 700;
 }
 
@@ -300,34 +348,39 @@ ul, ol {
   background: var(--accent-red);
 }
 
-/* Nav Actions */
+/* Nav Actions with Vertical Dividers */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  height: 82px;
+  border-left: 1px solid #e5e7eb;
 }
 
 .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-full);
+  width: 54px;
+  height: 82px;
+  border-right: 1px solid #e5e7eb;
   color: var(--text-primary);
   position: relative;
   transition: all var(--transition-fast);
 }
 
+.action-btn:last-child {
+  border-right: none;
+}
+
 .action-btn:hover {
-  background-color: var(--bg-secondary);
-  transform: translateY(-2px);
+  background-color: #f8fafc;
+  color: var(--accent-red);
 }
 
 .action-badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 24px;
+  right: 8px;
   background-color: var(--accent-red);
   color: #fff;
   font-size: 0.6875rem;
@@ -2072,7 +2125,12 @@ input[type=range]::-webkit-slider-thumb:hover {
   .cart-drawer {
     max-width: 100%;
   }
-  .announcement-links {
+  .announcement-group:not(.center) {
     display: none;
+  }
+  .announcement-content,
+  .nav-container {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
