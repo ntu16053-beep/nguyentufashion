@@ -1,0 +1,17 @@
+{
+  "name": "nguyen-tu-fashion",
+  "version": "1.0.0",
+  "description": "Nguyen Tu Fashion - Streetwear E-Commerce Platform Ninh Binh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["streetwear", "fashion", "ecommerce", "ninh-binh", "vietqr"],
+  "author": "Nguyen Tu Fashion",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

@@ -11,5 +11,9 @@ ehthumbs_vista.db
 .vscode/
 .idea/
 
+# Dependencies
+node_modules/
+npm-debug.log*
+
 # Deployment & Build
 .vercel/
