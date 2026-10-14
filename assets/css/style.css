@@ -131,17 +131,17 @@ ul, ol {
 }
 
 /* ==========================================================================
-   ANNOUNCEMENT BAR (TOP ROW - WHITE & VERTICAL DIVIDERS)
+   ANNOUNCEMENT BAR (TOP ROW - BLACK BACKGROUND & VERTICAL DIVIDERS)
    ========================================================================== */
 .announcement-bar {
-  background-color: #ffffff;
-  color: #374151;
+  background-color: #111111;
+  color: #f3f4f6;
   font-size: 0.8125rem;
   font-weight: 500;
   padding: 0;
   position: relative;
   z-index: 101;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .announcement-content {
@@ -164,8 +164,8 @@ ul, ol {
   padding: 9px 18px;
   font-size: 0.775rem;
   font-weight: 500;
-  color: #374151;
-  border-right: 1px solid #e5e7eb;
+  color: #e5e7eb;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
   transition: color var(--transition-fast);
 }
 
@@ -180,7 +180,7 @@ ul, ol {
 
 .announcement-item a:hover,
 a.announcement-item:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
 .badge-tag {
