@@ -70,9 +70,8 @@
       <nav class="nav-links" aria-label="Main Navigation">
         <a href="#hero" class="nav-link active">Trang Chủ</a>
         <a href="#catalog" class="nav-link" onclick="window.filterByCircle('all')">Hàng Mới <span class="nav-badge hot">HOT</span></a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('tee')">Áo Phông</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('hoodie')">Hoodie & Jacket</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('pants')">Quần Streetwear</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('jacket')">Áo Khoác & Gió</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('tracksuit')">Bộ Thể Thao</a>
         <a href="#lookbook" class="nav-link">Ninh Bình Lookbook</a>
         <a href="#store-hub" class="nav-link">Store Ninh Bình</a>
       </nav>
@@ -178,47 +177,55 @@
     <section class="quick-categories">
       <div class="container">
         <div class="category-pill-slider">
-          <!-- Item 1: Best Sellers -->
+          <!-- Item 1: Tất Cả -->
           <div class="category-circle-item active" onclick="window.filterByCircle('all')">
             <div class="circle-avatar-wrap">
-              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200&auto=format&fit=crop&q=80" alt="Tất cả">
+              <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Tất cả">
             </div>
             <span class="circle-label">Tất Cả</span>
           </div>
 
-          <!-- Item 2: Graphic Tee -->
-          <div class="category-circle-item" onclick="window.filterByCircle('tee')">
+          <!-- Item 2: Áo Khoác Argentina -->
+          <div class="category-circle-item" onclick="window.filterByCircle('jacket')">
             <div class="circle-avatar-wrap">
-              <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=200&auto=format&fit=crop&q=80" alt="Áo Phông">
+              <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Áo Khoác Argentina">
             </div>
-            <span class="circle-label">Áo Phông</span>
+            <span class="circle-label">Khoác AFA 3*</span>
           </div>
 
-          <!-- Item 3: Hoodie & Jacket -->
-          <div class="category-circle-item" onclick="window.filterByCircle('hoodie')">
+          <!-- Item 3: Bộ Thể Thao Đen -->
+          <div class="category-circle-item" onclick="window.filterByCircle('tracksuit')">
             <div class="circle-avatar-wrap">
-              <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=200&auto=format&fit=crop&q=80" alt="Hoodie & Khoác">
+              <img src="assets/images/products/bo-the-thao-argentina-den.png" alt="Bộ Thể Thao">
             </div>
-            <span class="circle-label">Hoodie & Khoác</span>
+            <span class="circle-label">Bộ Thể Thao</span>
           </div>
 
-          <!-- Item 4: Quần Streetwear -->
-          <div class="category-circle-item" onclick="window.filterByCircle('pants')">
+          <!-- Item 4: Khoác Barça Retro -->
+          <div class="category-circle-item" onclick="window.filterByCircle('jacket')">
             <div class="circle-avatar-wrap">
-              <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&auto=format&fit=crop&q=80" alt="Quần Dài / Cargo">
+              <img src="assets/images/products/ao-khoac-barca-retro.png" alt="Khoác Barça">
             </div>
-            <span class="circle-label">Quần Street</span>
+            <span class="circle-label">Khoác Barça</span>
           </div>
 
-          <!-- Item 5: Phụ Kiện -->
-          <div class="category-circle-item" onclick="window.filterByCircle('accessories')">
+          <!-- Item 5: Khuy Tàu Kungfu -->
+          <div class="category-circle-item" onclick="window.filterByCircle('jacket')">
             <div class="circle-avatar-wrap">
-              <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&auto=format&fit=crop&q=80" alt="Nón & Phụ Kiện">
+              <img src="assets/images/products/ao-khoac-adidas-khuy-tau.jpg" alt="Khuy Tàu Kung Fu">
             </div>
-            <span class="circle-label">Nón & Túi</span>
+            <span class="circle-label">Khuy Tàu</span>
           </div>
 
-          <!-- Item 6: Ninh Binh Drop -->
+          <!-- Item 6: Beckenbauer Retro -->
+          <div class="category-circle-item" onclick="window.filterByCircle('jacket')">
+            <div class="circle-avatar-wrap">
+              <img src="assets/images/products/ao-khoac-adidas-beckenbauer-kem.png" alt="Beckenbauer Retro">
+            </div>
+            <span class="circle-label">Beckenbauer</span>
+          </div>
+
+          <!-- Item 7: Ninh Binh Drop -->
           <div class="category-circle-item" onclick="window.filterByCircle('local')">
             <div class="circle-avatar-wrap" style="border-color: #059669;">
               <img src="assets/images/logo.png" alt="Ninh Binh Drop" style="background:#000; padding:6px;">
@@ -226,7 +233,7 @@
             <span class="circle-label">Ninh Bình Drop</span>
           </div>
 
-          <!-- Item 7: Flash Sale -->
+          <!-- Item 8: Flash Sale -->
           <div class="category-circle-item" onclick="document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'})">
             <div class="circle-avatar-wrap sale-badge">
               SALE
@@ -250,39 +257,39 @@
 
         <div class="promo-grid">
           <!-- Promo 1 -->
-          <div class="promo-card" onclick="window.filterByCircle('tee')">
-            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&auto=format&fit=crop&q=80" alt="Streetwear Drop" class="promo-card-img">
+          <div class="promo-card" onclick="window.openQuickView('nt-01')">
+            <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Áo Khoác Gió Argentina" class="promo-card-img" style="background:#2b050b; object-position:center top;">
             <div class="promo-card-overlay">
-              <span class="promo-tag">Streetwear Edition</span>
-              <h3 class="promo-title">Oversized & Graphic Drop</h3>
+              <span class="promo-tag">World Cup Champion</span>
+              <h3 class="promo-title">Áo Khoác Gió Argentina 3 Sao</h3>
               <div class="promo-btn">
-                <span>Khám Phá BST</span>
+                <span>Xem Chi Tiết</span>
                 <span>→</span>
               </div>
             </div>
           </div>
 
           <!-- Promo 2 -->
-          <div class="promo-card" onclick="window.filterByCircle('local')">
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80" alt="Ninh Bình Check-in Style" class="promo-card-img">
+          <div class="promo-card" onclick="window.openQuickView('nt-02')">
+            <img src="assets/images/products/bo-the-thao-argentina-den.png" alt="Bộ Thể Thao Argentina" class="promo-card-img" style="background:#2b050b; object-position:center top;">
             <div class="promo-card-overlay">
-              <span class="promo-tag">Ninh Binh Hangout</span>
-              <h3 class="promo-title">Outfit Đi Cafe & Sống Ảo Phố Cổ</h3>
+              <span class="promo-tag">Tracksuit Full Set</span>
+              <h3 class="promo-title">Bộ Nỉ Thể Thao AFA 3-Stripes Đen</h3>
               <div class="promo-btn">
-                <span>Xem Ngay</span>
+                <span>Mua Ngay</span>
                 <span>→</span>
               </div>
             </div>
           </div>
 
           <!-- Promo 3 -->
-          <div class="promo-card" onclick="window.filterByCircle('hoodie')">
-            <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800&auto=format&fit=crop&q=80" alt="Urban Essentials" class="promo-card-img">
+          <div class="promo-card" onclick="window.openQuickView('nt-03')">
+            <img src="assets/images/products/ao-khoac-barca-retro.png" alt="Áo Khoác Barça Retro" class="promo-card-img" style="background:#2b050b; object-position:center top;">
             <div class="promo-card-overlay">
-              <span class="promo-tag">Everyday Fit</span>
-              <h3 class="promo-title">Hoodie & Bomber Chống Gió</h3>
+              <span class="promo-tag">Heritage Collection</span>
+              <h3 class="promo-title">Áo Khoác Gió Barça Retro Kem</h3>
               <div class="promo-btn">
-                <span>Mua Ngay</span>
+                <span>Xem Ngay</span>
                 <span>→</span>
               </div>
             </div>
@@ -340,10 +347,8 @@
         <div class="catalog-toolbar">
           <div class="catalog-tabs">
             <button class="tab-btn active" data-filter="all">Tất Cả</button>
-            <button class="tab-btn" data-filter="tee">Áo Phông / Tee</button>
-            <button class="tab-btn" data-filter="hoodie">Hoodie & Áo Khoác</button>
-            <button class="tab-btn" data-filter="pants">Quần Streetwear</button>
-            <button class="tab-btn" data-filter="accessories">Nón & Phụ Kiện</button>
+            <button class="tab-btn" data-filter="jacket">Áo Khoác & Gió</button>
+            <button class="tab-btn" data-filter="tracksuit">Bộ Thể Thao</button>
             <button class="tab-btn" data-filter="local" style="border: 1px solid #059669; color:#059669;">Ninh Bình Edition</button>
           </div>
 
@@ -381,22 +386,22 @@
           <div class="lookbook-spotlight">
             <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=1200&auto=format&fit=crop&q=80" alt="Lookbook Phố Cổ Hoa Lư" class="lookbook-img">
 
-            <!-- Pin 1: Nón NT -->
-            <div class="pin-hotspot" style="top: 18%; left: 48%;" onclick="window.openQuickView('nt-04')">
+            <!-- Pin 1: Áo Khoác Gió Argentina -->
+            <div class="pin-hotspot" style="top: 25%; left: 48%;" onclick="window.openQuickView('nt-01')">
               <span>+</span>
-              <div class="pin-tooltip">Nón Kết NT Crown • 189.000đ (Bấm xem)</div>
+              <div class="pin-tooltip">Áo Khoác Gió Argentina • 480.000đ (Bấm xem)</div>
             </div>
 
-            <!-- Pin 2: Áo Tee Tràng An Soul -->
-            <div class="pin-hotspot" style="top: 42%; left: 52%;" onclick="window.openQuickView('nt-01')">
+            <!-- Pin 2: Bộ Thể Thao Tracksuit Đen -->
+            <div class="pin-hotspot" style="top: 55%; left: 52%;" onclick="window.openQuickView('nt-02')">
               <span>+</span>
-              <div class="pin-tooltip">Tee Tràng An Soul • 299.000đ (Bấm xem)</div>
+              <div class="pin-tooltip">Bộ Tracksuit Argentina Đen • 650.000đ (Bấm xem)</div>
             </div>
 
-            <!-- Pin 3: Quần Parachute Cargo -->
-            <div class="pin-hotspot" style="top: 76%; left: 45%;" onclick="window.openQuickView('nt-03')">
+            <!-- Pin 3: Áo Khoác Khuy Tàu Kung Fu -->
+            <div class="pin-hotspot" style="top: 80%; left: 45%;" onclick="window.openQuickView('nt-04')">
               <span>+</span>
-              <div class="pin-tooltip">Quần Parachute Cargo • 389.000đ (Bấm xem)</div>
+              <div class="pin-tooltip">Áo Khoác Khuy Tàu Kung Fu • 520.000đ (Bấm xem)</div>
             </div>
           </div>
 
@@ -404,36 +409,36 @@
           <div class="lookbook-card-list">
             <div style="margin-bottom:8px;">
               <span class="badge-tag">Gợi Ý Set Đồ Đang Trình Diễn</span>
-              <h3 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; margin-top:8px;">SET "HOA LƯ STREET VIBE"</h3>
-              <p style="font-size:0.875rem; color:var(--text-secondary);">Combo hoàn hảo cho buổi chiều dạo chơi và chụp hình tại Ninh Bình. Đặt cả set được giảm thêm 15%.</p>
+              <h3 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; margin-top:8px;">SET "NINH BÌNH SPORT STREETWEAR"</h3>
+              <p style="font-size:0.875rem; color:var(--text-secondary);">Bộ sưu tập áo khoác và tracksuit thể thao cao cấp. Thoải mái dạo phố, đi cafe và cản gió giữ ấm cực tốt.</p>
             </div>
 
             <div class="lookbook-card-item" onclick="window.openQuickView('nt-01')">
-              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200&auto=format&fit=crop&q=80" alt="Tee" class="lookbook-card-thumb">
+              <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Áo Khoác Argentina" class="lookbook-card-thumb" style="background:#2b050b;">
               <div class="lookbook-card-info">
-                <span class="lookbook-card-spot">Item 01 • Áo Phông</span>
-                <h4 class="lookbook-card-title">Tee Oversize "Tràng An Soul"</h4>
-                <div class="lookbook-card-price">299.000đ <span style="font-size:0.75rem; color:#888; text-decoration:line-through;">380.000đ</span></div>
+                <span class="lookbook-card-spot">Item 01 • Áo Khoác Gió</span>
+                <h4 class="lookbook-card-title">Áo Khoác Gió Argentina 3 Sao Trắng</h4>
+                <div class="lookbook-card-price">480.000đ <span style="font-size:0.75rem; color:var(--text-muted); text-decoration:line-through;">580.000đ</span></div>
               </div>
               <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;">Xem</button>
             </div>
 
-            <div class="lookbook-card-item" onclick="window.openQuickView('nt-03')">
-              <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=200&auto=format&fit=crop&q=80" alt="Quần" class="lookbook-card-thumb">
+            <div class="lookbook-card-item" onclick="window.openQuickView('nt-02')">
+              <img src="assets/images/products/bo-the-thao-argentina-den.png" alt="Bộ Thể Thao Đen" class="lookbook-card-thumb" style="background:#2b050b;">
               <div class="lookbook-card-info">
-                <span class="lookbook-card-spot">Item 02 • Quần</span>
-                <h4 class="lookbook-card-title">Quần Parachute Cargo Pants</h4>
-                <div class="lookbook-card-price">389.000đ <span style="font-size:0.75rem; color:#888; text-decoration:line-through;">480.000đ</span></div>
+                <span class="lookbook-card-spot">Item 02 • Bộ Thể Thao</span>
+                <h4 class="lookbook-card-title">Bộ Tracksuit Adidas Argentina Đen</h4>
+                <div class="lookbook-card-price">650.000đ <span style="font-size:0.75rem; color:var(--text-muted); text-decoration:line-through;">790.000đ</span></div>
               </div>
               <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;">Xem</button>
             </div>
 
             <div class="lookbook-card-item" onclick="window.openQuickView('nt-04')">
-              <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&auto=format&fit=crop&q=80" alt="Nón" class="lookbook-card-thumb">
+              <img src="assets/images/products/ao-khoac-adidas-khuy-tau.jpg" alt="Áo Khoác Khuy Tàu" class="lookbook-card-thumb" style="background:#2b050b;">
               <div class="lookbook-card-info">
-                <span class="lookbook-card-spot">Item 03 • Phụ Kiện</span>
-                <h4 class="lookbook-card-title">Nón Kết NT Crown Thêu Nổi</h4>
-                <div class="lookbook-card-price">189.000đ</div>
+                <span class="lookbook-card-spot">Item 03 • Khuy Tàu Tang Suit</span>
+                <h4 class="lookbook-card-title">Áo Khoác Adidas Khuy Tàu Xám Khói</h4>
+                <div class="lookbook-card-price">520.000đ <span style="font-size:0.75rem; color:var(--text-muted); text-decoration:line-through;">650.000đ</span></div>
               </div>
               <button class="btn btn-dark" style="padding:8px 16px; font-size:0.75rem;">Xem</button>
             </div>
