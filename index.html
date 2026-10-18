@@ -70,11 +70,12 @@
       <nav class="nav-links" aria-label="Main Navigation">
         <a href="#hero" class="nav-link active">Trang Chủ</a>
         <a href="#catalog" class="nav-link" onclick="window.filterByCircle('all')">Hàng Mới <span class="nav-badge hot">HOT</span></a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('jacket')">Áo Khoác</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('tee')">Áo Thun</a>
         <a href="#catalog" class="nav-link" onclick="window.filterByCircle('shirt')">Áo Sơ Mi</a>
+        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('jacket')">Áo Khoác</a>
         <a href="#catalog" class="nav-link" onclick="window.filterByCircle('pants')">Quần Dài & Jeans</a>
         <a href="#catalog" class="nav-link" onclick="window.filterByCircle('short')">Quần Short</a>
-        <a href="#lookbook" class="nav-link">Ninh Bình Lookbook</a>
+        <a href="#lookbook" class="nav-link">Lookbook</a>
         <a href="#store-hub" class="nav-link">Store Ninh Bình</a>
       </nav>
 
@@ -187,7 +188,15 @@
             <span class="circle-label">Tất Cả</span>
           </div>
 
-          <!-- Item 2: Áo Khoác LV & Gió -->
+          <!-- Item 2: Áo Thun LV Đỏ Mận -->
+          <div class="category-circle-item" onclick="window.filterByCircle('tee')">
+            <div class="circle-avatar-wrap">
+              <img src="assets/images/products/ao-thun-lv-do-man-theu-hoa-floral.png" alt="Áo Thun">
+            </div>
+            <span class="circle-label">Áo Thun</span>
+          </div>
+
+          <!-- Item 3: Áo Khoác LV & Gió -->
           <div class="category-circle-item" onclick="window.filterByCircle('jacket')">
             <div class="circle-avatar-wrap">
               <img src="assets/images/products/ao-khoac-denim-lv-den.png" alt="Áo Khoác Denim LV">
@@ -195,7 +204,7 @@
             <span class="circle-label">Áo Khoác</span>
           </div>
 
-          <!-- Item 3: Sơ Mi Denim LV -->
+          <!-- Item 4: Sơ Mi Denim LV -->
           <div class="category-circle-item" onclick="window.filterByCircle('shirt')">
             <div class="circle-avatar-wrap">
               <img src="assets/images/products/ao-so-mi-lv-damier-denim.png" alt="Áo Sơ Mi Denim LV">
@@ -203,7 +212,7 @@
             <span class="circle-label">Sơ Mi Denim</span>
           </div>
 
-          <!-- Item 4: Quần Jean LV -->
+          <!-- Item 5: Quần Jean LV -->
           <div class="category-circle-item" onclick="window.filterByCircle('pants')">
             <div class="circle-avatar-wrap">
               <img src="assets/images/products/quan-jean-lv-monogram-den.png" alt="Quần Jean LV">
@@ -211,7 +220,7 @@
             <span class="circle-label">Jean & Quần Dài</span>
           </div>
 
-          <!-- Item 5: Quần Short Hè -->
+          <!-- Item 6: Quần Short Hè -->
           <div class="category-circle-item" onclick="window.filterByCircle('short')">
             <div class="circle-avatar-wrap">
               <img src="assets/images/products/quan-short-lv-do-man.png" alt="Quần Short Đỏ Mận">
@@ -219,7 +228,7 @@
             <span class="circle-label">Quần Short</span>
           </div>
 
-          <!-- Item 6: Bộ Thể Thao Đen -->
+          <!-- Item 7: Bộ Thể Thao Đen -->
           <div class="category-circle-item" onclick="window.filterByCircle('tracksuit')">
             <div class="circle-avatar-wrap">
               <img src="assets/images/products/bo-the-thao-argentina-den.png" alt="Bộ Thể Thao">
@@ -227,7 +236,7 @@
             <span class="circle-label">Bộ Thể Thao</span>
           </div>
 
-          <!-- Item 7: Khuy Tàu Kungfu -->
+          <!-- Item 8: Khuy Tàu Kungfu -->
           <div class="category-circle-item" onclick="window.filterByCircle('jacket')">
             <div class="circle-avatar-wrap">
               <img src="assets/images/products/ao-khoac-adidas-khuy-tau.jpg" alt="Khuy Tàu Kung Fu">
@@ -235,7 +244,7 @@
             <span class="circle-label">Khuy Tàu</span>
           </div>
 
-          <!-- Item 8: Ninh Binh Drop -->
+          <!-- Item 9: Ninh Binh Drop -->
           <div class="category-circle-item" onclick="window.filterByCircle('local')">
             <div class="circle-avatar-wrap" style="border-color: #059669;">
               <img src="assets/images/logo.png" alt="Ninh Binh Drop" style="background:#000; padding:6px;">
@@ -243,7 +252,7 @@
             <span class="circle-label">Ninh Bình Drop</span>
           </div>
 
-          <!-- Item 9: Flash Sale -->
+          <!-- Item 10: Flash Sale -->
           <div class="category-circle-item" onclick="document.getElementById('flash-sale').scrollIntoView({behavior:'smooth'})">
             <div class="circle-avatar-wrap sale-badge">
               SALE
@@ -357,8 +366,9 @@
         <div class="catalog-toolbar">
           <div class="catalog-tabs">
             <button class="tab-btn active" data-filter="all">Tất Cả</button>
-            <button class="tab-btn" data-filter="jacket">Áo Khoác & Thể Thao</button>
+            <button class="tab-btn" data-filter="tee">Áo Thun</button>
             <button class="tab-btn" data-filter="shirt">Áo Sơ Mi</button>
+            <button class="tab-btn" data-filter="jacket">Áo Khoác & Thể Thao</button>
             <button class="tab-btn" data-filter="pants">Quần Dài & Jeans</button>
             <button class="tab-btn" data-filter="short">Quần Short Hè</button>
             <button class="tab-btn" data-filter="local" style="border: 1px solid #059669; color:#059669;">Ninh Bình Edition</button>
@@ -608,8 +618,9 @@
         <div>
           <h4 class="footer-heading">Mua Sắm</h4>
           <ul class="footer-links">
-            <li><a href="#catalog" onclick="window.filterByCircle('jacket')">Áo Khoác & Thể Thao</a></li>
+            <li><a href="#catalog" onclick="window.filterByCircle('tee')">Áo Thun & Phông</a></li>
             <li><a href="#catalog" onclick="window.filterByCircle('shirt')">Áo Sơ Mi Denim</a></li>
+            <li><a href="#catalog" onclick="window.filterByCircle('jacket')">Áo Khoác & Thể Thao</a></li>
             <li><a href="#catalog" onclick="window.filterByCircle('pants')">Quần Dài & Jeans</a></li>
             <li><a href="#catalog" onclick="window.filterByCircle('short')">Quần Short Nam</a></li>
             <li><a href="#flash-sale">Sản Phẩm Sale Sốc</a></li>

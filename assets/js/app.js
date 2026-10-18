@@ -349,6 +349,91 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes: ['M', 'L', 'XL', 'XXL'],
       colors: ['#111111', '#eab308'],
       description: 'Vải gió vi sợi siêu nhẹ, mát lạnh và nhanh khô. Form ống rộng ngang gối thoải mái vận động mùa hè. Điểm nhấn thêu chữ MENFASHION vàng kim sắc sảo, túi sâu có khóa kéo tiện lợi.'
+    },
+    {
+      id: 'nt-21',
+      title: 'Áo Thun Berluti Paris Trắng Chữ Ký Thêu Nổi Đen',
+      category: 'tee',
+      categoryName: 'Áo Thun Nam',
+      price: 320000,
+      oldPrice: 420000,
+      rating: 4.9,
+      reviews: 145,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/ao-thun-berluti-trang-chu-den.png',
+      imageHover: 'assets/images/products/ao-thun-berluti-trang-chu-den.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#ffffff', '#111111'],
+      description: 'Chất liệu cotton 100% 2 chiều 250gsm dày dặn, đứng phom và thấm hút mồ hôi cực tốt. Điểm nhấn chữ ký thương hiệu Berluti Paris thêu nổi sắc sảo trước ngực, phong cách tối giản thanh lịch.'
+    },
+    {
+      id: 'nt-22',
+      title: 'Áo Thun Louis Vuitton Trắng Classic Dập Vân Chìm Minimal',
+      category: 'tee',
+      categoryName: 'Áo Thun Nam',
+      price: 340000,
+      oldPrice: 450000,
+      rating: 5.0,
+      reviews: 178,
+      badge: 'best',
+      isLocal: true,
+      image: 'assets/images/products/ao-thun-lv-trang-classic-minimal.png',
+      imageHover: 'assets/images/products/ao-thun-lv-trang-classic-minimal.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#ffffff'],
+      description: 'Thiết kế chuẩn mực quiet luxury của Louis Vuitton với tone trắng tinh khôi, cổ bo gân dày dặn chống dão. Vải cotton compact dệt họa tiết vân chìm cao cấp, cực kỳ dễ phối cùng mọi loại quần.'
+    },
+    {
+      id: 'nt-23',
+      title: 'Áo Thun Louis Vuitton Monogram All-Over Nâu Cà Phê',
+      category: 'tee',
+      categoryName: 'Áo Thun Cao Cấp',
+      price: 380000,
+      oldPrice: 490000,
+      rating: 4.9,
+      reviews: 162,
+      badge: 'new',
+      isLocal: false,
+      image: 'assets/images/products/ao-thun-lv-monogram-nau-coffee.png',
+      imageHover: 'assets/images/products/ao-thun-lv-monogram-nau-coffee.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#451a03', '#78350f'],
+      description: 'Tone màu nâu mocha / cà phê trầm ấm sang trọng phủ trọn họa tiết hoa Monogram kinh điển của nhà mốt Louis Vuitton. Phom drop-shoulder vai trễ phóng khoáng theo xu hướng streetwear quốc tế.'
+    },
+    {
+      id: 'nt-24',
+      title: 'Áo Thun Louis Vuitton Xanh Navy Thêu Chữ Ký Vuitton & Logo Lưng',
+      category: 'tee',
+      categoryName: 'Áo Thun Nam',
+      price: 360000,
+      oldPrice: 470000,
+      rating: 5.0,
+      reviews: 195,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/ao-thun-lv-xanh-navy-theu-vuitton.png',
+      imageHover: 'assets/images/products/ao-thun-lv-xanh-navy-theu-vuitton.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#1e3a5f', '#ffffff', '#eab308'],
+      description: 'Sắc xanh navy tôn da, ngực áo thêu chữ ký cursive Vuitton trắng tinh tế, lưng áo in logo LV viền trắng cỡ lớn nổi bật kèm tab da vàng ở gáy áo chuẩn xịn. Cotton 100% co giãn thoáng khí.'
+    },
+    {
+      id: 'nt-25',
+      title: 'Áo Thun Louis Vuitton Đỏ Mận Thêu Hoa Floral NGUYEN TU Edition',
+      category: 'tee',
+      categoryName: 'Áo Thun Limited',
+      price: 390000,
+      oldPrice: 520000,
+      rating: 5.0,
+      reviews: 210,
+      badge: 'new',
+      isLocal: true,
+      image: 'assets/images/products/ao-thun-lv-do-man-theu-hoa-floral.png',
+      imageHover: 'assets/images/products/ao-thun-lv-do-man-theu-hoa-floral.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#4e0d19', '#ffffff'],
+      description: 'Tone đỏ mận burgundy đồng điệu tuyệt đối với màu nhận diện của NGUYEN TU FASHION. Lưng áo thêu nổi 3D chữ thư pháp Louis Vuitton bao quanh hoa văn Floral sắc màu tinh xảo kèm tab da vàng signature.'
     }
   ];
 
@@ -403,7 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentFilter === 'all') return true;
       if (currentFilter === 'local') return p.isLocal;
       if (currentFilter === 'jacket' || currentFilter === 'hoodie') return p.category === 'jacket' || p.category === 'tracksuit';
-      if (currentFilter === 'shirt' || currentFilter === 'tee') return p.category === 'shirt';
+      if (currentFilter === 'shirt') return p.category === 'shirt';
+      if (currentFilter === 'tee') return p.category === 'tee';
       if (currentFilter === 'pants' || currentFilter === 'jeans') return p.category === 'pants';
       if (currentFilter === 'short') return p.category === 'short';
       if (currentFilter === 'tracksuit') return p.category === 'tracksuit';
@@ -1045,7 +1131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!query) {
       resultsContainer.innerHTML = `
         <div style="font-size:0.8125rem; color:#888; padding:12px 0;">
-          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Áo khoác Argentina</strong>, <strong>Áo denim LV</strong>, <strong>Quần jean LV</strong>, <strong>Quần âu Slimfit</strong>, <strong>Quần short hè</strong>
+          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Áo thun Berluti</strong>, <strong>Áo thun LV đỏ mận</strong>, <strong>Áo denim LV</strong>, <strong>Quần jean LV</strong>, <strong>Quần short hè</strong>
         </div>
       `;
       return;
