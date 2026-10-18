@@ -5,25 +5,25 @@
    ========================================================================== */
 
 :root {
-  --bg-primary: #e5e7eb;
-  --bg-secondary: #d1d5db;
-  --bg-tertiary: #9ca3af;
+  --bg-primary: #3b070f;
+  --bg-secondary: #4e0d19;
+  --bg-tertiary: #631221;
   --bg-dark: #121212;
   --bg-darker: #0a0a0a;
-  --bg-card: #e5e7eb;
+  --bg-card: #4e0d19;
   
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
+  --text-primary: #ffffff;
+  --text-secondary: #fce7f3;
+  --text-muted: #f4b8c5;
   --text-light: #ffffff;
   
-  --accent-red: #e63946;
-  --accent-blue: #2563eb;
-  --accent-gold: #c5a880;
-  --accent-green: #2a9d8f;
+  --accent-red: #ff334b;
+  --accent-blue: #38bdf8;
+  --accent-gold: #fbbf24;
+  --accent-green: #34d399;
   
-  --border-light: #cbd5e1;
-  --border-medium: #94a3b8;
+  --border-light: rgba(255, 255, 255, 0.14);
+  --border-medium: rgba(255, 255, 255, 0.25);
   --border-dark: #2a2a2a;
   
   --font-heading: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
@@ -164,7 +164,7 @@ ul, ol {
   padding: 9px 18px;
   font-size: 0.775rem;
   font-weight: 500;
-  color: #e5e7eb;
+  color: #ffffff;
   border-right: 1px solid rgba(255, 255, 255, 0.15);
   transition: color var(--transition-fast);
 }
@@ -207,16 +207,16 @@ a.announcement-item:hover {
 .header {
   position: sticky;
   top: 0;
-  background-color: #e5e7eb;
+  background-color: #4e0d19;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 100;
-  border-bottom: 1px solid #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   transition: all var(--transition-smooth);
 }
 
 .header.scrolled {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
 
 .nav-container {
@@ -233,7 +233,7 @@ a.announcement-item:hover {
   align-items: center;
   gap: 14px;
   padding-right: 28px;
-  border-right: 1px solid #cbd5e1;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
   height: 82px;
 }
 
@@ -262,7 +262,7 @@ a.announcement-item:hover {
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: 0.05em;
-  color: var(--text-primary);
+  color: #ffffff;
   line-height: 1.05;
   display: flex;
   flex-direction: column;
@@ -285,7 +285,7 @@ a.announcement-item:hover {
 .brand-sub {
   font-size: 0.625rem;
   letter-spacing: 0.16em;
-  color: var(--text-secondary);
+  color: #fce7f3;
   font-weight: 600;
   text-transform: uppercase;
   margin-top: 3px;
@@ -302,7 +302,7 @@ a.announcement-item:hover {
 .nav-link {
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   position: relative;
@@ -310,7 +310,7 @@ a.announcement-item:hover {
   height: 82px;
   display: inline-flex;
   align-items: center;
-  border-right: 1px solid #cbd5e1;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
   transition: all var(--transition-fast);
 }
 
@@ -321,12 +321,12 @@ a.announcement-item:hover {
   left: 0;
   width: 0;
   height: 3px;
-  background-color: var(--text-primary);
+  background-color: #ffffff;
   transition: width var(--transition-smooth);
 }
 
 .nav-link:hover {
-  background-color: #d1d5db;
+  background-color: #631221;
 }
 
 .nav-link:hover::after,
@@ -335,8 +335,8 @@ a.announcement-item:hover {
 }
 
 .nav-badge {
-  background: var(--text-primary);
-  color: #fff;
+  background: #ffffff;
+  color: #3b070f;
   font-size: 0.625rem;
   padding: 2px 6px;
   border-radius: var(--radius-full);
@@ -346,6 +346,7 @@ a.announcement-item:hover {
 
 .nav-badge.hot {
   background: var(--accent-red);
+  color: #fff;
 }
 
 /* Nav Actions with Vertical Dividers */
@@ -353,7 +354,7 @@ a.announcement-item:hover {
   display: flex;
   align-items: center;
   height: 82px;
-  border-left: 1px solid #cbd5e1;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .action-btn {
@@ -362,8 +363,8 @@ a.announcement-item:hover {
   justify-content: center;
   width: 54px;
   height: 82px;
-  border-right: 1px solid #cbd5e1;
-  color: var(--text-primary);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
   position: relative;
   transition: all var(--transition-fast);
 }
@@ -373,7 +374,7 @@ a.announcement-item:hover {
 }
 
 .action-btn:hover {
-  background-color: #d1d5db;
+  background-color: #631221;
   color: var(--accent-red);
 }
 
@@ -542,17 +543,17 @@ a.announcement-item:hover {
 }
 
 .btn-primary {
-  background-color: #cbd5e1;
-  color: #0f172a;
-  border: 1px solid #94a3b8;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  background-color: #7b1626;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
 }
 
 .btn-primary:hover {
-  background-color: #94a3b8;
-  color: #000000;
+  background-color: #961c30;
+  color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 
 .btn-outline-white {
@@ -1068,9 +1069,10 @@ a.announcement-item:hover {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(229, 231, 235, 0.95);
+  background: rgba(78, 13, 25, 0.9);
   backdrop-filter: blur(4px);
-  color: var(--text-primary);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1081,13 +1083,13 @@ a.announcement-item:hover {
 
 .btn-wishlist:hover {
   transform: scale(1.15);
-  background: #cbd5e1;
+  background: #781728;
   color: var(--accent-red);
 }
 
 .btn-wishlist.active {
   color: var(--accent-red);
-  background: #cbd5e1;
+  background: #781728;
 }
 
 /* Quick Add Button overlay */
@@ -1125,12 +1127,13 @@ a.announcement-item:hover {
 }
 
 .btn-quick-view {
-  background-color: rgba(229, 231, 235, 0.95);
-  color: var(--text-primary);
+  background-color: rgba(78, 13, 25, 0.95);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-quick-view:hover {
-  background-color: #cbd5e1;
+  background-color: #941e33;
 }
 
 .btn-add-cart-fast {
@@ -2017,7 +2020,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   left: 0;
   width: 100%;
   height: 64px;
-  background: rgba(229, 231, 235, 0.98);
+  background: rgba(78, 13, 25, 0.98);
   backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-light);
   z-index: 99;
