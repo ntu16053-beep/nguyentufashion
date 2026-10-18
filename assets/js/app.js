@@ -94,6 +94,91 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes: ['M', 'L', 'XL'],
       colors: ['#f7f4ec', '#826656'],
       description: 'Kiểu dáng Beckenbauer bất hủ với cổ bẻ cao dựng trụ, gam màu kem vintage kết hợp bo viền màu nâu Cacao Mocha ấm áp. Chất nỉ dệt dày dặn, sang trọng và chuẩn phom.'
+    },
+    {
+      id: 'nt-06',
+      title: 'Quần Short Dsquared2 "D2 Lettering" Phối Lá Phong Đỏ',
+      category: 'pants',
+      categoryName: 'Quần Short Nam',
+      price: 350000,
+      oldPrice: 450000,
+      rating: 4.9,
+      reviews: 115,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/quan-short-dsquared2-la-phong.png',
+      imageHover: 'assets/images/products/quan-short-dsquared2-la-phong.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#111111', '#ffffff', '#dc2626'],
+      description: 'Quần short Dsquared2 chất thun da cá dày dặn, in tràn chữ D2 all-over cá tính điểm xuyết lá phong đỏ Canada đặc trưng. Lưng thun co giãn dây rút thoải mái khi đi chơi, dạo phố.'
+    },
+    {
+      id: 'nt-07',
+      title: 'Áo Sơ Mi Denim Louis Vuitton Damier Caro Xanh Nhạt',
+      category: 'shirt',
+      categoryName: 'Áo Sơ Mi Denim',
+      price: 420000,
+      oldPrice: 520000,
+      rating: 5.0,
+      reviews: 148,
+      badge: 'new',
+      isLocal: true,
+      image: 'assets/images/products/ao-so-mi-lv-damier-denim.png',
+      imageHover: 'assets/images/products/ao-so-mi-lv-damier-denim.png',
+      sizes: ['M', 'L', 'XL'],
+      colors: ['#7ba7cc', '#f5f5f5'],
+      description: 'Áo sơ mi cộc tay chất liệu denim dệt họa tiết ô cờ Damier Louis Vuitton kinh điển. Vải mềm mịn wash màu xanh khói nhẹ nhàng, cúc kim loại dập khắc tinh xảo.'
+    },
+    {
+      id: 'nt-08',
+      title: 'Quần Short Louis Vuitton Monogram Watercolor Loang Nước',
+      category: 'pants',
+      categoryName: 'Quần Short Hè',
+      price: 360000,
+      oldPrice: 460000,
+      rating: 4.8,
+      reviews: 96,
+      badge: 'new',
+      isLocal: false,
+      image: 'assets/images/products/quan-short-lv-monogram-nuoc.png',
+      imageHover: 'assets/images/products/quan-short-lv-monogram-nuoc.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#2563eb', '#ffffff'],
+      description: 'Họa tiết hoa Monogram phong cách màu nước (Watercolor) nghệ thuật trên nền vải dù poly cao cấp mát lạnh, nhanh khô. Rất hợp đi biển, du lịch hoặc dạo hè.'
+    },
+    {
+      id: 'nt-09',
+      title: 'Quần Short Dù Louis Vuitton Đỏ Mận Khóa Kéo Sau',
+      category: 'pants',
+      categoryName: 'Quần Short Cao Cấp',
+      price: 380000,
+      oldPrice: 490000,
+      rating: 4.9,
+      reviews: 132,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/quan-short-lv-do-man.png',
+      imageHover: 'assets/images/products/quan-short-lv-do-man.png',
+      sizes: ['M', 'L', 'XL'],
+      colors: ['#5a0d1d', '#ffffff'],
+      description: 'Tone màu đỏ mận (burgundy) sang trọng đồng điệu với thương hiệu NGUYEN TU FASHION. Túi sau viền khóa zip mạ bạc, chất dù vi dệt bóng mờ sang trọng, tặng kèm túi bọc đồ thời trang.'
+    },
+    {
+      id: 'nt-10',
+      title: 'Quần Short Thể Thao Louis Vuitton Đen Thêu Chữ Ký Cursive',
+      category: 'pants',
+      categoryName: 'Quần Short Thể Thao',
+      price: 340000,
+      oldPrice: 430000,
+      rating: 4.9,
+      reviews: 165,
+      badge: 'sale',
+      isLocal: true,
+      image: 'assets/images/products/quan-short-lv-den-theu.png',
+      imageHover: 'assets/images/products/quan-short-lv-den-theu.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#111111', '#38bdf8'],
+      description: 'Quần short màu đen basic cực dễ phối đồ với thêu chữ ký Louis Vuitton uốn lượn sau túi và trước ống quần. Dây rút kim loại cao cấp dập nổi logo.'
     }
   ];
 
@@ -147,8 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let filtered = PRODUCTS.filter(p => {
       if (currentFilter === 'all') return true;
       if (currentFilter === 'local') return p.isLocal;
-      if (currentFilter === 'hoodie' || currentFilter === 'tee') return p.category === 'jacket';
-      if (currentFilter === 'pants') return p.category === 'tracksuit';
+      if (currentFilter === 'jacket' || currentFilter === 'hoodie') return p.category === 'jacket' || p.category === 'tracksuit';
+      if (currentFilter === 'shirt' || currentFilter === 'tee') return p.category === 'shirt';
+      if (currentFilter === 'pants' || currentFilter === 'short') return p.category === 'pants' || p.category === 'tracksuit';
+      if (currentFilter === 'tracksuit') return p.category === 'tracksuit';
       return p.category === currentFilter;
     });
 
