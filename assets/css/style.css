@@ -1537,29 +1537,32 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 .hub-map-card {
   position: relative;
-  height: 440px;
+  height: 480px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-light);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hub-map-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center bottom;
 }
 
 .hub-store-floating-card {
   position: absolute;
-  bottom: 24px;
-  left: 24px;
-  right: 24px;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(12px);
-  padding: 20px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(35, 5, 10, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 18px 22px;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 
 /* ==========================================================================
