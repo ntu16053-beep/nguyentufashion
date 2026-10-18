@@ -485,24 +485,24 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="position:relative;">
           <img class="quick-view-img" id="quick-main-img" src="${product.image}" alt="${product.title}">
           <div style="display:flex; gap:10px; margin-top:12px;">
-            <img src="${product.image}" style="width:60px; height:75px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid #000;" onclick="document.getElementById('quick-main-img').src='${product.image}'">
-            <img src="${product.imageHover}" style="width:60px; height:75px; object-fit:cover; border-radius:6px; cursor:pointer; border:1px solid #ddd;" onclick="document.getElementById('quick-main-img').src='${product.imageHover}'">
+            <img src="${product.image}" style="width:60px; height:75px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid #ffffff;" onclick="document.getElementById('quick-main-img').src='${product.image}'">
+            <img src="${product.imageHover}" style="width:60px; height:75px; object-fit:cover; border-radius:6px; cursor:pointer; border:1px solid rgba(255,255,255,0.3);" onclick="document.getElementById('quick-main-img').src='${product.imageHover}'">
           </div>
         </div>
 
         <div>
-          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#8c8c8c; letter-spacing:0.08em;">${product.categoryName}</span>
-          <h2 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; margin:6px 0 12px; text-transform:uppercase;">${product.title}</h2>
+          <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.08em;">${product.categoryName}</span>
+          <h2 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; margin:6px 0 12px; text-transform:uppercase; color:#ffffff;">${product.title}</h2>
           
           <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:16px;">
-            <span style="font-size:1.5rem; font-weight:900; color:var(--text-primary);">${formatVND(product.price)}</span>
-            ${product.oldPrice ? `<span style="font-size:1rem; color:#8c8c8c; text-decoration:line-through;">${formatVND(product.oldPrice)}</span>` : ''}
+            <span style="font-size:1.5rem; font-weight:900; color:#ffffff;">${formatVND(product.price)}</span>
+            ${product.oldPrice ? `<span style="font-size:1rem; color:var(--text-muted); text-decoration:line-through;">${formatVND(product.oldPrice)}</span>` : ''}
           </div>
 
-          <p style="font-size:0.875rem; color:#555; margin-bottom:20px; line-height:1.6;">${product.description}</p>
+          <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:20px; line-height:1.6;">${product.description}</p>
           
           <div style="margin-bottom:16px;">
-            <div style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Chọn Size:</div>
+            <div style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; margin-bottom:8px; color:#ffffff;">Chọn Size:</div>
             <div class="size-selector">
               ${product.sizes.map((s, idx) => `
                 <button class="size-option-btn ${idx === 0 ? 'active' : ''}" onclick="window.selectQuickSize(this, '${s}')">${s}</button>
@@ -511,24 +511,24 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div style="margin-bottom:24px;">
-            <div style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; margin-bottom:8px;">Màu sắc:</div>
+            <div style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; margin-bottom:8px; color:#ffffff;">Màu sắc:</div>
             <div style="display:flex; gap:10px;">
               ${product.colors.map((c, idx) => `
-                <button style="width:30px; height:30px; border-radius:50%; background:${c}; border:${idx === 0 ? '3px solid #000' : '1px solid #ccc'}; cursor:pointer;" onclick="window.selectQuickColor(this, '${c}')"></button>
+                <button style="width:30px; height:30px; border-radius:50%; background:${c}; border:${idx === 0 ? '3px solid #ffffff' : '1px solid rgba(255,255,255,0.3)'}; cursor:pointer;" onclick="window.selectQuickColor(this, '${c}')"></button>
               `).join('')}
             </div>
           </div>
 
           <div style="display:flex; gap:12px;">
-            <button class="btn btn-dark" style="flex:1;" onclick="window.submitQuickAddToCart('${product.id}')">
+            <button class="btn btn-primary" style="flex:1;" onclick="window.submitQuickAddToCart('${product.id}')">
               🛍️ Thêm Vào Giỏ Hàng
             </button>
-            <button class="btn btn-outline-white" style="border-color:#111; color:#111;" onclick="window.toggleWishlist('${product.id}')">
+            <button class="btn btn-outline-white" onclick="window.toggleWishlist('${product.id}')">
               ❤️ Yêu Thích
             </button>
           </div>
 
-          <div style="margin-top:20px; padding:12px; background:var(--bg-secondary); border-radius:8px; font-size:0.75rem; color:#666;">
+          <div style="margin-top:20px; padding:12px; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.12); border-radius:8px; font-size:0.75rem; color:var(--text-secondary);">
             🚀 <strong>Ninh Bình Express:</strong> Nhận hàng trong 2 giờ tại TP. Ninh Bình & Hoa Lư. Thử đồ tại chỗ trước khi thanh toán.
           </div>
         </div>
@@ -551,8 +551,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.selectQuickColor = (btn, color) => {
-    btn.parentElement.querySelectorAll('button').forEach(b => b.style.border = '1px solid #ccc');
-    btn.style.border = '3px solid #000';
+    btn.parentElement.querySelectorAll('button').forEach(b => b.style.border = '1px solid rgba(255,255,255,0.3)');
+    btn.style.border = '3px solid #ffffff';
     selectedModalColor = color;
   };
 
