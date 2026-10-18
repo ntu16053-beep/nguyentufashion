@@ -141,7 +141,7 @@ ul, ol {
   padding: 0;
   position: relative;
   z-index: 101;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1.5px solid #000000;
 }
 
 .announcement-content {
@@ -149,7 +149,7 @@ ul, ol {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 32px;
+  padding: 0 20px;
 }
 
 .announcement-group {
@@ -161,11 +161,11 @@ ul, ol {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 18px;
+  padding: 9px 16px;
   font-size: 0.775rem;
   font-weight: 500;
   color: #ffffff;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 1px solid #000000;
   transition: color var(--transition-fast);
 }
 
@@ -211,35 +211,40 @@ a.announcement-item:hover {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 100;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1.5px solid #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
   transition: all var(--transition-smooth);
 }
 
 .header.scrolled {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .nav-container {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  height: 82px;
+  height: 74px;
   width: 100%;
-  padding: 0 32px;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding-right: 28px;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-  height: 82px;
+  gap: 10px;
+  padding-right: 18px;
+  padding-left: 4px;
+  border-right: 1.5px solid #000000;
+  height: 74px;
+  flex-shrink: 0;
 }
 
 .brand-logo-img {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   background-color: #000;
   object-fit: contain;
@@ -259,7 +264,7 @@ a.announcement-item:hover {
 
 .brand-name {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   color: #ffffff;
@@ -283,34 +288,43 @@ a.announcement-item:hover {
 }
 
 .brand-sub {
-  font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
   color: #fce7f3;
   font-weight: 600;
   text-transform: uppercase;
-  margin-top: 3px;
+  margin-top: 2px;
   text-align: center;
 }
 
-/* Navigation Links with Vertical Dividers */
+/* Navigation Links with Black Vertical Dividers */
 .nav-links {
   display: flex;
-  align-items: center;
-  height: 82px;
+  align-items: stretch;
+  height: 74px;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
-  font-size: 0.875rem;
+  font-size: clamp(0.72rem, 0.82vw, 0.775rem);
   font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   position: relative;
-  padding: 0 20px;
-  height: 82px;
+  padding: 0 clamp(6px, 0.7vw, 10px);
+  height: 74px;
   display: inline-flex;
   align-items: center;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  border-right: 1.5px solid #000000;
   transition: all var(--transition-fast);
 }
 
@@ -335,14 +349,15 @@ a.announcement-item:hover {
 }
 
 .nav-badge {
-  background: #7b1626;
+  background: var(--accent-red);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  font-size: 0.625rem;
-  padding: 2px 6px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  font-size: 0.58rem;
+  padding: 1px 4px;
   border-radius: var(--radius-full);
-  margin-left: 5px;
-  font-weight: 700;
+  margin-left: 3px;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .nav-badge.hot {
@@ -350,28 +365,29 @@ a.announcement-item:hover {
   color: #fff;
 }
 
-/* Nav Actions with Vertical Dividers */
+/* Nav Actions with Black Vertical Dividers */
 .nav-actions {
   display: flex;
-  align-items: center;
-  height: 82px;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  align-items: stretch;
+  height: 74px;
+  flex-shrink: 0;
+  border-left: 1.5px solid #000000;
 }
 
 .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 82px;
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  width: 48px;
+  height: 74px;
+  border-right: 1.5px solid #000000;
   color: #ffffff;
   position: relative;
   transition: all var(--transition-fast);
 }
 
 .action-btn:last-child {
-  border-right: none;
+  border-right: 1.5px solid #000000;
 }
 
 .action-btn:hover {
@@ -381,18 +397,19 @@ a.announcement-item:hover {
 
 .action-badge {
   position: absolute;
-  top: 24px;
-  right: 8px;
+  top: 18px;
+  right: 6px;
   background-color: var(--accent-red);
   color: #fff;
-  font-size: 0.6875rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #000000;
 }
 
 .mobile-menu-btn {
