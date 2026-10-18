@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'nt-06',
       title: 'Quần Short Dsquared2 "D2 Lettering" Phối Lá Phong Đỏ',
-      category: 'pants',
+      category: 'short',
       categoryName: 'Quần Short Nam',
       price: 350000,
       oldPrice: 450000,
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'nt-08',
       title: 'Quần Short Louis Vuitton Monogram Watercolor Loang Nước',
-      category: 'pants',
+      category: 'short',
       categoryName: 'Quần Short Hè',
       price: 360000,
       oldPrice: 460000,
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'nt-09',
       title: 'Quần Short Dù Louis Vuitton Đỏ Mận Khóa Kéo Sau',
-      category: 'pants',
+      category: 'short',
       categoryName: 'Quần Short Cao Cấp',
       price: 380000,
       oldPrice: 490000,
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'nt-10',
       title: 'Quần Short Thể Thao Louis Vuitton Đen Thêu Chữ Ký Cursive',
-      category: 'pants',
+      category: 'short',
       categoryName: 'Quần Short Thể Thao',
       price: 340000,
       oldPrice: 430000,
@@ -179,6 +179,91 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes: ['M', 'L', 'XL', 'XXL'],
       colors: ['#111111', '#38bdf8'],
       description: 'Quần short màu đen basic cực dễ phối đồ với thêu chữ ký Louis Vuitton uốn lượn sau túi và trước ống quần. Dây rút kim loại cao cấp dập nổi logo.'
+    },
+    {
+      id: 'nt-11',
+      title: 'Áo Khoác Denim Louis Vuitton Đen Thêu Logo LV Ngực',
+      category: 'jacket',
+      categoryName: 'Áo Khoác Denim',
+      price: 490000,
+      oldPrice: 590000,
+      rating: 5.0,
+      reviews: 175,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/ao-khoac-denim-lv-den.png',
+      imageHover: 'assets/images/products/ao-khoac-denim-lv-den.png',
+      sizes: ['M', 'L', 'XL', 'XXL'],
+      colors: ['#1e1e1e', '#b45309'],
+      description: 'Chất liệu denim cotton dày dặn xử lý wash đen khói bụi bặm, form trucker jacket tôn dáng. Điểm nhấn logo LV thêu chỉ vàng đồng tinh tế trên túi ngực trái, khuy kim loại dập nổi sang trọng.'
+    },
+    {
+      id: 'nt-12',
+      title: 'Quần Âu Nam NGUYEN TU Slimfit Đen Co Giãn Cao Cấp',
+      category: 'pants',
+      categoryName: 'Quần Âu Nam',
+      price: 320000,
+      oldPrice: 420000,
+      rating: 4.9,
+      reviews: 198,
+      badge: 'best',
+      isLocal: true,
+      image: 'assets/images/products/quan-au-nam-den-slimfit.png',
+      imageHover: 'assets/images/products/quan-au-nam-den-slimfit.png',
+      sizes: ['29', '30', '31', '32', '34'],
+      colors: ['#111111'],
+      description: 'Dáng slimfit đứng ống trẻ trung, chất vải tuyết mưa nhập khẩu mềm mịn, co giãn 4 chiều chống nhăn nhàu tối đa. Hoàn hảo khi phối cùng sơ mi, blazer hoặc áo polo công sở.'
+    },
+    {
+      id: 'nt-13',
+      title: 'Quần Jean Louis Vuitton Monogram Denim Đen Trắng',
+      category: 'pants',
+      categoryName: 'Quần Jean Nam',
+      price: 450000,
+      oldPrice: 560000,
+      rating: 5.0,
+      reviews: 142,
+      badge: 'new',
+      isLocal: false,
+      image: 'assets/images/products/quan-jean-lv-monogram-den.png',
+      imageHover: 'assets/images/products/quan-jean-lv-monogram-den.png',
+      sizes: ['29', '30', '31', '32', '34'],
+      colors: ['#18181b', '#f4f4f5'],
+      description: 'Quần jean ống suông thời thượng dệt họa tiết Monogram LV trắng tương phản trên nền denim đen. Kỹ thuật in laser chuẩn sắc nét, cúc đồng dập chìm, phong cách streetwear sang chảnh.'
+    },
+    {
+      id: 'nt-14',
+      title: 'Quần Jean Louis Vuitton Xanh Khói Đắp Túi Monogram',
+      category: 'pants',
+      categoryName: 'Quần Jean Nam',
+      price: 430000,
+      oldPrice: 540000,
+      rating: 4.9,
+      reviews: 126,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/quan-jean-lv-xanh-monogram-dui.png',
+      imageHover: 'assets/images/products/quan-jean-lv-xanh-monogram-dui.png',
+      sizes: ['29', '30', '31', '32', '34'],
+      colors: ['#60a5fa', '#e2e8f0'],
+      description: 'Chất bò denim cao cấp wash xanh khói cổ điển, điểm nhấn 2 mảng đắp túi đùi họa tiết LV Monogram dập vân nổi cực chất. Form regular ôm nhẹ tôn dáng chân, đường may chỉ vàng chắc chắn.'
+    },
+    {
+      id: 'nt-15',
+      title: 'Quần Jean Louis Vuitton Graffiti Họa Tiết Chữ All-Over',
+      category: 'pants',
+      categoryName: 'Quần Jean Nam',
+      price: 460000,
+      oldPrice: 580000,
+      rating: 4.9,
+      reviews: 153,
+      badge: 'new',
+      isLocal: false,
+      image: 'assets/images/products/quan-jean-lv-graffiti-chu.png',
+      imageHover: 'assets/images/products/quan-jean-lv-graffiti-chu.png',
+      sizes: ['29', '30', '31', '32', '34'],
+      colors: ['#0f172a', '#ffffff'],
+      description: 'Thiết kế đột phá với họa tiết chữ graffiti uốn lượn phong cách đường phố Paris kết hợp chữ thư pháp Nhật Bản Katakana trắng trên nền denim đen chàm. Cá tính, nổi bật giữa đám đông.'
     }
   ];
 
@@ -234,7 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentFilter === 'local') return p.isLocal;
       if (currentFilter === 'jacket' || currentFilter === 'hoodie') return p.category === 'jacket' || p.category === 'tracksuit';
       if (currentFilter === 'shirt' || currentFilter === 'tee') return p.category === 'shirt';
-      if (currentFilter === 'pants' || currentFilter === 'short') return p.category === 'pants' || p.category === 'tracksuit';
+      if (currentFilter === 'pants' || currentFilter === 'jeans') return p.category === 'pants';
+      if (currentFilter === 'short') return p.category === 'short';
       if (currentFilter === 'tracksuit') return p.category === 'tracksuit';
       return p.category === currentFilter;
     });
@@ -874,7 +960,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!query) {
       resultsContainer.innerHTML = `
         <div style="font-size:0.8125rem; color:#888; padding:12px 0;">
-          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Áo khoác Argentina</strong>, <strong>Bộ thể thao AFA</strong>, <strong>Khoác Barca</strong>, <strong>Áo khuy tàu</strong>, <strong>Beckenbauer</strong>
+          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Áo khoác Argentina</strong>, <strong>Áo denim LV</strong>, <strong>Quần jean LV</strong>, <strong>Quần âu Slimfit</strong>, <strong>Quần short hè</strong>
         </div>
       `;
       return;
