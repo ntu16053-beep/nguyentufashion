@@ -519,6 +519,91 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes: ['M', 'L', 'XL', 'XXL'],
       colors: ['#ffffff', '#2563eb'],
       description: 'Form safari jacket/shirt độc đáo với 2 túi hộp ngực có nắp, kẻ sọc pinstripe thanh mảnh tôn chiều cao. Thiết kế dây rút eo thể thao tùy chỉnh độ ôm dáng, cúc kim loại dập nổi thương hiệu.'
+    },
+    {
+      id: 'nt-31',
+      title: 'Giày Sneaker Nike Air Jordan 1 Low Midnight Navy',
+      category: 'shoes',
+      categoryName: 'Giày Sneaker',
+      price: 850000,
+      oldPrice: 1100000,
+      rating: 5.0,
+      reviews: 248,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/giay-nike-air-jordan-1-low-navy.png',
+      imageHover: 'assets/images/products/giay-nike-air-jordan-1-low-navy.png',
+      sizes: ['39', '40', '41', '42', '43'],
+      colors: ['#1e3a5f', '#ffffff', '#eab308'],
+      description: 'Phối màu Midnight Navy kinh điển với da hạt nhăn cao cấp kết hợp da trơn trắng tinh tế. Điểm nhấn logo thêu Jumpman vàng nổi bật trên lưỡi gà và logo Wings dập thêu sau gót. Đế đệm Air êm ái.'
+    },
+    {
+      id: 'nt-32',
+      title: 'Giày Sneaker Nike Air Jordan 1 Low Đỏ Mận Bordeaux NGUYEN TU Edition',
+      category: 'shoes',
+      categoryName: 'Giày Sneaker Limited',
+      price: 890000,
+      oldPrice: 1150000,
+      rating: 5.0,
+      reviews: 285,
+      badge: 'best',
+      isLocal: true,
+      image: 'assets/images/products/giay-nike-air-jordan-1-low-do-man-bordeaux.png',
+      imageHover: 'assets/images/products/giay-nike-air-jordan-1-low-do-man-bordeaux.png',
+      sizes: ['39', '40', '41', '42', '43'],
+      colors: ['#581c2b', '#ffffff', '#111111'],
+      description: 'Tone màu đỏ mận Bordeaux quý tộc đồng điệu tuyệt đối cùng nhận diện thương hiệu NGUYEN TU FASHION. Dấu Swoosh đen tương phản trên nền da trắng cao cấp, chuẩn phong cách quý ông đường phố.'
+    },
+    {
+      id: 'nt-33',
+      title: 'Giày Sneaker Nike Air Force 1 Low x Louis Vuitton Denim Monogram',
+      category: 'shoes',
+      categoryName: 'Giày Sneaker Luxury',
+      price: 980000,
+      oldPrice: 1350000,
+      rating: 5.0,
+      reviews: 320,
+      badge: 'hot',
+      isLocal: false,
+      image: 'assets/images/products/giay-nike-air-force-1-louis-vuitton-denim.png',
+      imageHover: 'assets/images/products/giay-nike-air-force-1-louis-vuitton-denim.png',
+      sizes: ['39', '40', '41', '42', '43'],
+      colors: ['#ffffff', '#1e3a8a'],
+      description: 'Siêu phẩm hợp tác huyền thoại giữa Nike và Louis Vuitton phong cách Virgil Abloh. Thân giày dập vân hoa Monogram trắng sữa kết hợp dấu Swoosh bằng vải denim dệt họa tiết LV xanh chàm độc bản.'
+    },
+    {
+      id: 'nt-34',
+      title: 'Giày Sneaker Nike Air Jordan 1 Low Vintage Navy Sail Đế Ngà',
+      category: 'shoes',
+      categoryName: 'Giày Sneaker',
+      price: 860000,
+      oldPrice: 1120000,
+      rating: 4.9,
+      reviews: 196,
+      badge: 'new',
+      isLocal: true,
+      image: 'assets/images/products/giay-nike-air-jordan-1-low-vintage-navy-sail.png',
+      imageHover: 'assets/images/products/giay-nike-air-jordan-1-low-vintage-navy-sail.png',
+      sizes: ['39', '40', '41', '42', '43'],
+      colors: ['#1e293b', '#fef3c7', '#d97706'],
+      description: 'Vibe vintage retro cổ điển với đế giữa màu vàng ngà (Aged Sail), thân giày da lộn phối da trơn màu kem vani và xanh navy đậm. Dây buộc dệt xơ cổ điển, logo Jumpman thêu chỉ vàng đồng sang trọng.'
+    },
+    {
+      id: 'nt-35',
+      title: 'Giày Sneaker Adidas Originals Samba OG Trắng Sọc Đen Đế Gum',
+      category: 'shoes',
+      categoryName: 'Giày Sneaker Retro',
+      price: 790000,
+      oldPrice: 990000,
+      rating: 4.9,
+      reviews: 340,
+      badge: 'hot',
+      isLocal: false,
+      image: 'assets/images/products/giay-adidas-samba-og-trang-soc-den.png',
+      imageHover: 'assets/images/products/giay-adidas-samba-og-trang-soc-den.png',
+      sizes: ['39', '40', '41', '42', '43'],
+      colors: ['#ffffff', '#111111', '#78350f'],
+      description: 'Đôi giày quốc dân đang làm mưa làm gió trong giới thời trang thế giới. Chất liệu da mềm cao cấp phối mũi da lộn chữ T màu xám tro, 3 sọc da đen răng cưa và đế cao su nâu gum bám đường cực tốt.'
     }
   ];
 
@@ -577,6 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentFilter === 'tee') return p.category === 'tee';
       if (currentFilter === 'pants' || currentFilter === 'jeans') return p.category === 'pants';
       if (currentFilter === 'short') return p.category === 'short';
+      if (currentFilter === 'shoes' || currentFilter === 'sneaker') return p.category === 'shoes';
       if (currentFilter === 'tracksuit') return p.category === 'tracksuit';
       return p.category === currentFilter;
     });
@@ -1216,7 +1302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!query) {
       resultsContainer.innerHTML = `
         <div style="font-size:0.8125rem; color:#888; padding:12px 0;">
-          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Áo thun Berluti</strong>, <strong>Áo thun LV đỏ mận</strong>, <strong>Áo denim LV</strong>, <strong>Quần jean LV</strong>, <strong>Quần short hè</strong>
+          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Jordan 1 Low</strong>, <strong>Adidas Samba OG</strong>, <strong>Áo thun LV đỏ mận</strong>, <strong>Sơ mi Hawaii</strong>, <strong>Quần jean LV</strong>
         </div>
       `;
       return;
