@@ -604,6 +604,91 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes: ['39', '40', '41', '42', '43'],
       colors: ['#ffffff', '#111111', '#78350f'],
       description: 'Đôi giày quốc dân đang làm mưa làm gió trong giới thời trang thế giới. Chất liệu da mềm cao cấp phối mũi da lộn chữ T màu xám tro, 3 sọc da đen răng cưa và đế cao su nâu gum bám đường cực tốt.'
+    },
+    {
+      id: 'nt-36',
+      title: 'Mũ Lưỡi Trai Louis Vuitton Monogram Hoa Ren Xanh Khói',
+      category: 'hat',
+      categoryName: 'Mũ & Nón Nam',
+      price: 280000,
+      oldPrice: 360000,
+      rating: 4.9,
+      reviews: 172,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/mu-luoi-trai-lv-monogram-hoa-ren-denim.png',
+      imageHover: 'assets/images/products/mu-luoi-trai-lv-monogram-hoa-ren-denim.png',
+      sizes: ['Freesize'],
+      colors: ['#1e3a5f', '#f1f5f9'],
+      description: 'Chất liệu vải denim dệt họa tiết Monogram kết hợp hoa lá ren phong cách Hawaii, tone xoẹt tone hoàn hảo cùng áo sơ mi nt-26. Khóa kim loại dập nổi logo phía sau tùy chỉnh vòng đầu êm ái.'
+    },
+    {
+      id: 'nt-37',
+      title: 'Mũ Bucket Tai Bèo Louis Vuitton Denim Monogram Thêu Hoa',
+      category: 'hat',
+      categoryName: 'Mũ Bucket Nam',
+      price: 320000,
+      oldPrice: 420000,
+      rating: 5.0,
+      reviews: 198,
+      badge: 'best',
+      isLocal: true,
+      image: 'assets/images/products/mu-bucket-lv-denim-monogram-theu-hoa.png',
+      imageHover: 'assets/images/products/mu-bucket-lv-denim-monogram-theu-hoa.png',
+      sizes: ['Freesize'],
+      colors: ['#1e293b', '#f8fafc'],
+      description: 'Dáng mũ bucket vành tròn trẻ trung, chất vải jean denim xanh wash phủ kín logo LV Monogram kèm các bông hoa nổi 3D đa sắc màu. Vành nón may dập 4 đường chỉ chắc chắn, che nắng cực tốt khi du lịch, dạo phố.'
+    },
+    {
+      id: 'nt-38',
+      title: 'Mũ Lưỡi Trai Nike Heritage 86 Trắng Thêu Swoosh Đen',
+      category: 'hat',
+      categoryName: 'Mũ Thể Thao',
+      price: 220000,
+      oldPrice: 290000,
+      rating: 4.9,
+      reviews: 260,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/mu-luoi-trai-nike-heritage-trang-swoosh-den.png',
+      imageHover: 'assets/images/products/mu-luoi-trai-nike-heritage-trang-swoosh-den.png',
+      sizes: ['Freesize'],
+      colors: ['#ffffff', '#111111'],
+      description: 'Mẫu nón kết quốc dân form mềm Heritage 86, chất vải 100% cotton twill thoáng mát, thấm hút mồ hôi. Logo Nike Swoosh thêu 3D nổi bật trước trán, quai cài kim loại mạ bạc chống rỉ sét.'
+    },
+    {
+      id: 'nt-39',
+      title: 'Mũ Lưỡi Trai Adidas Họa Tiết Hoa Cỏ Dại Sketch Màu Kem',
+      category: 'hat',
+      categoryName: 'Mũ Thể Thao',
+      price: 240000,
+      oldPrice: 320000,
+      rating: 4.8,
+      reviews: 135,
+      badge: 'new',
+      isLocal: false,
+      image: 'assets/images/products/mu-luoi-trai-adidas-hoa-co-sketch-kem.png',
+      imageHover: 'assets/images/products/mu-luoi-trai-adidas-hoa-co-sketch-kem.png',
+      sizes: ['Freesize'],
+      colors: ['#fef3c7', '#78350f'],
+      description: 'Tone màu kem vintage ấm áp điểm xuyết họa tiết hoa cỏ dại vẽ nét phác thảo (sketch) nghệ thuật. Logo Adidas 3 thanh dập nổi silicone màu trắng tinh tế, phù hợp cho cả đi chơi và thể thao golf.'
+    },
+    {
+      id: 'nt-40',
+      title: 'Mũ Lưỡi Trai Adidas Đồ Họa Zig-Zag Xanh Trắng Thể Thao',
+      category: 'hat',
+      categoryName: 'Mũ Thể Thao',
+      price: 250000,
+      oldPrice: 330000,
+      rating: 4.9,
+      reviews: 148,
+      badge: 'new',
+      isLocal: true,
+      image: 'assets/images/products/mu-luoi-trai-adidas-do-hoa-zig-zag-xanh-trang.png',
+      imageHover: 'assets/images/products/mu-luoi-trai-adidas-do-hoa-zig-zag-xanh-trang.png',
+      sizes: ['Freesize'],
+      colors: ['#1e3a8a', '#ffffff'],
+      description: 'Họa tiết ziczac hình khối đồ họa năng động xanh navy và trắng tương phản, chất vải poly tái chế nhẹ tênh chống tia UV. Khóa dán điều chỉnh nhanh phía sau cùng logo thêu chữ ký thể thao bên hông.'
     }
   ];
 
@@ -663,6 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentFilter === 'pants' || currentFilter === 'jeans') return p.category === 'pants';
       if (currentFilter === 'short') return p.category === 'short';
       if (currentFilter === 'shoes' || currentFilter === 'sneaker') return p.category === 'shoes';
+      if (currentFilter === 'hat' || currentFilter === 'accessories') return p.category === 'hat';
       if (currentFilter === 'tracksuit') return p.category === 'tracksuit';
       return p.category === currentFilter;
     });
@@ -1302,7 +1388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!query) {
       resultsContainer.innerHTML = `
         <div style="font-size:0.8125rem; color:#888; padding:12px 0;">
-          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Jordan 1 Low</strong>, <strong>Adidas Samba OG</strong>, <strong>Áo thun LV đỏ mận</strong>, <strong>Sơ mi Hawaii</strong>, <strong>Quần jean LV</strong>
+          Gợi ý tìm kiếm phổ biến tại Ninh Bình: <strong>Mũ bucket LV</strong>, <strong>Jordan 1 Low</strong>, <strong>Adidas Samba</strong>, <strong>Áo thun LV đỏ mận</strong>, <strong>Sơ mi Hawaii</strong>
         </div>
       `;
       return;
