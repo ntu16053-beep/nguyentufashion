@@ -774,6 +774,91 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes: ['M', 'L', 'XL', '2XL'],
       colors: ['#1e293b', '#ffffff'],
       description: 'Kiệt tác thời trang với bức tranh thêu chỉ nổi toàn bộ sau lưng mô phỏng phong cảnh chùa cổ 5 tầng và núi Phú Sĩ Nhật Bản phối cùng logo Paris LV. Form áo oversize rộng rủ phóng khoáng trên nền xanh navy đậm.'
+    },
+    {
+      id: 'nt-46',
+      title: 'Túi Trống Du Lịch Louis Vuitton Keepall Bandoulière 55 Monogram',
+      category: 'bag',
+      categoryName: 'Túi Du Lịch Nam',
+      price: 1250000,
+      oldPrice: 1650000,
+      rating: 5.0,
+      reviews: 142,
+      badge: 'best',
+      isLocal: true,
+      image: 'assets/images/products/tui-trong-lv-keepall-55-monogram-nau.png',
+      imageHover: 'assets/images/products/tui-trong-lv-keepall-55-monogram-nau.png',
+      sizes: ['55cm'],
+      colors: ['#78350f', '#d97706'],
+      description: 'Biểu tượng du lịch xa xỉ vượt thời gian kể từ năm 1930. Chất liệu Canvas Monogram phủ lớp chống thấm nước bền bỉ, quai xách đôi bằng da bò tự nhiên Vachetta may chỉ vàng nổi bật, phụ kiện khóa mạ vàng đồng sang trọng và dây đeo vai tháo rời linh hoạt.'
+    },
+    {
+      id: 'nt-47',
+      title: 'Túi Cầm Tay Clutch Louis Vuitton Toiletry Pouch 26 Monogram',
+      category: 'bag',
+      categoryName: 'Túi Clutch Cầm Tay',
+      price: 680000,
+      oldPrice: 890000,
+      rating: 4.9,
+      reviews: 188,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/tui-clutch-lv-toiletry-pouch-monogram.png',
+      imageHover: 'assets/images/products/tui-clutch-lv-toiletry-pouch-monogram.png',
+      sizes: ['26cm'],
+      colors: ['#78350f', '#fef3c7'],
+      description: 'Mẫu clutch cầm tay dáng hộp rộng rãi size 26 đựng vừa iPad mini, điện thoại, ví tiền và mỹ phẩm tiện lợi. Họa tiết hoa monogram nâu huyền thoại, lót trong bằng da hạt cao cấp dễ dàng lau chùi, khóa kéo mạ vàng mượt mà.'
+    },
+    {
+      id: 'nt-48',
+      title: 'Balo Phượt Nam Louis Vuitton Christopher PM Monogram Eclipse Đen',
+      category: 'bag',
+      categoryName: 'Balo Nam Cao Cấp',
+      price: 1450000,
+      oldPrice: 1950000,
+      rating: 5.0,
+      reviews: 164,
+      badge: 'best',
+      isLocal: true,
+      image: 'assets/images/products/balo-lv-christopher-backpack-monogram-eclipse-den.png',
+      imageHover: 'assets/images/products/balo-lv-christopher-backpack-monogram-eclipse-den.png',
+      sizes: ['PM'],
+      colors: ['#1e293b', '#111111'],
+      description: 'Chiếc balo quân đội tái hiện phong cách dã ngoại sành điệu trong chất liệu Monogram Eclipse xám đen nam tính. Thiết kế nắp gập khóa bấm cài da thật, hai ngăn phụ tiện dụng bên hông và khoang chứa rộng có ngăn riêng cho laptop 15.6 inch.'
+    },
+    {
+      id: 'nt-49',
+      title: 'Balo Nam Louis Vuitton Discovery Monogram Denim Xanh Wash',
+      category: 'bag',
+      categoryName: 'Balo Nam Cao Cấp',
+      price: 1350000,
+      oldPrice: 1750000,
+      rating: 4.9,
+      reviews: 129,
+      badge: 'new',
+      isLocal: false,
+      image: 'assets/images/products/balo-lv-discovery-denim-monogram-xanh-wash.png',
+      imageHover: 'assets/images/products/balo-lv-discovery-denim-monogram-xanh-wash.png',
+      sizes: ['Standard'],
+      colors: ['#1e3a8a', '#ffffff'],
+      description: 'Chất vải Jean Denim xanh wash loang phủ kín hoa văn Monogram màu trắng bụi bặm, đậm chất streetwear giới trẻ. Form balo hình vòm ôm lưng êm ái với đệm mút lưới thoáng khí, phối quai da và khóa kéo khắc logo LV tinh xảo.'
+    },
+    {
+      id: 'nt-50',
+      title: 'Túi Đeo Chéo Nam Louis Vuitton S-Lock Messenger Da Taurillon Đen Nhám',
+      category: 'bag',
+      categoryName: 'Túi Đeo Chéo Nam',
+      price: 950000,
+      oldPrice: 1250000,
+      rating: 4.9,
+      reviews: 175,
+      badge: 'hot',
+      isLocal: true,
+      image: 'assets/images/products/tui-deo-cheo-lv-s-lock-messenger-da-taurillon-den.png',
+      imageHover: 'assets/images/products/tui-deo-cheo-lv-s-lock-messenger-da-taurillon-den.png',
+      sizes: ['Freesize'],
+      colors: ['#111111', '#1f2937'],
+      description: 'Kiểu dáng messenger hình hộp vuông vức thời thượng chế tác từ da bò Taurillon dập nổi vân Monogram sâu sắc nét. Điểm nhấn là khóa bấm S-Lock đen nhám lấy cảm hứng từ khóa rương cổ điển năm 1886 của hãng, quai đeo bản to dệt chữ Louis Vuitton nổi.'
     }
   ];
 
@@ -834,6 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentFilter === 'short') return p.category === 'short';
       if (currentFilter === 'shoes' || currentFilter === 'sneaker') return p.category === 'shoes';
       if (currentFilter === 'hat' || currentFilter === 'accessories') return p.category === 'hat';
+      if (currentFilter === 'bag' || currentFilter === 'backpack') return p.category === 'bag';
       if (currentFilter === 'tracksuit') return p.category === 'tracksuit';
       return p.category === currentFilter;
     });
