@@ -271,16 +271,36 @@
     window.updateCartCounters();
     window.loadAllProducts();
 
-    // Sticky Header Scroll
+    // Smart Auto-Hide Sticky Header (Hide on scroll down, show on scroll up)
     const header = document.querySelector('.header');
     if (header) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY <= 70) {
+              header.classList.remove('header-hidden');
+              header.classList.remove('scrolled');
+            } else {
+              header.classList.add('scrolled');
+
+              if (currentScrollY > lastScrollY + 10) {
+                header.classList.add('header-hidden');
+              } else if (currentScrollY < lastScrollY - 10) {
+                header.classList.remove('header-hidden');
+              }
+            }
+
+            lastScrollY = currentScrollY;
+            ticking = false;
+          });
+          ticking = true;
         }
-      });
+      }, { passive: true });
     }
 
     // Modal background click close

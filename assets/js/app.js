@@ -1596,15 +1596,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
   };
 
-  // Sticky Header Effect
-  const header = document.querySelector('.header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
-    }
-  });
+
 
   // Mobile drawer trigger
   window.toggleMobileMenu = () => {

@@ -55,7 +55,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 85px;
   font-size: 16px;
+}
+
+#catalog, .catalog-section, .flash-sale-section, #lookbook, .page-hero-banner, .catalog-page-container {
+  scroll-margin-top: 85px;
 }
 
 body {
@@ -214,7 +219,14 @@ a.announcement-item:hover {
   border-top: 1.5px solid #000000;
   border-bottom: 2px solid #000000;
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-  transition: all var(--transition-smooth);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+/* Auto-hide when scrolling down to reveal 100% of products without being blocked */
+.header.header-hidden {
+  transform: translateY(-100%);
+  box-shadow: none;
 }
 
 .header.scrolled {
