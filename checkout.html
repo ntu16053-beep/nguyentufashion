@@ -14,6 +14,94 @@
 
   <link rel="stylesheet" href="assets/css/style.css?v=2.0">
   <link rel="stylesheet" href="assets/css/pages.css?v=2.0">
+
+  <style>
+    :root, html, body {
+      color-scheme: dark !important;
+    }
+    button, input, select, textarea, optgroup, option {
+      color-scheme: dark !important;
+    }
+    select, .custom-select, select.custom-input {
+      background-color: #240409 !important;
+      color: #ffffff !important;
+      border: 1px solid var(--border-medium) !important;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23ffffff' d='M6 8L0 0h12z'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: calc(100% - 14px) center !important;
+      background-size: 10px 6px !important;
+      padding-right: 36px !important;
+    }
+    select option, select optgroup, .custom-select option, .custom-input option {
+      background-color: #240409 !important;
+      color: #ffffff !important;
+      padding: 10px 14px !important;
+      font-size: 0.875rem !important;
+    }
+    select option:checked, select option:hover, .custom-select option:checked, .custom-select option:hover {
+      background-color: #8b0000 !important;
+      color: #ffffff !important;
+    }
+    .buyer-benefit-banner {
+      background: linear-gradient(135deg, rgba(78, 13, 25, 0.95), rgba(36, 4, 9, 0.95));
+      border: 1px solid rgba(255, 51, 75, 0.35);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+    }
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8125rem;
+      color: #fce7f3;
+    }
+    .benefit-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 51, 75, 0.18);
+      color: var(--accent-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .voucher-chip-btn {
+      background: rgba(255, 51, 75, 0.12);
+      border: 1px dashed rgba(255, 51, 75, 0.5);
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .voucher-chip-btn:hover {
+      background: var(--accent-red);
+      border-style: solid;
+      transform: translateY(-1px);
+    }
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 5px;
+      display: block;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
 
@@ -107,6 +195,36 @@
 
   <!-- MAIN CHECKOUT CONTENT -->
   <main class="container" style="padding: 40px 24px 80px;">
+
+    <!-- BUYER GUARANTEE & TRUST BANNER -->
+    <div class="buyer-benefit-banner">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
+        <span style="font-family:var(--font-heading); font-size:1rem; font-weight:800; color:#fff; text-transform:uppercase; letter-spacing:0.04em; display:flex; align-items:center; gap:8px;">
+          <span>🛡️</span> <span>CAM KẾT BẢO VỆ NGƯỜI MUA • NGUYEN TU FASHION</span>
+        </span>
+        <span style="font-size:0.8125rem; color:var(--accent-gold); font-weight:700;">
+          📍 Showroom Khánh Nhạc, Yên Khánh • 📞 Hotline: 0342.767.002
+        </span>
+      </div>
+      <div class="benefit-grid">
+        <div class="benefit-item">
+          <span class="benefit-icon">📦</span>
+          <span><strong>Đồng kiểm tra hàng:</strong> Được mở bưu phẩm kiểm tra vải, form & size trước khi trả tiền cho shipper.</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🔄</span>
+          <span><strong>Đổi size tận nhà 7 ngày:</strong> Không vừa hoặc muốn đổi màu, shop điều shipper đến tận nơi đổi mới 100%.</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">⚡</span>
+          <span><strong>Hỏa tốc 2H Ninh Bình:</strong> Giao siêu tốc trong 2 giờ tại khu vực TP. Ninh Bình & Huyện Yên Khánh.</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🎁</span>
+          <span><strong>Freeship từ 299K:</strong> Đơn hàng từ 299.000₫ được miễn phí vận chuyển trên toàn quốc!</span>
+        </div>
+      </div>
+    </div>
     
     <!-- CHECKOUT FORM VIEW -->
     <div class="checkout-page-grid" id="checkout-form-view">
@@ -117,63 +235,71 @@
         <!-- Customer Info -->
         <div class="checkout-section-box">
           <h3 class="checkout-section-title">
-            <span>1. Thông Tin Người Nhận</span>
+            <span>1. Thông Tin Người Nhận Hàng</span>
           </h3>
 
           <div class="form-grid-2">
             <div class="form-control-wrap">
               <label>Họ và Tên *</label>
-              <input type="text" id="cust-name" class="custom-input" placeholder="VD: Nguyễn Văn Anh" required>
+              <input type="text" id="cust-name" class="custom-input" placeholder="Ví dụ: Nguyễn Văn An" required>
+              <span class="field-hint">Họ và tên người trực tiếp nhận bưu kiện</span>
             </div>
             <div class="form-control-wrap">
               <label>Số Điện Thoại (Nhận hàng) *</label>
-              <input type="tel" id="cust-phone" class="custom-input" placeholder="VD: 0988xxxxxx" required>
+              <input type="tel" id="cust-phone" class="custom-input" placeholder="Ví dụ: 0342 767 002 hoặc 0988xxxxxx" required>
+              <span class="field-hint">Shipper sẽ gọi số này trước khi giao hàng</span>
             </div>
           </div>
 
           <div class="form-control-wrap">
-            <label>Email (Nhận biên lai điện tử)</label>
-            <input type="email" id="cust-email" class="custom-input" placeholder="VD: email@example.com">
+            <label>Email (Nhận biên lai điện tử & cập nhật hành trình)</label>
+            <input type="email" id="cust-email" class="custom-input" placeholder="Ví dụ: email@gmail.com (Không bắt buộc)">
+            <span class="field-hint">Nhận hóa đơn điện tử và thông báo tự động khi shipper đang giao</span>
           </div>
 
           <div class="form-grid-2">
             <div class="form-control-wrap">
               <label>Tỉnh / Thành Phố *</label>
-              <select id="cust-city" class="custom-input">
-                <option value="Ninh Bình" selected>Tỉnh Ninh Bình</option>
+              <select id="cust-city" class="custom-input" onchange="window.handleCityChange(this.value)">
+                <option value="Ninh Bình" selected>Tỉnh Ninh Bình (Showroom chính)</option>
                 <option value="Hà Nội">TP. Hà Nội</option>
                 <option value="Nam Định">Tỉnh Nam Định</option>
                 <option value="Hà Nam">Tỉnh Hà Nam</option>
                 <option value="Thanh Hóa">Tỉnh Thanh Hóa</option>
                 <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                <option value="Hải Phòng">TP. Hải Phòng</option>
+                <option value="Đà Nẵng">TP. Đà Nẵng</option>
                 <option value="Khác">Tỉnh / Thành phố khác</option>
               </select>
+              <span class="field-hint" id="city-hint-msg" style="color:var(--accent-gold); font-weight:600;">⚡ Ninh Bình: Hỗ trợ giao hỏa tốc 2H & Freeship từ 299K!</span>
             </div>
 
             <div class="form-control-wrap">
               <label>Quận / Huyện *</label>
-              <select id="cust-district" class="custom-input">
-                <option value="TP. Ninh Bình">TP. Ninh Bình</option>
-                <option value="Huyện Yên Khánh" selected>Huyện Yên Khánh (Showroom)</option>
+              <select id="cust-district" class="custom-input" onchange="window.handleDistrictChange(this.value)">
+                <option value="Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H)" selected>Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H)</option>
+                <option value="TP. Ninh Bình (Ship hỏa tốc 2H)">TP. Ninh Bình (Ship hỏa tốc 2H)</option>
                 <option value="Huyện Hoa Lư">Huyện Hoa Lư</option>
                 <option value="TP. Tam Điệp">TP. Tam Điệp</option>
+                <option value="Huyện Kim Sơn">Huyện Kim Sơn</option>
                 <option value="Huyện Gia Viễn">Huyện Gia Viễn</option>
                 <option value="Huyện Nho Quan">Huyện Nho Quan</option>
-                <option value="Huyện Kim Sơn">Huyện Kim Sơn</option>
                 <option value="Huyện Yên Mô">Huyện Yên Mô</option>
-                <option value="Ngoại Tỉnh">Khu vực ngoại tỉnh khác</option>
               </select>
+              <span class="field-hint">Showroom điều phối shipper giao tận tay</span>
             </div>
           </div>
 
           <div class="form-control-wrap">
-            <label>Địa Chỉ Cụ Thể (Thôn/Xóm, Xã/Phường, Số nhà) *</label>
-            <input type="text" id="cust-address" class="custom-input" placeholder="VD: Thôn 1, Xã Khánh Nhạc, Huyện Yên Khánh" required>
+            <label>Địa Chỉ Cụ Thể (Thôn/Xóm, Xã/Phường, Tên ngõ/đường, Số nhà) *</label>
+            <input type="text" id="cust-address" class="custom-input" placeholder="Ví dụ: Thôn 1, Xã Khánh Nhạc (hoặc Số 25 Đường Lê Đại Hành)" required>
+            <span class="field-hint">Ghi càng chi tiết thì shipper tìm nhà càng nhanh chóng</span>
           </div>
 
           <div class="form-control-wrap">
             <label>Ghi Chú Giao Hàng</label>
-            <textarea id="cust-note" class="custom-textarea" rows="2" placeholder="VD: Giao buổi chiều sau 17h, gọi trước khi đến..."></textarea>
+            <textarea id="cust-note" class="custom-textarea" rows="2" placeholder="Ví dụ: Giao buổi chiều sau 17h, gọi trước 15 phút, gửi bảo vệ/hàng xóm nhận giúp..."></textarea>
+            <span class="field-hint">Yêu cầu đặc biệt để shipper phục vụ bạn chu đáo nhất</span>
           </div>
         </div>
 
@@ -187,11 +313,11 @@
             <input type="radio" name="shippingMethod" value="express" checked>
             <div style="flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong>⚡ Hỏa Tốc 2H Nội Thành Ninh Bình</strong>
+                <strong>⚡ Hỏa Tốc 2H Nội Tỉnh Ninh Bình</strong>
                 <span style="color:var(--accent-red); font-weight:800;" id="express-ship-badge">FREESHIP</span>
               </div>
-              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
-                Điều phối shipper giao liền tay khu vực TP. Ninh Bình & Yên Khánh.
+              <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:3px; line-height:1.4;">
+                Điều phối shipper trực tiếp từ showroom Khánh Nhạc, nhận hàng trong vòng 2 giờ.
               </p>
             </div>
           </label>
@@ -201,10 +327,10 @@
             <div style="flex:1;">
               <div style="display:flex; justify-content:space-between; align-items:center;">
                 <strong>🚚 Giao Hàng Tiêu Chuẩn Toàn Quốc (2-3 Ngày)</strong>
-                <span style="color:var(--text-secondary); font-weight:700;">30.000₫</span>
+                <span style="color:var(--text-secondary); font-weight:700;" id="standard-ship-fee-label">30.000₫</span>
               </div>
-              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
-                Vận chuyển qua bưu điện hỏa tốc, hỗ trợ kiểm tra hàng trước khi nhận.
+              <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:3px; line-height:1.4;">
+                Chuyển phát nhanh bưu chính hỏa tốc, hỗ trợ mở hộp đồng kiểm tra hàng trước khi nhận. Freeship cho đơn từ 299K.
               </p>
             </div>
           </label>
@@ -221,10 +347,10 @@
             <div style="flex:1;">
               <div style="display:flex; align-items:center; gap:8px;">
                 <strong>💵 Thanh Toán Khi Nhận Hàng (COD)</strong>
-                <span class="badge badge-hot" style="font-size:0.65rem;">Phổ Biến</span>
+                <span class="badge badge-hot" style="font-size:0.65rem;">Khuyên Dùng</span>
               </div>
-              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
-                Đồng kiểm xem hàng vừa ý mới thanh toán tiền mặt cho shipper.
+              <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:3px; line-height:1.4;">
+                Kiểm tra sản phẩm, chất vải và đường chỉ vừa ý 100% rồi mới thanh toán tiền mặt cho nhân viên giao hàng.
               </p>
             </div>
           </label>
@@ -233,11 +359,11 @@
             <input type="radio" name="paymentMethod" value="vietqr">
             <div style="flex:1;">
               <div style="display:flex; align-items:center; gap:8px;">
-                <strong>💳 Quét Mã VietQR Tự Động (Mobile Banking)</strong>
+                <strong>💳 Quét Mã VietQR Tự Động (Mobile Banking 24/7)</strong>
                 <span class="badge badge-new" style="font-size:0.65rem;">Nhanh 24/7</span>
               </div>
-              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
-                Quét mã QR qua app ngân hàng bất kỳ, tự động điền số tiền & mã đơn chính xác 100%.
+              <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:3px; line-height:1.4;">
+                Quét mã QR bằng ứng dụng ngân hàng bất kỳ, hệ thống tự động điền số tài khoản, số tiền và mã đơn.
               </p>
             </div>
           </label>
@@ -247,8 +373,9 @@
 
       <!-- RIGHT: ORDER SUMMARY & SUBMIT -->
       <aside class="cart-summary-box">
-        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase; margin-bottom:16px; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
-          Đơn Hàng (<span id="checkout-items-count">0</span>)
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase; margin-bottom:16px; border-bottom:1px solid var(--border-light); padding-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+          <span>Đơn Hàng Của Bạn</span>
+          <span style="font-size:0.875rem; color:var(--accent-red);">(<span id="checkout-items-count">0</span> món)</span>
         </h3>
 
         <!-- Mini items list -->
@@ -256,28 +383,35 @@
           <!-- Dynamically populated -->
         </div>
 
-        <!-- Voucher Input -->
+        <!-- Voucher Input & Quick Suggestions -->
         <div style="margin-bottom:16px;">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:#ffffff; margin-bottom:6px;">Mã Ưu Đãi / Voucher Giảm Giá</label>
           <div style="display:flex; gap:8px;">
-            <input type="text" id="checkout-voucher-input" class="custom-input" placeholder="Mã voucher (NINHBINH)" style="text-transform:uppercase; font-size:0.8125rem;">
-            <button class="btn btn-primary" onclick="window.applyCheckoutVoucher()" style="padding:0 14px; font-size:0.8125rem;">Áp Dụng</button>
+            <input type="text" id="checkout-voucher-input" class="custom-input" placeholder="Mã voucher (VD: NINHBINH)" style="text-transform:uppercase; font-size:0.8125rem;">
+            <button class="btn btn-primary" onclick="window.applyCheckoutVoucher()" style="padding:0 14px; font-size:0.8125rem; white-space:nowrap;">Áp Dụng</button>
           </div>
           <span id="checkout-voucher-msg" style="font-size:0.75rem; color:var(--accent-green); margin-top:4px; display:none;"></span>
+
+          <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
+            <span style="font-size:0.7rem; color:var(--text-muted);">Gợi ý mã:</span>
+            <button type="button" class="voucher-chip-btn" onclick="window.quickApplyVoucher('NINHBINH')">🎟️ NINHBINH (-15%)</button>
+            <button type="button" class="voucher-chip-btn" onclick="window.quickApplyVoucher('FREESHIP')">🚚 FREESHIP (0đ ship)</button>
+          </div>
         </div>
 
         <div class="summary-row">
-          <span>Tạm tính:</span>
+          <span>Tạm tính tiền hàng:</span>
           <strong id="checkout-subtotal">0₫</strong>
         </div>
 
         <div class="summary-row" id="checkout-discount-row" style="display:none; color:var(--accent-red);">
-          <span>Giảm giá:</span>
+          <span>Giảm giá khuyến mãi:</span>
           <strong id="checkout-discount">-0₫</strong>
         </div>
 
         <div class="summary-row">
           <span>Phí vận chuyển:</span>
-          <strong id="checkout-shipping">0₫</strong>
+          <strong id="checkout-shipping">MIỄN PHÍ</strong>
         </div>
 
         <div class="summary-row total-row">
@@ -285,12 +419,22 @@
           <span id="checkout-total">0₫</span>
         </div>
 
-        <button class="btn btn-primary" id="btn-submit-order" onclick="window.submitCheckoutOrder()" style="width:100%; height:52px; font-size:1rem; font-weight:800; text-transform:uppercase; margin-top:20px; box-shadow:0 6px 20px rgba(255,51,75,0.4);">
+        <button class="btn btn-primary" id="btn-submit-order" onclick="window.submitCheckoutOrder()" style="width:100%; height:52px; font-size:1.05rem; font-weight:800; text-transform:uppercase; margin-top:20px; box-shadow:0 6px 20px rgba(255,51,75,0.4); letter-spacing:0.04em;">
           ⚡ Đặt Hàng Ngay
         </button>
 
-        <p style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin-top:12px;">
-          Bằng việc bấm Đặt Hàng, bạn đồng ý với chính sách mua hàng của Nguyen Tu Fashion.
+        <!-- Trust Protection Box -->
+        <div style="margin-top:16px; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:var(--radius-sm); font-size:0.75rem; color:var(--text-secondary); line-height:1.5;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px; color:#ffffff; font-weight:700;">
+            <span>🔒</span> <span>BẢO ĐẢM MUA SẮM AN TOÀN 100%</span>
+          </div>
+          <div>✓ Đồng kiểm hàng tận tay cùng shipper trước khi trả tiền.</div>
+          <div>✓ Hỗ trợ đổi size trong 7 ngày nếu không vừa vặn.</div>
+          <div>✓ Hotline / Zalo giải quyết khiếu nại: <strong>0342.767.002</strong></div>
+        </div>
+
+        <p style="font-size:0.72rem; color:var(--text-muted); text-align:center; margin-top:12px;">
+          Bằng việc bấm Đặt Hàng, bạn đồng ý với chính sách mua sắm & đổi trả của Nguyen Tu Fashion.
         </p>
       </aside>
 
@@ -475,6 +619,92 @@
     let checkoutVoucherCode = null;
     let checkoutDiscountAmount = 0;
 
+    const VIETNAM_DISTRICTS = {
+      'Ninh Bình': [
+        'Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H)',
+        'TP. Ninh Bình (Ship hỏa tốc 2H)',
+        'Huyện Hoa Lư',
+        'TP. Tam Điệp',
+        'Huyện Kim Sơn',
+        'Huyện Gia Viễn',
+        'Huyện Nho Quan',
+        'Huyện Yên Mô'
+      ],
+      'Hà Nội': [
+        'Quận Ba Đình', 'Quận Hoàn Kiếm', 'Quận Cầu Giấy', 'Quận Đống Đa',
+        'Quận Hai Bà Trưng', 'Quận Thanh Xuân', 'Quận Hoàng Mai', 'Quận Long Biên',
+        'Quận Hà Đông', 'Quận Nam Từ Liêm', 'Quận Bắc Từ Liêm', 'Quận Tây Hồ',
+        'Huyện Gia Lâm', 'Huyện Đông Anh', 'Huyện Thanh Trì', 'Huyện Hoài Đức', 'Khu vực ngoại thành Hà Nội'
+      ],
+      'TP. Hồ Chí Minh': [
+        'Quận 1', 'Quận 3', 'Quận 7', 'TP. Thủ Đức', 'Quận Bình Thạnh',
+        'Quận Tân Bình', 'Quận Gò Vấp', 'Quận Phú Nhuận', 'Quận 10', 'Quận 12',
+        'Quận Bình Tân', 'Quận Tân Phú', 'Huyện Bình Chánh', 'Huyện Hóc Môn', 'Khu vực khác'
+      ],
+      'Nam Định': [
+        'TP. Nam Định', 'Huyện Ý Yên', 'Huyện Vụ Bản', 'Huyện Nam Trực',
+        'Huyện Hải Hậu', 'Huyện Giao Thủy', 'Huyện Nghĩa Hưng', 'Huyện Trực Ninh',
+        'Huyện Xuân Trường', 'Huyện Mỹ Lộc'
+      ],
+      'Hà Nam': [
+        'TP. Phủ Lý', 'Thị xã Duy Tiên', 'Huyện Kim Bảng', 'Huyện Thanh Liêm',
+        'Huyện Lý Nhân', 'Huyện Bình Lục'
+      ],
+      'Thanh Hóa': [
+        'TP. Thanh Hóa', 'TP. Sầm Sơn', 'Thị xã Bỉm Sơn', 'Thị xã Nghi Sơn',
+        'Huyện Nga Sơn', 'Huyện Hà Trung', 'Huyện Hoằng Hóa', 'Huyện Quảng Xương',
+        'Huyện Đông Sơn', 'Huyện Triệu Sơn', 'Khu vực khác'
+      ],
+      'Hải Phòng': [
+        'Quận Hồng Bàng', 'Quận Ngô Quyền', 'Quận Lê Chân', 'Quận Hải An',
+        'Quận Kiến An', 'Huyện An Dương', 'Huyện Thủy Nguyên', 'Khu vực khác'
+      ],
+      'Đà Nẵng': [
+        'Quận Hải Châu', 'Quận Thanh Khê', 'Quận Sơn Trà', 'Quận Ngũ Hành Sơn',
+        'Quận Liên Chiểu', 'Quận Cẩm Lệ', 'Huyện Hòa Vang'
+      ],
+      'Khác': [
+        'Quận / Huyện Trung Tâm', 'Quận / Huyện Ngoại Thành', 'Thị xã / Thành phố trực thuộc'
+      ]
+    };
+
+    window.handleCityChange = function (city) {
+      const districtSelect = document.getElementById('cust-district');
+      const hintMsg = document.getElementById('city-hint-msg');
+      const expressCard = document.getElementById('ship-express-card');
+      const standardCard = document.getElementById('ship-standard-card');
+
+      const districts = VIETNAM_DISTRICTS[city] || VIETNAM_DISTRICTS['Khác'];
+      districtSelect.innerHTML = districts.map((d, idx) => `<option value="${d}" ${idx===0?'selected':''}>${d}</option>`).join('');
+
+      if (city === 'Ninh Bình') {
+        if (hintMsg) hintMsg.textContent = '⚡ Ninh Bình: Hỗ trợ giao hỏa tốc 2H & Freeship từ 299K!';
+        window.selectShippingOption('express');
+      } else {
+        if (hintMsg) hintMsg.textContent = `🚚 Giao bưu điện hỏa tốc 2-3 ngày tới ${city} (Đồng kiểm COD)`;
+        window.selectShippingOption('standard');
+      }
+      updateCheckoutTotals();
+    };
+
+    window.handleDistrictChange = function (district) {
+      const city = document.getElementById('cust-city').value;
+      if (city === 'Ninh Bình') {
+        if (district.includes('TP. Ninh Bình') || district.includes('Yên Khánh')) {
+          window.selectShippingOption('express');
+        }
+      }
+      updateCheckoutTotals();
+    };
+
+    window.quickApplyVoucher = function (code) {
+      const input = document.getElementById('checkout-voucher-input');
+      if (input) {
+        input.value = code;
+        window.applyCheckoutVoucher();
+      }
+    };
+
     async function initCheckoutPage() {
       try {
         const res = await fetch('/api/settings');
@@ -545,11 +775,37 @@
       const subtotal = window.getCartSubtotal();
       document.getElementById('checkout-subtotal').textContent = window.formatVND(subtotal);
 
+      const city = document.getElementById('cust-city')?.value || 'Ninh Bình';
       let shippingFee = 30000;
-      if (subtotal >= 299000 || checkoutVoucherCode === 'FREESHIP' || checkoutShippingMethod === 'express') {
+
+      // Free shipping rules:
+      // 1. Order >= 299.000₫
+      // 2. Voucher FREESHIP
+      // 3. Ninh Binh local delivery
+      if (subtotal >= 299000 || checkoutVoucherCode === 'FREESHIP' || city === 'Ninh Bình' || checkoutShippingMethod === 'express') {
         shippingFee = 0;
       }
-      document.getElementById('checkout-shipping').textContent = shippingFee === 0 ? 'MIỄN PHÍ' : window.formatVND(shippingFee);
+
+      const shipEl = document.getElementById('checkout-shipping');
+      if (shipEl) {
+        if (shippingFee === 0) {
+          shipEl.innerHTML = '<span style="color:var(--accent-green); font-weight:800;">MIỄN PHÍ</span>';
+        } else {
+          shipEl.textContent = window.formatVND(shippingFee);
+        }
+      }
+
+      // Update badge on express card
+      const expressBadge = document.getElementById('express-ship-badge');
+      if (expressBadge) {
+        expressBadge.textContent = 'FREESHIP';
+      }
+
+      // Update standard label
+      const stdLabel = document.getElementById('standard-ship-fee-label');
+      if (stdLabel) {
+        stdLabel.textContent = (subtotal >= 299000 || checkoutVoucherCode === 'FREESHIP') ? 'FREESHIP' : '30.000₫';
+      }
 
       const discountRow = document.getElementById('checkout-discount-row');
       if (checkoutDiscountAmount > 0) {
@@ -593,11 +849,21 @@
         if (code === 'NINHBINH') {
           checkoutVoucherCode = 'NINHBINH';
           checkoutDiscountAmount = Math.round(subtotal * 0.15);
+          const msg = document.getElementById('checkout-voucher-msg');
+          if (msg) {
+            msg.textContent = '✓ Đã giảm 15% tổng hóa đơn';
+            msg.style.display = 'block';
+          }
           window.showToast('Áp dụng NINHBINH: Giảm 15%!', 'success');
           updateCheckoutTotals();
         } else if (code === 'FREESHIP') {
           checkoutVoucherCode = 'FREESHIP';
           checkoutDiscountAmount = 0;
+          const msg = document.getElementById('checkout-voucher-msg');
+          if (msg) {
+            msg.textContent = '✓ Miễn phí 100% chi phí vận chuyển';
+            msg.style.display = 'block';
+          }
           window.showToast('Áp dụng mã FREESHIP!', 'success');
           updateCheckoutTotals();
         }
