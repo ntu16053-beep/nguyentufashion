@@ -319,9 +319,31 @@
             <input type="text" value="NGUYEN TU FASHION" class="custom-input" readonly>
           </div>
           <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border-light);">
-            <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px;">Bật Báo Đơn Hàng Qua Telegram</h4>
-            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Mỗi khi có khách đặt hàng, bot Telegram sẽ tự động gửi thông báo chi tiết đến điện thoại của bạn.</p>
-            <button class="btn btn-outline-white" onclick="alert('Nhập Bot Token và Chat ID trong Cài đặt server.js')">Cài Đặt Telegram Bot</button>
+            <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--accent-red);">Thông Báo Đơn Hàng Qua Telegram</h4>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Mỗi khi có khách đặt hàng mới hoặc gửi yêu cầu tư vấn, bot sẽ tự động gửi chuông báo và thông tin chi tiết đến ứng dụng Telegram của bạn.</p>
+
+            <div class="form-control-wrap">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="tg-enable-checkbox" style="width:18px; height:18px; accent-color:var(--accent-red);">
+                <span style="font-weight:700; color:#fff;">Kích hoạt tính năng thông báo tự động</span>
+              </label>
+            </div>
+
+            <div class="form-control-wrap">
+              <label>Telegram Bot Token (Lấy từ @BotFather):</label>
+              <input type="text" id="tg-bot-token" class="custom-input" placeholder="VD: 123456789:ABCdefGHIjklMNOpqrSTUvwxYZ">
+            </div>
+
+            <div class="form-control-wrap">
+              <label>Telegram Chat ID (Lấy từ @userinfobot):</label>
+              <input type="text" id="tg-chat-id" class="custom-input" placeholder="VD: 123456789 hoặc -100123456789">
+            </div>
+
+            <div style="display:flex; gap:10px; margin-top:16px;">
+              <button class="btn btn-primary" onclick="window.saveTelegramSettings()">Lưu Cấu Hình</button>
+              <button class="btn btn-outline-white" onclick="window.testTelegramAlert()">Gửi Tin Nhắn Test</button>
+            </div>
+            <div id="tg-test-result" style="margin-top:12px; font-size:0.8125rem;"></div>
           </div>
         </div>
       </section>
@@ -368,6 +390,7 @@
       if (paneKey === 'products') window.loadAdminProducts();
       if (paneKey === 'coupons') window.loadAdminCoupons();
       if (paneKey === 'inquiries') window.loadAdminInquiries();
+      if (paneKey === 'settings') window.loadAdminSettings();
     };
 
     async function loadAnalyticsData() {
@@ -482,6 +505,75 @@
           </tr>
         `).join('');
       } catch (e) {}
+    };
+
+    window.loadAdminSettings = async function () {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.settings && data.settings.telegram) {
+          document.getElementById('tg-enable-checkbox').checked = !!data.settings.telegram.enabled;
+          document.getElementById('tg-chat-id').value = data.settings.telegram.chatId || '';
+          if (data.settings.telegram.hasToken) {
+            document.getElementById('tg-bot-token').placeholder = 'Đã lưu Token: ' + data.settings.telegram.botToken;
+          }
+        }
+      } catch (e) {}
+    };
+
+    window.saveTelegramSettings = async function () {
+      const enabled = document.getElementById('tg-enable-checkbox').checked;
+      const botToken = document.getElementById('tg-bot-token').value.trim();
+      const chatId = document.getElementById('tg-chat-id').value.trim();
+
+      const payload = {
+        telegram: {
+          enabled: enabled,
+          chatId: chatId
+        }
+      };
+      if (botToken) {
+        payload.telegram.botToken = botToken;
+      }
+
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast('Lưu cấu hình Telegram thành công!', 'success');
+        }
+      } catch (e) {
+        window.showToast('Lỗi lưu cấu hình', 'error');
+      }
+    };
+
+    window.testTelegramAlert = async function () {
+      const botToken = document.getElementById('tg-bot-token').value.trim();
+      const chatId = document.getElementById('tg-chat-id').value.trim();
+      const resultDiv = document.getElementById('tg-test-result');
+
+      resultDiv.innerHTML = '<span style="color:#aaa;">Đang gửi tin nhắn test...</span>';
+
+      try {
+        const res = await fetch('/api/telegram/test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ botToken, chatId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          resultDiv.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">✓ ${data.message}</span>`;
+          window.showToast('Gửi tin nhắn test thành công! Hãy kiểm tra Telegram.', 'success');
+        } else {
+          resultDiv.innerHTML = `<span style="color:var(--accent-red); font-weight:700;">✕ ${data.message}</span>`;
+        }
+      } catch (e) {
+        resultDiv.innerHTML = '<span style="color:var(--accent-red);">Lỗi kết nối máy chủ Telegram!</span>';
+      }
     };
   </script>
 </body>

@@ -21,7 +21,7 @@
       ],
       "stock": {
         "M": 20,
-        "L": 35,
+        "L": 34,
         "XL": 25,
         "XXL": 15
       },
@@ -1770,7 +1770,7 @@
       "minOrder": 299000,
       "maxDiscount": 150000,
       "isActive": true,
-      "usageCount": 38,
+      "usageCount": 39,
       "expiry": "2026-12-31"
     },
     {
@@ -1820,9 +1820,9 @@
       "template": "compact2"
     },
     "telegram": {
-      "enabled": false,
-      "botToken": "",
-      "chatId": ""
+      "enabled": true,
+      "botToken": "8948338473:AAHz4HEJ2mj2GEU5GkE22wnMdL2rKqK79zg",
+      "chatId": "8196871733"
     }
   },
   "contacts": [
