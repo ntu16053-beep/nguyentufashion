@@ -192,8 +192,63 @@ app.post('/api/products', (req, res) => {
   res.status(201).json({ success: true, message: 'Thêm sản phẩm thành công', product: newProduct });
 });
 
+// ==========================================
+// GITHUB AUTO-SYNC HELPER
+// Automatically commits data/db.json to GitHub repository upon changes
+// ==========================================
+async function syncToGitHub(filePath, contentString, commitMessage, token) {
+  if (!token) return { success: false, message: 'No GitHub token configured' };
+  const repo = process.env.GITHUB_REPO || 'ntu16053-beep/nguyentufashion';
+  const url = `https://api.github.com/repos/${repo}/contents/${filePath}`;
+
+  try {
+    const getRes = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'User-Agent': 'NguyenTuFashion-Admin',
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    let sha = undefined;
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    }
+
+    const putRes = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'User-Agent': 'NguyenTuFashion-Admin',
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify({
+        message: commitMessage,
+        content: Buffer.from(contentString, 'utf-8').toString('base64'),
+        sha: sha,
+        branch: 'main'
+      })
+    });
+
+    if (putRes.ok) {
+      const data = await putRes.json();
+      console.log('[GitHub Auto-Sync] Committed successfully:', data.commit?.html_url);
+      return { success: true, commitUrl: data.commit?.html_url };
+    } else {
+      const err = await putRes.json();
+      console.error('[GitHub Auto-Sync Error]', err);
+      return { success: false, error: err };
+    }
+  } catch (e) {
+    console.error('[GitHub Auto-Sync Exception]', e);
+    return { success: false, error: e.message };
+  }
+}
+
 // PUT /api/products/:id (Admin update)
-app.put('/api/products/:id', (req, res) => {
+app.put('/api/products/:id', async (req, res) => {
   const db = readDB();
   const idx = (db.products || []).findIndex(p => p.id === req.params.id);
   if (idx === -1) {
@@ -213,7 +268,24 @@ app.put('/api/products/:id', (req, res) => {
   db.products[idx] = updated;
   writeDB(db);
 
-  res.json({ success: true, message: 'Cập nhật sản phẩm thành công', product: updated });
+  // Auto-sync to GitHub
+  let githubSyncResult = null;
+  const githubToken = process.env.GITHUB_TOKEN || db.settings?.githubToken;
+  if (githubToken) {
+    githubSyncResult = await syncToGitHub(
+      'data/db.json',
+      JSON.stringify(db, null, 2),
+      `feat(products): update price for ${updated.title} (${updated.id}) via admin`,
+      githubToken
+    );
+  }
+
+  res.json({
+    success: true,
+    message: 'Cập nhật sản phẩm thành công',
+    product: updated,
+    githubSync: githubSyncResult
+  });
 });
 
 // DELETE /api/products/:id
@@ -228,6 +300,66 @@ app.delete('/api/products/:id', (req, res) => {
   writeDB(db);
 
   res.json({ success: true, message: 'Đã xóa sản phẩm', product: removed[0] });
+});
+
+// ==========================================
+// 1.1 REVIEWS REST API
+// ==========================================
+
+// GET /api/products/:id/reviews
+app.get('/api/products/:id/reviews', (req, res) => {
+  const db = readDB();
+  const prodId = req.params.id;
+  const list = (db.reviews || []).filter(r => r.productId === prodId);
+  res.json({ success: true, count: list.length, reviews: list });
+});
+
+// POST /api/products/:id/reviews
+app.post('/api/products/:id/reviews', (req, res) => {
+  const db = readDB();
+  const prodId = req.params.id;
+  const prod = (db.products || []).find(p => p.id === prodId);
+  if (!prod) {
+    return res.status(404).json({ success: false, message: 'Sản phẩm không tồn tại' });
+  }
+
+  const { customerName, phone, rating, comment, sizePurchased } = req.body;
+  if (!customerName || !comment) {
+    return res.status(400).json({ success: false, message: 'Vui lòng cung cấp Họ tên và Nhận xét!' });
+  }
+
+  const maskedPhone = phone ? phone.trim().slice(0, 3) + '****' + phone.trim().slice(-3) : '';
+
+  const newReview = {
+    id: 'rev-' + Date.now(),
+    productId: prodId,
+    customerName: customerName.trim(),
+    phone: maskedPhone,
+    rating: Math.min(5, Math.max(1, Number(rating) || 5)),
+    sizePurchased: sizePurchased || 'L',
+    comment: comment.trim(),
+    isVerifiedBuyer: true,
+    createdAt: new Date().toISOString()
+  };
+
+  db.reviews = db.reviews || [];
+  db.reviews.unshift(newReview);
+
+  // Recalculate average rating & reviews count for product
+  const prodReviews = db.reviews.filter(r => r.productId === prodId);
+  const totalStars = prodReviews.reduce((sum, r) => sum + r.rating, 0);
+  prod.reviews = prodReviews.length;
+  prod.rating = Number((totalStars / prodReviews.length).toFixed(1));
+
+  writeDB(db);
+
+  res.status(201).json({
+    success: true,
+    message: 'Gửi đánh giá thành công! Cảm ơn bạn đã đóng góp.',
+    review: newReview,
+    productRating: prod.rating,
+    totalReviews: prod.reviews
+  });
 });
 
 // ==========================================
@@ -470,22 +602,26 @@ app.get('/api/orders', (req, res) => {
   res.json({ success: true, count: list.length, orders: list });
 });
 
-// GET /api/orders/track (Customer tracking by phone)
+// GET /api/orders/track (Customer tracking by phone OR orderId)
 app.get('/api/orders/track', (req, res) => {
-  const { phone } = req.query;
-  if (!phone) {
-    return res.status(400).json({ success: false, message: 'Vui lòng cung cấp số điện thoại!' });
-  }
-
-  const cleanPhone = phone.trim().replace(/\s+/g, '');
+  const { phone, orderId } = req.query;
   const db = readDB();
-  const customerOrders = (db.orders || [])
-    .filter(o => o.customerPhone.replace(/\s+/g, '') === cleanPhone)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  let customerOrders = db.orders || [];
+
+  if (orderId && orderId.trim()) {
+    const cleanId = orderId.trim().toUpperCase();
+    customerOrders = customerOrders.filter(o => o.id.toUpperCase() === cleanId);
+  } else if (phone && phone.trim()) {
+    const cleanPhone = phone.trim().replace(/\s+/g, '');
+    customerOrders = customerOrders
+      .filter(o => (o.customerPhone || '').replace(/\s+/g, '') === cleanPhone)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else {
+    return res.status(400).json({ success: false, message: 'Vui lòng cung cấp số điện thoại hoặc mã đơn hàng!' });
+  }
 
   res.json({
     success: true,
-    phone: cleanPhone,
     count: customerOrders.length,
     orders: customerOrders
   });
@@ -501,7 +637,7 @@ app.get('/api/orders/:id', (req, res) => {
   res.json({ success: true, order });
 });
 
-// PUT /api/orders/:id/status (Admin change order status)
+// PUT /api/orders/:id/status (Admin change order status with stock auto-management)
 app.put('/api/orders/:id/status', (req, res) => {
   const { status, note } = req.body;
   const validStatuses = ['pending', 'confirmed', 'shipping', 'completed', 'cancelled'];
@@ -516,6 +652,26 @@ app.put('/api/orders/:id/status', (req, res) => {
     return res.status(404).json({ success: false, message: 'Không tìm thấy đơn hàng' });
   }
 
+  const prevStatus = order.status;
+
+  // Restore stock when order is cancelled
+  if (status === 'cancelled' && prevStatus !== 'cancelled') {
+    (order.items || []).forEach(item => {
+      const prod = (db.products || []).find(p => p.id === item.productId);
+      if (prod && prod.stock && item.size && prod.stock[item.size] !== undefined) {
+        prod.stock[item.size] += Number(item.quantity) || 1;
+      }
+    });
+  } else if (prevStatus === 'cancelled' && status !== 'cancelled') {
+    // Re-deduct stock if un-cancelling
+    (order.items || []).forEach(item => {
+      const prod = (db.products || []).find(p => p.id === item.productId);
+      if (prod && prod.stock && item.size && prod.stock[item.size] !== undefined) {
+        prod.stock[item.size] = Math.max(0, prod.stock[item.size] - (Number(item.quantity) || 1));
+      }
+    });
+  }
+
   order.status = status;
   if (status === 'completed') {
     order.paymentStatus = 'paid';
@@ -526,7 +682,7 @@ app.put('/api/orders/:id/status', (req, res) => {
     confirmed: 'Shop đã duyệt đơn & đang tiến hành đóng gói',
     shipping: 'Shipper hỏa tốc Ninh Bình đang giao hàng đến bạn',
     completed: 'Đơn hàng đã được giao thành công',
-    cancelled: 'Đơn hàng đã bị hủy'
+    cancelled: 'Đơn hàng đã bị hủy (Đã hoàn lại số lượng tồn kho)'
   };
 
   order.timeline = order.timeline || [];
@@ -645,6 +801,10 @@ app.get('/api/settings', (req, res) => {
     safeSettings.telegram.hasToken = true;
     safeSettings.telegram.botToken = safeSettings.telegram.botToken.substring(0, 6) + '******';
   }
+  if (safeSettings.githubToken) {
+    safeSettings.hasGithubToken = true;
+    safeSettings.githubToken = safeSettings.githubToken.substring(0, 8) + '******';
+  }
   res.json({ success: true, settings: safeSettings });
 });
 
@@ -657,6 +817,31 @@ app.put('/api/settings', (req, res) => {
   };
   writeDB(db);
   res.json({ success: true, message: 'Cập nhật cấu hình thành công', settings: db.settings });
+});
+
+// POST /api/github/test
+app.post('/api/github/test', async (req, res) => {
+  const token = req.body.token || process.env.GITHUB_TOKEN || readDB().settings?.githubToken;
+  if (!token) return res.status(400).json({ success: false, message: 'Chưa cung cấp GitHub Token' });
+
+  try {
+    const userRes = await fetch('https://api.github.com/user', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'User-Agent': 'NguyenTuFashion-Admin'
+      }
+    });
+
+    if (userRes.ok) {
+      const u = await userRes.json();
+      return res.json({ success: true, message: `Kết nối thành công! Tài khoản: ${u.login}` });
+    } else {
+      const err = await userRes.json();
+      return res.status(400).json({ success: false, message: err.message || 'Token không hợp lệ' });
+    }
+  } catch (e) {
+    return res.status(500).json({ success: false, message: e.message });
+  }
 });
 
 // POST /api/telegram/test
@@ -767,6 +952,41 @@ app.post('/api/articles', (req, res) => {
   db.articles.unshift(newArticle);
   writeDB(db);
   res.status(201).json({ success: true, message: 'Đăng bài viết thành công', article: newArticle });
+});
+
+// PUT /api/articles/:id (Admin update article)
+app.put('/api/articles/:id', (req, res) => {
+  const db = readDB();
+  const idx = (db.articles || []).findIndex(a => a.id === req.params.id);
+  if (idx === -1) {
+    return res.status(404).json({ success: false, message: 'Không tìm thấy bài viết' });
+  }
+
+  const current = db.articles[idx];
+  const updated = {
+    ...current,
+    ...req.body,
+    updatedAt: new Date().toISOString()
+  };
+
+  db.articles[idx] = updated;
+  writeDB(db);
+
+  res.json({ success: true, message: 'Cập nhật bài viết thành công', article: updated });
+});
+
+// DELETE /api/articles/:id (Admin delete article)
+app.delete('/api/articles/:id', (req, res) => {
+  const db = readDB();
+  const idx = (db.articles || []).findIndex(a => a.id === req.params.id);
+  if (idx === -1) {
+    return res.status(404).json({ success: false, message: 'Không tìm thấy bài viết' });
+  }
+
+  const removed = db.articles.splice(idx, 1);
+  writeDB(db);
+
+  res.json({ success: true, message: 'Đã xóa bài viết', article: removed[0] });
 });
 
 // ==========================================

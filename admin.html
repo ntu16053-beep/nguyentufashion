@@ -346,6 +346,22 @@
             </div>
             <div id="tg-test-result" style="margin-top:12px; font-size:0.8125rem;"></div>
           </div>
+
+          <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border-light);">
+            <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--accent-gold);">Tự Động Đồng Bộ Lên GitHub (Auto-Commit)</h4>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Khi cấu hình GitHub Token, mỗi lần bạn bấm <strong>"Sửa Giá"</strong> trên trang quản trị, hệ thống sẽ tự động commit và đẩy thẳng lên kho GitHub <code>ntu16053-beep/nguyentufashion</code> để Vercel cập nhật cho toàn bộ khách hàng mà không cần gõ lệnh.</p>
+
+            <div class="form-control-wrap">
+              <label>GitHub Personal Access Token (PAT):</label>
+              <input type="password" id="gh-token-input" class="custom-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+            </div>
+
+            <div style="display:flex; gap:10px; margin-top:16px;">
+              <button class="btn btn-primary" onclick="window.saveGitHubSettings()">Lưu GitHub Token</button>
+              <button class="btn btn-outline-white" onclick="window.testGitHubConnection()">Kiểm Tra Kết Nối</button>
+            </div>
+            <div id="gh-test-result" style="margin-top:12px; font-size:0.8125rem;"></div>
+          </div>
         </div>
       </section>
 
@@ -677,6 +693,9 @@
             document.getElementById('tg-bot-token').placeholder = 'Đã lưu Token: ' + data.settings.telegram.botToken;
           }
         }
+        if (data.settings && data.settings.hasGithubToken) {
+          document.getElementById('gh-token-input').placeholder = 'Đã lưu Token: ' + data.settings.githubToken;
+        }
       } catch (e) {}
     };
 
@@ -732,6 +751,52 @@
         }
       } catch (e) {
         resultDiv.innerHTML = '<span style="color:var(--accent-red);">Lỗi kết nối máy chủ Telegram!</span>';
+      }
+    };
+
+    window.saveGitHubSettings = async function () {
+      const token = document.getElementById('gh-token-input').value.trim();
+      if (!token) {
+        alert('Vui lòng nhập GitHub Personal Access Token!');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ githubToken: token })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('✅ Đã lưu cấu hình GitHub Token thành công! Bây giờ mỗi lần bạn sửa giá, hệ thống sẽ tự động commit lên GitHub.');
+        } else {
+          alert('Không thể lưu cấu hình.');
+        }
+      } catch (e) {
+        alert('Lỗi kết nối khi lưu cấu hình.');
+      }
+    };
+
+    window.testGitHubConnection = async function () {
+      const token = document.getElementById('gh-token-input').value.trim();
+      const resultDiv = document.getElementById('gh-test-result');
+      resultDiv.innerHTML = '<span style="color:#aaa;">Đang kết nối kiểm tra GitHub API...</span>';
+
+      try {
+        const res = await fetch('/api/github/test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+        const data = await res.json();
+        if (data.success) {
+          resultDiv.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">✓ ${data.message}</span>`;
+        } else {
+          resultDiv.innerHTML = `<span style="color:var(--accent-red); font-weight:700;">✕ ${data.message}</span>`;
+        }
+      } catch (e) {
+        resultDiv.innerHTML = '<span style="color:var(--accent-red);">Lỗi kết nối máy chủ!</span>';
       }
     };
   </script>
