@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Mục Sản Phẩm | NGUYEN TU FASHION Ninh Bình</title>
+  <meta name="description" content="Khám phá bộ sưu tập Streetwear, Áo khoác gió thể thao, Áo thun oversize, Quần dù Parachute tại Nguyen Tu Fashion Ninh Bình.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Google Fonts: Be Vietnam Pro & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <aside class="announcement-bar">
+    <div class="announcement-content">
+      <div class="announcement-group">
+        <span class="announcement-item">📍 Showroom: Khánh Nhạc - Ninh Bình</span>
+        <span class="announcement-item">⚡ Hỏa Tốc 2H Nội Thành</span>
+      </div>
+
+      <div class="announcement-group center">
+        <span class="announcement-item promo-item">
+          <span class="badge-tag">Ninh Bình Drop</span>
+          <span>Freeship toàn Ninh Bình cho đơn từ 299K • Mã: <strong>NINHBINH</strong> giảm 15%</span>
+        </span>
+      </div>
+
+      <div class="announcement-group">
+        <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
+        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.888.888</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- STICKY HEADER & NAVIGATION -->
+  <header class="header">
+    <div class="nav-container">
+      <button class="mobile-menu-btn" aria-label="Menu" onclick="window.toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="index.html" class="brand-wrapper">
+        <img src="assets/images/logo.png" alt="Nguyen Tu Fashion Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NGUYENTU</span>
+          <span class="brand-sub">FASHION • EST. 2025</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="products.html" class="nav-link active">Sản Phẩm</a>
+        <a href="products.html?category=tee" class="nav-link">Áo Thun</a>
+        <a href="products.html?category=jacket" class="nav-link">Áo Khoác</a>
+        <a href="products.html?category=pants" class="nav-link">Quần Dài</a>
+        <a href="products.html?category=tracksuit" class="nav-link">Tracksuit</a>
+        <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
+        <a href="blog.html" class="nav-link">Bài Viết</a>
+        <a href="contact.html" class="nav-link">Liên Hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="action-btn" title="Tìm kiếm" onclick="window.openSearchModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <a href="products.html?filter=wishlist" class="action-btn" title="Yêu thích">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span class="action-badge wishlist-count-badge" style="display:none;">0</span>
+        </a>
+
+        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="action-badge cart-count-badge" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO & BREADCRUMB -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <nav class="breadcrumb-nav">
+        <a href="index.html">Trang Chủ</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" id="category-breadcrumb-title">Danh Mục Sản Phẩm</span>
+      </nav>
+      <h1 class="page-hero-title" id="page-hero-title">Bộ Sưu Tập Streetwear Ninh Bình</h1>
+      <p class="page-hero-subtitle" id="page-hero-desc">Tuyển tập những thiết kế dẫn đầu xu hướng đường phố, chất lượng may đo cao cấp và kiểu dáng tự do phóng khoáng.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CATALOG AREA -->
+  <main class="catalog-page-container">
+    <div class="container">
+      <div class="catalog-layout">
+        
+        <!-- SIDEBAR FILTERS -->
+        <aside class="filter-sidebar" id="filter-sidebar">
+          <div class="filter-sidebar-header">
+            <span class="filter-sidebar-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+              Bộ Lọc Tìm Kiếm
+            </span>
+            <button class="filter-clear-btn" onclick="window.resetCatalogFilters()">Xóa Lọc</button>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Danh Mục</h4>
+            <div class="filter-options-list">
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="all" checked onchange="window.setCategoryFilter('all')">
+                <span>Tất cả sản phẩm</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="jacket" onchange="window.setCategoryFilter('jacket')">
+                <span>Áo khoác gió & Retro</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="tee" onchange="window.setCategoryFilter('tee')">
+                <span>Áo thun Oversize</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="shirt" onchange="window.setCategoryFilter('shirt')">
+                <span>Áo sơ mi Cuban & Họa tiết</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="tracksuit" onchange="window.setCategoryFilter('tracksuit')">
+                <span>Bộ nỉ & Tracksuit thể thao</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="pants" onchange="window.setCategoryFilter('pants')">
+                <span>Quần dài Parachute & Jean</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="short" onchange="window.setCategoryFilter('short')">
+                <span>Quần short thể thao</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="shoes" onchange="window.setCategoryFilter('shoes')">
+                <span>Giày Sneakers</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="hat" onchange="window.setCategoryFilter('hat')">
+                <span>Mũ bucket & Nón kết</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="catFilter" value="bag" onchange="window.setCategoryFilter('bag')">
+                <span>Túi đeo chéo & Balo</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Khoảng Giá</h4>
+            <div class="filter-options-list">
+              <label class="filter-check-item">
+                <input type="radio" name="priceFilter" value="all" checked onchange="window.setPriceFilter('all')">
+                <span>Tất cả mức giá</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="priceFilter" value="under-300" onchange="window.setPriceFilter('under-300')">
+                <span>Dưới 300.000₫</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="priceFilter" value="300-500" onchange="window.setPriceFilter('300-500')">
+                <span>300.000₫ - 500.000₫</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="priceFilter" value="500-800" onchange="window.setPriceFilter('500-800')">
+                <span>500.000₫ - 800.000₫</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="radio" name="priceFilter" value="over-800" onchange="window.setPriceFilter('over-800')">
+                <span>Trên 800.000₫</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Size Filter Chips -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Kích Thước (Size)</h4>
+            <div class="filter-chips-grid">
+              <button class="filter-chip-btn active" data-size="all" onclick="window.setSizeFilter('all', this)">Tất cả</button>
+              <button class="filter-chip-btn" data-size="M" onclick="window.setSizeFilter('M', this)">M</button>
+              <button class="filter-chip-btn" data-size="L" onclick="window.setSizeFilter('L', this)">L</button>
+              <button class="filter-chip-btn" data-size="XL" onclick="window.setSizeFilter('XL', this)">XL</button>
+              <button class="filter-chip-btn" data-size="XXL" onclick="window.setSizeFilter('XXL', this)">XXL</button>
+            </div>
+          </div>
+
+          <!-- Badges Filter -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Nhãn Đặc Biệt</h4>
+            <div class="filter-options-list">
+              <label class="filter-check-item">
+                <input type="checkbox" value="hot" onchange="window.toggleBadgeFilter('hot', this)">
+                <span>🔥 Bán chạy (Hot)</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="checkbox" value="sale" onchange="window.toggleBadgeFilter('sale', this)">
+                <span>🏷️ Giảm giá sốc (Sale)</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="checkbox" value="new" onchange="window.toggleBadgeFilter('new', this)">
+                <span>✨ Hàng mới về (New)</span>
+              </label>
+              <label class="filter-check-item">
+                <input type="checkbox" value="local" onchange="window.toggleBadgeFilter('local', this)">
+                <span>📍 Ninh Bình Exclusive Drop</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%; margin-top:10px;" onclick="window.closeMobileFilter()">
+            Xem Kết Quả
+          </button>
+        </aside>
+
+        <!-- CATALOG MAIN -->
+        <section class="catalog-main">
+          
+          <!-- Toolbar -->
+          <div class="catalog-toolbar">
+            <div class="catalog-count-text">
+              Hiển thị <strong id="catalog-count-num">50</strong> sản phẩm
+            </div>
+
+            <button class="mobile-filter-trigger" onclick="window.openMobileFilter()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+              Lọc Sản Phẩm
+            </button>
+
+            <div class="catalog-sort-wrap">
+              <label for="catalog-sort-select">Sắp xếp theo:</label>
+              <select id="catalog-sort-select" class="custom-select" onchange="window.handleSortChange(this.value)">
+                <option value="featured">Nổi bật nhất</option>
+                <option value="newest">Hàng mới nhất</option>
+                <option value="price-asc">Giá: Thấp đến Cao</option>
+                <option value="price-desc">Giá: Cao đến Thấp</option>
+                <option value="rating">Đánh giá cao nhất</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Grid -->
+          <div class="product-grid" id="catalog-product-grid">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="catalog-empty-state" style="display:none; text-align:center; padding:60px 20px; background:var(--bg-card); border-radius:var(--radius-md); border:1px solid var(--border-light);">
+            <div style="font-size:3rem; margin-bottom:12px;">🛍️</div>
+            <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:8px;">Không tìm thấy sản phẩm nào!</h3>
+            <p style="color:var(--text-secondary); margin-bottom:20px;">Vui lòng thử bỏ bớt bộ lọc hoặc chọn danh mục khác.</p>
+            <button class="btn btn-primary" onclick="window.resetCatalogFilters()">Xóa Bộ Lọc</button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tìm Kiếm Sản Phẩm</h3>
+        <button onclick="window.closeSearchModal()" style="font-size:1.5rem; color:#fff;">&times;</button>
+      </div>
+      <input type="text" id="search-input" class="custom-input" placeholder="Tìm theo tên áo, quần, nón..." oninput="window.handleSearchInput(event)">
+      <div id="search-results-list" style="margin-top:16px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="margin-top:60px;">
+    <div class="container">
+      <div class="footer-top" style="display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:30px; margin-bottom:40px;">
+        <div>
+          <a href="index.html" class="brand-wrapper" style="margin-bottom:16px; display:inline-flex;">
+            <img src="assets/images/logo.png" alt="Logo" class="brand-logo-img">
+            <div class="brand-text">
+              <span class="brand-name">NGUYENTU</span>
+              <span class="brand-sub">FASHION • EST. 2025</span>
+            </div>
+          </a>
+          <p style="color:#9ca3af; font-size:0.875rem; line-height:1.6; max-width:320px;">
+            Thương hiệu thời trang Streetwear phong cách giới trẻ hàng đầu Ninh Bình. Showroom trải nghiệm tại Khánh Nhạc, giao hỏa tốc 2H toàn tỉnh.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Danh Mục</h4>
+          <ul class="footer-links">
+            <li><a href="products.html?category=jacket">Áo Khoác Gió</a></li>
+            <li><a href="products.html?category=tee">Áo Thun Streetwear</a></li>
+            <li><a href="products.html?category=tracksuit">Bộ Thể Thao Tracksuit</a></li>
+            <li><a href="products.html?category=pants">Quần Dài Parachute</a></li>
+            <li><a href="products.html?category=shoes">Giày Sneakers</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Chính Sách</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Đổi Trả 7 Ngày Miễn Phí</a></li>
+            <li><a href="contact.html">Vận Chuyển Hỏa Tốc Ninh Bình</a></li>
+            <li><a href="contact.html">Chính Sách Đồng Kiểm COD</a></li>
+            <li><a href="contact.html">Bảo Hành & Đổi Size</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Showroom Ninh Bình</h4>
+          <p style="font-size:0.875rem; color:#9ca3af; line-height:1.6; margin-bottom:8px;">
+            📍 Khánh Nhạc, Yên Khánh, Ninh Bình
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:8px;">
+            📞 <strong>0988.888.888</strong>
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af;">
+            🕒 08:30 - 22:00 hàng ngày
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NGUYEN TU FASHION. All Rights Reserved.</span>
+        <span>Made with passion in Ninh Binh, Vietnam.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COMMON JS & CHAT WIDGET -->
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/chat-widget.js"></script>
+
+  <!-- CATALOG LOGIC -->
+  <script>
+    let currentCategory = 'all';
+    let currentPrice = 'all';
+    let currentSize = 'all';
+    let currentBadges = [];
+    let currentSort = 'featured';
+
+    // Parse URL Query Params
+    function parseURLParams() {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('category');
+      if (cat) {
+        currentCategory = cat;
+        const radio = document.querySelector(`input[name="catFilter"][value="${cat}"]`);
+        if (radio) radio.checked = true;
+      }
+      const sort = params.get('sort');
+      if (sort) {
+        currentSort = sort;
+        const sortSelect = document.getElementById('catalog-sort-select');
+        if (sortSelect) sortSelect.value = sort;
+      }
+    }
+
+    // Filter Handlers
+    window.setCategoryFilter = function (cat) {
+      currentCategory = cat;
+      updateCategoryHeroTitle(cat);
+      renderCatalog();
+    };
+
+    window.setPriceFilter = function (priceRange) {
+      currentPrice = priceRange;
+      renderCatalog();
+    };
+
+    window.setSizeFilter = function (size, btn) {
+      currentSize = size;
+      document.querySelectorAll('.filter-chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCatalog();
+    };
+
+    window.toggleBadgeFilter = function (badge, checkbox) {
+      if (checkbox.checked) {
+        currentBadges.push(badge);
+      } else {
+        currentBadges = currentBadges.filter(b => b !== badge);
+      }
+      renderCatalog();
+    };
+
+    window.handleSortChange = function (val) {
+      currentSort = val;
+      renderCatalog();
+    };
+
+    window.resetCatalogFilters = function () {
+      currentCategory = 'all';
+      currentPrice = 'all';
+      currentSize = 'all';
+      currentBadges = [];
+      currentSort = 'featured';
+
+      document.querySelectorAll('input[name="catFilter"]').forEach(r => r.checked = (r.value === 'all'));
+      document.querySelectorAll('input[name="priceFilter"]').forEach(r => r.checked = (r.value === 'all'));
+      document.querySelectorAll('.filter-check-item input[type="checkbox"]').forEach(c => c.checked = false);
+      document.querySelectorAll('.filter-chip-btn').forEach(b => b.classList.toggle('active', b.dataset.size === 'all'));
+      const sortSelect = document.getElementById('catalog-sort-select');
+      if (sortSelect) sortSelect.value = 'featured';
+
+      updateCategoryHeroTitle('all');
+      renderCatalog();
+      window.showToast('Đã đặt lại toàn bộ bộ lọc', 'info');
+    };
+
+    function updateCategoryHeroTitle(cat) {
+      const titles = {
+        all: { title: 'Bộ Sưu Tập Streetwear Ninh Bình', desc: 'Tuyển tập những thiết kế dẫn đầu xu hướng đường phố, chất lượng may đo cao cấp và kiểu dáng tự do phóng khoáng.' },
+        jacket: { title: 'Áo Khoác Gió & Retro', desc: 'Cản gió chống nước nhẹ, phối màu Blokecore và logo thêu sắc nét dẫn đầu phong cách.' },
+        tee: { title: 'Áo Thun Streetwear Oversize', desc: 'Chất cotton 100% 2 chiều 250gsm dày dặn, hình in lụa cá tính không bong tróc.' },
+        shirt: { title: 'Áo Sơ Mi Họa Tiết & Cuban Collar', desc: 'Phom suông lụa tơ cao cấp, phóng khoáng cho những buổi dạo phố và du lịch.' },
+        tracksuit: { title: 'Bộ Nỉ & Tracksuit Thể Thao', desc: 'Dáng thể thao đồng bộ, chất thun nỉ co giãn 4 chiều giữ ấm tôn dáng cực đỉnh.' },
+        pants: { title: 'Quần Dài Parachute & Jean', desc: 'Quần vải dù dây rút thông minh và quần bò ống rộng phóng khoáng.' },
+        short: { title: 'Quần Short Thể Thao', desc: 'Năng động, thoáng mát, dễ phối cùng áo thun oversize hoặc hoodie.' },
+        shoes: { title: 'Sneakers Streetwear', desc: 'Những mẫu giày kinh điển hoàn thiện set đồ đường phố của bạn.' },
+        hat: { title: 'Mũ Bucket & Nón Lưỡi Trai', desc: 'Phụ kiện điểm nhấn hoàn hảo cho cá tính phong cách Gen Z.' },
+        bag: { title: 'Túi Đeo Chéo & Balo', desc: 'Tiện lợi, nhỏ gọn và thời trang cho mọi chuyến đi.' }
+      };
+
+      const info = titles[cat] || titles.all;
+      document.getElementById('page-hero-title').textContent = info.title;
+      document.getElementById('page-hero-desc').textContent = info.desc;
+      document.getElementById('category-breadcrumb-title').textContent = (cat !== 'all') ? info.title : 'Danh Mục Sản Phẩm';
+    }
+
+    // Render Product Cards
+    function renderCatalog() {
+      const grid = document.getElementById('catalog-product-grid');
+      const empty = document.getElementById('catalog-empty-state');
+      const countEl = document.getElementById('catalog-count-num');
+      if (!grid) return;
+
+      const products = window.ALL_PRODUCTS || [];
+
+      // Filter
+      let list = products.filter(p => {
+        // Category
+        if (currentCategory !== 'all' && p.category !== currentCategory) return false;
+
+        // Price
+        if (currentPrice === 'under-300' && p.price >= 300000) return false;
+        if (currentPrice === '300-500' && (p.price < 300000 || p.price > 500000)) return false;
+        if (currentPrice === '500-800' && (p.price < 500000 || p.price > 800000)) return false;
+        if (currentPrice === 'over-800' && p.price <= 800000) return false;
+
+        // Size
+        if (currentSize !== 'all' && (!p.sizes || !p.sizes.includes(currentSize))) return false;
+
+        // Badges
+        if (currentBadges.length > 0) {
+          const matchBadge = currentBadges.some(b => {
+            if (b === 'local') return p.isLocal === true;
+            return p.badge === b;
+          });
+          if (!matchBadge) return false;
+        }
+
+        return true;
+      });
+
+      // Sort
+      if (currentSort === 'price-asc') {
+        list.sort((a, b) => a.price - b.price);
+      } else if (currentSort === 'price-desc') {
+        list.sort((a, b) => b.price - a.price);
+      } else if (currentSort === 'rating') {
+        list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      } else if (currentSort === 'newest') {
+        list.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+      }
+
+      countEl.textContent = list.length;
+
+      if (list.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      grid.style.display = 'grid';
+      empty.style.display = 'none';
+
+      const wishlist = window.getWishlist();
+
+      grid.innerHTML = list.map(p => {
+        const isWish = wishlist.includes(p.id);
+        const badgeHTML = p.badge === 'hot' ? '<span class="badge badge-hot">HOT</span>' :
+                          p.badge === 'sale' ? '<span class="badge badge-sale">SALE</span>' :
+                          p.badge === 'new' ? '<span class="badge badge-new">NEW</span>' : '';
+        const localTag = p.isLocal ? '<span class="local-badge" title="Thiết kế độc quyền Ninh Bình">NB DROP</span>' : '';
+        const sizesHTML = (p.sizes || []).map(s => `<span class="size-chip">${s}</span>`).join('');
+
+        return `
+          <div class="product-card">
+            <div class="card-image-wrap">
+              <a href="product-detail.html?id=${p.id}">
+                <img src="${p.image}" alt="${p.title}" class="product-img primary">
+              </a>
+              <div class="card-badges">
+                ${badgeHTML}
+                ${localTag}
+              </div>
+              <button class="wishlist-btn ${isWish ? 'active' : ''}" onclick="window.toggleWishlist('${p.id}'); this.classList.toggle('active');" title="Yêu thích">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isWish ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </button>
+              <div class="card-actions">
+                <button class="quick-btn" onclick="window.addToCart('${p.id}', '${(p.sizes && p.sizes[0]) || 'M'}')">Thêm Nhanh</button>
+                <a href="product-detail.html?id=${p.id}" class="quick-btn outline">Xem Chi Tiết</a>
+              </div>
+            </div>
+
+            <div class="card-details">
+              <div class="rating-row">
+                <span class="stars">★★★★★</span>
+                <span class="reviews-num">(${p.reviews || 99})</span>
+              </div>
+              <h3 class="product-title">
+                <a href="product-detail.html?id=${p.id}">${p.title}</a>
+              </h3>
+              <div class="price-row">
+                <span class="price-current">${window.formatVND(p.price)}</span>
+                ${p.oldPrice ? `<span class="price-old">${window.formatVND(p.oldPrice)}</span>` : ''}
+              </div>
+              <div class="sizes-row">
+                ${sizesHTML}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Mobile filter drawer controls
+    window.openMobileFilter = function () {
+      document.getElementById('filter-sidebar').classList.add('active-mobile');
+    };
+    window.closeMobileFilter = function () {
+      document.getElementById('filter-sidebar').classList.remove('active-mobile');
+    };
+
+    // Load initial data
+    document.addEventListener('DOMContentLoaded', async () => {
+      parseURLParams();
+      await window.loadAllProducts();
+      renderCatalog();
+    });
+  </script>
+</body>
+</html>

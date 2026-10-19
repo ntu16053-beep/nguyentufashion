@@ -704,17 +704,159 @@ app.post('/api/telegram/test', (req, res) => {
   request.end();
 });
 
+// ==========================================
+// 6. ARTICLES / BLOG REST API
+// ==========================================
+
+// GET /api/articles
+app.get('/api/articles', (req, res) => {
+  const db = readDB();
+  let list = db.articles || [];
+  const { category, search } = req.query;
+
+  if (category && category !== 'all') {
+    list = list.filter(a => a.category === category);
+  }
+
+  if (search) {
+    const q = search.toLowerCase().trim();
+    list = list.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      (a.excerpt && a.excerpt.toLowerCase().includes(q))
+    );
+  }
+
+  res.json({ success: true, count: list.length, articles: list });
+});
+
+// GET /api/articles/:id
+app.get('/api/articles/:id', (req, res) => {
+  const db = readDB();
+  const article = (db.articles || []).find(a => a.id === req.params.id || a.slug === req.params.id);
+  if (!article) {
+    return res.status(404).json({ success: false, message: 'Bài viết không tồn tại' });
+  }
+  res.json({ success: true, article });
+});
+
+// POST /api/articles (Admin create)
+app.post('/api/articles', (req, res) => {
+  const db = readDB();
+  const { title, category, categoryName, excerpt, thumbnail, content, author, readTime } = req.body;
+  if (!title) {
+    return res.status(400).json({ success: false, message: 'Vui lòng cung cấp tiêu đề bài viết' });
+  }
+  const id = 'art-' + Date.now().toString().slice(-4);
+  const newArticle = {
+    id,
+    title: title.trim(),
+    slug: title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
+    category: category || 'trends',
+    categoryName: categoryName || 'Xu Hướng Thời Trang',
+    author: author || 'Nguyen Tu Fashion',
+    publishDate: new Date().toLocaleDateString('vi-VN'),
+    readTime: readTime || '4 phút đọc',
+    views: 1,
+    thumbnail: thumbnail || 'assets/images/hero-banner.png',
+    excerpt: excerpt || '',
+    content: Array.isArray(content) ? content : [{ type: 'paragraph', text: content || '' }],
+    createdAt: new Date().toISOString()
+  };
+  db.articles = db.articles || [];
+  db.articles.unshift(newArticle);
+  writeDB(db);
+  res.status(201).json({ success: true, message: 'Đăng bài viết thành công', article: newArticle });
+});
+
+// ==========================================
+// 7. CONTACT & CONSULTATION REST API
+// ==========================================
+
+// POST /api/contact
+app.post('/api/contact', (req, res) => {
+  const { name, phone, email, subject, message } = req.body;
+  if (!name || !phone) {
+    return res.status(400).json({ success: false, message: 'Vui lòng nhập Họ tên và Số điện thoại!' });
+  }
+  const db = readDB();
+  const newContact = {
+    id: 'ct-' + Date.now(),
+    name: name.trim(),
+    phone: phone.trim(),
+    email: (email || '').trim(),
+    subject: subject || 'Tư vấn chọn size & phối đồ',
+    message: message || '',
+    createdAt: new Date().toISOString(),
+    status: 'new'
+  };
+  db.contacts = db.contacts || [];
+  db.contacts.unshift(newContact);
+  writeDB(db);
+
+  // Send Telegram alert if enabled
+  if (db.settings?.telegram?.enabled && db.settings?.telegram?.botToken && db.settings?.telegram?.chatId) {
+    try {
+      const { botToken, chatId } = db.settings.telegram;
+      const text = `📩 *YÊU CẦU TƯ VẤN MỚI - NGUYEN TU FASHION*\n` +
+        `--------------------------------------\n` +
+        `👤 *Họ tên:* ${newContact.name}\n` +
+        `📞 *SĐT:* \`${newContact.phone}\`\n` +
+        `🎯 *Chủ đề:* ${newContact.subject}\n` +
+        `💬 *Nội dung:* ${newContact.message || '(Không có)'}\n` +
+        `⏰ *Thời gian:* ${new Date().toLocaleString('vi-VN')}`;
+      
+      const postData = JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' });
+      const tgReq = https.request({
+        hostname: 'api.telegram.org',
+        path: `/bot${botToken}/sendMessage`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(postData)
+        }
+      });
+      tgReq.on('error', () => {});
+      tgReq.write(postData);
+      tgReq.end();
+    } catch (e) {}
+  }
+
+  res.status(201).json({ success: true, message: 'Gửi yêu cầu tư vấn thành công! Nguyen Tu Fashion sẽ liên hệ lại bạn trong 15 phút.' });
+});
+
+// GET /api/contacts
+app.get('/api/contacts', (req, res) => {
+  const db = readDB();
+  res.json({ success: true, count: (db.contacts || []).length, contacts: db.contacts || [] });
+});
+
+// Clean Page Routes
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/products', (req, res) => res.sendFile(path.join(__dirname, 'products.html')));
+app.get('/product/:id', (req, res) => res.sendFile(path.join(__dirname, 'product-detail.html')));
+app.get('/cart', (req, res) => res.sendFile(path.join(__dirname, 'cart.html')));
+app.get('/checkout', (req, res) => res.sendFile(path.join(__dirname, 'checkout.html')));
+app.get('/blog', (req, res) => res.sendFile(path.join(__dirname, 'blog.html')));
+app.get('/blog/:id', (req, res) => res.sendFile(path.join(__dirname, 'blog-detail.html')));
+app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'contact.html')));
+
 // Route /admin to admin.html
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`\n======================================================`);
-  console.log(`🚀 NGUYEN TU FASHION SERVER RUNNING AT:`);
-  console.log(`👉 Storefront:      http://localhost:${PORT}`);
-  console.log(`👉 Admin Dashboard: http://localhost:${PORT}/admin`);
-  console.log(`👉 REST API:        http://localhost:${PORT}/api/products`);
-  console.log(`======================================================\n`);
-});
+// Export Express app for Vercel Serverless Functions
+module.exports = app;
+
+// Start Server locally
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n======================================================`);
+    console.log(`🚀 NGUYEN TU FASHION SERVER RUNNING AT:`);
+    console.log(`👉 Storefront:      http://localhost:${PORT}`);
+    console.log(`👉 Admin Dashboard: http://localhost:${PORT}/admin`);
+    console.log(`👉 REST API:        http://localhost:${PORT}/api/products`);
+    console.log(`======================================================\n`);
+  });
+}
+

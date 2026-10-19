@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán Đơn Hàng | NGUYEN TU FASHION Ninh Bình</title>
+  <meta name="description" content="Thanh toán an toàn, nhanh chóng với COD và VietQR tự động tại Nguyen Tu Fashion Ninh Bình. Giao hàng hỏa tốc 2H.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <aside class="announcement-bar">
+    <div class="announcement-content">
+      <div class="announcement-group">
+        <span class="announcement-item">📍 Showroom: Khánh Nhạc - Ninh Bình</span>
+        <span class="announcement-item">⚡ Hỏa Tốc 2H Nội Thành</span>
+      </div>
+
+      <div class="announcement-group center">
+        <span class="announcement-item promo-item">
+          <span class="badge-tag">Ninh Bình Drop</span>
+          <span>Freeship toàn Ninh Bình cho đơn từ 299K • Mã: <strong>NINHBINH</strong> giảm 15%</span>
+        </span>
+      </div>
+
+      <div class="announcement-group">
+        <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
+        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.888.888</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- STICKY HEADER -->
+  <header class="header">
+    <div class="nav-container">
+      <button class="mobile-menu-btn" aria-label="Menu" onclick="window.toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="index.html" class="brand-wrapper">
+        <img src="assets/images/logo.png" alt="Nguyen Tu Fashion Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NGUYENTU</span>
+          <span class="brand-sub">FASHION • EST. 2025</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="products.html" class="nav-link">Sản Phẩm</a>
+        <a href="products.html?category=tee" class="nav-link">Áo Thun</a>
+        <a href="products.html?category=jacket" class="nav-link">Áo Khoác</a>
+        <a href="products.html?category=pants" class="nav-link">Quần Dài</a>
+        <a href="products.html?category=tracksuit" class="nav-link">Tracksuit</a>
+        <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
+        <a href="blog.html" class="nav-link">Bài Viết</a>
+        <a href="contact.html" class="nav-link">Liên Hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="action-btn" title="Tìm kiếm" onclick="window.openSearchModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="action-badge cart-count-badge" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO & STEPS -->
+  <section class="page-hero-banner compact">
+    <div class="container">
+      <div class="cart-checkout-steps">
+        <a href="cart.html" class="step-bubble">
+          <span class="step-num">✓</span>
+          <span>Giỏ Hàng</span>
+        </a>
+        <div class="step-connector"></div>
+        <div class="step-bubble active">
+          <span class="step-num">2</span>
+          <span>Thanh Toán</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-bubble" id="step-3-indicator">
+          <span class="step-num">3</span>
+          <span>Hoàn Tất</span>
+        </div>
+      </div>
+      <h1 class="page-hero-title">Xác Nhận & Thanh Toán</h1>
+    </div>
+  </section>
+
+  <!-- MAIN CHECKOUT CONTENT -->
+  <main class="container" style="padding: 40px 24px 80px;">
+    
+    <!-- CHECKOUT FORM VIEW -->
+    <div class="checkout-page-grid" id="checkout-form-view">
+      
+      <!-- LEFT: CUSTOMER & PAYMENT FORM -->
+      <div>
+        
+        <!-- Customer Info -->
+        <div class="checkout-section-box">
+          <h3 class="checkout-section-title">
+            <span>1. Thông Tin Người Nhận</span>
+          </h3>
+
+          <div class="form-grid-2">
+            <div class="form-control-wrap">
+              <label>Họ và Tên *</label>
+              <input type="text" id="cust-name" class="custom-input" placeholder="VD: Nguyễn Văn Anh" required>
+            </div>
+            <div class="form-control-wrap">
+              <label>Số Điện Thoại (Nhận hàng) *</label>
+              <input type="tel" id="cust-phone" class="custom-input" placeholder="VD: 0988xxxxxx" required>
+            </div>
+          </div>
+
+          <div class="form-control-wrap">
+            <label>Email (Nhận biên lai điện tử)</label>
+            <input type="email" id="cust-email" class="custom-input" placeholder="VD: email@example.com">
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-control-wrap">
+              <label>Tỉnh / Thành Phố *</label>
+              <select id="cust-city" class="custom-input">
+                <option value="Ninh Bình" selected>Tỉnh Ninh Bình</option>
+                <option value="Hà Nội">TP. Hà Nội</option>
+                <option value="Nam Định">Tỉnh Nam Định</option>
+                <option value="Hà Nam">Tỉnh Hà Nam</option>
+                <option value="Thanh Hóa">Tỉnh Thanh Hóa</option>
+                <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                <option value="Khác">Tỉnh / Thành phố khác</option>
+              </select>
+            </div>
+
+            <div class="form-control-wrap">
+              <label>Quận / Huyện *</label>
+              <select id="cust-district" class="custom-input">
+                <option value="TP. Ninh Bình">TP. Ninh Bình</option>
+                <option value="Huyện Yên Khánh" selected>Huyện Yên Khánh (Showroom)</option>
+                <option value="Huyện Hoa Lư">Huyện Hoa Lư</option>
+                <option value="TP. Tam Điệp">TP. Tam Điệp</option>
+                <option value="Huyện Gia Viễn">Huyện Gia Viễn</option>
+                <option value="Huyện Nho Quan">Huyện Nho Quan</option>
+                <option value="Huyện Kim Sơn">Huyện Kim Sơn</option>
+                <option value="Huyện Yên Mô">Huyện Yên Mô</option>
+                <option value="Ngoại Tỉnh">Khu vực ngoại tỉnh khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-control-wrap">
+            <label>Địa Chỉ Cụ Thể (Thôn/Xóm, Xã/Phường, Số nhà) *</label>
+            <input type="text" id="cust-address" class="custom-input" placeholder="VD: Thôn 1, Xã Khánh Nhạc, Huyện Yên Khánh" required>
+          </div>
+
+          <div class="form-control-wrap">
+            <label>Ghi Chú Giao Hàng</label>
+            <textarea id="cust-note" class="custom-textarea" rows="2" placeholder="VD: Giao buổi chiều sau 17h, gọi trước khi đến..."></textarea>
+          </div>
+        </div>
+
+        <!-- Shipping Method -->
+        <div class="checkout-section-box">
+          <h3 class="checkout-section-title">
+            <span>2. Hình Thức Giao Hàng</span>
+          </h3>
+
+          <label class="payment-method-card active" id="ship-express-card" onclick="window.selectShippingOption('express')">
+            <input type="radio" name="shippingMethod" value="express" checked>
+            <div style="flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong>⚡ Hỏa Tốc 2H Nội Thành Ninh Bình</strong>
+                <span style="color:var(--accent-red); font-weight:800;" id="express-ship-badge">FREESHIP</span>
+              </div>
+              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                Điều phối shipper giao liền tay khu vực TP. Ninh Bình & Yên Khánh.
+              </p>
+            </div>
+          </label>
+
+          <label class="payment-method-card" id="ship-standard-card" onclick="window.selectShippingOption('standard')">
+            <input type="radio" name="shippingMethod" value="standard">
+            <div style="flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong>🚚 Giao Hàng Tiêu Chuẩn Toàn Quốc (2-3 Ngày)</strong>
+                <span style="color:var(--text-secondary); font-weight:700;">30.000₫</span>
+              </div>
+              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                Vận chuyển qua bưu điện hỏa tốc, hỗ trợ kiểm tra hàng trước khi nhận.
+              </p>
+            </div>
+          </label>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="checkout-section-box">
+          <h3 class="checkout-section-title">
+            <span>3. Phương Thức Thanh Toán</span>
+          </h3>
+
+          <label class="payment-method-card active" id="pay-cod-card" onclick="window.selectPaymentMethod('cod')">
+            <input type="radio" name="paymentMethod" value="cod" checked>
+            <div style="flex:1;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <strong>💵 Thanh Toán Khi Nhận Hàng (COD)</strong>
+                <span class="badge badge-hot" style="font-size:0.65rem;">Phổ Biến</span>
+              </div>
+              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                Đồng kiểm xem hàng vừa ý mới thanh toán tiền mặt cho shipper.
+              </p>
+            </div>
+          </label>
+
+          <label class="payment-method-card" id="pay-vietqr-card" onclick="window.selectPaymentMethod('vietqr')">
+            <input type="radio" name="paymentMethod" value="vietqr">
+            <div style="flex:1;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <strong>💳 Quét Mã VietQR Tự Động (Mobile Banking)</strong>
+                <span class="badge badge-new" style="font-size:0.65rem;">Nhanh 24/7</span>
+              </div>
+              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                Quét mã QR qua app ngân hàng bất kỳ, tự động điền số tiền & mã đơn chính xác 100%.
+              </p>
+            </div>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY & SUBMIT -->
+      <aside class="cart-summary-box">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase; margin-bottom:16px; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
+          Đơn Hàng (<span id="checkout-items-count">0</span>)
+        </h3>
+
+        <!-- Mini items list -->
+        <div id="checkout-mini-items" style="max-height:260px; overflow-y:auto; margin-bottom:16px; display:flex; flex-direction:column; gap:10px; border-bottom:1px solid var(--border-light); padding-bottom:14px;">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Voucher Input -->
+        <div style="margin-bottom:16px;">
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="checkout-voucher-input" class="custom-input" placeholder="Mã voucher (NINHBINH)" style="text-transform:uppercase; font-size:0.8125rem;">
+            <button class="btn btn-primary" onclick="window.applyCheckoutVoucher()" style="padding:0 14px; font-size:0.8125rem;">Áp Dụng</button>
+          </div>
+          <span id="checkout-voucher-msg" style="font-size:0.75rem; color:var(--accent-green); margin-top:4px; display:none;"></span>
+        </div>
+
+        <div class="summary-row">
+          <span>Tạm tính:</span>
+          <strong id="checkout-subtotal">0₫</strong>
+        </div>
+
+        <div class="summary-row" id="checkout-discount-row" style="display:none; color:var(--accent-red);">
+          <span>Giảm giá:</span>
+          <strong id="checkout-discount">-0₫</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Phí vận chuyển:</span>
+          <strong id="checkout-shipping">0₫</strong>
+        </div>
+
+        <div class="summary-row total-row">
+          <span>Tổng thanh toán:</span>
+          <span id="checkout-total">0₫</span>
+        </div>
+
+        <button class="btn btn-primary" id="btn-submit-order" onclick="window.submitCheckoutOrder()" style="width:100%; height:52px; font-size:1rem; font-weight:800; text-transform:uppercase; margin-top:20px; box-shadow:0 6px 20px rgba(255,51,75,0.4);">
+          ⚡ Đặt Hàng Ngay
+        </button>
+
+        <p style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin-top:12px;">
+          Bằng việc bấm Đặt Hàng, bạn đồng ý với chính sách mua hàng của Nguyen Tu Fashion.
+        </p>
+      </aside>
+
+    </div>
+
+    <!-- ORDER SUCCESS CONFIRMATION VIEW -->
+    <div id="order-success-screen" style="display:none; max-width:680px; margin:0 auto; background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:40px 30px; text-align:center;">
+      <div style="width:70px; height:70px; border-radius:50%; background:rgba(52,211,153,0.15); color:var(--accent-green); font-size:2.5rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        ✓
+      </div>
+
+      <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase; margin-bottom:8px; color:#ffffff;">
+        ĐẶT HÀNG THÀNH CÔNG!
+      </h2>
+      <p style="color:var(--text-secondary); font-size:0.9375rem; margin-bottom:20px;">
+        Cảm ơn bạn đã lựa chọn Nguyen Tu Fashion. Đơn hàng của bạn đã được ghi nhận vào hệ thống.
+      </p>
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:16px; margin-bottom:24px; text-align:left; font-size:0.875rem;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>Mã đơn hàng:</span>
+          <strong id="success-order-id" style="color:var(--accent-red); font-size:1.05rem;">NT-NB0000</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>Người nhận:</span>
+          <strong id="success-customer-name">Nguyễn Văn A</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>Số điện thoại:</span>
+          <strong id="success-customer-phone">0988xxxxxx</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>Địa chỉ giao hàng:</span>
+          <strong id="success-customer-address">Ninh Bình</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>Hình thức thanh toán:</span>
+          <strong id="success-payment-method">COD</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border-light); padding-top:8px; margin-top:8px; font-size:1rem;">
+          <span>Tổng tiền thanh toán:</span>
+          <strong id="success-total-amount" style="color:var(--accent-red);">0₫</strong>
+        </div>
+      </div>
+
+      <!-- VIETQR EMBEDDED BOX (IF VIETQR PAYMENT) -->
+      <div id="success-vietqr-box" style="display:none;" class="vietqr-presentation-card">
+        <h4 style="font-size:1.05rem; font-weight:800; text-transform:uppercase; margin-bottom:6px; color:#111;">
+          QUÉT MÃ VIETQR ĐỂ HOÀN TẤT THANH TOÁN
+        </h4>
+        <p style="font-size:0.8125rem; color:#666; margin-bottom:16px;">
+          Mở ứng dụng Mobile Banking của bạn và quét mã QR bên dưới:
+        </p>
+
+        <img id="success-vietqr-img" src="" alt="Mã VietQR" class="vietqr-qr-image">
+
+        <div class="vietqr-bank-details">
+          <div class="vietqr-detail-row">
+            <span>Ngân hàng:</span>
+            <strong>MB Bank (Quân Đội)</strong>
+          </div>
+          <div class="vietqr-detail-row">
+            <span>Số tài khoản:</span>
+            <span>
+              <strong id="qr-acc-no">0988888888</strong>
+              <button class="copy-pill-btn" onclick="navigator.clipboard.writeText('0988888888'); window.showToast('Đã chép số tài khoản!', 'success');">Sao chép</button>
+            </span>
+          </div>
+          <div class="vietqr-detail-row">
+            <span>Chủ tài khoản:</span>
+            <strong>NGUYEN TU FASHION</strong>
+          </div>
+          <div class="vietqr-detail-row">
+            <span>Nội dung chuyển khoản:</span>
+            <span>
+              <strong id="qr-transfer-content" style="color:var(--accent-red);">NT-NB0000</strong>
+              <button class="copy-pill-btn" onclick="navigator.clipboard.writeText(document.getElementById('qr-transfer-content').textContent); window.showToast('Đã chép nội dung chuyển khoản!', 'success');">Sao chép</button>
+            </span>
+          </div>
+          <div class="vietqr-detail-row">
+            <span>Số tiền:</span>
+            <strong id="qr-transfer-amount" style="color:#b91c1c; font-size:1.05rem;">0₫</strong>
+          </div>
+        </div>
+
+        <p style="font-size:0.75rem; color:#888;">
+          ⚡ Sau khi nhận được chuyển khoản, đơn hàng sẽ được kích hoạt giao hỏa tốc 2H tại Ninh Bình.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex; justify-content:center; gap:16px; margin-top:24px; flex-wrap:wrap;">
+        <a href="index.html" class="btn btn-outline-white">Quay Về Trang Chủ</a>
+        <a href="products.html" class="btn btn-primary">Tiếp Tục Mua Sắm</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tìm Kiếm Sản Phẩm</h3>
+        <button onclick="window.closeSearchModal()" style="font-size:1.5rem; color:#fff;">&times;</button>
+      </div>
+      <input type="text" id="search-input" class="custom-input" placeholder="Tìm theo tên áo, quần, nón..." oninput="window.handleSearchInput(event)">
+      <div id="search-results-list" style="margin-top:16px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="margin-top:80px;">
+    <div class="container">
+      <div class="footer-top" style="display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:30px; margin-bottom:40px;">
+        <div>
+          <a href="index.html" class="brand-wrapper" style="margin-bottom:16px; display:inline-flex;">
+            <img src="assets/images/logo.png" alt="Logo" class="brand-logo-img">
+            <div class="brand-text">
+              <span class="brand-name">NGUYENTU</span>
+              <span class="brand-sub">FASHION • EST. 2025</span>
+            </div>
+          </a>
+          <p style="color:#9ca3af; font-size:0.875rem; line-height:1.6; max-width:320px;">
+            Thương hiệu thời trang Streetwear phong cách giới trẻ hàng đầu Ninh Bình. Showroom trải nghiệm tại Khánh Nhạc, giao hỏa tốc 2H toàn tỉnh.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Danh Mục</h4>
+          <ul class="footer-links">
+            <li><a href="products.html?category=jacket">Áo Khoác Gió</a></li>
+            <li><a href="products.html?category=tee">Áo Thun Streetwear</a></li>
+            <li><a href="products.html?category=tracksuit">Bộ Thể Thao Tracksuit</a></li>
+            <li><a href="products.html?category=pants">Quần Dài Parachute</a></li>
+            <li><a href="products.html?category=shoes">Giày Sneakers</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Chính Sách</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Đổi Trả 7 Ngày Miễn Phí</a></li>
+            <li><a href="contact.html">Vận Chuyển Hỏa Tốc Ninh Bình</a></li>
+            <li><a href="contact.html">Chính Sách Đồng Kiểm COD</a></li>
+            <li><a href="contact.html">Bảo Hành & Đổi Size</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Showroom Ninh Bình</h4>
+          <p style="font-size:0.875rem; color:#9ca3af; line-height:1.6; margin-bottom:8px;">
+            📍 Khánh Nhạc, Yên Khánh, Ninh Bình
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:8px;">
+            📞 <strong>0988.888.888</strong>
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af;">
+            🕒 08:30 - 22:00 hàng ngày
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NGUYEN TU FASHION. All Rights Reserved.</span>
+        <span>Made with passion in Ninh Binh, Vietnam.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COMMON JS & CHAT WIDGET -->
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/chat-widget.js"></script>
+
+  <!-- CHECKOUT LOGIC -->
+  <script>
+    let checkoutShippingMethod = 'express';
+    let checkoutPaymentMethod = 'cod';
+    let checkoutVoucherCode = null;
+    let checkoutDiscountAmount = 0;
+
+    function initCheckoutPage() {
+      const cart = window.getCart();
+      if (!cart || cart.length === 0) {
+        window.showToast('Giỏ hàng trống! Hãy chọn sản phẩm trước.', 'info');
+        setTimeout(() => window.location.href = 'products.html', 1500);
+        return;
+      }
+
+      renderCheckoutMiniItems(cart);
+      updateCheckoutTotals();
+    }
+
+    function renderCheckoutMiniItems(cart) {
+      const container = document.getElementById('checkout-mini-items');
+      const countEl = document.getElementById('checkout-items-count');
+      countEl.textContent = window.getCartCount();
+
+      container.innerHTML = cart.map(item => `
+        <div style="display:flex; align-items:center; gap:12px; font-size:0.8125rem;">
+          <img src="${item.image}" alt="${item.title}" style="width:44px; height:54px; object-fit:cover; border-radius:4px; background:#2a050b;">
+          <div style="flex:1;">
+            <strong style="display:block; color:#fff; line-height:1.3;">${item.title}</strong>
+            <span style="color:var(--text-muted); font-size:0.75rem;">Size: ${item.size} • SL: ${item.quantity}</span>
+          </div>
+          <strong style="color:var(--text-primary); font-size:0.8125rem;">${window.formatVND(item.price * item.quantity)}</strong>
+        </div>
+      `).join('');
+    }
+
+    window.selectShippingOption = function (opt) {
+      checkoutShippingMethod = opt;
+      document.querySelectorAll('input[name="shippingMethod"]').forEach(r => r.checked = (r.value === opt));
+      document.querySelectorAll('#ship-express-card, #ship-standard-card').forEach(c => c.classList.remove('active'));
+      document.getElementById(`ship-${opt}-card`).classList.add('active');
+      updateCheckoutTotals();
+    };
+
+    window.selectPaymentMethod = function (method) {
+      checkoutPaymentMethod = method;
+      document.querySelectorAll('input[name="paymentMethod"]').forEach(r => r.checked = (r.value === method));
+      document.querySelectorAll('#pay-cod-card, #pay-vietqr-card').forEach(c => c.classList.remove('active'));
+      document.getElementById(`pay-${method}-card`).classList.add('active');
+    };
+
+    function updateCheckoutTotals() {
+      const subtotal = window.getCartSubtotal();
+      document.getElementById('checkout-subtotal').textContent = window.formatVND(subtotal);
+
+      let shippingFee = 30000;
+      if (subtotal >= 299000 || checkoutVoucherCode === 'FREESHIP' || checkoutShippingMethod === 'express') {
+        shippingFee = 0;
+      }
+      document.getElementById('checkout-shipping').textContent = shippingFee === 0 ? 'MIỄN PHÍ' : window.formatVND(shippingFee);
+
+      const discountRow = document.getElementById('checkout-discount-row');
+      if (checkoutDiscountAmount > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('checkout-discount').textContent = '-' + window.formatVND(checkoutDiscountAmount);
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      const finalTotal = Math.max(0, subtotal - checkoutDiscountAmount + shippingFee);
+      document.getElementById('checkout-total').textContent = window.formatVND(finalTotal);
+      return { subtotal, shippingFee, finalTotal };
+    }
+
+    window.applyCheckoutVoucher = async function () {
+      const input = document.getElementById('checkout-voucher-input');
+      const code = input.value.trim().toUpperCase();
+      if (!code) return;
+
+      const subtotal = window.getCartSubtotal();
+
+      try {
+        const res = await fetch('/api/coupons/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, subtotal })
+        });
+        const data = await res.json();
+        if (data.success) {
+          checkoutVoucherCode = data.code;
+          checkoutDiscountAmount = data.discountAmount || 0;
+          const msg = document.getElementById('checkout-voucher-msg');
+          msg.textContent = `✓ ${data.message}`;
+          msg.style.display = 'block';
+          window.showToast(`Áp dụng ${data.code} thành công!`, 'success');
+          updateCheckoutTotals();
+        } else {
+          window.showToast(data.message || 'Mã không hợp lệ', 'error');
+        }
+      } catch (e) {
+        if (code === 'NINHBINH') {
+          checkoutVoucherCode = 'NINHBINH';
+          checkoutDiscountAmount = Math.round(subtotal * 0.15);
+          window.showToast('Áp dụng NINHBINH: Giảm 15%!', 'success');
+          updateCheckoutTotals();
+        } else if (code === 'FREESHIP') {
+          checkoutVoucherCode = 'FREESHIP';
+          checkoutDiscountAmount = 0;
+          window.showToast('Áp dụng mã FREESHIP!', 'success');
+          updateCheckoutTotals();
+        }
+      }
+    };
+
+    window.submitCheckoutOrder = async function () {
+      const name = document.getElementById('cust-name').value.trim();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const email = document.getElementById('cust-email').value.trim();
+      const city = document.getElementById('cust-city').value;
+      const district = document.getElementById('cust-district').value;
+      const address = document.getElementById('cust-address').value.trim();
+      const note = document.getElementById('cust-note').value.trim();
+
+      if (!name) {
+        window.showToast('Vui lòng nhập Họ và tên người nhận!', 'error');
+        document.getElementById('cust-name').focus();
+        return;
+      }
+      if (!phone || phone.length < 9) {
+        window.showToast('Vui lòng nhập số điện thoại hợp lệ!', 'error');
+        document.getElementById('cust-phone').focus();
+        return;
+      }
+      if (!address) {
+        window.showToast('Vui lòng nhập địa chỉ cụ thể giao hàng!', 'error');
+        document.getElementById('cust-address').focus();
+        return;
+      }
+
+      const cart = window.getCart();
+      const btn = document.getElementById('btn-submit-order');
+      btn.disabled = true;
+      btn.textContent = 'Đang xử lý đơn hàng...';
+
+      const payload = {
+        customerName: name,
+        customerPhone: phone,
+        district: `${district}, ${city}`,
+        address: address,
+        shippingNote: note,
+        items: cart,
+        paymentMethod: checkoutPaymentMethod,
+        couponCode: checkoutVoucherCode
+      };
+
+      try {
+        const res = await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.success && data.order) {
+          showOrderSuccessScreen(data.order);
+          window.clearCart();
+        } else {
+          window.showToast(data.message || 'Không thể tạo đơn hàng', 'error');
+          btn.disabled = false;
+          btn.textContent = '⚡ Đặt Hàng Ngay';
+        }
+      } catch (err) {
+        // Fallback local order generation
+        const mockOrder = {
+          id: 'NT-NB' + Math.floor(1000 + Math.random() * 9000),
+          customerName: name,
+          customerPhone: phone,
+          address: `${address}, ${district}, ${city}`,
+          paymentMethod: checkoutPaymentMethod,
+          totalAmount: updateCheckoutTotals().finalTotal
+        };
+        showOrderSuccessScreen(mockOrder);
+        window.clearCart();
+      }
+    };
+
+    function showOrderSuccessScreen(order) {
+      document.getElementById('checkout-form-view').style.display = 'none';
+      document.getElementById('order-success-screen').style.display = 'block';
+      document.getElementById('step-3-indicator').classList.add('active');
+
+      document.getElementById('success-order-id').textContent = order.id;
+      document.getElementById('success-customer-name').textContent = order.customerName;
+      document.getElementById('success-customer-phone').textContent = order.customerPhone;
+      document.getElementById('success-customer-address').textContent = `${order.address}, ${order.district || ''}`;
+      document.getElementById('success-payment-method').textContent = order.paymentMethod === 'vietqr' ? 'VietQR (Quét mã ngân hàng)' : 'COD (Thu tiền khi nhận)';
+      document.getElementById('success-total-amount').textContent = window.formatVND(order.totalAmount);
+
+      // Handle VietQR display
+      if (order.paymentMethod === 'vietqr') {
+        const qrBox = document.getElementById('success-vietqr-box');
+        qrBox.style.display = 'block';
+
+        const bankId = '970422'; // MB Bank
+        const accountNo = '0988888888';
+        const template = 'compact2';
+        const accountName = encodeURIComponent('NGUYEN TU FASHION');
+        const addInfo = encodeURIComponent(order.id);
+        const amount = order.totalAmount;
+
+        const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-${template}.png?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+        document.getElementById('success-vietqr-img').src = qrUrl;
+        document.getElementById('qr-transfer-content').textContent = order.id;
+        document.getElementById('qr-transfer-amount').textContent = window.formatVND(amount);
+      }
+
+      window.showToast('Đặt hàng thành công! Mã đơn: ' + order.id, 'success');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', initCheckoutPage);
+  </script>
+</body>
+</html>

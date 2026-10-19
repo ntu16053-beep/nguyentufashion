@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Bài Viết | NGUYEN TU FASHION Ninh Bình</title>
+  <meta name="description" content="Đọc các bài viết chuyên sâu về phong cách thời trang, xu hướng Streetwear từ Nguyen Tu Fashion Ninh Bình.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <aside class="announcement-bar">
+    <div class="announcement-content">
+      <div class="announcement-group">
+        <span class="announcement-item">📍 Showroom: Khánh Nhạc - Ninh Bình</span>
+        <span class="announcement-item">⚡ Hỏa Tốc 2H Nội Thành</span>
+      </div>
+
+      <div class="announcement-group center">
+        <span class="announcement-item promo-item">
+          <span class="badge-tag">Ninh Bình Drop</span>
+          <span>Freeship toàn Ninh Bình cho đơn từ 299K • Mã: <strong>NINHBINH</strong> giảm 15%</span>
+        </span>
+      </div>
+
+      <div class="announcement-group">
+        <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
+        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.888.888</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- STICKY HEADER -->
+  <header class="header">
+    <div class="nav-container">
+      <button class="mobile-menu-btn" aria-label="Menu" onclick="window.toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="index.html" class="brand-wrapper">
+        <img src="assets/images/logo.png" alt="Nguyen Tu Fashion Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NGUYENTU</span>
+          <span class="brand-sub">FASHION • EST. 2025</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="products.html" class="nav-link">Sản Phẩm</a>
+        <a href="products.html?category=tee" class="nav-link">Áo Thun</a>
+        <a href="products.html?category=jacket" class="nav-link">Áo Khoác</a>
+        <a href="products.html?category=pants" class="nav-link">Quần Dài</a>
+        <a href="products.html?category=tracksuit" class="nav-link">Tracksuit</a>
+        <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
+        <a href="blog.html" class="nav-link active">Bài Viết</a>
+        <a href="contact.html" class="nav-link">Liên Hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="action-btn" title="Tìm kiếm" onclick="window.openSearchModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="action-badge cart-count-badge" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div style="background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--border-light); padding: 14px 0;">
+    <div class="container">
+      <nav class="breadcrumb-nav" style="justify-content: flex-start; margin-bottom: 0;">
+        <a href="index.html">Trang Chủ</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="blog.html">Bài Viết</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" id="article-breadcrumb-title">Chi Tiết Bài Viết</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ARTICLE CONTAINER -->
+  <main class="article-reading-container">
+    <article>
+      <header class="article-header">
+        <div style="display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:14px; font-size:0.8125rem; color:var(--text-muted);">
+          <span class="badge badge-hot" id="article-badge">XU HƯỚNG</span>
+          <span id="article-cat-name">Thời Trang</span>
+          <span>•</span>
+          <span id="article-date">18/10/2026</span>
+          <span>•</span>
+          <span id="article-readtime">5 phút đọc</span>
+        </div>
+
+        <h1 class="article-headline" id="article-title">Đang tải bài viết...</h1>
+
+        <div style="display:flex; justify-content:center; align-items:center; gap:10px; font-size:0.875rem; color:var(--text-secondary);">
+          <span>Tác giả: <strong id="article-author" style="color:#fff;">Nguyen Tu Stylist</strong></span>
+          <span>•</span>
+          <span id="article-views">1.4K lượt xem</span>
+        </div>
+      </header>
+
+      <img src="" alt="Ảnh đại diện bài viết" id="article-featured-image" class="article-featured-img">
+
+      <!-- Body Content -->
+      <div class="article-body-content" id="article-body-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Shop The Look / Featured Products in Article -->
+      <div class="article-products-widget" id="shop-the-look-section" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <span style="color:var(--accent-red); font-size:0.75rem; font-weight:800; text-transform:uppercase;">LOOKBOOK RECAP</span>
+            <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">SẢN PHẨM GỢI Ý TRONG BÀI VIẾT</h3>
+          </div>
+          <a href="products.html" style="font-size:0.8125rem; font-weight:700; color:var(--accent-red);">Xem Thêm →</a>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;" id="shop-look-grid">
+          <!-- Populated -->
+        </div>
+      </div>
+
+      <!-- Author Card & Social Share -->
+      <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px; margin-top:40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="width:52px; height:52px; border-radius:50%; background:var(--accent-red); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.2rem; color:#fff;">
+            NT
+          </div>
+          <div>
+            <strong style="display:block; font-size:1rem; color:#fff;" id="author-box-name">Nguyen Tu Fashion Stylist</strong>
+            <span style="font-size:0.8125rem; color:var(--text-muted);">Định hình phong cách đường phố giới trẻ Ninh Bình.</span>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:0.8125rem; color:var(--text-muted);">Chia sẻ:</span>
+          <button class="btn btn-outline-white" style="font-size:0.75rem; padding:6px 14px;" onclick="navigator.clipboard.writeText(window.location.href); window.showToast('Đã sao chép link bài viết!', 'success');">
+            Sao chép Link
+          </button>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- Back to blog -->
+    <div style="text-align:center; margin-top:40px;">
+      <a href="blog.html" class="btn btn-outline-white">← Quay Lại Danh Sách Bài Viết</a>
+    </div>
+  </main>
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tìm Kiếm Sản Phẩm</h3>
+        <button onclick="window.closeSearchModal()" style="font-size:1.5rem; color:#fff;">&times;</button>
+      </div>
+      <input type="text" id="search-input" class="custom-input" placeholder="Tìm theo tên áo, quần, nón..." oninput="window.handleSearchInput(event)">
+      <div id="search-results-list" style="margin-top:16px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="margin-top:80px;">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 NGUYEN TU FASHION. All Rights Reserved.</span>
+        <span>Made with passion in Ninh Binh, Vietnam.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COMMON JS & CHAT WIDGET -->
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/chat-widget.js"></script>
+
+  <script>
+    async function loadArticleDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const articleId = params.get('id') || 'art-01';
+
+      await window.loadAllProducts();
+
+      try {
+        const res = await fetch(`/api/articles/${articleId}`);
+        if (res.ok) {
+          const data = await res.json();
+          renderArticle(data.article);
+        } else {
+          // Fallback to fetch all
+          const listRes = await fetch('/api/articles');
+          const listData = await listRes.json();
+          const found = (listData.articles || []).find(a => a.id === articleId) || listData.articles[0];
+          renderArticle(found);
+        }
+      } catch (e) {
+        console.error('Error loading article', e);
+      }
+    }
+
+    function renderArticle(art) {
+      if (!art) return;
+
+      document.title = `${art.title} | NGUYEN TU FASHION`;
+      document.getElementById('article-breadcrumb-title').textContent = art.title;
+      document.getElementById('article-title').textContent = art.title;
+      document.getElementById('article-cat-name').textContent = art.categoryName || 'Xu Hướng';
+      document.getElementById('article-date').textContent = art.publishDate || '18/10/2026';
+      document.getElementById('article-readtime').textContent = art.readTime || '4 phút đọc';
+      document.getElementById('article-author').textContent = art.author || 'Nguyen Tu Stylist';
+      document.getElementById('author-box-name').textContent = art.author || 'Nguyen Tu Stylist';
+      document.getElementById('article-views').textContent = `${art.views || 950} lượt xem`;
+
+      const featImg = document.getElementById('article-featured-image');
+      featImg.src = art.thumbnail || 'assets/images/hero-banner.png';
+      featImg.alt = art.title;
+
+      const bodyContainer = document.getElementById('article-body-container');
+      const content = art.content || [];
+
+      if (Array.isArray(content)) {
+        bodyContainer.innerHTML = content.map(item => {
+          if (item.type === 'heading') {
+            return `<h2>${item.text}</h2>`;
+          } else if (item.type === 'paragraph') {
+            return `<p>${item.text}</p>`;
+          } else if (item.type === 'image') {
+            return `
+              <div style="margin:28px 0; text-align:center;">
+                <img src="${item.src}" alt="${item.caption || ''}" style="max-height:420px; width:auto; margin:0 auto; border-radius:8px; border:1px solid var(--border-light);">
+                ${item.caption ? `<span style="display:block; font-size:0.8125rem; color:var(--text-muted); margin-top:8px; font-style:italic;">${item.caption}</span>` : ''}
+              </div>
+            `;
+          }
+          return '';
+        }).join('');
+      } else {
+        bodyContainer.innerHTML = `<p>${content}</p>`;
+      }
+
+      // Shop The Look Products
+      if (art.relatedProducts && art.relatedProducts.length > 0 && window.ALL_PRODUCTS) {
+        const prods = window.ALL_PRODUCTS.filter(p => art.relatedProducts.includes(p.id));
+        if (prods.length > 0) {
+          const widget = document.getElementById('shop-the-look-section');
+          const grid = document.getElementById('shop-look-grid');
+          widget.style.display = 'block';
+
+          grid.innerHTML = prods.map(p => `
+            <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:12px; display:flex; flex-direction:column;">
+              <a href="product-detail.html?id=${p.id}">
+                <img src="${p.image}" alt="${p.title}" style="width:100%; height:180px; object-fit:cover; border-radius:4px; margin-bottom:10px; background:#2a050b;">
+              </a>
+              <h4 style="font-size:0.875rem; font-weight:700; color:#fff; line-height:1.3; margin-bottom:6px;">
+                <a href="product-detail.html?id=${p.id}">${p.title}</a>
+              </h4>
+              <strong style="color:var(--accent-red); font-size:0.875rem; margin-bottom:10px;">${window.formatVND(p.price)}</strong>
+              <button class="btn btn-primary" style="margin-top:auto; font-size:0.75rem; padding:8px 12px;" onclick="window.addToCart('${p.id}', 'M')">Thêm Nhanh</button>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadArticleDetail);
+  </script>
+</body>
+</html>

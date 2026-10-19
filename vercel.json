@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "data/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/product/(.*)",
+      "destination": "/product-detail.html"
+    }
+  ]
+}
