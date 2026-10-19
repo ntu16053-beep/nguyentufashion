@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi Tiết Sản Phẩm | NGUYEN TU FASHION Ninh Bình</title>
@@ -541,7 +542,17 @@
 
     async function initDetailPage() {
       const params = new URLSearchParams(window.location.search);
-      const prodId = params.get('id') || 'nt-01';
+      let prodId = params.get('id');
+      if (!prodId) {
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        if (pathParts.length > 0) {
+          const lastPart = pathParts[pathParts.length - 1];
+          if (lastPart !== 'product' && !lastPart.endsWith('.html')) {
+            prodId = lastPart;
+          }
+        }
+      }
+      if (!prodId) prodId = 'nt-01';
 
       await window.loadAllProducts();
 

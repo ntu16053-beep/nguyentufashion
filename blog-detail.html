@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi Tiết Bài Viết | NGUYEN TU FASHION Ninh Bình</title>
@@ -195,7 +196,17 @@
   <script>
     async function loadArticleDetail() {
       const params = new URLSearchParams(window.location.search);
-      const articleId = params.get('id') || 'art-01';
+      let articleId = params.get('id');
+      if (!articleId) {
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        if (pathParts.length > 0) {
+          const lastPart = pathParts[pathParts.length - 1];
+          if (lastPart !== 'blog' && !lastPart.endsWith('.html')) {
+            articleId = lastPart;
+          }
+        }
+      }
+      if (!articleId) articleId = 'art-01';
 
       await window.loadAllProducts();
 
