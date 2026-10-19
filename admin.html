@@ -250,6 +250,7 @@
                 <th>Danh Mục</th>
                 <th>Giá Bán</th>
                 <th>Đánh Giá</th>
+                <th>Thao Tác</th>
               </tr>
             </thead>
             <tbody id="admin-products-tbody">
@@ -348,8 +349,51 @@
         </div>
       </section>
 
-    </main>
+  </div>
 
+  <!-- EDIT PRODUCT PRICE MODAL -->
+  <div class="modal-overlay" id="edit-price-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); z-index:9999; align-items:center; justify-content:center;">
+    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:460px; box-shadow:0 16px 40px rgba(0,0,0,0.5);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Chỉnh Sửa Giá Sản Phẩm</h3>
+        <button onclick="window.closeEditPriceModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div style="display:flex; gap:14px; align-items:center; margin-bottom:20px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+        <img id="edit-p-thumb" src="" alt="Thumbnail" style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
+        <div>
+          <div style="font-size:0.75rem; color:var(--accent-gold); font-weight:700;" id="edit-p-code">NT-01</div>
+          <h4 style="font-size:0.875rem; font-weight:700; line-height:1.4; color:#fff;" id="edit-p-title">Tên sản phẩm</h4>
+        </div>
+      </div>
+
+      <input type="hidden" id="edit-p-id">
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:#fff;">Giá Bán Hiện Tại (VNĐ) <span style="color:var(--accent-red)">*</span></label>
+        <input type="number" id="edit-p-price" class="custom-input" placeholder="Ví dụ: 350000" style="width:100%; padding:10px 14px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:1rem; font-weight:700;">
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:var(--text-secondary);">Giá Gốc / Giá Gạch Niêm Yết (VNĐ)</label>
+        <input type="number" id="edit-p-oldprice" class="custom-input" placeholder="Ví dụ: 450000 (để trống nếu không giảm giá)" style="width:100%; padding:10px 14px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.9375rem;">
+      </div>
+
+      <div style="margin-bottom:22px;">
+        <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:var(--text-secondary);">Huy Hiệu Sản Phẩm</label>
+        <select id="edit-p-badge" class="custom-select" style="width:100%; padding:10px 14px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.875rem;">
+          <option value="">Không có huy hiệu</option>
+          <option value="hot">🔥 Bán chạy (HOT)</option>
+          <option value="sale">🏷️ Giảm giá sốc (SALE)</option>
+          <option value="new">✨ Hàng mới về (NEW)</option>
+        </select>
+      </div>
+
+      <div style="display:flex; gap:12px;">
+        <button class="btn btn-dark" style="flex:1; padding:10px;" onclick="window.closeEditPriceModal()">Hủy Bỏ</button>
+        <button class="btn btn-primary" style="flex:1; padding:10px;" id="btn-save-price" onclick="window.saveProductPrice()">Lưu Thay Đổi</button>
+      </div>
+    </div>
   </div>
 
   <script src="assets/js/common.js"></script>
@@ -461,16 +505,94 @@
     window.loadAdminProducts = async function () {
       await window.loadAllProducts();
       const tbody = document.getElementById('admin-products-tbody');
-      tbody.innerHTML = (window.ALL_PRODUCTS || []).map(p => `
-        <tr>
-          <td><code>${p.id}</code></td>
-          <td><img src="${p.image}" style="width:40px; height:48px; object-fit:cover; border-radius:4px;"></td>
-          <td><strong>${p.title}</strong></td>
-          <td>${p.categoryName}</td>
-          <td><strong style="color:var(--accent-red);">${window.formatVND(p.price)}</strong></td>
-          <td>★ ${p.rating} (${p.reviews})</td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = (window.ALL_PRODUCTS || []).map(p => {
+        const badgeHTML = p.badge === 'hot' ? '<span class="p-badge badge-hot" style="margin-left:4px;">HOT</span>' :
+                          p.badge === 'sale' ? '<span class="p-badge badge-sale" style="margin-left:4px;">SALE</span>' :
+                          p.badge === 'new' ? '<span class="p-badge badge-new" style="margin-left:4px;">NEW</span>' : '';
+        return `
+          <tr>
+            <td><code>${p.id}</code></td>
+            <td><img src="${p.image}" style="width:44px; height:44px; object-fit:contain; background:#fff; border-radius:6px; padding:2px;"></td>
+            <td>
+              <strong>${p.title}</strong>
+              ${badgeHTML}
+            </td>
+            <td><span style="font-size:0.8125rem; color:var(--text-secondary);">${p.categoryName || p.category}</span></td>
+            <td>
+              <strong style="color:var(--accent-red); font-size:0.9375rem;">${window.formatVND(p.price)}</strong>
+              ${p.oldPrice ? `<div style="font-size:0.75rem; color:#888; text-decoration:line-through;">${window.formatVND(p.oldPrice)}</div>` : ''}
+            </td>
+            <td>★ ${p.rating || 5.0} <span style="font-size:0.75rem; color:#888;">(${p.reviews || 0})</span></td>
+            <td>
+              <button class="btn btn-dark" style="padding:6px 14px; font-size:0.75rem; display:inline-flex; align-items:center; gap:4px;" onclick="window.openEditPriceModal('${p.id}')">
+                ✏️ Sửa Giá
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    };
+
+    window.openEditPriceModal = function (id) {
+      const p = (window.ALL_PRODUCTS || []).find(item => item.id === id);
+      if (!p) return;
+      document.getElementById('edit-p-id').value = p.id;
+      document.getElementById('edit-p-code').textContent = p.id.toUpperCase();
+      document.getElementById('edit-p-title').textContent = p.title;
+      document.getElementById('edit-p-thumb').src = p.image;
+      document.getElementById('edit-p-price').value = p.price || '';
+      document.getElementById('edit-p-oldprice').value = p.oldPrice || '';
+      document.getElementById('edit-p-badge').value = p.badge || '';
+      document.getElementById('edit-price-modal').style.display = 'flex';
+    };
+
+    window.closeEditPriceModal = function () {
+      document.getElementById('edit-price-modal').style.display = 'none';
+    };
+
+    window.saveProductPrice = async function () {
+      const id = document.getElementById('edit-p-id').value;
+      const price = Number(document.getElementById('edit-p-price').value);
+      const oldPriceVal = document.getElementById('edit-p-oldprice').value;
+      const oldPrice = oldPriceVal ? Number(oldPriceVal) : null;
+      const badge = document.getElementById('edit-p-badge').value;
+
+      if (!price || price <= 0) {
+        alert('Vui lòng nhập giá bán hợp lệ!');
+        return;
+      }
+
+      const saveBtn = document.getElementById('btn-save-price');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Đang lưu...';
+
+      try {
+        const res = await fetch(`/api/products/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ price, oldPrice, badge })
+        });
+
+        if (res.ok) {
+          const found = (window.ALL_PRODUCTS || []).find(x => x.id === id);
+          if (found) {
+            found.price = price;
+            found.oldPrice = oldPrice;
+            found.badge = badge;
+          }
+          window.loadAdminProducts();
+          window.closeEditPriceModal();
+          alert('✅ Cập nhật giá sản phẩm thành công!');
+        } else {
+          alert('Không thể lưu giá qua máy chủ (Vui lòng kiểm tra quyền).');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Lỗi kết nối khi cập nhật giá sản phẩm.');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Lưu Thay Đổi';
+      }
     };
 
     window.loadAdminCoupons = async function () {
