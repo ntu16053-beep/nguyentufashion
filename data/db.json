@@ -1809,7 +1809,7 @@
   ],
   "settings": {
     "storeName": "NGUYEN TU FASHION",
-    "hotline": "0988.888.888",
+    "hotline": "0342.767.002",
     "address": "Khánh Nhạc-Ninh Bình",
     "adminPin": "admin123",
     "vietqr": {
@@ -1823,7 +1823,10 @@
       "enabled": true,
       "botToken": "8948338473:AAHz4HEJ2mj2GEU5GkE22wnMdL2rKqK79zg",
       "chatId": "8196871733"
-    }
+    },
+    "email": "ntu16053@gmail.com",
+    "facebook": "https://www.facebook.com/share/1EuzNVRiqY/?mibextid=wwXIfr",
+    "zalo": "https://zalo.me/0342767002"
   },
   "contacts": [
     {
