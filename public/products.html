@@ -33,6 +33,7 @@
       </div>
 
       <div class="announcement-group">
+        <a href="javascript:void(0)" onclick="window.openOrderTrackingModal()" class="announcement-item" style="color:var(--accent-gold); font-weight:700;">📦 Tra Cứu Đơn</a>
         <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
         <a href="tel:0342767002" class="announcement-item">📞 Hotline: 0342.767.002</a>
       </div>
@@ -356,7 +357,7 @@
   </footer>
 
   <!-- COMMON JS & CHAT WIDGET -->
-  <script src="assets/js/common.js"></script>
+  <script src="assets/js/common.js?v=2.5"></script>
   <script src="assets/js/chat-widget.js"></script>
 
   <!-- CATALOG LOGIC -->
@@ -366,6 +367,7 @@
     let currentSize = 'all';
     let currentBadges = [];
     let currentSort = 'featured';
+    let currentFilterWishlist = false;
 
     // Parse URL Query Params
     function parseURLParams() {
@@ -381,6 +383,13 @@
         currentSort = sort;
         const sortSelect = document.getElementById('catalog-sort-select');
         if (sortSelect) sortSelect.value = sort;
+      }
+      const filter = params.get('filter');
+      if (filter === 'wishlist') {
+        currentFilterWishlist = true;
+        document.getElementById('page-hero-title').textContent = 'Danh Sách Yêu Thích Của Bạn ❤️';
+        document.getElementById('page-hero-desc').textContent = 'Những mẫu trang phục Streetwear bạn đã lưu tâm. Hãy chọn size và đặt mua ngay hôm nay!';
+        document.getElementById('category-breadcrumb-title').textContent = 'Sản Phẩm Yêu Thích';
       }
     }
 
@@ -463,10 +472,20 @@
       const countEl = document.getElementById('catalog-count-num');
       if (!grid) return;
 
+      if (window.applyPriceOverrides && window.ALL_PRODUCTS) {
+        window.applyPriceOverrides(window.ALL_PRODUCTS);
+      }
+
       const products = window.ALL_PRODUCTS || [];
 
       // Filter
       let list = products.filter(p => {
+        // Wishlist Filter
+        if (currentFilterWishlist) {
+          const wl = window.getWishlist();
+          if (!wl.includes(p.id)) return false;
+        }
+
         // Category
         if (currentCategory !== 'all' && p.category !== currentCategory) return false;
 
@@ -651,6 +670,10 @@
     };
 
     // Load initial data
+    window.addEventListener('productsUpdated', () => {
+      renderCatalog();
+    });
+
     document.addEventListener('DOMContentLoaded', async () => {
       parseURLParams();
       await window.loadAllProducts();

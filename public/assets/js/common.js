@@ -249,6 +249,20 @@
     `).join('');
   };
 
+  window.applyPriceOverrides = function (productList) {
+    try {
+      const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
+      if (productList && Object.keys(overrides).length > 0) {
+        productList.forEach(p => {
+          if (overrides[p.id]) {
+            Object.assign(p, overrides[p.id]);
+          }
+        });
+      }
+    } catch (e) {}
+    return productList;
+  };
+
   // Pre-load all products from REST API
   window.loadAllProducts = async function () {
     try {
@@ -263,16 +277,12 @@
       console.warn('Could not fetch from /api/products, using cache/fallback');
     }
 
-    // Apply any saved price overrides from localStorage
+    if (window.ALL_PRODUCTS) {
+      window.applyPriceOverrides(window.ALL_PRODUCTS);
+    }
+
     try {
-      const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
-      if (window.ALL_PRODUCTS && Object.keys(overrides).length > 0) {
-        window.ALL_PRODUCTS.forEach(p => {
-          if (overrides[p.id]) {
-            Object.assign(p, overrides[p.id]);
-          }
-        });
-      }
+      window.dispatchEvent(new CustomEvent('productsUpdated', { detail: window.ALL_PRODUCTS }));
     } catch (e) {}
 
     return window.ALL_PRODUCTS || [];
@@ -324,5 +334,269 @@
       });
     });
   });
+
+  // --------------------------------------------------------------------------
+  // 5. COUPON SESSION HELPERS
+  // --------------------------------------------------------------------------
+  window.getSavedCoupon = function () {
+    try {
+      return JSON.parse(sessionStorage.getItem('nguyentu_applied_coupon') || 'null');
+    } catch (e) {
+      return null;
+    }
+  };
+
+  window.saveCoupon = function (code, discountAmount) {
+    sessionStorage.setItem('nguyentu_applied_coupon', JSON.stringify({ code, discountAmount }));
+  };
+
+  window.clearSavedCoupon = function () {
+    sessionStorage.removeItem('nguyentu_applied_coupon');
+  };
+
+  // --------------------------------------------------------------------------
+  // 6. GLOBAL ORDER TRACKING MODAL
+  // --------------------------------------------------------------------------
+  window.openOrderTrackingModal = function (prefillQuery = '') {
+    let modal = document.getElementById('order-tracking-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'order-tracking-modal';
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-card" style="max-width:640px; width:95%; max-height:90vh; overflow-y:auto; padding:26px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:1.5rem;">📦</span>
+              <div>
+                <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase; margin:0;">TRA CỨU TIẾN TRÌNH ĐƠN HÀNG</h3>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin:0;">Nhập số điện thoại hoặc mã đơn hàng (VD: NT-NB1234)</p>
+              </div>
+            </div>
+            <button onclick="document.getElementById('order-tracking-modal').classList.remove('active')" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <input type="text" id="order-tracking-input" class="custom-input" placeholder="Nhập SĐT hoặc Mã đơn..." style="flex:1; height:46px; font-size:0.9375rem;" onkeydown="if(event.key==='Enter') window.performOrderTracking();">
+            <button class="btn btn-primary" onclick="window.performOrderTracking()" style="height:46px; padding:0 22px; font-weight:700;">Tra Cứu</button>
+          </div>
+
+          <div id="order-tracking-result" style="min-height:100px;">
+            <div style="text-align:center; padding:30px 10px; color:var(--text-muted); font-size:0.875rem;">
+              🔍 Hãy nhập số điện thoại đặt hàng hoặc mã đơn để theo dõi hành trình giao nhận hỏa tốc tại Ninh Bình & Toàn quốc.
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    }
+
+    modal.classList.add('active');
+    const input = document.getElementById('order-tracking-input');
+    if (prefillQuery) {
+      input.value = prefillQuery;
+      window.performOrderTracking();
+    } else {
+      setTimeout(() => input.focus(), 100);
+    }
+  };
+
+  window.performOrderTracking = async function () {
+    const query = document.getElementById('order-tracking-input').value.trim();
+    const resultDiv = document.getElementById('order-tracking-result');
+    if (!query) {
+      window.showToast('Vui lòng nhập SĐT hoặc mã đơn hàng!', 'error');
+      return;
+    }
+
+    resultDiv.innerHTML = '<div style="text-align:center; padding:30px; color:var(--text-muted);">Đang tra cứu dữ liệu đơn hàng...</div>';
+
+    try {
+      const isId = query.toUpperCase().startsWith('NT-') || /^[a-zA-Z]/.test(query);
+      const param = isId ? `orderId=${encodeURIComponent(query)}` : `phone=${encodeURIComponent(query)}`;
+      const res = await fetch(`/api/orders/track?${param}`);
+      const data = await res.json();
+
+      if (!data.success || !data.orders || data.orders.length === 0) {
+        resultDiv.innerHTML = `
+          <div style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); border-radius:8px; padding:20px; text-align:center;">
+            <p style="color:#f87171; font-weight:700; margin-bottom:6px;">Không tìm thấy đơn hàng phù hợp!</p>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin:0;">Vui lòng kiểm tra lại số điện thoại hoặc mã đơn hàng đã nhập khi đặt mua.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const statusMap = {
+        pending: { label: 'Chờ xác nhận', color: '#fbbf24', step: 1 },
+        confirmed: { label: 'Đã duyệt & Đóng gói', color: '#38bdf8', step: 2 },
+        shipping: { label: 'Đang giao hỏa tốc 2H', color: '#c084fc', step: 3 },
+        completed: { label: 'Giao hàng thành công', color: '#34d399', step: 4 },
+        cancelled: { label: 'Đã hủy', color: '#f87171', step: 0 }
+      };
+
+      resultDiv.innerHTML = data.orders.map(order => {
+        const st = statusMap[order.status] || { label: order.status, color: '#fff', step: 1 };
+        const items = order.items || [];
+        const currentStep = st.step;
+
+        return `
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:10px; padding:18px; margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+              <div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Mã đơn hàng:</span>
+                <strong style="color:var(--accent-red); font-size:1rem; margin-left:6px;">${order.id}</strong>
+              </div>
+              <span style="font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:12px; background:${st.color}22; color:${st.color}; border:1px solid ${st.color};">
+                ${st.label.toUpperCase()}
+              </span>
+            </div>
+
+            ${order.status !== 'cancelled' ? `
+              <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:18px; text-align:center;">
+                ${['1. Đã Nhận', '2. Đóng Gói', '3. Đang Giao', '4. Hoàn Tất'].map((stepLabel, idx) => {
+                  const isActive = (idx + 1) <= currentStep;
+                  return `
+                    <div>
+                      <div style="height:5px; border-radius:3px; background:${isActive ? 'var(--accent-red)' : 'rgba(255,255,255,0.1)'}; margin-bottom:6px;"></div>
+                      <span style="font-size:0.6875rem; font-weight:${isActive ? '700' : '400'}; color:${isActive ? '#fff' : 'var(--text-muted)'};">${stepLabel}</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : ''}
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.8125rem; margin-bottom:14px; background:rgba(0,0,0,0.25); padding:12px; border-radius:6px;">
+              <div>
+                <div style="color:var(--text-muted); margin-bottom:3px;">Người nhận: <strong style="color:#fff;">${order.customerName}</strong></div>
+                <div style="color:var(--text-muted);">SĐT: <strong style="color:#fff;">${order.customerPhone}</strong></div>
+                <div style="color:var(--text-muted); margin-top:3px;">Địa chỉ: <span>${order.address}, ${order.district || ''}</span></div>
+              </div>
+              <div style="text-align:right;">
+                <div style="color:var(--text-muted); margin-bottom:3px;">Thanh toán: <strong style="color:#fff;">${order.paymentMethod === 'vietqr' ? 'VietQR (Napas247)' : 'COD (Khi nhận)'}</strong></div>
+                <div style="color:var(--text-muted); margin-bottom:3px;">Ngày tạo: <span>${new Date(order.createdAt).toLocaleDateString('vi-VN')}</span></div>
+                <div style="font-size:0.9375rem; color:#fff; margin-top:4px;">Tổng tiền: <strong style="color:var(--accent-red);">${window.formatVND(order.totalAmount)}</strong></div>
+              </div>
+            </div>
+
+            <div style="border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px;">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px;">Sản phẩm (${items.length}):</span>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                ${items.map(it => `
+                  <div style="display:flex; align-items:center; gap:10px; font-size:0.8125rem;">
+                    <img src="${it.image || 'assets/images/products/ao-khoac-argentina-trang.png'}" alt="${it.title}" style="width:36px; height:44px; object-fit:cover; border-radius:4px; background:#2a050b;">
+                    <div style="flex:1;">
+                      <div style="color:#fff; font-weight:600; line-height:1.3;">${it.title}</div>
+                      <div style="color:var(--text-muted); font-size:0.75rem;">Size: ${it.size} • Số lượng: ${it.quantity}</div>
+                    </div>
+                    <strong style="color:var(--text-primary); font-size:0.8125rem;">${window.formatVND(it.price * it.quantity)}</strong>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    } catch (err) {
+      resultDiv.innerHTML = '<div style="color:#f87171; text-align:center; padding:20px;">Lỗi kết nối máy chủ tra cứu! Vui lòng thử lại sau.</div>';
+    }
+  };
+
+  // --------------------------------------------------------------------------
+  // 7. GLOBAL QUICK VIEW MODAL
+  // --------------------------------------------------------------------------
+  window.openQuickView = async function (productId) {
+    let modal = document.getElementById('quick-view-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'quick-view-modal';
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-card" style="max-width:760px; width:95%; max-height:90vh; overflow-y:auto; padding:28px;">
+          <div style="display:flex; justify-content:flex-end;">
+            <button onclick="document.getElementById('quick-view-modal').classList.remove('active')" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+          </div>
+          <div id="quick-view-content" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    }
+
+    modal.classList.add('active');
+    const content = document.getElementById('quick-view-content');
+    content.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#999;">Đang tải thông tin sản phẩm...</div>';
+
+    let prod = (window.ALL_PRODUCTS || []).find(p => p.id === productId);
+    if (!prod) {
+      try {
+        const res = await fetch(`/api/products/${productId}`);
+        if (res.ok) {
+          const d = await res.json();
+          prod = d.product;
+        }
+      } catch (e) {}
+    }
+
+    if (!prod) {
+      content.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#f87171;">Không tìm thấy thông tin sản phẩm!</div>';
+      return;
+    }
+
+    const sizes = prod.sizes || ['M', 'L', 'XL'];
+    let curSize = sizes[0];
+
+    content.innerHTML = `
+      <div style="background:#2a050b; border-radius:8px; overflow:hidden; position:relative;">
+        <img src="${prod.image}" alt="${prod.title}" id="qv-main-img" style="width:100%; height:380px; object-fit:cover;">
+      </div>
+      <div>
+        <span style="font-size:0.75rem; color:var(--accent-red); font-weight:800; text-transform:uppercase;">${prod.categoryName || 'Streetwear'}</span>
+        <h2 style="font-family:var(--font-heading); font-size:1.25rem; font-weight:800; line-height:1.3; margin:6px 0 10px; color:#fff;">${prod.title}</h2>
+        
+        <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:14px;">
+          <span style="font-size:1.35rem; font-weight:900; color:var(--accent-red);">${window.formatVND(prod.price)}</span>
+          ${prod.oldPrice ? `<span style="font-size:0.9375rem; color:var(--text-muted); text-decoration:line-through;">${window.formatVND(prod.oldPrice)}</span>` : ''}
+        </div>
+
+        <p style="font-size:0.8125rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+          ${prod.description || 'Sản phẩm Streetwear cao cấp từ Nguyen Tu Fashion Ninh Bình.'}
+        </p>
+
+        <div style="margin-bottom:14px;">
+          <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:#fff;">Chọn Kích Cỡ:</label>
+          <div style="display:flex; gap:8px;" id="qv-size-group">
+            ${sizes.map((s, idx) => `
+              <button class="size-btn-pill ${idx === 0 ? 'active' : ''}" style="padding:6px 14px; font-size:0.8125rem;" onclick="
+                document.querySelectorAll('#qv-size-group button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                window._qvSelectedSize = '${s}';
+              ">${s}</button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px; font-size:0.75rem; color:var(--accent-green); font-weight:700;">
+          ⚡ Sẵn sàng giao hỏa tốc 2H tại Ninh Bình • Đổi size miễn phí 7 ngày
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary" style="flex:1; height:46px; font-weight:800;" onclick="
+            const s = window._qvSelectedSize || '${sizes[0]}';
+            window.addToCart('${prod.id}', s, '#111111', 1);
+            document.getElementById('quick-view-modal').classList.remove('active');
+          ">Thêm Vào Giỏ Hàng</button>
+          <a href="product-detail.html?id=${prod.id}" class="btn btn-outline-white" style="height:46px; display:inline-flex; align-items:center; padding:0 16px; font-size:0.8125rem;">Chi Tiết →</a>
+        </div>
+      </div>
+    `;
+    window._qvSelectedSize = sizes[0];
+  };
 
 })();

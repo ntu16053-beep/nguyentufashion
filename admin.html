@@ -142,6 +142,9 @@
       <div class="admin-nav-item" onclick="window.switchAdminTab('inquiries', this)">
         <span>📩</span> <span>Yêu Cầu Tư Vấn</span>
       </div>
+      <div class="admin-nav-item" onclick="window.switchAdminTab('articles', this)">
+        <span>📝</span> <span>Bài Viết Blog</span>
+      </div>
       <div class="admin-nav-item" onclick="window.switchAdminTab('settings', this)">
         <span>⚙️</span> <span>Cài Đặt & Bot</span>
       </div>
@@ -362,11 +365,89 @@
             </div>
             <div id="gh-test-result" style="margin-top:12px; font-size:0.8125rem;"></div>
           </div>
+      <!-- 7. TAB ARTICLES -->
+      <section class="admin-tab-pane" id="pane-articles">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">QUẢN LÝ BÀI VIẾT & TẠP CHÍ</h2>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-top:4px;">Đăng tin tức xu hướng, cẩm nang phối đồ và lookbook kết nối bán hàng</p>
+          </div>
+          <button class="btn btn-primary" onclick="window.openCreateArticleModal()">+ Viết Bài Mới</button>
+        </div>
+
+        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.875rem;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border-light); text-align:left; color:var(--text-muted);">
+                <th style="padding:14px 16px;">Hình Ảnh</th>
+                <th style="padding:14px 16px;">Tiêu Đề</th>
+                <th style="padding:14px 16px;">Chuyên Mục</th>
+                <th style="padding:14px 16px;">Tác Giả</th>
+                <th style="padding:14px 16px;">Lượt Xem</th>
+                <th style="padding:14px 16px;">Ngày Đăng</th>
+                <th style="padding:14px 16px; text-align:center;">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="articles-admin-tbody">
+              <!-- Loaded dynamically -->
+            </tbody>
+          </table>
         </div>
       </section>
 
     </main>
 
+  </div>
+
+  <!-- CREATE ARTICLE MODAL -->
+  <div class="modal-overlay" id="create-article-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:620px; max-height:90vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Viết Bài Mới Cho Tạp Chí</h3>
+        <button onclick="document.getElementById('create-article-modal').style.display='none'" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Tiêu Đề Bài Viết *</label>
+        <input type="text" id="art-title-input" class="custom-input" placeholder="VD: Xu hướng Streetwear mùa hè 2026..." required>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Chuyên Mục *</label>
+          <select id="art-cat-input" class="custom-input">
+            <option value="trends">Xu Hướng (Trends)</option>
+            <option value="mix-match">Mẹo Phối Đồ</option>
+            <option value="guide">Cẩm Nang Chọn Size</option>
+            <option value="story">Cửa Hàng & Không Gian</option>
+          </select>
+        </div>
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Tác Giả</label>
+          <input type="text" id="art-author-input" class="custom-input" value="Nguyen Tu Stylist">
+        </div>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Link Ảnh Đại Diện (Thumbnail)</label>
+        <input type="text" id="art-thumb-input" class="custom-input" placeholder="assets/images/hero-banner.png hoặc link URL">
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Tóm Tắt Ngắn (Excerpt)</label>
+        <textarea id="art-excerpt-input" class="custom-input" rows="2" placeholder="Tóm tắt nội dung 1-2 câu..."></textarea>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:20px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Nội Dung Bài Viết *</label>
+        <textarea id="art-content-input" class="custom-input" rows="5" placeholder="Nhập nội dung bài viết chi tiết..." required></textarea>
+      </div>
+
+      <div style="display:flex; gap:12px;">
+        <button class="btn btn-dark" style="flex:1;" onclick="document.getElementById('create-article-modal').style.display='none'">Hủy Bỏ</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="window.submitCreateAdminArticle()">Đăng Bài Viết</button>
+      </div>
+    </div>
   </div>
 
   <style>
@@ -423,7 +504,7 @@
     </div>
   </div>
 
-  <script src="assets/js/common.js"></script>
+  <script src="assets/js/common.js?v=2.5"></script>
 
   <script>
     window.verifyAdminLogin = async function () {
@@ -461,6 +542,7 @@
       if (paneKey === 'products') window.loadAdminProducts();
       if (paneKey === 'coupons') window.loadAdminCoupons();
       if (paneKey === 'inquiries') window.loadAdminInquiries();
+      if (paneKey === 'articles') window.loadAdminArticles();
       if (paneKey === 'settings') window.loadAdminSettings();
     };
 
@@ -501,13 +583,16 @@
             <td>${o.paymentMethod.toUpperCase()}</td>
             <td><span class="status-badge status-${o.status}">${o.status}</span></td>
             <td>
-              <select class="custom-select" style="font-size:0.75rem; padding:4px 8px;" onchange="window.updateOrderStatus('${o.id}', this.value)">
+              <select class="custom-select" style="font-size:0.75rem; padding:4px 8px; margin-bottom:4px;" onchange="window.updateOrderStatus('${o.id}', this.value)">
                 <option value="pending" ${o.status==='pending'?'selected':''}>Chờ duyệt</option>
                 <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Đã duyệt</option>
                 <option value="shipping" ${o.status==='shipping'?'selected':''}>Đang giao 2H</option>
                 <option value="completed" ${o.status==='completed'?'selected':''}>Hoàn tất</option>
                 <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Hủy</option>
               </select>
+              <div>
+                <button class="btn btn-outline-white" style="font-size:0.7rem; padding:3px 8px;" onclick="window.printOrderReceipt('${o.id}')">🖨️ In Phiếu</button>
+              </div>
             </td>
           </tr>
         `).join('');
@@ -797,6 +882,205 @@
         }
       } catch (e) {
         resultDiv.innerHTML = '<span style="color:var(--accent-red);">Lỗi kết nối máy chủ!</span>';
+      }
+    };
+
+    // ==========================================
+    // ARTICLE / BLOG MANAGEMENT
+    // ==========================================
+    window.loadAdminArticles = async function () {
+      try {
+        const res = await fetch('/api/articles');
+        const data = await res.json();
+        const tbody = document.getElementById('articles-admin-tbody');
+        tbody.innerHTML = (data.articles || []).map(a => `
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:12px 16px;">
+              <img src="${a.thumbnail || 'assets/images/hero-banner.png'}" alt="${a.title}" style="width:48px; height:48px; object-fit:cover; border-radius:4px; background:#2a050b;">
+            </td>
+            <td style="padding:12px 16px;">
+              <strong style="color:#fff; display:block; line-height:1.4;">${a.title}</strong>
+              <span style="font-size:0.75rem; color:var(--text-muted);">${(a.excerpt || '').slice(0, 60)}...</span>
+            </td>
+            <td style="padding:12px 16px;"><span class="badge badge-hot" style="font-size:0.7rem;">${a.categoryName || a.category}</span></td>
+            <td style="padding:12px 16px; color:var(--text-secondary);">${a.author || 'Stylist'}</td>
+            <td style="padding:12px 16px;">${a.views || 0}</td>
+            <td style="padding:12px 16px; color:var(--text-muted); font-size:0.8125rem;">${a.publishDate || ''}</td>
+            <td style="padding:12px 16px; text-align:center;">
+              <div style="display:flex; gap:6px; justify-content:center;">
+                <a href="blog-detail.html?id=${a.id}" target="_blank" class="btn btn-outline-white" style="font-size:0.7rem; padding:4px 8px;">Xem</a>
+                <button class="btn btn-dark" style="font-size:0.7rem; padding:4px 8px; color:#f87171; border-color:#f87171;" onclick="window.deleteAdminArticle('${a.id}')">Xóa</button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) {}
+    };
+
+    window.openCreateArticleModal = function () {
+      document.getElementById('create-article-modal').style.display = 'flex';
+      document.getElementById('art-title-input').value = '';
+      document.getElementById('art-excerpt-input').value = '';
+      document.getElementById('art-content-input').value = '';
+    };
+
+    window.submitCreateAdminArticle = async function () {
+      const title = document.getElementById('art-title-input').value.trim();
+      const category = document.getElementById('art-cat-input').value;
+      const author = document.getElementById('art-author-input').value.trim();
+      const thumbnail = document.getElementById('art-thumb-input').value.trim();
+      const excerpt = document.getElementById('art-excerpt-input').value.trim();
+      const content = document.getElementById('art-content-input').value.trim();
+
+      const catNames = {
+        trends: 'Xu Hướng (Trends)',
+        'mix-match': 'Mẹo Phối Đồ',
+        guide: 'Cẩm Nang Chọn Size',
+        story: 'Cửa Hàng & Không Gian'
+      };
+
+      if (!title || !content) {
+        alert('Vui lòng điền đủ Tiêu đề và Nội dung bài viết!');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/articles', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title,
+            category,
+            categoryName: catNames[category] || 'Thời Trang',
+            author,
+            thumbnail: thumbnail || 'assets/images/hero-banner.png',
+            excerpt,
+            content: [{ type: 'paragraph', text: content }]
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          window.showToast('Đăng bài viết thành công!', 'success');
+          document.getElementById('create-article-modal').style.display = 'none';
+          window.loadAdminArticles();
+        } else {
+          alert(data.message || 'Lỗi đăng bài viết');
+        }
+      } catch (e) {
+        alert('Lỗi kết nối khi đăng bài');
+      }
+    };
+
+    window.deleteAdminArticle = async function (id) {
+      if (!confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) return;
+      try {
+        const res = await fetch(`/api/articles/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast('Đã xóa bài viết', 'info');
+          window.loadAdminArticles();
+        } else {
+          alert(data.message || 'Không thể xóa bài');
+        }
+      } catch (e) {
+        alert('Lỗi kết nối');
+      }
+    };
+
+    // ==========================================
+    // THERMAL PACKING SLIP / INVOICE PRINT
+    // ==========================================
+    window.printOrderReceipt = async function (orderId) {
+      try {
+        const res = await fetch(`/api/orders/${orderId}`);
+        const data = await res.json();
+        if (!data.success || !data.order) {
+          alert('Không tìm thấy đơn hàng!');
+          return;
+        }
+        const o = data.order;
+        const printWindow = window.open('', '_blank', 'width=700,height=800');
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <title>Phiếu Giao Hàng - ${o.id}</title>
+            <style>
+              body { font-family: monospace, sans-serif; padding: 24px; color: #000; line-height: 1.5; font-size: 13px; max-width: 500px; margin: 0 auto; }
+              .header { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 12px; margin-bottom: 14px; }
+              .header h2 { margin: 0 0 4px; font-size: 18px; }
+              .table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+              .table th, .table td { text-align: left; padding: 6px 0; border-bottom: 1px dashed #ccc; font-size: 12px; }
+              .total-row { font-size: 14px; font-weight: bold; border-top: 2px solid #000; padding-top: 8px; margin-top: 8px; display: flex; justify-content: space-between; }
+              .footer { text-align: center; margin-top: 24px; font-size: 11px; border-top: 1px dashed #000; padding-top: 10px; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h2>NGUYEN TU FASHION</h2>
+              <div>Showroom: Khánh Nhạc, Yên Khánh, Ninh Bình</div>
+              <div>Hotline: 0342.767.002 • Streetwear Ninh Bình</div>
+              <h3 style="margin: 10px 0 0;">PHIẾU GIAO HÀNG HỎA TỐC</h3>
+              <div>Mã đơn: <strong>${o.id}</strong> - Ngày: ${new Date(o.createdAt).toLocaleString('vi-VN')}</div>
+            </div>
+            <div>
+              <div><strong>Khách hàng:</strong> ${o.customerName}</div>
+              <div><strong>Điện thoại:</strong> ${o.customerPhone}</div>
+              <div><strong>Địa chỉ:</strong> ${o.address}, ${o.district || ''}</div>
+              <div><strong>Ghi chú:</strong> ${o.shippingNote || 'Cho kiểm tra hàng trước khi nhận'}</div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Sản phẩm</th>
+                  <th>Size</th>
+                  <th>SL</th>
+                  <th style="text-align:right;">Đơn giá</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${(o.items || []).map(it => `
+                  <tr>
+                    <td>${it.title}</td>
+                    <td>${it.size || 'M'}</td>
+                    <td>x${it.quantity}</td>
+                    <td style="text-align:right;">${Number(it.price * it.quantity).toLocaleString('vi-VN')}₫</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span>Tạm tính:</span>
+              <span>${Number(o.subtotal || o.totalAmount).toLocaleString('vi-VN')}₫</span>
+            </div>
+            ${o.discountAmount ? `
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:#b91c1c;">
+                <span>Giảm giá (${o.couponCode || 'Voucher'}):</span>
+                <span>-${Number(o.discountAmount).toLocaleString('vi-VN')}₫</span>
+              </div>
+            ` : ''}
+            <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+              <span>Phí vận chuyển:</span>
+              <span>${o.shippingFee ? Number(o.shippingFee).toLocaleString('vi-VN') + '₫' : 'Miễn phí'}</span>
+            </div>
+            <div class="total-row">
+              <span>TIỀN PHẢI THU (${o.paymentMethod === 'vietqr' ? 'ĐÃ TT VIETQR' : 'THU COD'}):</span>
+              <span>${Number(o.totalAmount).toLocaleString('vi-VN')}₫</span>
+            </div>
+            <div class="footer">
+              <p>Cảm ơn quý khách đã mua sắm tại Nguyen Tu Fashion!<br>Hỗ trợ đổi size miễn phí trong 7 ngày: 0342.767.002</p>
+            </div>
+            <script>
+              window.onload = function() { window.print(); };
+            <\/script>
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+      } catch (e) {
+        alert('Lỗi in hóa đơn: ' + e.message);
       }
     };
   </script>

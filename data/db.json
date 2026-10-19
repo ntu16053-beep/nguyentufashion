@@ -2051,5 +2051,51 @@
         "nt-06"
       ]
     }
+  ],
+  "reviews": [
+    {
+      "id": "rev-01",
+      "productId": "nt-01",
+      "customerName": "Nguyễn Hoàng Nam (Yên Khánh)",
+      "phone": "******7002",
+      "rating": 5,
+      "sizePurchased": "L",
+      "comment": "Vải dù gió 2 lớp dày dặn, cản gió cực tốt. Mình 1m73 65kg mặc size L rũ vai đẹp như ảnh mẫu. Giao hàng hỏa tốc trong 1 tiếng siêu nhanh!",
+      "isVerifiedBuyer": true,
+      "createdAt": "2026-10-18T14:20:00Z"
+    },
+    {
+      "id": "rev-02",
+      "productId": "nt-01",
+      "customerName": "Trần Mai Linh (TP. Ninh Bình)",
+      "phone": "******8899",
+      "rating": 5,
+      "sizePurchased": "M",
+      "comment": "Form áo đẹp xỉu luôn ạ! Đường may sắc sảo không có chỉ thừa, logo thêu nổi mạ vàng rất sang chảnh. Sẽ tiếp tục ủng hộ shop!",
+      "isVerifiedBuyer": true,
+      "createdAt": "2026-10-18T16:45:00Z"
+    },
+    {
+      "id": "rev-03",
+      "productId": "nt-01",
+      "customerName": "Vũ Đức Thịnh (Hoa Lư)",
+      "phone": "******3322",
+      "rating": 5,
+      "sizePurchased": "XL",
+      "comment": "Shop đóng gói hộp chỉn chu có thư cảm ơn và voucher giảm giá. Mua online mà ưng hơn mong đợi. 10 sao cho local brand quê mình!",
+      "isVerifiedBuyer": true,
+      "createdAt": "2026-10-19T08:10:00Z"
+    },
+    {
+      "id": "rev-04",
+      "productId": "nt-03",
+      "customerName": "Lê Minh Tuấn (Ninh Bình)",
+      "phone": "******5566",
+      "rating": 5,
+      "sizePurchased": "L",
+      "comment": "Chất thun cotton 100% 2 chiều co giãn tốt, màu đỏ mận rất tôn da. Mặc đi dạo phố hay cafe đều nổi bật.",
+      "isVerifiedBuyer": true,
+      "createdAt": "2026-10-18T11:00:00Z"
+    }
   ]
 }

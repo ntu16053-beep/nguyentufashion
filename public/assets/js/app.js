@@ -905,9 +905,54 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 3. RENDER PRODUCTS
   // ==========================================
+  const syncDynamicProducts = () => {
+    try {
+      const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
+      if (overrides && Object.keys(overrides).length > 0) {
+        PRODUCTS.forEach(p => {
+          if (overrides[p.id]) {
+            Object.assign(p, overrides[p.id]);
+          }
+        });
+      }
+    } catch (e) {}
+
+    if (window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0) {
+      window.ALL_PRODUCTS.forEach(apiP => {
+        const found = PRODUCTS.find(p => p.id === apiP.id);
+        if (found) {
+          found.price = apiP.price;
+          found.oldPrice = apiP.oldPrice;
+          if (apiP.badge) found.badge = apiP.badge;
+          if (apiP.stock) found.stock = apiP.stock;
+        }
+      });
+    }
+
+    // Cập nhật giá trên các thẻ Lookbook trang chủ
+    try {
+      document.querySelectorAll('.lookbook-card-item').forEach(card => {
+        const onClickAttr = card.getAttribute('onclick') || '';
+        const match = onClickAttr.match(/['"](nt-\d+)['"]/);
+        if (match) {
+          const id = match[1];
+          const p = PRODUCTS.find(x => x.id === id);
+          if (p) {
+            const priceEl = card.querySelector('.lookbook-card-price');
+            if (priceEl) {
+              priceEl.innerHTML = `${formatVND(p.price)} ${p.oldPrice ? `<span style="font-size:0.75rem; color:var(--text-muted); text-decoration:line-through;">${formatVND(p.oldPrice)}</span>` : ''}`;
+            }
+          }
+        }
+      });
+    } catch (e) {}
+  };
+
   const renderProductGrid = () => {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
+
+    syncDynamicProducts();
 
     let filtered = PRODUCTS.filter(p => {
       if (currentFilter === 'all') return true;
@@ -1006,10 +1051,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Lắng nghe cập nhật giá mới từ API hoặc localStorage để lập tức làm mới trang chủ
+  window.addEventListener('productsUpdated', () => {
+    syncDynamicProducts();
+    renderProductGrid();
+  });
+
+  if (window.loadAllProducts) {
+    window.loadAllProducts().then(() => {
+      syncDynamicProducts();
+      renderProductGrid();
+    });
+  }
+
   // ==========================================
   // 4. CART LOGIC & DRAWER
   // ==========================================
   window.fastAddToCart = (productId) => {
+    syncDynamicProducts();
     const product = PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 
@@ -1202,6 +1261,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedModalColor = null;
 
   window.openQuickView = (productId) => {
+    syncDynamicProducts();
     const product = PRODUCTS.find(p => p.id === productId);
     if (!product) return;
 

@@ -33,6 +33,7 @@
       </div>
 
       <div class="announcement-group">
+        <a href="javascript:void(0)" onclick="window.openOrderTrackingModal()" class="announcement-item" style="color:var(--accent-gold); font-weight:700;">📦 Tra Cứu Đơn</a>
         <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
         <a href="tel:0342767002" class="announcement-item">📞 Hotline: 0342.767.002</a>
       </div>
@@ -394,6 +395,80 @@
     </div>
   </div>
 
+  <!-- CUSTOMER REVIEW MODAL -->
+  <div class="modal-overlay" id="review-modal">
+    <div class="modal-card" style="max-width:520px; width:95%; padding:26px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Viết Đánh Giá Sản Phẩm</h3>
+        <button onclick="document.getElementById('review-modal').classList.remove('active')" style="font-size:1.5rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:#fff;">Đánh giá của bạn:</label>
+        <div style="display:flex; gap:8px; font-size:1.6rem; color:#fbbf24; cursor:pointer;" id="review-star-picker">
+          <span onclick="window.setReviewStars(1)">★</span>
+          <span onclick="window.setReviewStars(2)">★</span>
+          <span onclick="window.setReviewStars(3)">★</span>
+          <span onclick="window.setReviewStars(4)">★</span>
+          <span onclick="window.setReviewStars(5)">★</span>
+        </div>
+        <input type="hidden" id="review-star-val" value="5">
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; margin-bottom:4px; color:#fff;">Họ và Tên *</label>
+          <input type="text" id="rev-name" class="custom-input" placeholder="VD: Hoàng Nam" required>
+        </div>
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; margin-bottom:4px; color:#fff;">Khu vực (Ninh Bình)</label>
+          <input type="text" id="rev-location" class="custom-input" placeholder="VD: TP. Ninh Bình">
+        </div>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; margin-bottom:4px; color:#fff;">Size bạn đã mua:</label>
+        <select id="rev-size" class="custom-input">
+          <option value="M">Size M</option>
+          <option value="L" selected>Size L</option>
+          <option value="XL">Size XL</option>
+          <option value="XXL">Size XXL</option>
+        </select>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:20px;">
+        <label style="font-size:0.8125rem; font-weight:700; margin-bottom:4px; color:#fff;">Nhận xét chi tiết *</label>
+        <textarea id="rev-comment" class="custom-input" rows="4" placeholder="Chia sẻ cảm nhận về chất vải, phom dáng, thời gian giao hàng hỏa tốc..." style="height:auto; resize:vertical;" required></textarea>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%; height:46px; font-weight:800;" onclick="window.submitCustomerReview()">
+        Gửi Đánh Giá Ngay
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE STICKY BUY BAR -->
+  <aside class="mobile-sticky-bar" id="mobile-sticky-bar" style="display:none;">
+    <div class="sticky-bar-inner">
+      <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Thumbnail" id="sticky-thumb-img" class="sticky-thumb">
+      <div class="sticky-info">
+        <h4 id="sticky-title" class="sticky-product-title">Áo Khoác Gió</h4>
+        <div class="sticky-price-row">
+          <strong id="sticky-price" style="color:var(--accent-red);">480.000₫</strong>
+          <span id="sticky-size-badge" class="sticky-badge">Size M</span>
+        </div>
+      </div>
+      <div class="sticky-actions">
+        <button class="btn btn-outline-white btn-sm" onclick="window.handleDetailAddToCart()" title="Thêm giỏ">
+          + Giỏ
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="window.handleDetailBuyNow()">
+          Mua Ngay
+        </button>
+      </div>
+    </div>
+  </aside>
+
   <!-- FOOTER -->
   <footer class="footer" style="margin-top:80px;">
     <div class="container">
@@ -454,7 +529,7 @@
   </footer>
 
   <!-- COMMON JS & CHAT WIDGET -->
-  <script src="assets/js/common.js"></script>
+  <script src="assets/js/common.js?v=2.5"></script>
   <script src="assets/js/chat-widget.js"></script>
 
   <!-- DETAIL PAGE LOGIC -->
@@ -589,9 +664,23 @@
       document.querySelectorAll('.size-btn-pill').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
 
+      const stockBadge = document.getElementById('sticky-size-badge');
+      if (stockBadge) stockBadge.textContent = 'Size ' + size;
+
       const stockMap = currentProduct?.stock || {};
       const qtyAvail = stockMap[size] !== undefined ? stockMap[size] : 20;
-      document.getElementById('stock-text').textContent = `Còn ${qtyAvail} sản phẩm trong kho (Giao 2H)`;
+      const buyBtn = document.getElementById('btn-detail-buynow');
+      const addBtn = document.getElementById('btn-detail-addcart');
+
+      if (qtyAvail <= 0) {
+        document.getElementById('stock-text').innerHTML = '<span style="color:#f87171; font-weight:700;">⚠️ Tạm thời hết size này (Đang về thêm)</span>';
+        if (buyBtn) { buyBtn.disabled = true; buyBtn.style.opacity = '0.5'; }
+        if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; }
+      } else {
+        document.getElementById('stock-text').innerHTML = `Còn <strong>${qtyAvail}</strong> sản phẩm trong kho (Giao 2H)`;
+        if (buyBtn) { buyBtn.disabled = false; buyBtn.style.opacity = '1'; }
+        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = '1'; }
+      }
     };
 
     window.adjustDetailQty = function (delta) {
@@ -655,7 +744,43 @@
       window.showToast(`Đã áp dụng Size ${rec} cho đơn hàng của bạn!`, 'success');
     };
 
-    function renderSampleReviews(p) {
+    // Customer Reviews System
+    async function loadProductReviews(prodId) {
+      const container = document.getElementById('detail-reviews-list');
+      try {
+        const res = await fetch(`/api/products/${prodId}/reviews`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.reviews && data.reviews.length > 0) {
+            renderReviewsList(data.reviews);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // Fallback sample reviews if API returns empty
+      renderSampleReviewsFallback();
+    }
+
+    function renderReviewsList(reviews) {
+      const container = document.getElementById('detail-reviews-list');
+      container.innerHTML = reviews.map(r => `
+        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <div>
+              <strong style="color:#fff; font-size:0.9375rem;">${r.customerName}</strong>
+              ${r.sizePurchased ? `<span style="font-size:0.75rem; color:var(--text-muted); margin-left:8px;">(Size: ${r.sizePurchased})</span>` : ''}
+            </div>
+            <span style="color:#fbbf24; font-size:0.875rem;">${'★'.repeat(r.rating || 5)}${'☆'.repeat(5 - (r.rating || 5))}</span>
+          </div>
+          <span style="font-size:0.6875rem; color:var(--accent-green); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px;">✓ Đã mua hàng tại Showroom Ninh Bình</span>
+          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6; margin:0;">${r.comment}</p>
+          <span style="font-size:0.6875rem; color:var(--text-muted); display:block; margin-top:6px;">${new Date(r.createdAt || Date.now()).toLocaleDateString('vi-VN')}</span>
+        </div>
+      `).join('');
+    }
+
+    function renderSampleReviewsFallback() {
       const container = document.getElementById('detail-reviews-list');
       const sampleNames = ['Nguyễn Hoàng Nam (Yên Khánh)', 'Trần Mai Linh (TP. Ninh Bình)', 'Vũ Đức Thịnh (Hoa Lư)', 'Lê Khánh Huyền (Tam Điệp)'];
       const sampleComments = [
@@ -672,9 +797,95 @@
             <span style="color:#fbbf24; font-size:0.875rem;">★★★★★</span>
           </div>
           <span style="font-size:0.6875rem; color:var(--accent-green); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px;">✓ Đã mua hàng tại Showroom Ninh Bình</span>
-          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">${sampleComments[i]}</p>
+          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6; margin:0;">${sampleComments[i]}</p>
         </div>
       `).join('');
+    }
+
+    window.openReviewModal = function () {
+      document.getElementById('review-modal').classList.add('active');
+    };
+
+    window.setReviewStars = function (num) {
+      document.getElementById('review-star-val').value = num;
+      const stars = document.querySelectorAll('#review-star-picker span');
+      stars.forEach((s, idx) => {
+        s.style.opacity = idx < num ? '1' : '0.3';
+      });
+    };
+
+    window.submitCustomerReview = async function () {
+      if (!currentProduct) return;
+      const name = document.getElementById('rev-name').value.trim();
+      const location = document.getElementById('rev-location').value.trim();
+      const size = document.getElementById('rev-size').value;
+      const comment = document.getElementById('rev-comment').value.trim();
+      const rating = Number(document.getElementById('review-star-val').value) || 5;
+
+      if (!name) {
+        window.showToast('Vui lòng nhập Họ tên!', 'error');
+        return;
+      }
+      if (!comment) {
+        window.showToast('Vui lòng nhập nội dung đánh giá!', 'error');
+        return;
+      }
+
+      const displayName = location ? `${name} (${location})` : name;
+
+      try {
+        const res = await fetch(`/api/products/${currentProduct.id}/reviews`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customerName: displayName,
+            rating,
+            sizePurchased: size,
+            comment
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          window.showToast(data.message || 'Gửi đánh giá thành công!', 'success');
+          document.getElementById('review-modal').classList.remove('active');
+          document.getElementById('rev-comment').value = '';
+          if (data.productRating) {
+            document.getElementById('detail-rating-num').textContent = data.productRating.toFixed(1);
+          }
+          if (data.totalReviews) {
+            document.getElementById('detail-reviews-num').textContent = `${data.totalReviews} Đánh Giá`;
+            document.getElementById('tab-review-count').textContent = data.totalReviews;
+          }
+          loadProductReviews(currentProduct.id);
+        } else {
+          window.showToast(data.message || 'Lỗi gửi đánh giá', 'error');
+        }
+      } catch (err) {
+        window.showToast('Đã ghi nhận đánh giá của bạn!', 'success');
+        document.getElementById('review-modal').classList.remove('active');
+      }
+    };
+
+    // Mobile Sticky Buy Bar Initialization
+    function initMobileStickyBar() {
+      const bar = document.getElementById('mobile-sticky-bar');
+      const mainActions = document.querySelector('.product-actions-group');
+      if (!bar || !mainActions) return;
+
+      window.addEventListener('scroll', () => {
+        if (window.innerWidth > 768) {
+          bar.style.display = 'none';
+          return;
+        }
+
+        const rect = mainActions.getBoundingClientRect();
+        if (rect.bottom < 0) {
+          bar.style.display = 'block';
+        } else {
+          bar.style.display = 'none';
+        }
+      }, { passive: true });
     }
 
     function renderRelatedProducts(curr) {
@@ -711,7 +922,18 @@
       `).join('');
     }
 
-    document.addEventListener('DOMContentLoaded', initDetailPage);
+    document.addEventListener('DOMContentLoaded', async () => {
+      await initDetailPage();
+      if (currentProduct) {
+        loadProductReviews(currentProduct.id);
+        // Sync mobile sticky bar
+        document.getElementById('sticky-thumb-img').src = currentProduct.image;
+        document.getElementById('sticky-title').textContent = currentProduct.title;
+        document.getElementById('sticky-price').textContent = window.formatVND(currentProduct.price);
+        document.getElementById('sticky-size-badge').textContent = 'Size ' + selectedSize;
+      }
+      initMobileStickyBar();
+    });
   </script>
 </body>
 </html>

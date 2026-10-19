@@ -33,6 +33,7 @@
       </div>
 
       <div class="announcement-group">
+        <a href="javascript:void(0)" onclick="window.openOrderTrackingModal()" class="announcement-item" style="color:var(--accent-gold); font-weight:700;">📦 Tra Cứu Đơn</a>
         <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
         <a href="tel:0342767002" class="announcement-item">📞 Hotline: 0342.767.002</a>
       </div>
@@ -381,7 +382,10 @@
       </div>
 
       <!-- Action Buttons -->
-      <div style="display:flex; justify-content:center; gap:16px; margin-top:24px; flex-wrap:wrap;">
+      <div style="display:flex; justify-content:center; gap:14px; margin-top:24px; flex-wrap:wrap;">
+        <button onclick="window.openOrderTrackingModal(document.getElementById('success-order-id').textContent)" class="btn btn-outline-white" style="border-color:var(--accent-red); color:#fff; display:inline-flex; align-items:center; gap:6px;">
+          <span>📦 Tra Cứu Đơn Này</span>
+        </button>
         <a href="index.html" class="btn btn-outline-white">Quay Về Trang Chủ</a>
         <a href="products.html" class="btn btn-primary">Tiếp Tục Mua Sắm</a>
       </div>
@@ -461,7 +465,7 @@
   </footer>
 
   <!-- COMMON JS & CHAT WIDGET -->
-  <script src="assets/js/common.js"></script>
+  <script src="assets/js/common.js?v=2.5"></script>
   <script src="assets/js/chat-widget.js"></script>
 
   <!-- CHECKOUT LOGIC -->
@@ -477,6 +481,20 @@
         window.showToast('Giỏ hàng trống! Hãy chọn sản phẩm trước.', 'info');
         setTimeout(() => window.location.href = 'products.html', 1500);
         return;
+      }
+
+      // Auto-restore coupon from cart
+      const savedCoupon = window.getSavedCoupon();
+      if (savedCoupon && savedCoupon.code) {
+        checkoutVoucherCode = savedCoupon.code;
+        checkoutDiscountAmount = savedCoupon.discountAmount || 0;
+        const input = document.getElementById('checkout-voucher-input');
+        if (input) input.value = savedCoupon.code;
+        const msg = document.getElementById('checkout-voucher-msg');
+        if (msg) {
+          msg.textContent = `✓ Đã áp dụng mã ${savedCoupon.code}`;
+          msg.style.display = 'block';
+        }
       }
 
       renderCheckoutMiniItems(cart);
@@ -651,6 +669,7 @@
     };
 
     function showOrderSuccessScreen(order) {
+      window.clearSavedCoupon();
       document.getElementById('checkout-form-view').style.display = 'none';
       document.getElementById('order-success-screen').style.display = 'block';
       document.getElementById('step-3-indicator').classList.add('active');
