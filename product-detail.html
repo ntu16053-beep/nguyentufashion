@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
-  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/style.css?v=2.0">
+  <link rel="stylesheet" href="assets/css/pages.css?v=2.0">
 </head>
 <body>
 
@@ -685,26 +685,29 @@
       const fallback = related.length ? related : all.filter(p => p.id !== curr.id).slice(0, 4);
 
       grid.innerHTML = fallback.map(p => `
-        <div class="product-card">
-          <div class="card-image-wrap">
-            <a href="product-detail.html?id=${p.id}">
-              <img src="${p.image}" alt="${p.title}" class="product-img primary">
+        <article class="product-card" data-id="${p.id}">
+          <div class="product-thumb-wrap">
+            <div class="product-badges">
+              ${p.badge ? `<span class="p-badge badge-${p.badge}">${p.badge.toUpperCase()}</span>` : ''}
+            </div>
+            <a href="product-detail.html?id=${p.id}" class="product-thumb-link">
+              <img src="${p.image}" alt="${p.title}" class="product-img" loading="lazy">
             </a>
-            <div class="card-badges">
-              ${p.badge ? `<span class="badge badge-${p.badge}">${p.badge.toUpperCase()}</span>` : ''}
-            </div>
-            <div class="card-actions">
-              <a href="product-detail.html?id=${p.id}" class="quick-btn" style="width:100%; text-align:center;">Xem Sản Phẩm</a>
+            <div class="product-quick-actions">
+              <a href="product-detail.html?id=${p.id}" class="btn-quick-view" style="width:100%; justify-content:center; text-decoration:none;">Xem Chi Tiết</a>
             </div>
           </div>
-          <div class="card-details">
-            <h3 class="product-title"><a href="product-detail.html?id=${p.id}">${p.title}</a></h3>
-            <div class="price-row">
-              <span class="price-current">${window.formatVND(p.price)}</span>
-              ${p.oldPrice ? `<span class="price-old">${window.formatVND(p.oldPrice)}</span>` : ''}
+          <div class="product-info">
+            <span class="product-category">${p.categoryName || 'Streetwear'}</span>
+            <h3 class="product-title"><a href="product-detail.html?id=${p.id}" style="color:inherit; text-decoration:none;">${p.title}</a></h3>
+            <div class="product-meta">
+              <div class="product-prices">
+                <span class="price-current">${window.formatVND ? window.formatVND(p.price) : p.price.toLocaleString('vi-VN') + ' đ'}</span>
+                ${p.oldPrice ? `<span class="price-old">${window.formatVND ? window.formatVND(p.oldPrice) : p.oldPrice.toLocaleString('vi-VN') + ' đ'}</span>` : ''}
+              </div>
             </div>
           </div>
-        </div>
+        </article>
       `).join('');
     }
 

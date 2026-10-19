@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
-  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/style.css?v=2.0">
+  <link rel="stylesheet" href="assets/css/pages.css?v=2.0">
 </head>
 <body>
 
@@ -34,7 +34,7 @@
 
       <div class="announcement-group">
         <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
-        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.888.888</a>
+        <a href="tel:0342767002" class="announcement-item">📞 Hotline: 0342.767.002</a>
       </div>
     </div>
   </aside>
@@ -254,9 +254,21 @@
             </div>
           </div>
 
-          <!-- Product Grid -->
-          <div class="product-grid" id="catalog-product-grid">
-            <!-- Rendered dynamically -->
+          <!-- Product Grid with Horizontal Scroll (Lướt sang trái / phải để nhìn rõ sản phẩm) -->
+          <div class="catalog-scroll-container">
+            <button class="catalog-scroll-arrow prev" id="catalog-scroll-prev" aria-label="Lướt sang trái" title="Lướt sang trái">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <div class="catalog-scroll-viewport" id="catalog-scroll-viewport">
+              <div class="product-grid" id="catalog-product-grid">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <button class="catalog-scroll-arrow next" id="catalog-scroll-next" aria-label="Lướt sang phải" title="Lướt sang phải">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
           </div>
 
           <!-- Empty State -->
@@ -328,7 +340,7 @@
             📍 Khánh Nhạc, Yên Khánh, Ninh Bình
           </p>
           <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:8px;">
-            📞 <strong>0988.888.888</strong>
+            📞 <strong>0342.767.002</strong>
           </p>
           <p style="font-size:0.875rem; color:#9ca3af;">
             🕒 08:30 - 22:00 hàng ngày
@@ -505,50 +517,129 @@
 
       grid.innerHTML = list.map(p => {
         const isWish = wishlist.includes(p.id);
-        const badgeHTML = p.badge === 'hot' ? '<span class="badge badge-hot">HOT</span>' :
-                          p.badge === 'sale' ? '<span class="badge badge-sale">SALE</span>' :
-                          p.badge === 'new' ? '<span class="badge badge-new">NEW</span>' : '';
-        const localTag = p.isLocal ? '<span class="local-badge" title="Thiết kế độc quyền Ninh Bình">NB DROP</span>' : '';
-        const sizesHTML = (p.sizes || []).map(s => `<span class="size-chip">${s}</span>`).join('');
+        const badgeHTML = p.badge === 'hot' ? '<span class="p-badge badge-hot">HOT</span>' :
+                          p.badge === 'sale' ? '<span class="p-badge badge-sale">SALE</span>' :
+                          p.badge === 'new' ? '<span class="p-badge badge-new">NEW</span>' : '';
+        const localTag = p.isLocal ? '<span class="p-badge badge-local">NB DROP</span>' : '';
 
         return `
-          <div class="product-card">
-            <div class="card-image-wrap">
-              <a href="product-detail.html?id=${p.id}">
-                <img src="${p.image}" alt="${p.title}" class="product-img primary">
-              </a>
-              <div class="card-badges">
+          <article class="product-card" data-id="${p.id}">
+            <div class="product-thumb-wrap">
+              <div class="product-badges">
                 ${badgeHTML}
                 ${localTag}
               </div>
-              <button class="wishlist-btn ${isWish ? 'active' : ''}" onclick="window.toggleWishlist('${p.id}'); this.classList.toggle('active');" title="Yêu thích">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isWish ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+
+              <button class="btn-wishlist ${isWish ? 'active' : ''}" 
+                      aria-label="Thêm vào yêu thích" 
+                      onclick="window.toggleWishlist('${p.id}'); this.classList.toggle('active');" 
+                      title="Yêu thích">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="${isWish ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
               </button>
-              <div class="card-actions">
-                <button class="quick-btn" onclick="window.addToCart('${p.id}', '${(p.sizes && p.sizes[0]) || 'M'}')">Thêm Nhanh</button>
-                <a href="product-detail.html?id=${p.id}" class="quick-btn outline">Xem Chi Tiết</a>
+
+              <a href="product-detail.html?id=${p.id}" class="product-thumb-link">
+                <img src="${p.image}" alt="${p.title}" class="product-img" loading="lazy">
+              </a>
+
+              <div class="product-quick-actions">
+                <button class="btn-quick-view" onclick="window.openQuickView ? window.openQuickView('${p.id}') : location.href='product-detail.html?id=${p.id}'">
+                  Xem Nhanh
+                </button>
+                <button class="btn-add-cart-fast" onclick="window.addToCart ? window.addToCart('${p.id}', '${(p.sizes && p.sizes[0]) || 'M'}') : location.href='product-detail.html?id=${p.id}'">
+                  + Thêm
+                </button>
               </div>
             </div>
 
-            <div class="card-details">
-              <div class="rating-row">
-                <span class="stars">★★★★★</span>
-                <span class="reviews-num">(${p.reviews || 99})</span>
-              </div>
-              <h3 class="product-title">
+            <div class="product-info">
+              <span class="product-category">${p.categoryName || 'Streetwear'}</span>
+              <h3 class="product-title" title="${p.title}">
                 <a href="product-detail.html?id=${p.id}">${p.title}</a>
               </h3>
-              <div class="price-row">
-                <span class="price-current">${window.formatVND(p.price)}</span>
-                ${p.oldPrice ? `<span class="price-old">${window.formatVND(p.oldPrice)}</span>` : ''}
+              
+              <div class="product-meta">
+                <div class="product-prices">
+                  <span class="price-current">${window.formatVND(p.price)}</span>
+                  ${p.oldPrice ? `<span class="price-old">${window.formatVND(p.oldPrice)}</span>` : ''}
+                </div>
+                <div class="product-rating">
+                  <span>★</span> ${p.rating || 5.0} <span style="color:#a3a3a3; font-size:0.6875rem">(${p.reviews || 99})</span>
+                </div>
               </div>
-              <div class="sizes-row">
-                ${sizesHTML}
+
+              <div class="product-swatches">
+                ${(p.colors || []).map(c => `<span class="swatch" style="background-color: ${c}"></span>`).join('')}
               </div>
             </div>
-          </div>
+          </article>
         `;
       }).join('');
+      if (window.updateCatalogArrows) setTimeout(window.updateCatalogArrows, 100);
+    }
+
+    // Catalog horizontal scroll controls (Lướt sang trái phải)
+    function initCatalogScroll() {
+      const viewport = document.getElementById('catalog-scroll-viewport');
+      const prevBtn = document.getElementById('catalog-scroll-prev');
+      const nextBtn = document.getElementById('catalog-scroll-next');
+      if (!viewport) return;
+
+      const scrollStep = 280; // Bước lướt khoảng tầm 7cm (~280px)
+
+      if (prevBtn) {
+        prevBtn.onclick = () => viewport.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+      }
+      if (nextBtn) {
+        nextBtn.onclick = () => viewport.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+
+      let isDown = false, startX = 0, scrollLeft = 0, hasMoved = false;
+      viewport.addEventListener('mousedown', (e) => {
+        if (e.target.closest('button, a, input, select')) return;
+        isDown = true;
+        hasMoved = false;
+        viewport.classList.add('is-dragging');
+        startX = e.pageX - viewport.offsetLeft;
+        scrollLeft = viewport.scrollLeft;
+      });
+      window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        viewport.classList.remove('is-dragging');
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        hasMoved = true;
+        const x = e.pageX - viewport.offsetLeft;
+        viewport.scrollLeft = scrollLeft - (x - startX) * 1.5;
+      });
+      viewport.addEventListener('click', (e) => {
+        if (hasMoved) { e.preventDefault(); e.stopPropagation(); hasMoved = false; }
+      }, true);
+
+      const updateArrows = () => {
+        if (!prevBtn || !nextBtn) return;
+        const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+        if (maxScroll <= 15) {
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+        } else {
+          prevBtn.style.display = 'flex';
+          nextBtn.style.display = 'flex';
+          prevBtn.style.opacity = viewport.scrollLeft <= 10 ? '0.2' : '1';
+          prevBtn.style.pointerEvents = viewport.scrollLeft <= 10 ? 'none' : 'auto';
+          nextBtn.style.opacity = viewport.scrollLeft >= maxScroll - 10 ? '0.2' : '1';
+          nextBtn.style.pointerEvents = viewport.scrollLeft >= maxScroll - 10 ? 'none' : 'auto';
+        }
+      };
+
+      viewport.addEventListener('scroll', updateArrows, { passive: true });
+      window.addEventListener('resize', updateArrows);
+      window.updateCatalogArrows = updateArrows;
+      setTimeout(updateArrows, 150);
     }
 
     // Mobile filter drawer controls
@@ -564,6 +655,7 @@
       parseURLParams();
       await window.loadAllProducts();
       renderCatalog();
+      initCatalogScroll();
     });
   </script>
 </body>

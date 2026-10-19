@@ -998,6 +998,107 @@ a.announcement-item:hover {
   cursor: pointer;
 }
 
+/* ==========================================================================
+   CATALOG HORIZONTAL SCROLL VIEWPORT (Lướt sang trái phải để nhìn rõ sản phẩm)
+   ========================================================================== */
+.catalog-scroll-container {
+  position: relative;
+  width: 100%;
+}
+
+.catalog-scroll-viewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 18px 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #8b1528 rgba(255, 255, 255, 0.08);
+  cursor: grab;
+}
+
+.catalog-scroll-viewport.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.catalog-scroll-viewport::-webkit-scrollbar {
+  height: 8px;
+}
+
+.catalog-scroll-viewport::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  margin: 0 40px;
+}
+
+.catalog-scroll-viewport::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #631221, #8b1528);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.catalog-scroll-viewport::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-red);
+}
+
+.catalog-scroll-viewport .product-grid {
+  min-width: 1240px; /* Đảm bảo đủ chiều rộng để các sản phẩm hiển thị to rõ, không bị bóp nghẽn */
+}
+
+/* Floating Navigation Arrows */
+.catalog-scroll-arrow {
+  position: absolute;
+  top: 36%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(30, 4, 8, 0.96);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.catalog-scroll-arrow:hover {
+  background: #8b1528;
+  border-color: var(--accent-red);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 8px 24px rgba(255, 51, 75, 0.45);
+}
+
+.catalog-scroll-arrow.prev {
+  left: -22px;
+}
+
+.catalog-scroll-arrow.next {
+  right: -22px;
+}
+
+@media (max-width: 1280px) {
+  .catalog-scroll-arrow.prev {
+    left: -12px;
+  }
+  .catalog-scroll-arrow.next {
+    right: -12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog-scroll-arrow {
+    display: none !important;
+  }
+}
+
 /* 4-Column balanced product grid */
 .product-grid {
   display: grid;
@@ -1017,7 +1118,9 @@ a.announcement-item:hover {
   transform: translateY(-4px);
 }
 
-.product-thumb-wrap {
+/* Product Thumbnail Container - Tỷ lệ chuẩn 1:1 vuông vức, nền trắng studio tinh tế */
+.product-thumb-wrap,
+.card-image-wrap {
   position: relative;
   aspect-ratio: 1 / 1;
   background-color: #ffffff;
@@ -1029,22 +1132,27 @@ a.announcement-item:hover {
   justify-content: center;
 }
 
-/* Thu nhỏ hình ảnh sản phẩm bé lại đi 1 tý vừa vặn và dễ nhìn */
-.product-thumb-wrap > a {
+/* Thẻ liên kết bọc ảnh sản phẩm - Padding vừa vặn 8px giúp ảnh phủ đầy khung chuẩn tỷ lệ */
+.product-thumb-wrap > a,
+.card-image-wrap > a,
+.product-thumb-link {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 16px;
+  padding: 8px;
   box-sizing: border-box;
 }
 
 .product-img {
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  object-position: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-img-hover {
@@ -1052,11 +1160,12 @@ a.announcement-item:hover {
 }
 
 .product-card:hover .product-img {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
 /* Product Badges */
-.product-badges {
+.product-badges,
+.card-badges {
   position: absolute;
   top: 8px;
   left: 8px;
@@ -1064,9 +1173,12 @@ a.announcement-item:hover {
   flex-direction: column;
   gap: 4px;
   z-index: 2;
+  pointer-events: none;
 }
 
-.p-badge {
+.p-badge,
+.card-badges .badge,
+.card-badges .local-badge {
   font-size: 0.6rem;
   font-weight: 800;
   padding: 2px 6px;
@@ -1075,29 +1187,35 @@ a.announcement-item:hover {
   letter-spacing: 0.03em;
 }
 
-.p-badge.badge-sale {
+.p-badge.badge-sale,
+.card-badges .badge-sale {
   background-color: var(--accent-red);
   color: #fff;
 }
 
-.p-badge.badge-new {
+.p-badge.badge-new,
+.card-badges .badge-new {
   background-color: #2563eb;
   color: #fff;
   box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
 }
 
-.p-badge.badge-hot {
+.p-badge.badge-hot,
+.card-badges .badge-hot {
   background-color: #ff9800;
   color: #fff;
 }
 
-.p-badge.badge-local {
+.p-badge.badge-local,
+.card-badges .badge-local,
+.card-badges .local-badge {
   background-color: #059669;
   color: #fff;
 }
 
 /* Wishlist Button */
-.btn-wishlist {
+.btn-wishlist,
+.wishlist-btn {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -1113,27 +1231,32 @@ a.announcement-item:hover {
   justify-content: center;
   z-index: 2;
   box-shadow: var(--shadow-sm);
+  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
-.btn-wishlist svg {
+.btn-wishlist svg,
+.wishlist-btn svg {
   width: 14px;
   height: 14px;
 }
 
-.btn-wishlist:hover {
+.btn-wishlist:hover,
+.wishlist-btn:hover {
   transform: scale(1.12);
   background: #781728;
   color: var(--accent-red);
 }
 
-.btn-wishlist.active {
+.btn-wishlist.active,
+.wishlist-btn.active {
   color: var(--accent-red);
   background: #781728;
 }
 
 /* Quick Add Button overlay */
-.product-quick-actions {
+.product-quick-actions,
+.card-actions {
   position: absolute;
   bottom: 8px;
   left: 8px;
@@ -1146,13 +1269,15 @@ a.announcement-item:hover {
   z-index: 2;
 }
 
-.product-card:hover .product-quick-actions {
+.product-card:hover .product-quick-actions,
+.product-card:hover .card-actions {
   opacity: 1;
   transform: translateY(0);
 }
 
 .btn-quick-view,
-.btn-add-cart-fast {
+.btn-add-cart-fast,
+.quick-btn {
   flex: 1;
   padding: 7px 0;
   font-size: 0.6875rem;
@@ -1164,25 +1289,30 @@ a.announcement-item:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
+  cursor: pointer;
 }
 
-.btn-quick-view {
+.btn-quick-view,
+.quick-btn.outline {
   background-color: rgba(78, 13, 25, 0.95);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.btn-quick-view:hover {
+.btn-quick-view:hover,
+.quick-btn.outline:hover {
   background-color: #941e33;
 }
 
-.btn-add-cart-fast {
+.btn-add-cart-fast,
+.quick-btn:not(.outline) {
   background-color: #7b1626;
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.btn-add-cart-fast:hover {
+.btn-add-cart-fast:hover,
+.quick-btn:not(.outline):hover {
   background-color: #961c30;
 }
 

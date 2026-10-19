@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
-  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/style.css?v=2.0">
+  <link rel="stylesheet" href="assets/css/pages.css?v=2.0">
 </head>
 <body>
 
@@ -403,9 +403,21 @@
           </div>
         </div>
 
-        <!-- Dynamic Product Grid -->
-        <div class="product-grid" id="product-grid">
-          <!-- Rendered via JavaScript -->
+        <!-- Dynamic Product Grid with Horizontal Scroll (Lướt sang trái / phải để nhìn rõ sản phẩm) -->
+        <div class="catalog-scroll-container">
+          <button class="catalog-scroll-arrow prev" id="catalog-scroll-prev" aria-label="Lướt sang trái" title="Lướt sang trái">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+
+          <div class="catalog-scroll-viewport" id="catalog-scroll-viewport">
+            <div class="product-grid" id="product-grid">
+              <!-- Rendered via JavaScript -->
+            </div>
+          </div>
+
+          <button class="catalog-scroll-arrow next" id="catalog-scroll-next" aria-label="Lướt sang phải" title="Lướt sang phải">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
         </div>
       </div>
     </section>

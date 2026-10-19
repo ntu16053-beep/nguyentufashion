@@ -138,7 +138,7 @@
       setTimeout(() => {
         appendChatBubble(`
           📞 <strong>Hỗ trợ tư vấn trực tiếp 24/7:</strong><br>
-          • Hotline / Zalo: <a href="tel:0988888888" style="color:var(--accent-gold); font-weight:800;">0988.888.888</a><br>
+          • Hotline / Zalo: <a href="tel:0342767002" style="color:var(--accent-gold); font-weight:800;">0342.767.002</a><br>
           • Showroom: Khánh Nhạc, Yên Khánh, Ninh Bình (08:30 - 22:00)<br>
           • <a href="contact.html" style="color:var(--accent-red); text-decoration:underline;">Mở trang liên hệ & bản đồ chỉ đường →</a>
         `, 'bot');
@@ -183,11 +183,11 @@
                 • <strong>Tổng tiền:</strong> <strong>${window.formatVND(latest.totalAmount)}</strong> (${latest.paymentMethod === 'vietqr' ? 'VietQR' : 'COD'})<br>
                 • <strong>Sản phẩm:</strong> ${(latest.items || []).map(i => `${i.title} (${i.size}) x${i.quantity}`).join(', ')}<br>
                 • <strong>Địa chỉ:</strong> ${latest.address}, ${latest.district}<br><br>
-                Cần giao gấp hoặc đổi địa chỉ, bạn gọi hotline <strong>0988.888.888</strong> nhé!
+                Cần giao gấp hoặc đổi địa chỉ, bạn gọi hotline <strong>0342.767.002</strong> nhé!
               `, 'bot');
               return;
             } else {
-              appendChatBubble(`Không tìm thấy đơn hàng nào với số điện thoại <strong>${phoneMatch}</strong>. Bạn kiểm tra lại SĐT hoặc gọi hotline 0988.888.888 nhé!`, 'bot');
+              appendChatBubble(`Không tìm thấy đơn hàng nào với số điện thoại <strong>${phoneMatch}</strong>. Bạn kiểm tra lại SĐT hoặc gọi hotline 0342.767.002 nhé!`, 'bot');
               return;
             }
           }
@@ -246,7 +246,7 @@
         `, 'bot');
       } else {
         appendChatBubble(`
-          Cảm ơn bạn đã nhắn tin! Để được hỗ trợ nhanh nhất về mẫu này hoặc yêu cầu nhân viên tư vấn riêng, bạn có thể gọi ngay hotline <a href="tel:0988888888" style="color:var(--accent-gold); font-weight:800;">0988.888.888</a> hoặc nhắn qua Zalo nhé. Shop luôn sẵn sàng phục vụ!
+          Cảm ơn bạn đã nhắn tin! Để được hỗ trợ nhanh nhất về mẫu này hoặc yêu cầu nhân viên tư vấn riêng, bạn có thể gọi ngay hotline <a href="tel:0342767002" style="color:var(--accent-gold); font-weight:800;">0342.767.002</a> hoặc nhắn qua Zalo nhé. Shop luôn sẵn sàng phục vụ!
         `, 'bot');
       }
     }, 400);

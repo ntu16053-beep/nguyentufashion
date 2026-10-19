@@ -960,7 +960,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </svg>
             </button>
 
-            <a href="product-detail.html?id=${p.id}">
+            <a href="product-detail.html?id=${p.id}" class="product-thumb-link">
               <img class="product-img" src="${p.image}" alt="${p.title}" loading="lazy">
               <img class="product-img-hover" src="${p.imageHover}" alt="${p.title}" loading="lazy">
             </a>
@@ -1000,6 +1000,10 @@ document.addEventListener('DOMContentLoaded', () => {
         </article>
       `;
     }).join('');
+
+    if (window.updateCatalogArrows) {
+      setTimeout(window.updateCatalogArrows, 100);
+    }
   };
 
   // ==========================================
@@ -1598,6 +1602,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  // ==========================================
+  // CATALOG HORIZONTAL SCROLL (Lướt sang trái / phải khoảng tầm 7cm để nhìn rõ sản phẩm)
+  // ==========================================
+  const initCatalogScroll = () => {
+    const viewport = document.getElementById('catalog-scroll-viewport');
+    const prevBtn = document.getElementById('catalog-scroll-prev');
+    const nextBtn = document.getElementById('catalog-scroll-next');
+    if (!viewport) return;
+
+    const scrollStep = 280; // Bước lướt khoảng tầm 7cm (~280px)
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        viewport.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        viewport.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      });
+    }
+
+    // Kéo thả chuột để lướt trái / phải tự nhiên trên desktop
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let hasMoved = false;
+
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button, a, input, select')) return;
+      isDown = true;
+      hasMoved = false;
+      viewport.classList.add('is-dragging');
+      startX = e.pageX - viewport.offsetLeft;
+      scrollLeft = viewport.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      viewport.classList.remove('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      hasMoved = true;
+      const x = e.pageX - viewport.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      viewport.scrollLeft = scrollLeft - walk;
+    });
+
+    viewport.addEventListener('click', (e) => {
+      if (hasMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+        hasMoved = false;
+      }
+    }, true);
+
+    const updateArrows = () => {
+      if (!prevBtn || !nextBtn) return;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      if (maxScroll <= 15) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+        prevBtn.style.opacity = viewport.scrollLeft <= 10 ? '0.2' : '1';
+        prevBtn.style.pointerEvents = viewport.scrollLeft <= 10 ? 'none' : 'auto';
+        nextBtn.style.opacity = viewport.scrollLeft >= maxScroll - 10 ? '0.2' : '1';
+        nextBtn.style.pointerEvents = viewport.scrollLeft >= maxScroll - 10 ? 'none' : 'auto';
+      }
+    };
+
+    viewport.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    window.updateCatalogArrows = updateArrows;
+    setTimeout(updateArrows, 150);
+  };
+
   // Mobile drawer trigger
   window.toggleMobileMenu = () => {
     const mobileMenu = document.getElementById('mobile-nav-drawer');
@@ -1608,6 +1695,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // INITIALIZE
   // ==========================================
   renderProductGrid();
+  initCatalogScroll();
   updateCartUI();
   updateWishlistUI();
   computeSmartSize();
