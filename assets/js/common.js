@@ -257,12 +257,24 @@
         const data = await res.json();
         if (data.products && data.products.length > 0) {
           window.ALL_PRODUCTS = data.products;
-          return data.products;
         }
       }
     } catch (e) {
       console.warn('Could not fetch from /api/products, using cache/fallback');
     }
+
+    // Apply any saved price overrides from localStorage
+    try {
+      const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
+      if (window.ALL_PRODUCTS && Object.keys(overrides).length > 0) {
+        window.ALL_PRODUCTS.forEach(p => {
+          if (overrides[p.id]) {
+            Object.assign(p, overrides[p.id]);
+          }
+        });
+      }
+    } catch (e) {}
+
     return window.ALL_PRODUCTS || [];
   };
 

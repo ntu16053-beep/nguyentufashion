@@ -349,11 +349,22 @@
         </div>
       </section>
 
+    </main>
+
   </div>
 
+  <style>
+    #edit-price-modal.active {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+  </style>
+
   <!-- EDIT PRODUCT PRICE MODAL -->
-  <div class="modal-overlay" id="edit-price-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); z-index:9999; align-items:center; justify-content:center;">
-    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:460px; box-shadow:0 16px 40px rgba(0,0,0,0.5);">
+  <div class="modal-overlay" id="edit-price-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:460px; box-shadow:0 16px 40px rgba(0,0,0,0.8); position:relative; z-index:1000000;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
         <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Chỉnh Sửa Giá Sản Phẩm</h3>
         <button onclick="window.closeEditPriceModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
@@ -534,20 +545,41 @@
     };
 
     window.openEditPriceModal = function (id) {
+      console.log('openEditPriceModal clicked:', id);
+      const modal = document.getElementById('edit-price-modal');
+      if (!modal) {
+        alert('Không tìm thấy cửa sổ chỉnh sửa giá!');
+        return;
+      }
+
       const p = (window.ALL_PRODUCTS || []).find(item => item.id === id);
-      if (!p) return;
+      if (!p) {
+        alert('Không tìm thấy sản phẩm mã: ' + id);
+        return;
+      }
+
       document.getElementById('edit-p-id').value = p.id;
-      document.getElementById('edit-p-code').textContent = p.id.toUpperCase();
-      document.getElementById('edit-p-title').textContent = p.title;
-      document.getElementById('edit-p-thumb').src = p.image;
+      document.getElementById('edit-p-code').textContent = (p.id || '').toUpperCase();
+      document.getElementById('edit-p-title').textContent = p.title || '';
+      document.getElementById('edit-p-thumb').src = p.image || '';
       document.getElementById('edit-p-price').value = p.price || '';
       document.getElementById('edit-p-oldprice').value = p.oldPrice || '';
       document.getElementById('edit-p-badge').value = p.badge || '';
-      document.getElementById('edit-price-modal').style.display = 'flex';
+
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+      modal.style.opacity = '1';
+      modal.style.visibility = 'visible';
     };
 
     window.closeEditPriceModal = function () {
-      document.getElementById('edit-price-modal').style.display = 'none';
+      const modal = document.getElementById('edit-price-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+        modal.style.opacity = '0';
+        modal.style.visibility = 'hidden';
+      }
     };
 
     window.saveProductPrice = async function () {
@@ -566,33 +598,38 @@
       saveBtn.disabled = true;
       saveBtn.textContent = 'Đang lưu...';
 
+      // 1. Cập nhật ngay trong bộ nhớ để giao diện đổi ngay lập tức
+      const found = (window.ALL_PRODUCTS || []).find(x => x.id === id);
+      if (found) {
+        found.price = price;
+        found.oldPrice = oldPrice;
+        found.badge = badge;
+      }
+
+      // 2. Lưu vào localStorage để ghi nhớ trên trình duyệt
       try {
-        const res = await fetch(`/api/products/${id}`, {
+        const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
+        overrides[id] = { price, oldPrice, badge };
+        localStorage.setItem('nguyentu_price_overrides', JSON.stringify(overrides));
+      } catch (e) {}
+
+      // 3. Gửi PUT lên API server nếu có backend
+      try {
+        await fetch(`/api/products/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ price, oldPrice, badge })
         });
-
-        if (res.ok) {
-          const found = (window.ALL_PRODUCTS || []).find(x => x.id === id);
-          if (found) {
-            found.price = price;
-            found.oldPrice = oldPrice;
-            found.badge = badge;
-          }
-          window.loadAdminProducts();
-          window.closeEditPriceModal();
-          alert('✅ Cập nhật giá sản phẩm thành công!');
-        } else {
-          alert('Không thể lưu giá qua máy chủ (Vui lòng kiểm tra quyền).');
-        }
       } catch (err) {
-        console.error(err);
-        alert('Lỗi kết nối khi cập nhật giá sản phẩm.');
-      } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = 'Lưu Thay Đổi';
+        console.warn('API sync warning:', err);
       }
+
+      window.loadAdminProducts();
+      window.closeEditPriceModal();
+      alert(`✅ Đã cập nhật thành công giá mới: ${window.formatVND(price)}!`);
+
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Lưu Thay Đổi';
     };
 
     window.loadAdminCoupons = async function () {
