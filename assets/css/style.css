@@ -234,9 +234,9 @@ a.announcement-item:hover {
 .brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding-right: 18px;
-  padding-left: 4px;
+  padding-left: 14px;
   border-right: 1.5px solid #000000;
   height: 74px;
   flex-shrink: 0;
@@ -258,43 +258,28 @@ a.announcement-item:hover {
 .brand-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .brand-name {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.18rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   color: #ffffff;
-  line-height: 1.05;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.brand-name-top {
-  display: block;
-  text-align: center;
-}
-
-.brand-name-bottom {
-  display: block;
-  text-align: center;
-  letter-spacing: 0.28em;
-  margin-left: 0.28em;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .brand-sub {
-  font-size: 0.58rem;
+  font-size: 0.54rem;
   letter-spacing: 0.14em;
   color: #fce7f3;
   font-weight: 600;
   text-transform: uppercase;
   margin-top: 2px;
-  text-align: center;
+  white-space: nowrap;
 }
 
 /* Navigation Links with Black Vertical Dividers */
