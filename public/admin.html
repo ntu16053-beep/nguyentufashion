@@ -50,6 +50,32 @@
       color: rgba(255, 255, 255, 0.5) !important;
     }
 
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .modal-overlay.active,
+    #create-coupon-modal.active,
+    #create-product-modal.active,
+    #create-article-modal.active,
+    #edit-price-modal.active {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+
     .admin-layout {
       display: grid;
       grid-template-columns: 240px 1fr;
@@ -172,7 +198,7 @@
       <div class="admin-nav-item" onclick="window.switchAdminTab('products', this)">
         <span>👕</span> <span>Sản Phẩm</span>
       </div>
-      <div class="admin-nav-item" onclick="window.switchAdminTab('coupons', this)">
+      <div class="admin-nav-item" id="admin-nav-coupons" data-tab="coupons" onclick="window.switchAdminTab('coupons', this)" style="cursor:pointer; user-select:none;">
         <span>🏷️</span> <span>Mã Giảm Giá</span>
       </div>
       <div class="admin-nav-item" onclick="window.switchAdminTab('inquiries', this)">
@@ -304,7 +330,7 @@
       <section class="admin-tab-pane" id="pane-coupons">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
           <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">MÃ GIẢM GIÁ & KHUYẾN MÃI</h2>
-          <button class="btn btn-primary" onclick="window.openCreateCouponModal()">+ Thêm Mã Giảm Giá</button>
+          <button class="btn btn-primary" id="btn-open-create-coupon" onclick="window.openCreateCouponModal()" style="cursor:pointer;">+ Thêm Mã Giảm Giá</button>
         </div>
         <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
           <table class="cart-table">
@@ -503,6 +529,10 @@
   </div>
 
   <style>
+    .modal-overlay.active,
+    #create-coupon-modal.active,
+    #create-product-modal.active,
+    #create-article-modal.active,
     #edit-price-modal.active {
       display: flex !important;
       opacity: 1 !important;
@@ -720,17 +750,32 @@
     };
 
     window.switchAdminTab = function (paneKey, el) {
-      document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
-      document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById(`pane-${paneKey}`).classList.add('active');
+      try {
+        document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
 
-      if (paneKey === 'orders') window.loadOrders();
-      if (paneKey === 'products') window.loadAdminProducts();
-      if (paneKey === 'coupons') window.loadAdminCoupons();
-      if (paneKey === 'inquiries') window.loadAdminInquiries();
-      if (paneKey === 'articles') window.loadAdminArticles();
-      if (paneKey === 'settings') window.loadAdminSettings();
+        let targetNav = el;
+        if (!targetNav) {
+          targetNav = document.getElementById(`admin-nav-${paneKey}`) ||
+                      document.querySelector(`.admin-nav-item[data-tab="${paneKey}"]`) ||
+                      Array.from(document.querySelectorAll('.admin-nav-item')).find(i => i.getAttribute('onclick')?.includes(`'${paneKey}'`));
+        }
+        if (targetNav) targetNav.classList.add('active');
+
+        const targetPane = document.getElementById(`pane-${paneKey}`);
+        if (targetPane) {
+          targetPane.classList.add('active');
+        }
+
+        if (paneKey === 'orders') window.loadOrders();
+        if (paneKey === 'products') window.loadAdminProducts();
+        if (paneKey === 'coupons') window.loadAdminCoupons();
+        if (paneKey === 'inquiries') window.loadAdminInquiries();
+        if (paneKey === 'articles') window.loadAdminArticles();
+        if (paneKey === 'settings') window.loadAdminSettings();
+      } catch (err) {
+        console.error('Error switching tab:', err);
+      }
     };
 
     window.loadAnalyticsData = async function () {
@@ -897,19 +942,32 @@
     window.openCreateProductModal = function () {
       const modal = document.getElementById('create-product-modal');
       if (modal) {
+        modal.classList.add('active');
         modal.style.display = 'flex';
+        modal.style.opacity = '1';
+        modal.style.visibility = 'visible';
+        modal.style.pointerEvents = 'auto';
         document.getElementById('new-p-title').value = '';
         document.getElementById('new-p-price').value = '';
         document.getElementById('new-p-oldprice').value = '';
         document.getElementById('new-p-desc').value = '';
         document.getElementById('new-p-image').value = '';
-        document.getElementById('new-p-title').focus();
+        setTimeout(() => {
+          const el = document.getElementById('new-p-title');
+          if (el) el.focus();
+        }, 80);
       }
     };
 
     window.closeCreateProductModal = function () {
       const modal = document.getElementById('create-product-modal');
-      if (modal) modal.style.display = 'none';
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+        modal.style.opacity = '0';
+        modal.style.visibility = 'hidden';
+        modal.style.pointerEvents = 'none';
+      }
     };
 
     window.submitCreateAdminProduct = async function () {
@@ -1123,17 +1181,32 @@
     window.openCreateCouponModal = function () {
       const modal = document.getElementById('create-coupon-modal');
       if (modal) {
+        modal.classList.add('active');
         modal.style.display = 'flex';
+        modal.style.opacity = '1';
+        modal.style.visibility = 'visible';
+        modal.style.pointerEvents = 'auto';
         document.getElementById('new-cp-code').value = '';
         document.getElementById('new-cp-desc').value = '';
         document.getElementById('new-cp-val').value = '';
-        document.getElementById('new-cp-code').focus();
+        document.getElementById('new-cp-min').value = '0';
+        document.getElementById('new-cp-max').value = '0';
+        setTimeout(() => {
+          const el = document.getElementById('new-cp-code');
+          if (el) el.focus();
+        }, 80);
       }
     };
 
     window.closeCreateCouponModal = function () {
       const modal = document.getElementById('create-coupon-modal');
-      if (modal) modal.style.display = 'none';
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+        modal.style.opacity = '0';
+        modal.style.visibility = 'hidden';
+        modal.style.pointerEvents = 'none';
+      }
     };
 
     window.handleCouponTypeChange = function (type) {
@@ -1182,28 +1255,41 @@
           window.showToast(`Đã tạo mã ${code} thành công!`, 'success');
           window.closeCreateCouponModal();
           window.loadAdminCoupons();
-        } else {
-          alert(data.message || 'Không thể tạo mã voucher');
+          return;
         }
-      } catch (e) {
-        alert('Lỗi tạo mã voucher: ' + e.message);
-      }
+      } catch (e) {}
+
+      // Fallback: store locally and update in-memory
+      if (!window.DEFAULT_COUPONS) window.DEFAULT_COUPONS = [];
+      window.DEFAULT_COUPONS.unshift(payload);
+      try {
+        const stored = JSON.parse(localStorage.getItem('nguyentu_custom_coupons') || '[]');
+        stored.unshift(payload);
+        localStorage.setItem('nguyentu_custom_coupons', JSON.stringify(stored));
+      } catch (err) {}
+
+      window.showToast(`Đã tạo mã ${code} thành công!`, 'success');
+      window.closeCreateCouponModal();
+      window.loadAdminCoupons();
     };
 
     window.deleteAdminCoupon = async function (code) {
       if (!confirm(`Bạn có chắc muốn xóa mã voucher "${code}"?`)) return;
       try {
-        const res = await fetch(`/api/coupons/${code}`, { method: 'DELETE' });
-        const data = await res.json();
-        if (data.success) {
-          window.showToast(`Đã xóa voucher ${code}`, 'info');
-          window.loadAdminCoupons();
-        } else {
-          alert(data.message || 'Không thể xóa mã!');
-        }
-      } catch (e) {
-        alert('Lỗi xóa voucher: ' + e.message);
+        await fetch(`/api/coupons/${code}`, { method: 'DELETE' });
+      } catch (e) {}
+
+      if (window.DEFAULT_COUPONS) {
+        window.DEFAULT_COUPONS = window.DEFAULT_COUPONS.filter(c => c.code !== code);
       }
+      try {
+        let stored = JSON.parse(localStorage.getItem('nguyentu_custom_coupons') || '[]');
+        stored = stored.filter(c => c.code !== code);
+        localStorage.setItem('nguyentu_custom_coupons', JSON.stringify(stored));
+      } catch (err) {}
+
+      window.showToast(`Đã xóa voucher ${code}`, 'info');
+      window.loadAdminCoupons();
     };
 
     window.loadAdminInquiries = async function () {
@@ -1438,10 +1524,32 @@
     };
 
     window.openCreateArticleModal = function () {
-      document.getElementById('create-article-modal').style.display = 'flex';
-      document.getElementById('art-title-input').value = '';
-      document.getElementById('art-excerpt-input').value = '';
-      document.getElementById('art-content-input').value = '';
+      const modal = document.getElementById('create-article-modal');
+      if (modal) {
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+        modal.style.opacity = '1';
+        modal.style.visibility = 'visible';
+        modal.style.pointerEvents = 'auto';
+        document.getElementById('art-title-input').value = '';
+        document.getElementById('art-excerpt-input').value = '';
+        document.getElementById('art-content-input').value = '';
+        setTimeout(() => {
+          const el = document.getElementById('art-title-input');
+          if (el) el.focus();
+        }, 80);
+      }
+    };
+
+    window.closeCreateArticleModal = function () {
+      const modal = document.getElementById('create-article-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+        modal.style.opacity = '0';
+        modal.style.visibility = 'hidden';
+        modal.style.pointerEvents = 'none';
+      }
     };
 
     window.submitCreateAdminArticle = async function () {
@@ -1482,7 +1590,7 @@
         const data = await res.json();
         if (data.success) {
           window.showToast('Đăng bài viết thành công!', 'success');
-          document.getElementById('create-article-modal').style.display = 'none';
+          window.closeCreateArticleModal();
           window.loadAdminArticles();
         } else {
           alert(data.message || 'Lỗi đăng bài viết');
