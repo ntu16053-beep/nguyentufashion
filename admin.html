@@ -204,8 +204,9 @@
       <section class="admin-tab-pane" id="pane-orders">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
           <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">QUẢN LÝ ĐƠN HÀNG</h2>
-          <div style="display:flex; gap:10px;">
-            <select class="custom-select" id="order-filter-status" onchange="window.loadOrders()">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <input type="text" id="order-search-input" class="custom-input" placeholder="🔍 Tìm SĐT / Mã đơn..." style="width:200px; height:38px; font-size:0.8125rem;" oninput="window.loadOrders()">
+            <select class="custom-select" id="order-filter-status" onchange="window.loadOrders()" style="height:38px; font-size:0.8125rem;">
               <option value="all">Tất cả trạng thái</option>
               <option value="pending">Chờ xác nhận (pending)</option>
               <option value="confirmed">Đã duyệt (confirmed)</option>
@@ -238,9 +239,9 @@
 
       <!-- 3. TAB PRODUCTS -->
       <section class="admin-tab-pane" id="pane-products">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-          <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">DANH SÁCH SẢN PHẨM (50)</h2>
-          <button class="btn btn-primary" onclick="alert('Tính năng thêm sản phẩm trực tiếp từ REST API')">+ Thêm Sản Phẩm Mới</button>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">DANH SÁCH SẢN PHẨM (<span id="admin-prod-count">50</span>)</h2>
+          <button class="btn btn-primary" onclick="window.openCreateProductModal()">+ Thêm Sản Phẩm Mới</button>
         </div>
 
         <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
@@ -253,7 +254,7 @@
                 <th>Danh Mục</th>
                 <th>Giá Bán</th>
                 <th>Đánh Giá</th>
-                <th>Thao Tác</th>
+                <th style="text-align:center;">Thao Tác</th>
               </tr>
             </thead>
             <tbody id="admin-products-tbody">
@@ -265,7 +266,10 @@
 
       <!-- 4. TAB COUPONS -->
       <section class="admin-tab-pane" id="pane-coupons">
-        <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase; margin-bottom:24px;">MÃ GIẢM GIÁ & KHUYẾN MÃI</h2>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">MÃ GIẢM GIÁ & KHUYẾN MÃI</h2>
+          <button class="btn btn-primary" onclick="window.openCreateCouponModal()">+ Thêm Mã Giảm Giá</button>
+        </div>
         <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
           <table class="cart-table">
             <thead>
@@ -275,6 +279,7 @@
                 <th>Mức Giảm</th>
                 <th>Đơn Tối Thiểu</th>
                 <th>Đã Dùng</th>
+                <th style="text-align:center;">Thao Tác</th>
               </tr>
             </thead>
             <tbody id="admin-coupons-tbody">
@@ -309,19 +314,30 @@
       <section class="admin-tab-pane" id="pane-settings">
         <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase; margin-bottom:24px;">CẤU HÌNH & TELEGRAM BOT</h2>
         <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px; max-width:600px;">
-          <h4 style="font-size:1rem; font-weight:800; margin-bottom:14px; color:var(--accent-red);">Cấu Hình VietQR</h4>
+          <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--accent-red);">Cấu Hình Tài Khoản VietQR</h4>
+          <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Thông tin ngân hàng để tự động tạo mã QR nhận tiền khi khách hàng đặt hàng.</p>
           <div class="form-control-wrap">
             <label>Ngân hàng nhận tiền:</label>
-            <input type="text" value="MB Bank (Mã: 970422)" class="custom-input" readonly>
+            <select id="vietqr-bank-id" class="custom-input">
+              <option value="970422">MB Bank (Mã: 970422)</option>
+              <option value="970436">Vietcombank (Mã: 970436)</option>
+              <option value="970407">Techcombank (Mã: 970407)</option>
+              <option value="970415">VietinBank (Mã: 970415)</option>
+              <option value="970418">BIDV (Mã: 970418)</option>
+              <option value="970432">VPBank (Mã: 970432)</option>
+              <option value="970416">ACB (Mã: 970416)</option>
+              <option value="970423">TPBank (Mã: 970423)</option>
+            </select>
           </div>
           <div class="form-control-wrap">
             <label>Số tài khoản:</label>
-            <input type="text" value="0988888888" class="custom-input" readonly>
+            <input type="text" id="vietqr-acc-no" value="0988888888" class="custom-input" placeholder="Nhập số tài khoản ngân hàng...">
           </div>
           <div class="form-control-wrap">
-            <label>Tên chủ tài khoản:</label>
-            <input type="text" value="NGUYEN TU FASHION" class="custom-input" readonly>
+            <label>Tên chủ tài khoản (In hoa không dấu):</label>
+            <input type="text" id="vietqr-acc-name" value="NGUYEN TU FASHION" class="custom-input" placeholder="VD: NGUYEN VAN TU">
           </div>
+          <button class="btn btn-primary" style="margin-top:8px; width:100%;" onclick="window.saveVietQRSettings()">💾 Lưu Cấu Hình VietQR</button>
           <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border-light);">
             <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--accent-red);">Thông Báo Đơn Hàng Qua Telegram</h4>
             <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Mỗi khi có khách đặt hàng mới hoặc gửi yêu cầu tư vấn, bot sẽ tự động gửi chuông báo và thông tin chi tiết đến ứng dụng Telegram của bạn.</p>
@@ -502,6 +518,132 @@
         <button class="btn btn-primary" style="flex:1; padding:10px;" id="btn-save-price" onclick="window.saveProductPrice()">Lưu Thay Đổi</button>
       </div>
     </div>
+  <!-- CREATE PRODUCT MODAL -->
+  <div class="modal-overlay" id="create-product-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:92%; max-width:620px; max-height:90vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Thêm Sản Phẩm Mới Vào Hệ Thống</h3>
+        <button onclick="window.closeCreateProductModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Tên Sản Phẩm *</label>
+        <input type="text" id="new-p-title" class="custom-input" placeholder="VD: Áo Thun LV Monogram Đỏ Mận..." required>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Danh Mục *</label>
+          <select id="new-p-category" class="custom-input">
+            <option value="jacket">Áo Khoác Gió & Nỉ</option>
+            <option value="tee">Áo Thun / Phông</option>
+            <option value="shirt">Áo Sơ Mi</option>
+            <option value="tracksuit">Bộ Nỉ / Tracksuit</option>
+            <option value="pants">Quần Dài / Jean</option>
+            <option value="short">Quần Short</option>
+            <option value="shoes">Giày Sneaker</option>
+            <option value="hat">Mũ / Nón</option>
+            <option value="bag">Túi / Balo</option>
+          </select>
+        </div>
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Huy Hiệu (Badge)</label>
+          <select id="new-p-badge" class="custom-input">
+            <option value="new">✨ Mới về (NEW)</option>
+            <option value="hot">🔥 Bán chạy (HOT)</option>
+            <option value="sale">🏷️ Giảm giá (SALE)</option>
+            <option value="">Không có</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Giá Bán (VNĐ) *</label>
+          <input type="number" id="new-p-price" class="custom-input" placeholder="VD: 450000" required>
+        </div>
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Giá Cũ Niêm Yết (VNĐ)</label>
+          <input type="number" id="new-p-oldprice" class="custom-input" placeholder="VD: 550000">
+        </div>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Đường Dẫn Hình Ảnh (URL hoặc assets/images/products/...)</label>
+        <input type="text" id="new-p-image" class="custom-input" placeholder="VD: assets/images/products/ao-khoac-argentina-trang.png">
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Các Size (Cách nhau dấu phẩy)</label>
+          <input type="text" id="new-p-sizes" class="custom-input" value="M, L, XL, XXL">
+        </div>
+        <div class="form-control-wrap" style="display:flex; align-items:center; gap:8px; padding-top:20px;">
+          <input type="checkbox" id="new-p-islocal" style="width:18px; height:18px; accent-color:var(--accent-red);" checked>
+          <label for="new-p-islocal" style="font-size:0.8125rem; font-weight:700; color:#fff; cursor:pointer;">Hàng Thiết Kế Ninh Bình</label>
+        </div>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:20px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Mô Tả Sản Phẩm</label>
+        <textarea id="new-p-desc" class="custom-input" rows="3" placeholder="Chất liệu vải cao cấp, phom dáng oversize đường phố..."></textarea>
+      </div>
+
+      <div style="display:flex; gap:12px;">
+        <button class="btn btn-dark" style="flex:1;" onclick="window.closeCreateProductModal()">Hủy Bỏ</button>
+        <button class="btn btn-primary" style="flex:1;" id="btn-submit-new-p" onclick="window.submitCreateAdminProduct()">+ Thêm Sản Phẩm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE COUPON MODAL -->
+  <div class="modal-overlay" id="create-coupon-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:500px; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tạo Mã Khuyến Mãi Mới</h3>
+        <button onclick="window.closeCreateCouponModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Mã Code (In Hoa, viết liền) *</label>
+        <input type="text" id="new-cp-code" class="custom-input" placeholder="VD: SUMMER2026" required style="text-transform:uppercase; font-weight:800; color:var(--accent-red);">
+      </div>
+
+      <div class="form-control-wrap" style="margin-bottom:14px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Mô Tả Ưu Đãi</label>
+        <input type="text" id="new-cp-desc" class="custom-input" placeholder="VD: Giảm 20% cho học sinh sinh viên Ninh Bình">
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Loại Giảm Giá *</label>
+          <select id="new-cp-type" class="custom-input" onchange="window.handleCouponTypeChange(this.value)">
+            <option value="percent">Giảm Theo Tỷ Lệ (%)</option>
+            <option value="fixed">Giảm Số Tiền Cố Định (VNĐ)</option>
+          </select>
+        </div>
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;" id="label-cp-val">Mức Giảm (%) *</label>
+          <input type="number" id="new-cp-val" class="custom-input" placeholder="VD: 15" required>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Đơn Hàng Tối Thiểu (VNĐ)</label>
+          <input type="number" id="new-cp-min" class="custom-input" placeholder="VD: 299000" value="0">
+        </div>
+        <div class="form-control-wrap">
+          <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Giảm Tối Đa (VNĐ)</label>
+          <input type="number" id="new-cp-max" class="custom-input" placeholder="VD: 150000" value="0">
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px;">
+        <button class="btn btn-dark" style="flex:1;" onclick="window.closeCreateCouponModal()">Hủy Bỏ</button>
+        <button class="btn btn-primary" style="flex:1;" id="btn-submit-new-cp" onclick="window.submitCreateAdminCoupon()">+ Tạo Mã Giảm Giá</button>
+      </div>
+    </div>
   </div>
 
   <script src="assets/js/common.js?v=2.5"></script>
@@ -570,8 +712,11 @@
 
     window.loadOrders = async function () {
       const status = document.getElementById('order-filter-status').value;
+      const search = (document.getElementById('order-search-input')?.value || '').trim();
+      let url = `/api/orders?status=${status}`;
+      if (search) url += `&search=${encodeURIComponent(search)}`;
       try {
-        const res = await fetch(`/api/orders?status=${status}`);
+        const res = await fetch(url);
         const data = await res.json();
         const tbody = document.getElementById('orders-tbody');
         tbody.innerHTML = (data.orders || []).map(o => `
@@ -616,11 +761,16 @@
 
     window.loadAdminProducts = async function () {
       await window.loadAllProducts();
+      const countEl = document.getElementById('admin-prod-count');
+      if (countEl && window.ALL_PRODUCTS) {
+        countEl.textContent = window.ALL_PRODUCTS.length;
+      }
       const tbody = document.getElementById('admin-products-tbody');
       tbody.innerHTML = (window.ALL_PRODUCTS || []).map(p => {
         const badgeHTML = p.badge === 'hot' ? '<span class="p-badge badge-hot" style="margin-left:4px;">HOT</span>' :
                           p.badge === 'sale' ? '<span class="p-badge badge-sale" style="margin-left:4px;">SALE</span>' :
                           p.badge === 'new' ? '<span class="p-badge badge-new" style="margin-left:4px;">NEW</span>' : '';
+        const safeTitle = (p.title || '').replace(/'/g, "\\'");
         return `
           <tr>
             <td><code>${p.id}</code></td>
@@ -635,14 +785,128 @@
               ${p.oldPrice ? `<div style="font-size:0.75rem; color:#888; text-decoration:line-through;">${window.formatVND(p.oldPrice)}</div>` : ''}
             </td>
             <td>★ ${p.rating || 5.0} <span style="font-size:0.75rem; color:#888;">(${p.reviews || 0})</span></td>
-            <td>
-              <button class="btn btn-dark" style="padding:6px 14px; font-size:0.75rem; display:inline-flex; align-items:center; gap:4px;" onclick="window.openEditPriceModal('${p.id}')">
-                ✏️ Sửa Giá
-              </button>
+            <td style="text-align:center;">
+              <div style="display:flex; gap:6px; justify-content:center;">
+                <button class="btn btn-dark" style="padding:6px 12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:4px;" onclick="window.openEditPriceModal('${p.id}')">
+                  ✏️ Sửa Giá
+                </button>
+                <button class="btn btn-dark" style="padding:6px 10px; font-size:0.75rem; color:#f87171; border-color:rgba(239,68,68,0.4);" onclick="window.deleteAdminProduct('${p.id}', '${safeTitle}')" title="Xóa sản phẩm">
+                  🗑️ Xóa
+                </button>
+              </div>
             </td>
           </tr>
         `;
       }).join('');
+    };
+
+    window.openCreateProductModal = function () {
+      const modal = document.getElementById('create-product-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.getElementById('new-p-title').value = '';
+        document.getElementById('new-p-price').value = '';
+        document.getElementById('new-p-oldprice').value = '';
+        document.getElementById('new-p-desc').value = '';
+        document.getElementById('new-p-image').value = '';
+        document.getElementById('new-p-title').focus();
+      }
+    };
+
+    window.closeCreateProductModal = function () {
+      const modal = document.getElementById('create-product-modal');
+      if (modal) modal.style.display = 'none';
+    };
+
+    window.submitCreateAdminProduct = async function () {
+      const title = document.getElementById('new-p-title').value.trim();
+      const category = document.getElementById('new-p-category').value;
+      const price = Number(document.getElementById('new-p-price').value);
+      const oldPriceVal = document.getElementById('new-p-oldprice').value;
+      const oldPrice = oldPriceVal ? Number(oldPriceVal) : Math.round(price * 1.25);
+      const badge = document.getElementById('new-p-badge').value;
+      const image = document.getElementById('new-p-image').value.trim();
+      const isLocal = document.getElementById('new-p-islocal').checked;
+      const sizesStr = document.getElementById('new-p-sizes').value.trim();
+      const description = document.getElementById('new-p-desc').value.trim();
+
+      if (!title || !price || price <= 0) {
+        alert('Vui lòng nhập Tên sản phẩm và Giá bán hợp lệ!');
+        return;
+      }
+
+      const btn = document.getElementById('btn-submit-new-p');
+      btn.disabled = true;
+      btn.textContent = 'Đang thêm...';
+
+      const catNames = {
+        jacket: 'Áo Khoác Gió & Nỉ',
+        tee: 'Áo Thun / Phông',
+        shirt: 'Áo Sơ Mi',
+        tracksuit: 'Bộ Nỉ / Tracksuit',
+        pants: 'Quần Dài / Jean',
+        short: 'Quần Short',
+        shoes: 'Giày Sneaker',
+        hat: 'Mũ / Nón',
+        bag: 'Túi / Balo'
+      };
+
+      const payload = {
+        title,
+        category,
+        categoryName: catNames[category] || 'Thời Trang Streetwear',
+        price,
+        oldPrice,
+        badge,
+        isLocal,
+        sizes: sizesStr ? sizesStr.split(',').map(s => s.trim()) : ['M', 'L', 'XL'],
+        image: image || 'assets/images/products/ao-khoac-argentina-trang.png',
+        imageHover: image || 'assets/images/products/ao-khoac-argentina-trang.png',
+        description: description || 'Thiết kế thời trang Streetwear cao cấp từ Nguyen Tu Fashion Ninh Bình.'
+      };
+
+      try {
+        const res = await fetch('/api/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast(`Đã thêm sản phẩm "${title}" thành công!`, 'success');
+          window.closeCreateProductModal();
+          await window.loadAllProducts();
+          window.loadAdminProducts();
+        } else {
+          alert(data.message || 'Không thể tạo sản phẩm');
+        }
+      } catch (e) {
+        alert('Lỗi tạo sản phẩm: ' + e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '+ Thêm Sản Phẩm';
+      }
+    };
+
+    window.deleteAdminProduct = async function (id, title) {
+      if (!confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${title}" (Mã: ${id}) khỏi hệ thống?`)) {
+        return;
+      }
+      try {
+        const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast(`Đã xóa sản phẩm ${id}!`, 'info');
+          if (window.ALL_PRODUCTS) {
+            window.ALL_PRODUCTS = window.ALL_PRODUCTS.filter(p => p.id !== id);
+          }
+          window.loadAdminProducts();
+        } else {
+          alert(data.message || 'Không thể xóa sản phẩm!');
+        }
+      } catch (e) {
+        alert('Lỗi kết nối khi xóa sản phẩm: ' + e.message);
+      }
     };
 
     window.openEditPriceModal = function (id) {
@@ -740,14 +1004,103 @@
         const tbody = document.getElementById('admin-coupons-tbody');
         tbody.innerHTML = (data.coupons || []).map(c => `
           <tr>
-            <td><strong style="color:var(--accent-red);">${c.code}</strong></td>
+            <td><strong style="color:var(--accent-red); font-weight:800;">${c.code}</strong></td>
             <td>${c.description}</td>
-            <td>${c.discountPercent ? c.discountPercent + '%' : window.formatVND(c.discountAmount)}</td>
+            <td><span class="badge badge-hot" style="font-size:0.75rem;">${c.discountPercent ? c.discountPercent + '%' : window.formatVND(c.discountAmount)}</span></td>
             <td>${window.formatVND(c.minOrder)}</td>
             <td>${c.usageCount || 0} lần</td>
+            <td style="text-align:center;">
+              <button class="btn btn-dark" style="font-size:0.7rem; padding:4px 8px; color:#f87171; border-color:rgba(239,68,68,0.4);" onclick="window.deleteAdminCoupon('${c.code}')">Xóa</button>
+            </td>
           </tr>
         `).join('');
       } catch (e) {}
+    };
+
+    window.openCreateCouponModal = function () {
+      const modal = document.getElementById('create-coupon-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.getElementById('new-cp-code').value = '';
+        document.getElementById('new-cp-desc').value = '';
+        document.getElementById('new-cp-val').value = '';
+        document.getElementById('new-cp-code').focus();
+      }
+    };
+
+    window.closeCreateCouponModal = function () {
+      const modal = document.getElementById('create-coupon-modal');
+      if (modal) modal.style.display = 'none';
+    };
+
+    window.handleCouponTypeChange = function (type) {
+      const label = document.getElementById('label-cp-val');
+      const input = document.getElementById('new-cp-val');
+      if (type === 'percent') {
+        label.textContent = 'Mức Giảm (%) *';
+        input.placeholder = 'VD: 15';
+      } else {
+        label.textContent = 'Mức Giảm (VNĐ) *';
+        input.placeholder = 'VD: 50000';
+      }
+    };
+
+    window.submitCreateAdminCoupon = async function () {
+      const code = document.getElementById('new-cp-code').value.trim().toUpperCase();
+      const desc = document.getElementById('new-cp-desc').value.trim();
+      const type = document.getElementById('new-cp-type').value;
+      const val = Number(document.getElementById('new-cp-val').value);
+      const minOrder = Number(document.getElementById('new-cp-min').value) || 0;
+      const maxDiscount = Number(document.getElementById('new-cp-max').value) || 0;
+
+      if (!code || !val || val <= 0) {
+        alert('Vui lòng nhập Mã code và Mức giảm hợp lệ!');
+        return;
+      }
+
+      const payload = {
+        code,
+        description: desc || 'Mã ưu đãi độc quyền',
+        discountPercent: type === 'percent' ? val : 0,
+        discountAmount: type === 'fixed' ? val : 0,
+        minOrder,
+        maxDiscount,
+        expiry: '2026-12-31'
+      };
+
+      try {
+        const res = await fetch('/api/coupons', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast(`Đã tạo mã ${code} thành công!`, 'success');
+          window.closeCreateCouponModal();
+          window.loadAdminCoupons();
+        } else {
+          alert(data.message || 'Không thể tạo mã voucher');
+        }
+      } catch (e) {
+        alert('Lỗi tạo mã voucher: ' + e.message);
+      }
+    };
+
+    window.deleteAdminCoupon = async function (code) {
+      if (!confirm(`Bạn có chắc muốn xóa mã voucher "${code}"?`)) return;
+      try {
+        const res = await fetch(`/api/coupons/${code}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast(`Đã xóa voucher ${code}`, 'info');
+          window.loadAdminCoupons();
+        } else {
+          alert(data.message || 'Không thể xóa mã!');
+        }
+      } catch (e) {
+        alert('Lỗi xóa voucher: ' + e.message);
+      }
     };
 
     window.loadAdminInquiries = async function () {
@@ -771,17 +1124,62 @@
       try {
         const res = await fetch('/api/settings');
         const data = await res.json();
-        if (data.settings && data.settings.telegram) {
-          document.getElementById('tg-enable-checkbox').checked = !!data.settings.telegram.enabled;
-          document.getElementById('tg-chat-id').value = data.settings.telegram.chatId || '';
-          if (data.settings.telegram.hasToken) {
-            document.getElementById('tg-bot-token').placeholder = 'Đã lưu Token: ' + data.settings.telegram.botToken;
+        if (data.settings) {
+          if (data.settings.vietqr) {
+            const v = data.settings.vietqr;
+            if (v.bankId) document.getElementById('vietqr-bank-id').value = v.bankId;
+            if (v.accountNo) document.getElementById('vietqr-acc-no').value = v.accountNo;
+            if (v.accountName) document.getElementById('vietqr-acc-name').value = v.accountName;
+          }
+          if (data.settings.telegram) {
+            document.getElementById('tg-enable-checkbox').checked = !!data.settings.telegram.enabled;
+            document.getElementById('tg-chat-id').value = data.settings.telegram.chatId || '';
+            if (data.settings.telegram.hasToken) {
+              document.getElementById('tg-bot-token').placeholder = 'Đã lưu Token: ' + data.settings.telegram.botToken;
+            }
+          }
+          if (data.settings.hasGithubToken) {
+            document.getElementById('gh-token-input').placeholder = 'Đã lưu Token: ' + data.settings.githubToken;
           }
         }
-        if (data.settings && data.settings.hasGithubToken) {
-          document.getElementById('gh-token-input').placeholder = 'Đã lưu Token: ' + data.settings.githubToken;
-        }
       } catch (e) {}
+    };
+
+    window.saveVietQRSettings = async function () {
+      const bankId = document.getElementById('vietqr-bank-id').value;
+      const bankSelect = document.getElementById('vietqr-bank-id');
+      const bankName = bankSelect.options[bankSelect.selectedIndex].text.split('(')[0].trim();
+      const accountNo = document.getElementById('vietqr-acc-no').value.trim();
+      const accountName = document.getElementById('vietqr-acc-name').value.trim().toUpperCase();
+
+      if (!accountNo || !accountName) {
+        alert('Vui lòng nhập đủ Số tài khoản và Tên chủ tài khoản!');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            vietqr: {
+              bankId,
+              bankName,
+              accountNo,
+              accountName,
+              template: 'compact2'
+            }
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.showToast('✅ Đã lưu cấu hình tài khoản VietQR thành công!', 'success');
+        } else {
+          alert('Không thể lưu cấu hình VietQR');
+        }
+      } catch (e) {
+        alert('Lỗi kết nối khi lưu cấu hình: ' + e.message);
+      }
     };
 
     window.saveTelegramSettings = async function () {

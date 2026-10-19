@@ -475,7 +475,15 @@
     let checkoutVoucherCode = null;
     let checkoutDiscountAmount = 0;
 
-    function initCheckoutPage() {
+    async function initCheckoutPage() {
+      try {
+        const res = await fetch('/api/settings');
+        if (res.ok) {
+          const d = await res.json();
+          if (d.settings) window.STORE_SETTINGS = d.settings;
+        }
+      } catch (e) {}
+
       const cart = window.getCart();
       if (!cart || cart.length === 0) {
         window.showToast('Giỏ hàng trống! Hãy chọn sản phẩm trước.', 'info');
@@ -686,14 +694,24 @@
         const qrBox = document.getElementById('success-vietqr-box');
         qrBox.style.display = 'block';
 
-        const bankId = '970422'; // MB Bank
-        const accountNo = '0988888888';
-        const template = 'compact2';
-        const accountName = encodeURIComponent('NGUYEN TU FASHION');
+        let bankId = '970422'; // MB Bank
+        let accountNo = '0988888888';
+        let template = 'compact2';
+        let accountName = 'NGUYEN TU FASHION';
+
+        if (window.STORE_SETTINGS && window.STORE_SETTINGS.vietqr) {
+          const v = window.STORE_SETTINGS.vietqr;
+          if (v.bankId) bankId = v.bankId;
+          if (v.accountNo) accountNo = v.accountNo;
+          if (v.template) template = v.template;
+          if (v.accountName) accountName = v.accountName;
+        }
+
+        const encodedAccName = encodeURIComponent(accountName);
         const addInfo = encodeURIComponent(order.id);
         const amount = order.totalAmount;
 
-        const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-${template}.png?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+        const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-${template}.png?amount=${amount}&addInfo=${addInfo}&accountName=${encodedAccName}`;
         document.getElementById('success-vietqr-img').src = qrUrl;
         document.getElementById('qr-transfer-content').textContent = order.id;
         document.getElementById('qr-transfer-amount').textContent = window.formatVND(amount);
