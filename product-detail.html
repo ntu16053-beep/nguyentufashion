@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <base href="/">
+  <script>
+    if (window.location.protocol !== 'file:' && window.location.pathname.startsWith('/product/')) {
+      document.write('<base href="/">');
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi Tiết Sản Phẩm | NGUYEN TU FASHION Ninh Bình</title>
