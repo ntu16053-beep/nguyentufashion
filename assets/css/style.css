@@ -361,20 +361,20 @@ a.announcement-item:hover {
   color: #fff;
 }
 
-/* Nav Actions with Black Vertical Dividers */
+/* Nav Actions with Uniform Black Vertical Dividers */
 .nav-actions {
   display: flex;
   align-items: stretch;
   height: 74px;
   flex-shrink: 0;
-  border-left: 1.5px solid #000000;
+  border-left: none;
 }
 
 .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
+  width: 50px;
   height: 74px;
   border-right: 1.5px solid #000000;
   color: #ffffff;
@@ -383,7 +383,7 @@ a.announcement-item:hover {
 }
 
 .action-btn:last-child {
-  border-right: 1.5px solid #000000;
+  border-right: none;
 }
 
 .action-btn:hover {
