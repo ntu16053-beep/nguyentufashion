@@ -259,6 +259,39 @@
   font-weight: 700;
 }
 
+.card-image-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image-wrap > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.card-image-wrap .product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .card-image-wrap .product-img {
+  transform: scale(1.06);
+}
+
 /* --------------------------------------------------------------------------
    3. PRODUCT DETAIL PAGE (PRODUCT-DETAIL.HTML)
    -------------------------------------------------------------------------- */
