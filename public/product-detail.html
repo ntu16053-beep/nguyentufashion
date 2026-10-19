@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Sản Phẩm | NGUYEN TU FASHION Ninh Bình</title>
+  <meta name="description" content="Chi tiết sản phẩm thời trang Streetwear Nguyen Tu Fashion Ninh Bình. Chất lượng cao cấp, giao hỏa tốc 2H, đổi size 7 ngày.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <aside class="announcement-bar">
+    <div class="announcement-content">
+      <div class="announcement-group">
+        <span class="announcement-item">📍 Showroom: Khánh Nhạc - Ninh Bình</span>
+        <span class="announcement-item">⚡ Hỏa Tốc 2H Nội Thành</span>
+      </div>
+
+      <div class="announcement-group center">
+        <span class="announcement-item promo-item">
+          <span class="badge-tag">Ninh Bình Drop</span>
+          <span>Freeship toàn Ninh Bình cho đơn từ 299K • Mã: <strong>NINHBINH</strong> giảm 15%</span>
+        </span>
+      </div>
+
+      <div class="announcement-group">
+        <a href="contact.html" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
+        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.888.888</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- STICKY HEADER -->
+  <header class="header">
+    <div class="nav-container">
+      <button class="mobile-menu-btn" aria-label="Menu" onclick="window.toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="index.html" class="brand-wrapper">
+        <img src="assets/images/logo.png" alt="Nguyen Tu Fashion Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NGUYENTU</span>
+          <span class="brand-sub">FASHION • EST. 2025</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="products.html" class="nav-link active">Sản Phẩm</a>
+        <a href="products.html?category=tee" class="nav-link">Áo Thun</a>
+        <a href="products.html?category=jacket" class="nav-link">Áo Khoác</a>
+        <a href="products.html?category=pants" class="nav-link">Quần Dài</a>
+        <a href="products.html?category=tracksuit" class="nav-link">Tracksuit</a>
+        <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
+        <a href="blog.html" class="nav-link">Bài Viết</a>
+        <a href="contact.html" class="nav-link">Liên Hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="action-btn" title="Tìm kiếm" onclick="window.openSearchModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <a href="products.html?filter=wishlist" class="action-btn" title="Yêu thích">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span class="action-badge wishlist-count-badge" style="display:none;">0</span>
+        </a>
+
+        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="action-badge cart-count-badge" style="display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB STRIP -->
+  <div style="background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--border-light); padding: 14px 0;">
+    <div class="container">
+      <nav class="breadcrumb-nav" style="justify-content: flex-start; margin-bottom: 0;">
+        <a href="index.html">Trang Chủ</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="products.html">Sản Phẩm</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="products.html" id="breadcrumb-category">Áo Khoác</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current" id="breadcrumb-product-name">Đang tải...</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL MAIN -->
+  <main class="product-detail-container">
+    <div class="container">
+      <div class="product-detail-grid">
+        
+        <!-- LEFT: GALLERY -->
+        <div class="gallery-sticky-wrap">
+          <div class="main-image-viewport" id="main-viewport">
+            <span class="gallery-badge badge-hot" id="product-badge">HOT DROP</span>
+            <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Chi tiết sản phẩm" id="detail-main-img">
+          </div>
+
+          <div class="thumb-gallery-strip" id="thumb-strip">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- RIGHT: PRODUCT INFO & PURCHASE PANEL -->
+        <div class="product-info-panel">
+          <div class="product-brand-tag">
+            <span>⚡ NGUYEN TU EXCLUSIVE • NINH BÌNH DROP</span>
+          </div>
+
+          <h1 class="product-detail-title" id="detail-title">Đang tải sản phẩm...</h1>
+
+          <div class="product-meta-row">
+            <div class="rating-stars-gold">
+              <span id="detail-stars">★★★★★</span>
+              <strong style="color:#fff; margin-left:4px;" id="detail-rating-num">5.0</strong>
+            </div>
+            <span>•</span>
+            <span id="detail-reviews-num">186 Đánh Giá</span>
+            <span>•</span>
+            <span>Mã: <code id="detail-sku" style="color:var(--text-primary); font-weight:700;">NT-01</code></span>
+          </div>
+
+          <div class="product-price-section">
+            <span class="price-current" id="detail-price">0₫</span>
+            <span class="price-old" id="detail-old-price">0₫</span>
+            <span class="price-discount-pill" id="detail-discount-pill">Giảm 20%</span>
+          </div>
+
+          <p class="product-desc-brief" id="detail-brief-desc">
+            Chất liệu cao cấp thoáng khí, chuẩn form thời trang đường phố Gen Z.
+          </p>
+
+          <!-- Color Selector -->
+          <div class="selector-group">
+            <div class="selector-header">
+              <span class="selector-label">Màu Sắc: <strong id="selected-color-name" style="color:var(--accent-red);">Mặc định</strong></span>
+            </div>
+            <div class="color-chips-row" id="color-chips-row">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Size Selector -->
+          <div class="selector-group">
+            <div class="selector-header">
+              <span class="selector-label">Chọn Size: <strong id="selected-size-label" style="color:var(--accent-red);">M</strong></span>
+              <span class="size-guide-link" onclick="window.openSizeCalculatorModal()">📐 Bảng tính size chuẩn</span>
+            </div>
+            <div class="size-pill-row" id="size-pill-row">
+              <!-- Sizes -->
+            </div>
+            <div class="stock-indicator-row" id="stock-indicator">
+              <span>●</span> <span id="stock-text">Còn 25 sản phẩm trong kho (Giao 2H)</span>
+            </div>
+          </div>
+
+          <!-- Quantity & Purchase Actions -->
+          <div class="purchase-actions-row">
+            <div class="qty-counter">
+              <button class="qty-btn" onclick="window.adjustDetailQty(-1)">-</button>
+              <input type="text" id="detail-qty-val" class="qty-input" value="1" readonly>
+              <button class="qty-btn" onclick="window.adjustDetailQty(1)">+</button>
+            </div>
+
+            <button class="btn-add-cart" onclick="window.handleDetailAddToCart()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span>Thêm Giỏ Hàng</span>
+            </button>
+
+            <button class="btn-buy-now" onclick="window.handleDetailBuyNow()">
+              <span>Mua Ngay Hỏa Tốc</span>
+            </button>
+          </div>
+
+          <!-- Store Perks -->
+          <div class="detail-perks-box">
+            <div class="perk-item">
+              <span class="perk-icon">⚡</span>
+              <div>
+                <strong>Hỏa Tốc 2H Ninh Bình</strong>
+                <p>Nội thành TP. Ninh Bình & Yên Khánh</p>
+              </div>
+            </div>
+            <div class="perk-item">
+              <span class="perk-icon">📦</span>
+              <div>
+                <strong>Freeship Toàn Tỉnh</strong>
+                <p>Cho đơn hàng từ 299.000₫</p>
+              </div>
+            </div>
+            <div class="perk-item">
+              <span class="perk-icon">🔄</span>
+              <div>
+                <strong>Đổi Size 7 Ngày</strong>
+                <p>Shipper đến tận nhà đổi size mới</p>
+              </div>
+            </div>
+            <div class="perk-item">
+              <span class="perk-icon">🛡️</span>
+              <div>
+                <strong>Đồng Kiểm Khi Nhận</strong>
+                <p>Kiểm tra ưng ý mới thanh toán COD</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- TABS SECTION: DETAILS, SIZE GUIDE, REVIEWS -->
+      <section class="product-tabs-section">
+        <div class="tab-nav-bar">
+          <button class="tab-nav-item active" onclick="window.switchDetailTab('desc', this)">Mô Tả & Chất Liệu</button>
+          <button class="tab-nav-item" onclick="window.switchDetailTab('size', this)">Bảng Số Đo Chi Tiết</button>
+          <button class="tab-nav-item" onclick="window.switchDetailTab('shipping', this)">Chính Sách Vận Chuyển</button>
+          <button class="tab-nav-item" onclick="window.switchDetailTab('reviews', this)">Đánh Giá (<span id="tab-review-count">186</span>)</button>
+        </div>
+
+        <!-- Tab 1: Description -->
+        <div class="tab-content-panel active" id="tab-pane-desc">
+          <div id="full-product-description">
+            <p>Đang tải nội dung chi tiết...</p>
+          </div>
+        </div>
+
+        <!-- Tab 2: Size specs -->
+        <div class="tab-content-panel" id="tab-pane-size">
+          <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:16px;">BẢNG QUY ĐỔI KÍCH THƯỚC CHUẨN (STREETWEAR FIT)</h3>
+          <table class="cart-table" style="max-width:650px; margin-bottom:20px;">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Chiều Cao</th>
+                <th>Cân Nặng</th>
+                <th>Dài Áo</th>
+                <th>Rộng Ngực</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>M</strong></td>
+                <td>1m55 - 1m68</td>
+                <td>48kg - 58kg</td>
+                <td>70 cm</td>
+                <td>54 cm</td>
+              </tr>
+              <tr>
+                <td><strong>L</strong></td>
+                <td>1m65 - 1m75</td>
+                <td>58kg - 70kg</td>
+                <td>73 cm</td>
+                <td>57 cm</td>
+              </tr>
+              <tr>
+                <td><strong>XL</strong></td>
+                <td>1m72 - 1m82</td>
+                <td>70kg - 82kg</td>
+                <td>76 cm</td>
+                <td>60 cm</td>
+              </tr>
+              <tr>
+                <td><strong>XXL</strong></td>
+                <td>1m78 - 1m90</td>
+                <td>80kg - 95kg</td>
+                <td>79 cm</td>
+                <td>63 cm</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.875rem; color:var(--text-muted);">
+            * Nếu bạn phân vân giữa 2 size và thích mặc dáng thụng rủ vai streetwear, hãy chọn size lớn hơn!
+          </p>
+        </div>
+
+        <!-- Tab 3: Shipping & Exchange -->
+        <div class="tab-content-panel" id="tab-pane-shipping">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+            <div>
+              <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:var(--accent-red);">1. Giao Hàng Hỏa Tốc Ninh Bình</h4>
+              <p style="font-size:0.875rem; line-height:1.7; color:var(--text-secondary); margin-bottom:12px;">
+                • Đơn hàng tại TP. Ninh Bình & Yên Khánh được điều phối shipper riêng giao trong vòng <strong>30 - 120 phút</strong>.<br>
+                • Khách hàng ngoại huyện (Gia Viễn, Nho Quan, Kim Sơn, Tam Điệp, Hoa Lư) nhận hàng ngay trong ngày.<br>
+                • Toàn quốc giao từ 2-3 ngày qua bưu điện hỏa tốc.
+              </p>
+            </div>
+            <div>
+              <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:var(--accent-red);">2. Chính Sách Đổi Size Tận Nơi</h4>
+              <p style="font-size:0.875rem; line-height:1.7; color:var(--text-secondary);">
+                • Hỗ trợ đổi size trong <strong>7 ngày</strong> kể từ khi nhận hàng.<br>
+                • Điều kiện: Sản phẩm còn nguyên tag, chưa qua sử dụng và chưa giặt tẩy.<br>
+                • Khách hàng tại Ninh Bình: Shipper giao size mới và nhận lại size cũ tận nhà hoàn toàn miễn phí.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Reviews -->
+        <div class="tab-content-panel" id="tab-pane-reviews">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <div>
+              <h3 style="font-size:1.25rem; font-weight:800;">Đánh Giá Từ Khách Hàng Ninh Bình</h3>
+              <p style="font-size:0.8125rem; color:var(--text-muted);">100% người mua hàng thực tế đã trải nghiệm</p>
+            </div>
+            <button class="btn btn-outline-white" onclick="window.openReviewModal()">Viết Đánh Giá</button>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px;" id="detail-reviews-list">
+            <!-- Dynamically populated sample reviews -->
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED PRODUCTS -->
+      <section style="margin-top:60px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+          <div>
+            <span style="color:var(--accent-red); font-size:0.8125rem; font-weight:800; text-transform:uppercase;">GỢI Ý TỪ STYLIST</span>
+            <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">CÓ THỂ BẠN CŨNG THÍCH</h2>
+          </div>
+          <a href="products.html" style="font-size:0.875rem; font-weight:700; color:var(--accent-red);">Xem Tất Cả →</a>
+        </div>
+
+        <div class="product-grid" id="related-product-grid">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- SIZE CALCULATOR MODAL -->
+  <div class="modal-overlay" id="size-calc-modal">
+    <div class="modal-card" style="max-width:540px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Bảng Tính Size Tự Động</h3>
+        <button onclick="document.getElementById('size-calc-modal').classList.remove('active')" style="font-size:1.5rem; color:#fff;">&times;</button>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem;">
+          <span>Chiều cao của bạn:</span>
+          <strong id="modal-calc-h-val" style="color:var(--accent-red);">172 cm</strong>
+        </div>
+        <input type="range" id="modal-calc-h" min="150" max="190" value="172" style="width:100%; accent-color:var(--accent-red);" oninput="window.updateModalSizeCalc()">
+      </div>
+
+      <div style="margin-bottom:24px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.875rem;">
+          <span>Cân nặng của bạn:</span>
+          <strong id="modal-calc-w-val" style="color:var(--accent-red);">64 kg</strong>
+        </div>
+        <input type="range" id="modal-calc-w" min="40" max="95" value="64" style="width:100%; accent-color:var(--accent-red);" oninput="window.updateModalSizeCalc()">
+      </div>
+
+      <div style="background:rgba(255,51,75,0.12); border:1px solid var(--accent-red); border-radius:var(--radius-sm); padding:16px; text-align:center; margin-bottom:20px;">
+        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">KÍCH THƯỚC KHUYÊN DÙNG:</span>
+        <div id="modal-recommended-size" style="font-size:2rem; font-weight:900; color:#fff; margin:4px 0;">SIZE L</div>
+        <p id="modal-fit-note" style="font-size:0.8125rem; color:var(--text-secondary);">Dáng suông rũ nhẹ, chuẩn phong cách Streetwear Ninh Bình.</p>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;" onclick="window.applyModalCalculatedSize()">
+        Chọn Size Này Cho Sản Phẩm
+      </button>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tìm Kiếm Sản Phẩm</h3>
+        <button onclick="window.closeSearchModal()" style="font-size:1.5rem; color:#fff;">&times;</button>
+      </div>
+      <input type="text" id="search-input" class="custom-input" placeholder="Tìm theo tên áo, quần, nón..." oninput="window.handleSearchInput(event)">
+      <div id="search-results-list" style="margin-top:16px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="margin-top:80px;">
+    <div class="container">
+      <div class="footer-top" style="display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:30px; margin-bottom:40px;">
+        <div>
+          <a href="index.html" class="brand-wrapper" style="margin-bottom:16px; display:inline-flex;">
+            <img src="assets/images/logo.png" alt="Logo" class="brand-logo-img">
+            <div class="brand-text">
+              <span class="brand-name">NGUYENTU</span>
+              <span class="brand-sub">FASHION • EST. 2025</span>
+            </div>
+          </a>
+          <p style="color:#9ca3af; font-size:0.875rem; line-height:1.6; max-width:320px;">
+            Thương hiệu thời trang Streetwear phong cách giới trẻ hàng đầu Ninh Bình. Showroom trải nghiệm tại Khánh Nhạc, giao hỏa tốc 2H toàn tỉnh.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Danh Mục</h4>
+          <ul class="footer-links">
+            <li><a href="products.html?category=jacket">Áo Khoác Gió</a></li>
+            <li><a href="products.html?category=tee">Áo Thun Streetwear</a></li>
+            <li><a href="products.html?category=tracksuit">Bộ Thể Thao Tracksuit</a></li>
+            <li><a href="products.html?category=pants">Quần Dài Parachute</a></li>
+            <li><a href="products.html?category=shoes">Giày Sneakers</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Chính Sách</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Đổi Trả 7 Ngày Miễn Phí</a></li>
+            <li><a href="contact.html">Vận Chuyển Hỏa Tốc Ninh Bình</a></li>
+            <li><a href="contact.html">Chính Sách Đồng Kiểm COD</a></li>
+            <li><a href="contact.html">Bảo Hành & Đổi Size</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Showroom Ninh Bình</h4>
+          <p style="font-size:0.875rem; color:#9ca3af; line-height:1.6; margin-bottom:8px;">
+            📍 Khánh Nhạc, Yên Khánh, Ninh Bình
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:8px;">
+            📞 <strong>0988.888.888</strong>
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af;">
+            🕒 08:30 - 22:00 hàng ngày
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NGUYEN TU FASHION. All Rights Reserved.</span>
+        <span>Made with passion in Ninh Binh, Vietnam.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COMMON JS & CHAT WIDGET -->
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/chat-widget.js"></script>
+
+  <!-- DETAIL PAGE LOGIC -->
+  <script>
+    let currentProduct = null;
+    let selectedSize = 'M';
+    let selectedColor = '#111111';
+    let selectedQty = 1;
+
+    async function initDetailPage() {
+      const params = new URLSearchParams(window.location.search);
+      const prodId = params.get('id') || 'nt-01';
+
+      await window.loadAllProducts();
+
+      // Find in all products or fetch by API
+      let prod = (window.ALL_PRODUCTS || []).find(p => p.id === prodId);
+      if (!prod) {
+        try {
+          const res = await fetch(`/api/products/${prodId}`);
+          if (res.ok) {
+            const data = await res.json();
+            prod = data.product;
+          }
+        } catch (e) {}
+      }
+
+      if (!prod && window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0) {
+        prod = window.ALL_PRODUCTS[0];
+      }
+
+      currentProduct = prod;
+      renderProductDetails(prod);
+      renderRelatedProducts(prod);
+    }
+
+    function renderProductDetails(p) {
+      if (!p) return;
+
+      document.title = `${p.title} | NGUYEN TU FASHION Ninh Bình`;
+      document.getElementById('breadcrumb-product-name').textContent = p.title;
+      document.getElementById('breadcrumb-category').textContent = p.categoryName || 'Sản Phẩm';
+      document.getElementById('breadcrumb-category').href = `products.html?category=${p.category}`;
+
+      document.getElementById('detail-title').textContent = p.title;
+      document.getElementById('detail-sku').textContent = p.id.toUpperCase();
+      document.getElementById('detail-stars').textContent = '★'.repeat(Math.round(p.rating || 5));
+      document.getElementById('detail-rating-num').textContent = (p.rating || 5.0).toFixed(1);
+      document.getElementById('detail-reviews-num').textContent = `${p.reviews || 128} Đánh Giá`;
+      document.getElementById('tab-review-count').textContent = p.reviews || 128;
+
+      document.getElementById('detail-price').textContent = window.formatVND(p.price);
+      if (p.oldPrice && p.oldPrice > p.price) {
+        document.getElementById('detail-old-price').textContent = window.formatVND(p.oldPrice);
+        const percent = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
+        document.getElementById('detail-discount-pill').textContent = `Tiết kiệm ${percent}%`;
+        document.getElementById('detail-discount-pill').style.display = 'inline-block';
+      } else {
+        document.getElementById('detail-old-price').style.display = 'none';
+        document.getElementById('detail-discount-pill').style.display = 'none';
+      }
+
+      document.getElementById('detail-brief-desc').textContent = p.description || 'Thiết kế Streetwear độc quyền từ Nguyen Tu Fashion.';
+      document.getElementById('full-product-description').innerHTML = `
+        <h3 style="font-size:1.15rem; font-weight:800; margin-bottom:12px; color:#fff;">ĐIỂM NHẤN NỔI BẬT</h3>
+        <p style="margin-bottom:16px;">${p.description}</p>
+        <h4 style="font-size:1rem; font-weight:700; margin-bottom:8px; color:var(--accent-red);">Chất Liệu & Đường May:</h4>
+        <ul style="list-style:disc; margin-left:20px; line-height:1.8; color:var(--text-secondary); margin-bottom:16px;">
+          <li>Chất liệu dệt tiêu chuẩn xuất khẩu, xử lý chống nhăn và chống co rút sợi vải.</li>
+          <li>Đường may trần đè 2 kim chắc chắn, bo cổ và bo gấu dệt rib co giãn êm ái.</li>
+          <li>Phom dáng Oversize vai trễ chuẩn phong cách streetwear hiện đại dành cho giới trẻ Ninh Bình.</li>
+          <li>Tem mác dệt và tag bảo đảm chính hãng Nguyen Tu Fashion Est. 2025.</li>
+        </ul>
+      `;
+
+      // Main image & thumbs
+      const mainImg = document.getElementById('detail-main-img');
+      mainImg.src = p.image;
+      mainImg.alt = p.title;
+
+      const thumbStrip = document.getElementById('thumb-strip');
+      const imagesList = [p.image];
+      if (p.imageHover && p.imageHover !== p.image) imagesList.push(p.imageHover);
+      // Add extra views
+      imagesList.push(p.image);
+      imagesList.push(p.imageHover || p.image);
+
+      thumbStrip.innerHTML = imagesList.map((img, idx) => `
+        <div class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="window.switchMainImage('${img}', this)">
+          <img src="${img}" alt="Thumbnail ${idx}">
+        </div>
+      `).join('');
+
+      // Colors
+      const colorRow = document.getElementById('color-chips-row');
+      const colors = (p.colors && p.colors.length) ? p.colors : ['#ffffff', '#111111'];
+      selectedColor = colors[0];
+      colorRow.innerHTML = colors.map((c, idx) => `
+        <div class="color-chip-ball ${idx === 0 ? 'active' : ''}" style="background-color:${c};" onclick="window.selectColor('${c}', this)" title="${c}"></div>
+      `).join('');
+      document.getElementById('selected-color-name').textContent = colors[0];
+
+      // Sizes
+      const sizeRow = document.getElementById('size-pill-row');
+      const sizes = (p.sizes && p.sizes.length) ? p.sizes : ['M', 'L', 'XL', 'XXL'];
+      selectedSize = sizes[0];
+      sizeRow.innerHTML = sizes.map((s, idx) => `
+        <button class="size-btn-pill ${idx === 0 ? 'active' : ''}" onclick="window.selectSize('${s}', this)">${s}</button>
+      `).join('');
+      document.getElementById('selected-size-label').textContent = sizes[0];
+
+      // Reviews sample
+      renderSampleReviews(p);
+    }
+
+    window.switchMainImage = function (src, el) {
+      document.getElementById('detail-main-img').src = src;
+      document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    };
+
+    window.selectColor = function (color, el) {
+      selectedColor = color;
+      document.getElementById('selected-color-name').textContent = color;
+      document.querySelectorAll('.color-chip-ball').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    };
+
+    window.selectSize = function (size, el) {
+      selectedSize = size;
+      document.getElementById('selected-size-label').textContent = size;
+      document.querySelectorAll('.size-btn-pill').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+
+      const stockMap = currentProduct?.stock || {};
+      const qtyAvail = stockMap[size] !== undefined ? stockMap[size] : 20;
+      document.getElementById('stock-text').textContent = `Còn ${qtyAvail} sản phẩm trong kho (Giao 2H)`;
+    };
+
+    window.adjustDetailQty = function (delta) {
+      const input = document.getElementById('detail-qty-val');
+      let val = Number(input.value) + delta;
+      if (val < 1) val = 1;
+      if (val > 50) val = 50;
+      input.value = val;
+      selectedQty = val;
+    };
+
+    window.handleDetailAddToCart = function () {
+      if (!currentProduct) return;
+      window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
+    };
+
+    window.handleDetailBuyNow = function () {
+      if (!currentProduct) return;
+      window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
+      window.location.href = 'checkout.html';
+    };
+
+    window.switchDetailTab = function (tabKey, btn) {
+      document.querySelectorAll('.tab-nav-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`tab-pane-${tabKey}`).classList.add('active');
+    };
+
+    // Size Calculator in Modal
+    window.openSizeCalculatorModal = function () {
+      document.getElementById('size-calc-modal').classList.add('active');
+      window.updateModalSizeCalc();
+    };
+
+    window.updateModalSizeCalc = function () {
+      const h = Number(document.getElementById('modal-calc-h').value);
+      const w = Number(document.getElementById('modal-calc-w').value);
+      document.getElementById('modal-calc-h-val').textContent = h + ' cm';
+      document.getElementById('modal-calc-w-val').textContent = w + ' kg';
+
+      let size = 'L';
+      let note = 'Dáng suông rũ nhẹ, chuẩn phong cách Streetwear Ninh Bình.';
+      if (w < 55) { size = 'M'; note = 'Vừa vặn thoải mái, tôn dáng gọn gàng.'; }
+      else if (w <= 68) { size = 'L'; note = 'Dáng suông rũ nhẹ, chuẩn phong cách Streetwear Ninh Bình.'; }
+      else if (w <= 80) { size = 'XL'; note = 'Oversize thụng rộng rãi cá tính.'; }
+      else { size = 'XXL'; note = 'Rộng rãi tối đa, thoải mái vận động.'; }
+
+      document.getElementById('modal-recommended-size').textContent = 'SIZE ' + size;
+      document.getElementById('modal-fit-note').textContent = note;
+    };
+
+    window.applyModalCalculatedSize = function () {
+      const rec = document.getElementById('modal-recommended-size').textContent.replace('SIZE ', '').trim();
+      document.querySelectorAll('.size-btn-pill').forEach(btn => {
+        if (btn.textContent.trim() === rec) {
+          window.selectSize(rec, btn);
+        }
+      });
+      document.getElementById('size-calc-modal').classList.remove('active');
+      window.showToast(`Đã áp dụng Size ${rec} cho đơn hàng của bạn!`, 'success');
+    };
+
+    function renderSampleReviews(p) {
+      const container = document.getElementById('detail-reviews-list');
+      const sampleNames = ['Nguyễn Hoàng Nam (Yên Khánh)', 'Trần Mai Linh (TP. Ninh Bình)', 'Vũ Đức Thịnh (Hoa Lư)', 'Lê Khánh Huyền (Tam Điệp)'];
+      const sampleComments = [
+        'Vải dù gió 2 lớp dày dặn, cản gió cực tốt. Mình 1m73 65kg mặc size L rũ vai đẹp như ảnh mẫu. Giao hàng hỏa tốc trong 1 tiếng siêu nhanh!',
+        'Form áo đẹp xỉu luôn ạ! Đường may sắc sảo không có chỉ thừa, logo thêu nổi mạ vàng rất sang chảnh. Sẽ tiếp tục ủng hộ shop!',
+        'Shop đóng gói hộp chỉn chu có thư cảm ơn và voucher giảm giá. Mua online mà ưng hơn mong đợi. 10 sao cho local brand quê mình!',
+        'Đã mua chiếc thứ 3 tại Nguyen Tu Fashion. Phối với quần jean hoặc parachute đều cực chất. Shipper nhiệt tình cho đồng kiểm đàng hoàng.'
+      ];
+
+      container.innerHTML = sampleNames.map((name, i) => `
+        <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:16px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <strong style="color:#fff; font-size:0.9375rem;">${name}</strong>
+            <span style="color:#fbbf24; font-size:0.875rem;">★★★★★</span>
+          </div>
+          <span style="font-size:0.6875rem; color:var(--accent-green); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px;">✓ Đã mua hàng tại Showroom Ninh Bình</span>
+          <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">${sampleComments[i]}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderRelatedProducts(curr) {
+      const grid = document.getElementById('related-product-grid');
+      if (!grid) return;
+      const all = window.ALL_PRODUCTS || [];
+      const related = all.filter(p => p.id !== curr.id && p.category === curr.category).slice(0, 4);
+      const fallback = related.length ? related : all.filter(p => p.id !== curr.id).slice(0, 4);
+
+      grid.innerHTML = fallback.map(p => `
+        <div class="product-card">
+          <div class="card-image-wrap">
+            <a href="product-detail.html?id=${p.id}">
+              <img src="${p.image}" alt="${p.title}" class="product-img primary">
+            </a>
+            <div class="card-badges">
+              ${p.badge ? `<span class="badge badge-${p.badge}">${p.badge.toUpperCase()}</span>` : ''}
+            </div>
+            <div class="card-actions">
+              <a href="product-detail.html?id=${p.id}" class="quick-btn" style="width:100%; text-align:center;">Xem Sản Phẩm</a>
+            </div>
+          </div>
+          <div class="card-details">
+            <h3 class="product-title"><a href="product-detail.html?id=${p.id}">${p.title}</a></h3>
+            <div class="price-row">
+              <span class="price-current">${window.formatVND(p.price)}</span>
+              ${p.oldPrice ? `<span class="price-old">${window.formatVND(p.oldPrice)}</span>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', initDetailPage);
+  </script>
+</body>
+</html>

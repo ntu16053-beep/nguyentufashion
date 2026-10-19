@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static frontend assets
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname));
 
 // ==========================================

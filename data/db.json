@@ -1825,7 +1825,18 @@
       "chatId": ""
     }
   },
-  "contacts": [],
+  "contacts": [
+    {
+      "id": "ct-1792393324147",
+      "name": "Khách Hàng Test",
+      "phone": "0988123456",
+      "email": "test@example.com",
+      "subject": "Tư vấn chọn size",
+      "message": "Cao 1m75 nặng 65kg",
+      "createdAt": "2026-10-19T07:02:04.147Z",
+      "status": "new"
+    }
+  ],
   "articles": [
     {
       "id": "art-01",

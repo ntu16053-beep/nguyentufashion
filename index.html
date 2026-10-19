@@ -14,6 +14,7 @@
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="assets/css/style.css?v=1.2">
+  <link rel="stylesheet" href="assets/css/pages.css?v=1.2">
 </head>
 <body>
 
@@ -36,8 +37,8 @@
 
       <div class="announcement-group">
         <a href="#size-calc" class="announcement-item">📐 Bảng Tính Size</a>
-        <a href="#store-hub" class="announcement-item">🏪 Hệ Thống Cửa Hàng</a>
-        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.xxx.xxx</a>
+        <a href="contact.html" class="announcement-item">🏪 Showroom Khánh Nhạc</a>
+        <a href="tel:0988888888" class="announcement-item">📞 Hotline: 0988.888.888</a>
       </div>
     </div>
   </aside>
@@ -65,18 +66,16 @@
 
       <!-- Desktop Nav Links -->
       <nav class="nav-links" aria-label="Main Navigation">
-        <a href="#hero" class="nav-link active">Trang Chủ</a>
-        <a href="#catalog" class="nav-link nav-has-badge" onclick="window.filterByCircle('all')">Hàng Mới <span class="nav-badge hot">HOT</span></a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('tee')">Áo Thun</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('shirt')">Áo Sơ Mi</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('jacket')">Áo Khoác</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('pants')">Quần Dài</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('short')">Quần Short</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('shoes')">Sneakers</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('hat')">Mũ & Nón</a>
-        <a href="#catalog" class="nav-link" onclick="window.filterByCircle('bag')">Túi & Balo</a>
+        <a href="index.html" class="nav-link active">Trang Chủ</a>
+        <a href="products.html" class="nav-link nav-has-badge">Sản Phẩm <span class="nav-badge hot">50+</span></a>
+        <a href="products.html?category=tee" class="nav-link">Áo Thun</a>
+        <a href="products.html?category=jacket" class="nav-link">Áo Khoác</a>
+        <a href="products.html?category=pants" class="nav-link">Quần Dài</a>
+        <a href="products.html?category=tracksuit" class="nav-link">Tracksuit</a>
+        <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
         <a href="#lookbook" class="nav-link">Lookbook</a>
-        <a href="#store-hub" class="nav-link">Store NB</a>
+        <a href="blog.html" class="nav-link">Bài Viết</a>
+        <a href="contact.html" class="nav-link">Liên Hệ</a>
       </nav>
 
       <!-- Nav Actions -->
@@ -136,12 +135,12 @@
         </p>
 
         <div class="hero-actions">
-          <a href="#catalog" class="btn btn-primary">
-            <span>Khám Phá Bộ Sưu Tập</span>
+          <a href="products.html" class="btn btn-primary">
+            <span>Khám Phá Toàn Bộ Sản Phẩm</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
-          <a href="#lookbook" class="btn btn-outline-white">
-            <span>Ninh Bình Lookbook '26</span>
+          <a href="contact.html" class="btn btn-outline-white">
+            <span>Showroom Ninh Bình</span>
           </a>
         </div>
 
@@ -590,6 +589,98 @@
         </div>
       </div>
     </section>
+
+    <!-- ==========================================
+         LATEST STREETWEAR MAGAZINE & BLOG SECTION
+         ========================================== -->
+    <section class="section-padding" style="border-top: 1px solid var(--border-light); background: rgba(0,0,0,0.2);">
+      <div class="container">
+        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:36px; flex-wrap:wrap; gap:16px;">
+          <div>
+            <div class="section-sub">
+              <span class="sub-line"></span>
+              <span>MAGAZINE & STYLE GUIDE</span>
+            </div>
+            <h2 class="section-title">TẠP CHÍ & BÀI VIẾT THỜI TRANG</h2>
+          </div>
+          <a href="blog.html" class="btn btn-outline-white" style="font-size:0.875rem;">
+            <span>Xem Tất Cả Bài Viết</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+
+        <div class="blog-grid-container" style="margin-bottom:0;">
+          <article class="blog-card">
+            <div class="blog-card-thumb-wrap">
+              <a href="blog-detail.html?id=art-01">
+                <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Xu hướng Streetwear 2026">
+              </a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-badge">Xu Hướng</span>
+                <span>•</span>
+                <span>5 phút đọc</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="blog-detail.html?id=art-01">Top 5 xu hướng Streetwear thống trị giới trẻ 2026: Từ Blokecore đến Gorpcore</a>
+              </h3>
+              <p class="blog-card-excerpt">Sự trỗi dậy của áo khoác gió thể thao Blokecore, quần Parachute và tinh thần tự do năng động.</p>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; margin-top:auto;">
+                <span style="font-size:0.75rem; color:var(--text-muted);">15/10/2026</span>
+                <a href="blog-detail.html?id=art-01" class="blog-card-readmore">Đọc Tiếp →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-thumb-wrap">
+              <a href="blog-detail.html?id=art-02">
+                <img src="assets/images/products/bo-the-thao-argentina-den.png" alt="Phối đồ áo khoác gió">
+              </a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-badge">Mẹo Phối Đồ</span>
+                <span>•</span>
+                <span>4 phút đọc</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="blog-detail.html?id=art-02">Bí quyết phối đồ chuẩn vibe Ninh Bình với Áo Khoác Gió Retro & Quần Suông</a>
+              </h3>
+              <p class="blog-card-excerpt">Quy tắc tương phản trên - dưới và công thức màu sắc 60-30-10 giúp outfit của bạn luôn nổi bật.</p>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; margin-top:auto;">
+                <span style="font-size:0.75rem; color:var(--text-muted);">12/10/2026</span>
+                <a href="blog-detail.html?id=art-02" class="blog-card-readmore">Đọc Tiếp →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-thumb-wrap">
+              <a href="blog-detail.html?id=art-04">
+                <img src="assets/images/showroom-flagship-ninhbinh.jpg" alt="Showroom Nguyen Tu Khánh Nhạc">
+              </a>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-badge">Không Gian</span>
+                <span>•</span>
+                <span>4 phút đọc</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="blog-detail.html?id=art-04">Khám phá Showroom Nguyen Tu Fashion Khánh Nhạc - Trải nghiệm mua sắm đẳng cấp</a>
+              </h3>
+              <p class="blog-card-excerpt">Không gian kiến trúc công nghiệp hiện đại, góc check-in sống ảo và phòng thử đồ chuẩn studio.</p>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; margin-top:auto;">
+                <span style="font-size:0.75rem; color:var(--text-muted);">01/10/2026</span>
+                <a href="blog-detail.html?id=art-04" class="blog-card-readmore">Đọc Tiếp →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ==========================================
@@ -723,9 +814,14 @@
         <span id="cart-final-total" style="color:var(--accent-red);">0 ₫</span>
       </div>
 
-      <button class="btn btn-dark" style="width:100%; padding:14px; font-size:0.9375rem;" onclick="window.openCheckoutModal()">
-        Tiến Hành Đặt Hàng Nhanh →
-      </button>
+      <div style="display:flex; gap:10px; margin-top:12px;">
+        <a href="cart.html" class="btn btn-outline-white" style="flex:1; text-align:center; font-size:0.8125rem; padding:12px;">
+          Xem Giỏ Hàng
+        </a>
+        <a href="checkout.html" class="btn btn-primary" style="flex:1.2; text-align:center; font-size:0.8125rem; padding:12px;">
+          Thanh Toán →
+        </a>
+      </div>
     </div>
   </div>
 
@@ -836,33 +932,35 @@
        MOBILE BOTTOM NAVIGATION (GEN Z APP VIBE)
        ========================================== -->
   <nav class="mobile-bottom-nav">
-    <a href="#hero" class="mobile-nav-item active">
+    <a href="index.html" class="mobile-nav-item active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
       <span>Trang Chủ</span>
     </a>
-    <a href="#catalog" class="mobile-nav-item" onclick="window.filterByCircle('all')">
+    <a href="products.html" class="mobile-nav-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-      <span>Cửa Hàng</span>
+      <span>Sản Phẩm</span>
     </a>
-    <a href="#lookbook" class="mobile-nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-      <span>Lookbook</span>
+    <a href="blog.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Bài Viết</span>
     </a>
-    <div class="mobile-nav-item" onclick="window.openCartDrawer()" style="cursor:pointer;">
+    <a href="cart.html" class="mobile-nav-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
       <span class="action-badge cart-count-badge" style="top:-2px; right:10px;">0</span>
       <span>Giỏ Hàng</span>
-    </div>
-    <a href="https://zalo.me" target="_blank" class="mobile-nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-      <span>Zalo Chat</span>
+    </a>
+    <a href="contact.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      <span>Liên Hệ</span>
     </a>
   </nav>
 
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Main JavaScript File -->
+  <!-- Main JavaScript Files -->
+  <script src="assets/js/common.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/chat-widget.js"></script>
 </body>
 </html>

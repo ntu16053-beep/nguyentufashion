@@ -960,8 +960,10 @@ document.addEventListener('DOMContentLoaded', () => {
               </svg>
             </button>
 
-            <img class="product-img" src="${p.image}" alt="${p.title}" loading="lazy">
-            <img class="product-img-hover" src="${p.imageHover}" alt="${p.title}" loading="lazy">
+            <a href="product-detail.html?id=${p.id}">
+              <img class="product-img" src="${p.image}" alt="${p.title}" loading="lazy">
+              <img class="product-img-hover" src="${p.imageHover}" alt="${p.title}" loading="lazy">
+            </a>
 
             <div class="product-quick-actions">
               <button class="btn-quick-view" onclick="window.openQuickView('${p.id}')">
@@ -977,7 +979,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <div class="product-info">
             <span class="product-category">${p.categoryName}</span>
-            <h3 class="product-title" title="${p.title}">${p.title}</h3>
+            <h3 class="product-title" title="${p.title}">
+              <a href="product-detail.html?id=${p.id}" style="color:inherit; text-decoration:none;">${p.title}</a>
+            </h3>
             
             <div class="product-meta">
               <div class="product-prices">
@@ -1252,6 +1256,10 @@ document.addEventListener('DOMContentLoaded', () => {
               ❤️ Yêu Thích
             </button>
           </div>
+
+          <a href="product-detail.html?id=${product.id}" class="btn btn-outline-white" style="display:block; text-align:center; margin-top:10px; font-size:0.8125rem;">
+            Xem Chi Tiết Đầy Đủ & Đánh Giá →
+          </a>
 
           <div style="margin-top:20px; padding:12px; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.12); border-radius:8px; font-size:0.75rem; color:var(--text-secondary);">
             🚀 <strong>Ninh Bình Express:</strong> Nhận hàng trong 2 giờ tại TP. Ninh Bình & Hoa Lư. Thử đồ tại chỗ trước khi thanh toán.
