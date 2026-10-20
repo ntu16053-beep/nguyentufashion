@@ -2700,12 +2700,21 @@ input[type=range]::-webkit-slider-thumb:hover {
   }
 
   .nav-container {
-    padding: 0 12px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    padding: 0 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
     gap: 8px !important;
+    overflow: visible !important;
   }
 
   .mobile-menu-btn {
-    margin-right: 6px !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     flex-shrink: 0 !important;
   }
 
@@ -2716,18 +2725,17 @@ input[type=range]::-webkit-slider-thumb:hover {
     border-left: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    gap: 10px !important;
+    gap: 8px !important;
     max-width: none !important;
-    flex: 1 1 auto !important;
+    flex: 0 1 auto !important;
     display: inline-flex !important;
     align-items: center !important;
-    margin-right: 14px !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .brand-logo-img {
-    width: 38px !important;
-    height: 38px !important;
+    width: 36px !important;
+    height: 36px !important;
     border-radius: 8px !important;
     object-fit: contain !important;
     flex-shrink: 0 !important;
@@ -2740,27 +2748,33 @@ input[type=range]::-webkit-slider-thumb:hover {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
-    min-width: 0 !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
+    flex-shrink: 0 !important;
   }
 
   .brand-name {
-    font-size: 1.15rem !important;
+    font-size: 1.08rem !important;
     font-weight: 900 !important;
-    letter-spacing: 0.05em !important;
+    letter-spacing: 0.04em !important;
     line-height: 1.1 !important;
     margin: 0 !important;
     white-space: nowrap !important;
     color: #ffffff !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
   }
 
   .brand-sub {
-    font-size: 0.54rem !important;
-    letter-spacing: 0.12em !important;
+    font-size: 0.5rem !important;
+    letter-spacing: 0.1em !important;
     color: var(--accent-gold) !important;
     font-weight: 700 !important;
     line-height: 1 !important;
-    margin-top: 3px !important;
+    margin-top: 2px !important;
     white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
   }
 
   .nav-actions {
@@ -2768,15 +2782,19 @@ input[type=range]::-webkit-slider-thumb:hover {
     border: none !important;
     gap: 6px !important;
     flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
   }
 
   .action-btn {
-    width: 36px !important;
-    height: 36px !important;
+    width: 35px !important;
+    height: 35px !important;
     padding: 0 !important;
     border-radius: 8px !important;
     background: linear-gradient(180deg, #8c1125 0%, #630a18 100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    flex-shrink: 0 !important;
   }
 
   /* 4. Hero Section (Hạ ảnh nền lộ rõ nhà & núi, 2 nút nhỏ gọn khớp khung hình) */
