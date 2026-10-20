@@ -366,11 +366,18 @@
       window.ALL_PRODUCTS = window.getStoredProducts();
     }
 
-    // Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website
+        // Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website
     try {
       const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
       if (deletedIds.length > 0 && Array.isArray(window.ALL_PRODUCTS)) {
-        window.ALL_PRODUCTS = window.ALL_PRODUCTS.filter(p => !deletedIds.includes(p.id));
+        const remaining = window.ALL_PRODUCTS.filter(p => !deletedIds.includes(p.id));
+        if (remaining.length > 0) {
+          window.ALL_PRODUCTS = remaining;
+        } else {
+          // Bị xóa hết do nhầm lẫn trên client -> tự động khôi phục toàn bộ danh mục
+          localStorage.removeItem('nguyentu_deleted_product_ids');
+          localStorage.removeItem('nguyentu_cached_products');
+        }
       }
     } catch (e) {}
 

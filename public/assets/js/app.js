@@ -933,13 +933,24 @@ document.addEventListener('DOMContentLoaded', () => {
       ? window.ALL_PRODUCTS.slice()
       : (window.getStoredProducts ? window.getStoredProducts() : (window.DEFAULT_PRODUCTS || []).slice());
 
-    // 2. Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website
+        // 2. Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website (có cơ chế tự phục hồi nếu bị trống)
     try {
       const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
       if (deletedIds.length > 0 && Array.isArray(currentList)) {
-        currentList = currentList.filter(p => !deletedIds.includes(p.id));
+        const remaining = currentList.filter(p => !deletedIds.includes(p.id));
+        if (remaining.length > 0) {
+          currentList = remaining;
+        } else {
+          localStorage.removeItem('nguyentu_deleted_product_ids');
+          localStorage.removeItem('nguyentu_cached_products');
+          currentList = (window.DEFAULT_PRODUCTS || []).slice();
+        }
       }
     } catch (e) {}
+
+    if (!currentList || currentList.length === 0) {
+      currentList = (window.DEFAULT_PRODUCTS || []).slice();
+    }
 
     // 3. Áp dụng các thay đổi giá ghi đè mới nhất
     try {
@@ -1010,23 +1021,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     grid.innerHTML = filtered.map(p => {
       const isWishlisted = wishlist.includes(p.id);
-      const discountPercent = p.oldPrice ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : 0;
-      
-      let badgeHtml = '';
-      if (p.badge === 'sale') badgeHtml = `<span class="p-badge badge-sale">-${discountPercent}%</span>`;
-      else if (p.badge === 'hot') badgeHtml = `<span class="p-badge badge-hot">Bán Chạy</span>`;
-      else if (p.badge === 'new') badgeHtml = `<span class="p-badge badge-new">Mới Về</span>`;
-      
-      if (p.isLocal) {
-        badgeHtml += `<span class="p-badge badge-local">Ninh Bình Drop</span>`;
-      }
 
       return `
         <article class="product-card" data-id="${p.id}">
           <div class="product-thumb-wrap">
-            <div class="product-badges">
-              ${badgeHtml}
-            </div>
             
             <button class="btn-wishlist ${isWishlisted ? 'active' : ''}" 
                     aria-label="Thêm vào yêu thích" 

@@ -423,6 +423,7 @@ select option:hover {
 }
 
 .gallery-badge {
+  display: none !important;
   position: absolute;
   top: 16px;
   left: 16px;
