@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=2.0">
-  <link rel="stylesheet" href="assets/css/pages.css?v=2.0">
+  <link rel="stylesheet" href="assets/css/style.css?v=3.0">
+  <link rel="stylesheet" href="assets/css/pages.css?v=3.0">
 
   <style>
     :root, html, body {
@@ -311,6 +311,9 @@
           </div>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
             <input type="text" id="admin-search-product" placeholder="🔍 Tìm theo tên hoặc mã..." class="custom-input" style="width:230px; padding:8px 12px; font-size:0.8125rem;" oninput="window.filterAdminProducts(this.value)">
+            <button class="btn btn-dark" style="color:#38bdf8; border-color:rgba(56,189,248,0.5); display:inline-flex; align-items:center; gap:6px; padding:8px 14px;" onclick="window.restoreDefaultProducts()" title="Khôi phục lại toàn bộ 50 sản phẩm ban đầu">
+              🔄 Khôi Phục Sản Phẩm
+            </button>
             <button class="btn btn-dark" id="btn-bulk-delete" style="color:#f87171; border-color:rgba(239,68,68,0.5); display:none; align-items:center; gap:6px; padding:8px 14px;" onclick="window.bulkDeleteAdminProducts()">
               🗑️ Xóa (<span id="selected-prod-count">0</span>) đã chọn
             </button>
@@ -727,7 +730,7 @@
     </div>
   </div>
 
-  <script src="assets/js/common.js?v=2.5"></script>
+  <script src="assets/js/common.js?v=3.0"></script>
 
   <script>
     // ==========================================
@@ -1407,6 +1410,46 @@
 
       saveBtn.disabled = false;
       saveBtn.textContent = 'Lưu Thay Đổi';
+    };
+
+    window.restoreDefaultProducts = async function () {
+      if (!confirm('Bạn có chắc chắn muốn KHÔI PHỤC LẠI toàn bộ 50 sản phẩm gốc mặc định của shop?\n\nThao tác này sẽ phục hồi tất cả các sản phẩm đã bị xóa và đưa danh mục về đầy đủ 50 sản phẩm ban đầu.')) {
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/products/reset', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json().catch(() => ({}));
+        if (data.success && data.products) {
+          window.ALL_PRODUCTS = data.products;
+        } else if (window.DEFAULT_PRODUCTS) {
+          window.ALL_PRODUCTS = window.DEFAULT_PRODUCTS.slice();
+        }
+      } catch (e) {
+        if (window.DEFAULT_PRODUCTS) {
+          window.ALL_PRODUCTS = window.DEFAULT_PRODUCTS.slice();
+        }
+      }
+
+      // Xóa bộ nhớ đã xóa trong localStorage
+      try {
+        localStorage.removeItem('nguyentu_deleted_product_ids');
+        localStorage.removeItem('nguyentu_price_overrides');
+        localStorage.setItem('nguyentu_cached_products', JSON.stringify(window.ALL_PRODUCTS));
+      } catch (e) {}
+
+      window.selectedProductIds.clear();
+      window.updateBulkDeleteUI();
+
+      try {
+        window.dispatchEvent(new CustomEvent('productsUpdated', { detail: window.ALL_PRODUCTS }));
+      } catch (e) {}
+
+      window.loadAdminProducts();
+      window.showToast('✅ Đã khôi phục thành công toàn bộ 50 sản phẩm ban đầu!', 'success');
     };
 
     window.loadAdminCoupons = async function () {

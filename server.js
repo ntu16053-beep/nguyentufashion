@@ -490,6 +490,35 @@ app.post('/api/products/batch-delete', requireAdminAuth, (req, res) => {
   });
 });
 
+// POST /api/products/reset (Khôi phục toàn bộ 50 sản phẩm gốc mặc định)
+app.post('/api/products/reset', requireAdminAuth, (req, res) => {
+  const db = readDB();
+  const defaultPath = path.join(__dirname, 'data', 'default_products.json');
+  let defaults = [];
+
+  try {
+    if (fs.existsSync(defaultPath)) {
+      defaults = JSON.parse(fs.readFileSync(defaultPath, 'utf-8'));
+    }
+  } catch (e) {
+    console.error('Failed reading default_products.json:', e);
+  }
+
+  if (!defaults || defaults.length === 0) {
+    return res.status(500).json({ success: false, message: 'Không tìm thấy dữ liệu sản phẩm gốc để khôi phục!' });
+  }
+
+  db.products = defaults;
+  writeDB(db, 'feat(products): restore 50 default products catalog');
+
+  res.json({
+    success: true,
+    message: 'Khôi phục thành công toàn bộ ' + defaults.length + ' sản phẩm gốc!',
+    count: defaults.length,
+    products: defaults
+  });
+});
+
 // ==========================================
 // 1.1 REVIEWS REST API
 // ==========================================

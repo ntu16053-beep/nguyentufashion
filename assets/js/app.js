@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
       colors: ['#111111', '#1f2937'],
       description: 'Kiểu dáng messenger hình hộp vuông vức thời thượng chế tác từ da bò Taurillon dập nổi vân Monogram sâu sắc nét. Điểm nhấn là khóa bấm S-Lock đen nhám lấy cảm hứng từ khóa rương cổ điển năm 1886 của hãng, quai đeo bản to dệt chữ Louis Vuitton nổi.'
     }
-  ];
+  ]);
 
   // ==========================================
   // 2. STATE MANAGEMENT

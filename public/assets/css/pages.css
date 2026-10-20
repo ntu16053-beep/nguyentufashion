@@ -335,6 +335,8 @@ select option:hover {
 .card-image-wrap {
   position: relative;
   aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 100%;
   background-color: #ffffff;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -342,6 +344,7 @@ select option:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .product-thumb-wrap > a,

@@ -1051,12 +1051,15 @@ a.announcement-item:hover {
 
 .catalog-scroll-viewport {
   width: 100%;
-  overflow: visible;
+  max-width: 100%;
+  overflow: hidden;
   padding: 6px 0 20px 0;
+  box-sizing: border-box;
 }
 
 .catalog-scroll-viewport .product-grid {
   min-width: 0 !important;
+  max-width: 100% !important;
   width: 100% !important;
 }
 
@@ -1068,29 +1071,33 @@ a.announcement-item:hover {
 /* 4-Column balanced product grid for full-width sections (e.g. Homepage index.html) */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px 16px;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 /* Catalog page layout (products.html with 280px sidebar):
    3 columns provides the exact same ~305px spacious card size as homepage, 
    ensuring NO product is ever cut off or pushed off-screen */
 .catalog-layout .product-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px 18px;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .catalog-layout .product-grid.grid-cols-4 {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px 12px;
 }
 
 .catalog-layout .product-grid.grid-cols-3 {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px 18px;
 }
 
@@ -1099,6 +1106,9 @@ a.announcement-item:hover {
   position: relative;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
   transition: transform var(--transition-smooth);
 }
 
@@ -1309,6 +1319,8 @@ a.announcement-item:hover {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
+  width: 100%;
 }
 
 .product-category {
@@ -1317,6 +1329,9 @@ a.announcement-item:hover {
   text-transform: uppercase;
   color: var(--text-muted);
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-title {
@@ -1329,6 +1344,7 @@ a.announcement-item:hover {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-word;
 }
 
 .product-meta {
@@ -1336,12 +1352,18 @@ a.announcement-item:hover {
   align-items: center;
   justify-content: space-between;
   margin-top: 4px;
+  min-width: 0;
+  width: 100%;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .product-prices {
   display: flex;
   align-items: baseline;
   gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .price-current {
@@ -2260,24 +2282,24 @@ input[type=range]::-webkit-slider-thumb:hover {
    ========================================================================== */
 @media (max-width: 1240px) {
   .product-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px 12px;
   }
   .catalog-layout .product-grid,
   .catalog-layout .product-grid.grid-cols-4 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px 12px;
   }
 }
 
 @media (max-width: 1024px) {
   .product-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px 10px;
   }
   .catalog-layout .product-grid,
   .catalog-layout .product-grid.grid-cols-4 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px 10px;
   }
   .footer-top {
@@ -2310,7 +2332,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   .catalog-layout .product-grid,
   .catalog-layout .product-grid.grid-cols-4,
   .catalog-layout .product-grid.grid-cols-3 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px 8px;
   }
   .lookbook-grid,
