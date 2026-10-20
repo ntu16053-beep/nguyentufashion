@@ -218,12 +218,13 @@
       left: 0;
       right: 0;
       height: 60px;
+      height: calc(60px + env(safe-area-inset-bottom, 0px));
       background: #190206;
       border-top: 1px solid var(--border-light);
       z-index: 9998;
       align-items: center;
       justify-content: space-around;
-      padding: 0 4px;
+      padding: 0 4px env(safe-area-inset-bottom, 0px) 4px;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
     }
     .admin-bottom-nav-item {
@@ -496,7 +497,10 @@
 
     @media (max-width: 768px) {
       .admin-mobile-bottom-nav {
-        display: flex;
+        display: flex !important;
+      }
+      input, select, textarea, .custom-input, .custom-select {
+        font-size: 16px !important;
       }
       .modal-card {
         padding: 18px 14px !important;
