@@ -20,7 +20,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 20,
+        "M": 19,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -1613,6 +1613,41 @@
   ],
   "orders": [
     {
+      "id": "NT-NB6734",
+      "customerName": "Khách Test Vercel",
+      "customerPhone": "0912345678",
+      "district": "TP. Ninh Bình",
+      "address": "Phố 1",
+      "items": [
+        {
+          "productId": "nt-01",
+          "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
+          "size": "M",
+          "color": "#111111",
+          "price": 480000,
+          "quantity": 1,
+          "image": "assets/images/products/ao-khoac-argentina-trang.png"
+        }
+      ],
+      "subtotal": 480000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 0,
+      "totalAmount": 480000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "pending",
+      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
+      "createdAt": "2026-10-20T17:18:04.057Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-10-20T17:18:04.057Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        }
+      ]
+    },
+    {
       "id": "NT-NB1024",
       "customerName": "Trần Quốc Hưng",
       "customerPhone": "0988123456",
@@ -1811,7 +1846,7 @@
     "storeName": "NGUYEN TU FASHION",
     "hotline": "0342.767.002",
     "address": "Khánh Nhạc-Ninh Bình",
-    "adminPin": "admin123",
+    "adminPin": "nguyentu2026",
     "vietqr": {
       "bankId": "970422",
       "bankName": "MB Bank",
@@ -1821,8 +1856,8 @@
     },
     "telegram": {
       "enabled": true,
-      "botToken": "8948338473:AAHz4HEJ2mj2GEU5GkE22wnMdL2rKqK79zg",
-      "chatId": "8196871733"
+      "botToken": "",
+      "chatId": ""
     },
     "email": "ntu16053@gmail.com",
     "facebook": "https://www.facebook.com/share/1EuzNVRiqY/?mibextid=wwXIfr",
