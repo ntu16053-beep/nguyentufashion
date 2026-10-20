@@ -581,7 +581,7 @@ a.announcement-item:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center 36%;
   filter: brightness(0.92) contrast(1.04);
   transform: scale(1.01);
   transition: transform 8s ease;
@@ -2816,7 +2816,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   }
 
   .hero-bg-img {
-    object-position: 12% 65% !important; /* Quay nhẹ sang hướng lồng đèn NT và lá cờ đen NT */
+    object-position: 30% 36% !important; /* Hướng nhìn trọn vẹn Núi Phú Sĩ và ngôi nhà bên trái */
     filter: brightness(0.96) contrast(1.05) !important;
   }
 
