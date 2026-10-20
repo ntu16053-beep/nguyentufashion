@@ -243,6 +243,61 @@ a.announcement-item:hover {
   50% { opacity: 0.85; transform: scale(1.03); }
 }
 
+/* Announcement Marquee Ticker Loop */
+.announcement-group.center {
+  overflow: hidden;
+  max-width: 540px;
+  display: flex;
+  align-items: center;
+}
+
+.announcement-marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+}
+
+.announcement-marquee-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: max-content;
+  animation: marqueeAnnouncementLoop 24s linear infinite;
+  will-change: transform;
+}
+
+.announcement-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.announcement-marquee-content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee-sep {
+  color: var(--accent-gold);
+  font-size: 0.72rem;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.85;
+  user-select: none;
+}
+
+@keyframes marqueeAnnouncementLoop {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 /* ==========================================================================
    HEADER & NAVBAR (ROW 2 - FLUID, TU CENTERED, VERTICAL DIVIDERS)
    ========================================================================== */
@@ -2520,24 +2575,79 @@ input[type=range]::-webkit-slider-thumb:hover {
     padding-right: 12px !important;
   }
 
-  /* 2. Announcement Top Bar (One sleek line, no overlap) */
+  /* 2. Announcement Top Bar (Infinite Continuous Marquee Ticker) */
   .announcement-bar {
-    padding: 5px 0 !important;
-    font-size: 0.6875rem !important;
+    height: 32px !important;
+    padding: 0 !important;
+    font-size: 0.72rem !important;
+    overflow: hidden !important;
+    background-color: #0c0103 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    align-items: center !important;
   }
 
   .announcement-content {
-    justify-content: center !important;
-    padding: 0 8px !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .announcement-group.center {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .announcement-marquee-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent) !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent) !important;
+  }
+
+  .announcement-marquee-track {
+    display: flex !important;
+    align-items: center !important;
+    width: max-content !important;
+    animation: marqueeAnnouncementLoop 22s linear infinite !important;
+    will-change: transform;
+  }
+
+  .announcement-marquee-content {
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
   }
 
   .announcement-item.promo-item {
-    font-size: 0.6875rem !important;
-    padding: 0 !important;
+    font-size: 0.72rem !important;
+    padding: 0 6px !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 100% !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .marquee-sep {
+    color: var(--accent-gold) !important;
+    font-size: 0.65rem !important;
+    padding: 0 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    opacity: 0.85 !important;
   }
 
   .badge-tag {
