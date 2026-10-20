@@ -2816,7 +2816,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   }
 
   .hero-bg-img {
-    object-position: 12% 70% !important; /* Dịch chuyển nhẹ sang phía lá cờ đen NT và lồng đèn NT */
+    object-position: 14% 65% !important; /* Dịch chuyển nhẹ sang phía lá cờ đen NT và lồng đèn NT */
     filter: brightness(0.96) contrast(1.05) !important;
   }
 
