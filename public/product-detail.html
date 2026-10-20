@@ -560,26 +560,58 @@
 
       await window.loadAllProducts();
 
+      // Check if product was deleted
+      let isDeleted = false;
+      try {
+        const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
+        if (deletedIds.includes(prodId)) isDeleted = true;
+      } catch (e) {}
+
       // Find in all products or fetch by API
-      let prod = (window.ALL_PRODUCTS || []).find(p => p.id === prodId);
-      if (!prod) {
-        try {
-          const res = await fetch(`/api/products/${prodId}`);
-          if (res.ok) {
-            const data = await res.json();
-            prod = data.product;
-          }
-        } catch (e) {}
+      let prod = null;
+      if (!isDeleted) {
+        prod = (window.ALL_PRODUCTS || []).find(p => p.id === prodId);
+        if (!prod) {
+          try {
+            const res = await fetch(`/api/products/${prodId}`);
+            if (res.ok) {
+              const data = await res.json();
+              prod = data.product;
+            }
+          } catch (e) {}
+        }
       }
 
-      if (!prod && window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0) {
-        prod = window.ALL_PRODUCTS[0];
+      if (!prod) {
+        const mainWrap = document.querySelector('.product-detail-layout') || document.querySelector('.container');
+        if (mainWrap) {
+          mainWrap.innerHTML = `
+            <div style="text-align:center; padding:80px 20px; max-width:600px; margin:0 auto;">
+              <div style="font-size:3rem; margin-bottom:16px;">🔍</div>
+              <h2 style="font-family:var(--font-heading); font-size:1.6rem; color:#fff; margin-bottom:12px; text-transform:uppercase;">SẢN PHẨM KHÔNG TỒN TẠI HOẶC ĐÃ NGỪNG BÁN</h2>
+              <p style="color:var(--text-secondary); margin-bottom:28px; line-height:1.6;">Mẫu trang phục bạn đang tìm kiếm hiện đã được gỡ khỏi cửa hàng hoặc không còn khả dụng trên hệ thống.</p>
+              <a href="products.html" class="btn btn-primary" style="padding:12px 28px; font-weight:700;">Xem Tất Cả Sản Phẩm Mới →</a>
+            </div>
+          `;
+        }
+        return;
       }
 
       currentProduct = prod;
       renderProductDetails(prod);
       renderRelatedProducts(prod);
     }
+
+    // Lắng nghe cập nhật giá mới ngay lập tức
+    window.addEventListener('productsUpdated', () => {
+      if (currentProduct) {
+        const updated = (window.ALL_PRODUCTS || []).find(p => p.id === currentProduct.id);
+        if (updated) {
+          currentProduct = updated;
+          renderProductDetails(updated);
+        }
+      }
+    });
 
     function renderProductDetails(p) {
       if (!p) return;

@@ -491,7 +491,16 @@
         window.applyPriceOverrides(window.ALL_PRODUCTS);
       }
 
-      const products = window.ALL_PRODUCTS || [];
+      let products = (window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0)
+        ? window.ALL_PRODUCTS
+        : (window.getStoredProducts ? window.getStoredProducts() : []);
+
+      try {
+        const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
+        if (deletedIds.length > 0 && Array.isArray(products)) {
+          products = products.filter(p => !deletedIds.includes(p.id));
+        }
+      } catch (e) {}
 
       // Filter
       let list = products.filter(p => {

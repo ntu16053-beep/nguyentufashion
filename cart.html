@@ -320,7 +320,35 @@
     let appliedDiscountAmount = 0;
 
     function renderCartTable() {
-      const cart = window.getCart();
+      let cart = window.getCart();
+
+      // Đồng bộ với danh sách sản phẩm bị xóa nếu có
+      try {
+        const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
+        if (deletedIds.length > 0 && cart.length > 0) {
+          const beforeLen = cart.length;
+          cart = cart.filter(it => !deletedIds.includes(it.productId));
+          if (cart.length !== beforeLen) {
+            window.saveCart(cart);
+          }
+        }
+      } catch (e) {}
+
+      // Đồng bộ giá sản phẩm mới nhất từ hệ thống
+      if (window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0 && cart.length > 0) {
+        let changed = false;
+        cart.forEach(it => {
+          const p = window.ALL_PRODUCTS.find(x => x.id === it.productId);
+          if (p && Number(it.price) !== Number(p.price)) {
+            it.price = p.price;
+            changed = true;
+          }
+        });
+        if (changed) {
+          window.saveCart(cart);
+        }
+      }
+
       const contentWrap = document.getElementById('cart-content-wrapper');
       const emptyView = document.getElementById('cart-empty-view');
       const tbody = document.getElementById('cart-items-body');

@@ -17,3 +17,9 @@ npm-debug.log*
 
 # Deployment & Build
 .vercel/
+
+# Environment Variables & Security Secrets
+.env
+.env.local
+.env.*.local
+*.log

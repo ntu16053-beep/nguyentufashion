@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 1. DATA: PRODUCTS CATALOG
   // ==========================================
-  const PRODUCTS = [
+  let PRODUCTS = (window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0)
+    ? window.ALL_PRODUCTS.slice()
+    : (window.getStoredProducts ? window.getStoredProducts() : [
     {
       id: 'nt-01',
       title: 'Áo Khoác Gió Adidas Argentina 2024/25 "AFA 3 Sao" Trắng',
@@ -906,10 +908,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. RENDER PRODUCTS
   // ==========================================
   const syncDynamicProducts = () => {
+    // 1. Lấy danh sách sản phẩm thực tế từ window.ALL_PRODUCTS hoặc getStoredProducts
+    let currentList = (window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0)
+      ? window.ALL_PRODUCTS.slice()
+      : (window.getStoredProducts ? window.getStoredProducts() : (window.DEFAULT_PRODUCTS || []).slice());
+
+    // 2. Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website
+    try {
+      const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
+      if (deletedIds.length > 0 && Array.isArray(currentList)) {
+        currentList = currentList.filter(p => !deletedIds.includes(p.id));
+      }
+    } catch (e) {}
+
+    // 3. Áp dụng các thay đổi giá ghi đè mới nhất
     try {
       const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
       if (overrides && Object.keys(overrides).length > 0) {
-        PRODUCTS.forEach(p => {
+        currentList.forEach(p => {
           if (overrides[p.id]) {
             Object.assign(p, overrides[p.id]);
           }
@@ -917,19 +933,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
-    if (window.ALL_PRODUCTS && window.ALL_PRODUCTS.length > 0) {
-      window.ALL_PRODUCTS.forEach(apiP => {
-        const found = PRODUCTS.find(p => p.id === apiP.id);
-        if (found) {
-          found.price = apiP.price;
-          found.oldPrice = apiP.oldPrice;
-          if (apiP.badge) found.badge = apiP.badge;
-          if (apiP.stock) found.stock = apiP.stock;
-        }
-      });
-    }
+    PRODUCTS = currentList;
+    window.ALL_PRODUCTS = currentList;
 
-    // Cập nhật giá trên các thẻ Lookbook trang chủ
+    // 4. Cập nhật giá trên các thẻ Lookbook trang chủ
     try {
       document.querySelectorAll('.lookbook-card-item').forEach(card => {
         const onClickAttr = card.getAttribute('onclick') || '';
@@ -938,10 +945,14 @@ document.addEventListener('DOMContentLoaded', () => {
           const id = match[1];
           const p = PRODUCTS.find(x => x.id === id);
           if (p) {
+            card.style.display = '';
             const priceEl = card.querySelector('.lookbook-card-price');
             if (priceEl) {
               priceEl.innerHTML = `${formatVND(p.price)} ${p.oldPrice ? `<span style="font-size:0.75rem; color:var(--text-muted); text-decoration:line-through;">${formatVND(p.oldPrice)}</span>` : ''}`;
             }
+          } else {
+            // Ẩn lookbook nếu sản phẩm đó đã bị xóa
+            card.style.display = 'none';
           }
         }
       });

@@ -32,7 +32,8 @@
       ],
       "description": "Chất liệu vải dù gió 2 lớp cao cấp cản gió và chống nước nhẹ. Logo Adidas mạ vàng thêu nổi cùng huy hiệu AFA 3 sao World Cup danh giá. Phối sọc xanh lượn sóng biểu tượng hai bên tay áo.",
       "isActive": true,
-      "createdAt": "2026-10-18T10:00:00Z"
+      "createdAt": "2026-10-18T10:00:00Z",
+      "updatedAt": "2026-10-20T17:28:21.042Z"
     },
     {
       "id": "nt-02",
@@ -1612,41 +1613,6 @@
     }
   ],
   "orders": [
-    {
-      "id": "NT-NB6734",
-      "customerName": "Khách Test Vercel",
-      "customerPhone": "0912345678",
-      "district": "TP. Ninh Bình",
-      "address": "Phố 1",
-      "items": [
-        {
-          "productId": "nt-01",
-          "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
-          "size": "M",
-          "color": "#111111",
-          "price": 480000,
-          "quantity": 1,
-          "image": "assets/images/products/ao-khoac-argentina-trang.png"
-        }
-      ],
-      "subtotal": 480000,
-      "discountAmount": 0,
-      "couponCode": null,
-      "shippingFee": 0,
-      "totalAmount": 480000,
-      "paymentMethod": "cod",
-      "paymentStatus": "unpaid",
-      "status": "pending",
-      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
-      "createdAt": "2026-10-20T17:18:04.057Z",
-      "timeline": [
-        {
-          "status": "pending",
-          "time": "2026-10-20T17:18:04.057Z",
-          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
-        }
-      ]
-    },
     {
       "id": "NT-NB1024",
       "customerName": "Trần Quốc Hưng",
