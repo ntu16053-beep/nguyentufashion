@@ -111,6 +111,14 @@
       </nav>
 
       <div class="nav-actions">
+        <!-- Order Tracking Button -->
+        <button class="action-btn" title="Tra cứu tiến độ đơn hàng" onclick="window.openOrderTrackingModal()" style="position:relative;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </button>
         <button class="action-btn" title="Tìm kiếm" onclick="window.openSearchModal()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
@@ -333,7 +341,7 @@
 
         <!-- Tab 3: Shipping & Exchange -->
         <div class="tab-content-panel" id="tab-pane-shipping">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px;">
             <div>
               <h4 style="font-size:1.05rem; font-weight:800; margin-bottom:12px; color:var(--accent-red);">1. Giao Hàng Hỏa Tốc Ninh Bình</h4>
               <p style="font-size:0.875rem; line-height:1.7; color:var(--text-secondary); margin-bottom:12px;">
@@ -457,7 +465,7 @@
         <input type="hidden" id="review-star-val" value="5">
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-bottom:14px;">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; margin-bottom:4px; color:#fff;">Họ và Tên *</label>
           <input type="text" id="rev-name" class="custom-input" placeholder="VD: Hoàng Nam" required>

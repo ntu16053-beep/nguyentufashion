@@ -1106,12 +1106,16 @@ select.custom-input option:hover,
 /* --------------------------------------------------------------------------
    5. BLOG & ARTICLE PAGES (BLOG.HTML & BLOG-DETAIL.HTML)
    -------------------------------------------------------------------------- */
+.blog-main-container {
+  padding: 40px 24px 80px;
+}
+
 .blog-filter-bar {
   display: flex;
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .blog-cat-btn {
@@ -1120,10 +1124,11 @@ select.custom-input option:hover,
   color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 700;
-  padding: 8px 20px;
+  padding: 9px 22px;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .blog-cat-btn.active,
@@ -1131,6 +1136,180 @@ select.custom-input option:hover,
   background: var(--accent-red);
   border-color: var(--accent-red);
   color: #ffffff;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+}
+
+/* Base Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.badge-hot {
+  background: var(--accent-red);
+  color: #ffffff;
+}
+
+/* Blog Spotlight Article */
+.blog-spotlight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: stretch;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.blog-spotlight-card:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+}
+
+.blog-spotlight-thumb {
+  position: relative;
+  min-height: 340px;
+  background: #2a050b;
+  overflow: hidden;
+}
+
+.blog-spotlight-thumb a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.blog-spotlight-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.blog-spotlight-card:hover .blog-spotlight-thumb img {
+  transform: scale(1.04);
+}
+
+.blog-spotlight-content {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blog-spotlight-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 14px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.blog-spotlight-meta .badge {
+  white-space: nowrap;
+}
+
+.blog-spotlight-cat {
+  color: var(--accent-gold);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.blog-spotlight-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.blog-spotlight-time {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.blog-spotlight-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.blog-spotlight-title a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.blog-spotlight-title a:hover {
+  color: var(--accent-red);
+}
+
+.blog-spotlight-excerpt {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.blog-spotlight-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 16px;
+  margin-top: auto;
+}
+
+.blog-spotlight-author {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.blog-spotlight-btn {
+  font-size: 0.8125rem;
+  padding: 10px 20px;
+  font-weight: 800;
+}
+
+/* Newsletter CTA Card */
+.blog-newsletter-card {
+  background: linear-gradient(135deg, rgba(78, 13, 25, 0.9), rgba(42, 5, 11, 0.95));
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  text-align: center;
+  max-width: 760px;
+  margin: 40px auto 0;
+}
+
+.blog-newsletter-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.blog-newsletter-desc {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 24px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .blog-grid-container {
@@ -1633,9 +1812,78 @@ select.custom-input option:hover,
   .blog-grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
+  .blog-spotlight-card {
+    grid-template-columns: 1fr;
+  }
+  .blog-spotlight-thumb {
+    min-height: 260px;
+    max-height: 380px;
+    aspect-ratio: 16/9;
+  }
+  .blog-spotlight-content {
+    padding: 28px 24px;
+  }
 }
 
 @media (max-width: 640px) {
+  .blog-main-container {
+    padding: 20px 14px 60px;
+  }
+  .blog-filter-bar {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .blog-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .blog-cat-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 0.8125rem;
+    padding: 7px 16px;
+  }
+  .blog-spotlight-thumb {
+    min-height: 200px;
+    max-height: 250px;
+    aspect-ratio: 16/9;
+  }
+  .blog-spotlight-content {
+    padding: 20px 16px;
+  }
+  .blog-spotlight-title {
+    font-size: 1.18rem;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .blog-spotlight-excerpt {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .blog-spotlight-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .blog-spotlight-footer .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .blog-newsletter-card {
+    padding: 28px 18px;
+  }
+  .blog-newsletter-title {
+    font-size: 1.25rem;
+  }
   .blog-grid-container {
     grid-template-columns: 1fr;
   }

@@ -109,7 +109,9 @@
       appendChatBubble('Tôi muốn kiểm tra tình trạng đơn hàng', 'user');
       setTimeout(() => {
         appendChatBubble(`
-          📦 Để tra cứu đơn hàng, bạn vui lòng nhập <strong>Số điện thoại</strong> đã dùng khi đặt hàng vào ô chat nhé!
+          📦 <strong>Để tra cứu đơn hàng, bạn có thể:</strong><br><br>
+          • Nhập <strong>Số điện thoại</strong> hoặc <strong>Mã đơn (VD: NT-NB1024)</strong> ngay vào ô chat.<br>
+          • Hoặc <a href="javascript:void(0)" onclick="window.openOrderTrackingModal()" style="color:var(--accent-gold); font-weight:800; text-decoration:underline;">👉 Bấm vào đây để mở bảng tra cứu trực quan</a>
         `, 'bot');
       }, 500);
     } else if (action === 'shipping') {
@@ -160,11 +162,15 @@
 
     // Show typing...
     setTimeout(async () => {
-      // 1. Check if user typed a phone number for tracking
-      const phoneMatch = text.replace(/[^0-9]/g, '');
-      if (phoneMatch.length >= 10 && phoneMatch.length <= 11) {
+      // 1. Check if user typed a phone number OR order code for tracking
+      const phoneDigits = text.replace(/[^0-9]/g, '');
+      const isOrderId = /nt-[a-z0-9]+/i.test(text.trim());
+      const hasPhone = phoneDigits.length >= 10 && phoneDigits.length <= 11;
+
+      if (isOrderId || hasPhone) {
         try {
-          const res = await fetch(`/api/orders/track?phone=${phoneMatch}`);
+          const param = isOrderId ? `orderId=${encodeURIComponent(text.trim())}` : `phone=${phoneDigits}`;
+          const res = await fetch(`/api/orders/track?${param}`);
           if (res.ok) {
             const data = await res.json();
             if (data.orders && data.orders.length > 0) {
@@ -176,18 +182,20 @@
                 completed: '✅ Đã giao thành công',
                 cancelled: '❌ Đã hủy'
               };
+              const fmtPrice = window.formatVND ? window.formatVND(latest.totalAmount) : (Number(latest.totalAmount).toLocaleString('vi-VN') + ' đ');
               appendChatBubble(`
-                📦 <strong>Tìm thấy ${data.orders.length} đơn hàng cho SĐT ${phoneMatch}:</strong><br><br>
+                📦 <strong>Tìm thấy ${data.orders.length} đơn hàng:</strong><br><br>
                 • <strong>Mã đơn:</strong> <code>${latest.id}</code><br>
                 • <strong>Trạng thái:</strong> ${statusMap[latest.status] || latest.status}<br>
-                • <strong>Tổng tiền:</strong> <strong>${window.formatVND(latest.totalAmount)}</strong> (${latest.paymentMethod === 'vietqr' ? 'VietQR' : 'COD'})<br>
+                • <strong>Tổng tiền:</strong> <strong>${fmtPrice}</strong> (${latest.paymentMethod === 'vietqr' ? 'VietQR' : 'COD'})<br>
                 • <strong>Sản phẩm:</strong> ${(latest.items || []).map(i => `${i.title} (${i.size}) x${i.quantity}`).join(', ')}<br>
-                • <strong>Địa chỉ:</strong> ${latest.address}, ${latest.district}<br><br>
+                • <strong>Địa chỉ:</strong> ${latest.address}, ${latest.district || ''}<br><br>
+                <a href="javascript:void(0)" onclick="window.openOrderTrackingModal('${latest.id}')" style="color:var(--accent-gold); font-weight:700; text-decoration:underline;">👉 Xem chi tiết hành trình tiến độ đầy đủ</a><br><br>
                 Cần giao gấp hoặc đổi địa chỉ, bạn gọi hotline <strong>0342.767.002</strong> nhé!
               `, 'bot');
               return;
             } else {
-              appendChatBubble(`Không tìm thấy đơn hàng nào với số điện thoại <strong>${phoneMatch}</strong>. Bạn kiểm tra lại SĐT hoặc gọi hotline 0342.767.002 nhé!`, 'bot');
+              appendChatBubble(`Không tìm thấy đơn hàng nào với thông tin "<strong>${text}</strong>". Bạn kiểm tra lại SĐT / Mã đơn hoặc gọi hotline 0342.767.002 để shop hỗ trợ nhé!`, 'bot');
               return;
             }
           }
