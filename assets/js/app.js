@@ -1758,8 +1758,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mobile drawer trigger
   window.toggleMobileMenu = () => {
-    const mobileMenu = document.getElementById('mobile-nav-drawer');
-    mobileMenu?.classList.toggle('active');
+    if (typeof window.openMobileMenu === 'function' && typeof window.closeMobileMenu === 'function') {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      if (drawer && drawer.classList.contains('active')) {
+        window.closeMobileMenu();
+      } else {
+        window.openMobileMenu();
+      }
+    } else {
+      document.getElementById('mobile-nav-drawer')?.classList.toggle('active');
+      document.getElementById('mobile-drawer-backdrop')?.classList.toggle('active');
+    }
   };
 
   // ==========================================

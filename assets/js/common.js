@@ -224,10 +224,29 @@
   // 4. COMMON HEADER BEHAVIOR (STICKY, MOBILE MENU, SEARCH)
   // --------------------------------------------------------------------------
   window.toggleMobileMenu = function () {
-    const mobileDrawer = document.getElementById('mobile-nav-drawer');
-    if (mobileDrawer) {
-      mobileDrawer.classList.toggle('active');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    if (!drawer) return;
+    if (drawer.classList.contains('active')) {
+      window.closeMobileMenu();
+    } else {
+      window.openMobileMenu();
     }
+  };
+
+  window.openMobileMenu = function () {
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const backdrop = document.getElementById('mobile-drawer-backdrop');
+    if (drawer) drawer.classList.add('active');
+    if (backdrop) backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeMobileMenu = function () {
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const backdrop = document.getElementById('mobile-drawer-backdrop');
+    if (drawer) drawer.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.style.overflow = '';
   };
 
   window.openSearchModal = function () {
@@ -650,5 +669,37 @@
     `;
     window._qvSelectedSize = sizes[0];
   };
+
+
+  // Lock mobile pinch-to-zoom & double-tap gestures for native-app experience
+  document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+  }, { passive: false });
+  document.addEventListener('gesturechange', function (e) {
+    e.preventDefault();
+  }, { passive: false });
+  document.addEventListener('gestureend', function (e) {
+    e.preventDefault();
+  }, { passive: false });
+
+  let _lastTapTime = 0;
+  document.addEventListener('touchend', function (e) {
+    const currentTime = Date.now();
+    const tapLength = currentTime - _lastTapTime;
+    if (tapLength < 320 && tapLength > 0) {
+      if (e.target && !['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'].includes(e.target.tagName)) {
+        e.preventDefault();
+      }
+    }
+    _lastTapTime = currentTime;
+  }, { passive: false });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (typeof window.closeMobileMenu === 'function') window.closeMobileMenu();
+      if (typeof window.closeSearchModal === 'function') window.closeSearchModal();
+      if (typeof window.closeCartDrawer === 'function') window.closeCartDrawer();
+    }
+  });
 
 })();

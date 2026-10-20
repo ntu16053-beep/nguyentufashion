@@ -7,7 +7,7 @@
     }
   </script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Chi Tiết Sản Phẩm | NGUYEN TU FASHION Ninh Bình</title>
   <meta name="description" content="Chi tiết sản phẩm thời trang Streetwear Nguyen Tu Fashion Ninh Bình. Chất lượng cao cấp, giao hỏa tốc 2H, đổi size 7 ngày.">
   <link rel="icon" type="image/png" href="assets/images/logo.png">
@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=3.6">
-  <link rel="stylesheet" href="assets/css/pages.css?v=3.6">
+  <link rel="stylesheet" href="assets/css/style.css?v=3.7">
+  <link rel="stylesheet" href="assets/css/pages.css?v=3.7">
 </head>
 <body>
 
@@ -982,5 +982,147 @@
       initMobileStickyBar();
     });
   </script>
+
+  <!-- ==========================================
+       MOBILE NAVIGATION DRAWER & BACKDROP
+       ========================================== -->
+  <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop" onclick="window.closeMobileMenu()"></div>
+
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Menu điều hướng di động">
+    <!-- Drawer Header -->
+    <div class="drawer-header">
+      <a href="index.html" class="drawer-brand" onclick="window.closeMobileMenu()">
+        <img src="assets/images/logo.png" alt="Logo" class="drawer-logo">
+        <div class="drawer-brand-text">
+          <span class="drawer-brand-name">NGUYENTU</span>
+          <span class="drawer-brand-sub">FASHION • NINH BÌNH</span>
+        </div>
+      </a>
+      <button type="button" class="drawer-close-btn" onclick="window.closeMobileMenu()" aria-label="Đóng menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Quick Instant Search in Drawer -->
+    <div class="drawer-search">
+      <div class="drawer-search-box" onclick="window.closeMobileMenu(); window.openSearchModal();">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Tìm kiếm áo thun, hoodie, quần...</span>
+      </div>
+    </div>
+
+    <div class="drawer-body">
+      <!-- VIP Promo Banner -->
+      <div class="drawer-banner-promo">
+        <div class="promo-badge-pulse">⚡ ƯU ĐÃI NINH BÌNH</div>
+        <div class="promo-text">Nhập mã <strong>NINHBINH</strong> giảm 15% • Freeship đơn từ 299K</div>
+      </div>
+
+      <!-- Categories -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">DANH MỤC SẢN PHẨM</div>
+        <div class="drawer-links">
+          <a href="index.html" class="drawer-link" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">🏠</span>
+            <span class="drawer-label">Trang Chủ</span>
+          </a>
+          <a href="products.html" class="drawer-link drawer-highlight" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">🔥</span>
+            <span class="drawer-label">Tất Cả Sản Phẩm</span>
+            <span class="drawer-badge hot">50+ Mẫu</span>
+          </a>
+          <a href="products.html?category=tee" class="drawer-link" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">👕</span>
+            <span class="drawer-label">Áo Thun & Polo Oversize</span>
+          </a>
+          <a href="products.html?category=jacket" class="drawer-link" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">🧥</span>
+            <span class="drawer-label">Áo Khoác & Bomber, Hoodie</span>
+          </a>
+          <a href="products.html?category=pants" class="drawer-link" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">👖</span>
+            <span class="drawer-label">Quần Dài & Parachute Pants</span>
+          </a>
+          <a href="products.html?category=tracksuit" class="drawer-link" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">⚡</span>
+            <span class="drawer-label">Set Đồ & Tracksuit Thể Thao</span>
+          </a>
+          <a href="products.html?category=shoes" class="drawer-link" onclick="window.closeMobileMenu()">
+            <span class="drawer-icon">👟</span>
+            <span class="drawer-label">Giày & Sneaker Streetwear</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Smart Shopping Utilities -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">TIỆN ÍCH MUA SẮM</div>
+        <div class="drawer-links">
+          <a href="javascript:void(0)" class="drawer-link" onclick="window.closeMobileMenu(); window.openOrderTrackingModal();">
+            <span class="drawer-icon">📦</span>
+            <span class="drawer-label">Tra Cứu Tiến Độ Đơn Hàng</span>
+            <span class="drawer-badge">Live</span>
+          </a>
+          <a href="index.html#size-calc" class="drawer-link" onclick="window.closeMobileMenu();">
+            <span class="drawer-icon">📐</span>
+            <span class="drawer-label">Bảng Tính Size Chuẩn (Fit Guide)</span>
+          </a>
+          <a href="index.html#lookbook" class="drawer-link" onclick="window.closeMobileMenu();">
+            <span class="drawer-icon">📸</span>
+            <span class="drawer-label">Lookbook Cố Đô Streetwear</span>
+          </a>
+          <a href="blog.html" class="drawer-link" onclick="window.closeMobileMenu();">
+            <span class="drawer-icon">✍️</span>
+            <span class="drawer-label">Bài Viết & Xu Hướng Giới Trẻ</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Support & Hotline -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">HỖ TRỢ & LIÊN HỆ</div>
+        <div class="drawer-quick-contact">
+          <a href="tel:0342767002" class="contact-pill hotline">
+            <span class="c-icon">📞</span>
+            <div class="c-info">
+              <span class="c-label">Hotline 24/7</span>
+              <span class="c-val">0342.767.002</span>
+            </div>
+          </a>
+          <a href="https://zalo.me/0342767002" target="_blank" rel="noopener noreferrer" class="contact-pill zalo">
+            <span class="c-icon">💬</span>
+            <div class="c-info">
+              <span class="c-label">Chat Zalo</span>
+              <span class="c-val">Tư Vấn Chọn Size</span>
+            </div>
+          </a>
+        </div>
+        <div class="drawer-address-card">
+          <div class="addr-icon">📍</div>
+          <div class="addr-text">
+            <strong>Showroom Ninh Bình:</strong>
+            <span>Khánh Nhạc, Yên Khánh, Ninh Bình</span>
+            <div class="addr-hours">⏰ 08:30 - 22:00 hàng ngày</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Store Guarantees -->
+      <div class="drawer-guarantees">
+        <div class="guarantee-chip">⚡ Hỏa tốc 2H tại Ninh Bình</div>
+        <div class="guarantee-chip">🔄 Đổi hàng 30 ngày miễn phí</div>
+        <div class="guarantee-chip">🛡️ Kiểm tra hàng trước khi thanh toán</div>
+      </div>
+
+      <!-- Admin Shortcut -->
+      <div class="drawer-footer-admin">
+        <a href="admin.html" class="drawer-admin-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Dành cho Quản Trị Viên (Admin Portal)</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
 </body>
 </html>
