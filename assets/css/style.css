@@ -118,6 +118,9 @@ select option:focus {
 button {
   cursor: pointer;
   transition: all var(--transition-fast);
+  border: none;
+  outline: none;
+  background: none;
 }
 
 ul, ol {
@@ -392,34 +395,53 @@ a.announcement-item:hover {
   color: #fff;
 }
 
-/* Nav Actions with Uniform Black Vertical Dividers */
+/* Nav Actions with Uniform Black Vertical Dividers & Prominent Ripe Plum Red */
 .nav-actions {
   display: flex;
   align-items: stretch;
   height: 74px;
   flex-shrink: 0;
-  border-left: none;
+  border-left: 1.5px solid #000000;
 }
 
 .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
+  width: 52px;
   height: 74px;
+  background-color: #7b0f20 !important;
+  background: linear-gradient(180deg, #8c1125 0%, #630a18 100%) !important;
+  border: none;
   border-right: 1.5px solid #000000;
-  color: #ffffff;
+  color: #ffffff !important;
   position: relative;
   transition: all var(--transition-fast);
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .action-btn:last-child {
-  border-right: none;
+  border-right: 1.5px solid #000000;
+}
+
+.action-btn svg {
+  color: #ffffff;
+  stroke: #ffffff;
+  transition: transform var(--transition-fast), stroke var(--transition-fast);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 .action-btn:hover {
-  background-color: #631221;
-  color: var(--accent-red);
+  background-color: #9c152d !important;
+  background: linear-gradient(180deg, #ab1732 0%, #7d0d1f 100%) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 0 16px rgba(255, 51, 75, 0.45);
+}
+
+.action-btn:hover svg {
+  transform: scale(1.18);
+  stroke: #ffffff;
 }
 
 .action-badge {
@@ -649,12 +671,14 @@ a.announcement-item:hover {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: linear-gradient(135deg, #8c1125 0%, #630a18 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .trust-label {
