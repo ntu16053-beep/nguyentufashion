@@ -546,7 +546,7 @@
       </button>
 
       <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">
-        Mật khẩu quản trị mặc định: <code style="color:var(--accent-gold); font-size:0.8rem; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">nguyentu978</code>
+        Mật khẩu quản trị duy nhất: <code style="color:var(--accent-gold); font-size:0.8rem; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">nguyentu978</code>
       </div>
     </div>
   </div>
@@ -1281,7 +1281,7 @@
         if (res.ok && data.success && data.token) {
           loginSuccess = true;
           token = data.token;
-        } else if (pin === 'admin123' || pin === 'nguyentu978') {
+        } else if (pin === 'nguyentu978') {
           loginSuccess = true;
           token = 'admin-session-' + Date.now();
         } else {
@@ -1290,11 +1290,11 @@
         }
       } catch (e) {
         // Fallback when server is offline
-        if (pin === 'admin123' || pin === 'nguyentu978') {
+        if (pin === 'nguyentu978') {
           loginSuccess = true;
           token = 'admin-session-' + Date.now();
         } else {
-          alert('Không thể kết nối đến máy chủ. Mật mã mặc định: nguyentu978');
+          alert('Mật mã quản trị viên không chính xác hoặc không thể kết nối đến máy chủ!');
           return;
         }
       }

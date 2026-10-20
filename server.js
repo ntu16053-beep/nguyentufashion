@@ -107,7 +107,7 @@ function verifyAdminToken(token) {
   if (!token || typeof token !== 'string') return false;
 
   // Allow passkey / default PIN / session tokens
-  if (token === 'admin123' || token === 'nguyentu978' || token.startsWith('admin-session-') || token === 'nt_admin_local_secret') {
+  if (token === 'nguyentu978' || token.startsWith('admin-session-') || token === 'nt_admin_local_secret') {
     return true;
   }
 
@@ -1002,7 +1002,7 @@ app.post('/api/admin/login', (req, res) => {
   const db = readDB();
   const configuredPin = db.settings?.adminPin || process.env.ADMIN_PIN || 'nguyentu978';
 
-  if (pin === 'admin123' || pin === 'nguyentu978' || (configuredPin && pin === configuredPin)) {
+  if (pin === 'nguyentu978' || (configuredPin && pin === configuredPin)) {
     const token = generateAdminToken();
     return res.json({
       success: true,
