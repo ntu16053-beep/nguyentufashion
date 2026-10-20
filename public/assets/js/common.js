@@ -53,7 +53,7 @@
   };
 
   // Toast Notification
-  window.showToast = function (message, type = 'success') {
+  window.showToast = function (message, type = 'success', actionLink = null, actionText = null) {
     let container = document.getElementById('toast-container');
     if (!container) {
       container = document.createElement('div');
@@ -65,9 +65,14 @@
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+    let actionBtnHtml = '';
+    if (actionLink && actionText) {
+      actionBtnHtml = `<a href="${actionLink}" style="margin-left:8px; padding:3px 10px; background:rgba(255,255,255,0.22); border-radius:4px; color:#fff; font-weight:700; text-decoration:none; font-size:11px; white-space:nowrap; display:inline-block;">${actionText}</a>`;
+    }
     toast.innerHTML = `
-      <span style="background:${type==='success'?'var(--accent-green)':'var(--accent-red)'}; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:800;">${icon}</span>
-      <span>${message}</span>
+      <span style="background:${type==='success'?'var(--accent-green)':'var(--accent-red)'}; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:800; flex-shrink:0;">${icon}</span>
+      <span style="flex:1;">${message}</span>
+      ${actionBtnHtml}
     `;
     container.appendChild(toast);
 
@@ -75,12 +80,12 @@
       toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
       toast.style.opacity = '0';
       toast.style.transform = 'translateX(100%)';
-      setTimeout(() => toast.remove(), 400);
-    }, 3200);
+      setTimeout(() => { if (toast.parentNode) toast.remove(); }, 400);
+    }, 3600);
   };
 
   // --------------------------------------------------------------------------
-  // 2. GLOBAL CART STATE (LOCALSTORAGE)
+  // 2. GLOBAL CART STATE (LOCALSTORAGE) & UNIVERSAL SYNC
   // --------------------------------------------------------------------------
   window.getCart = function () {
     try {
@@ -90,13 +95,22 @@
         const q = Math.max(1, Number(item.qty || item.quantity || 1));
         let p = Number(item.price);
         if (isNaN(p) || p <= 0) p = 450000;
+        let op = Number(item.oldPrice);
+        if (isNaN(op) || op <= 0) op = Math.round(p * 1.25);
+        const pid = item.productId || item.id || 'item-' + Date.now();
         return {
           ...item,
-          id: item.id || item.productId || 'item-' + Date.now(),
-          productId: item.productId || item.id || 'item-' + Date.now(),
+          id: pid,
+          productId: pid,
+          title: item.title || 'Sản phẩm ' + pid,
+          image: item.image || 'assets/images/products/ao-khoac-argentina-trang.png',
+          category: item.category || 'streetwear',
+          size: item.size || 'M',
+          color: item.color || '#111111',
           qty: q,
           quantity: q,
-          price: p
+          price: p,
+          oldPrice: op
         };
       });
     } catch (e) {
@@ -105,8 +119,10 @@
   };
 
   window.saveCart = function (cart) {
-    localStorage.setItem('nguyentu_cart', JSON.stringify(cart));
-    window.updateCartCounters();
+    try {
+      localStorage.setItem('nguyentu_cart', JSON.stringify(cart));
+    } catch (e) {}
+    window.syncCartState();
   };
 
   window.addToCart = function (productId, size = 'M', color = '#111111', quantity = 1, productData = null) {
@@ -119,7 +135,7 @@
       item = window.ALL_PRODUCTS.find(p => p.id === productId);
     }
 
-    const existingIndex = cart.findIndex(c => c.productId === productId && c.size === size && c.color === color);
+    const existingIndex = cart.findIndex(c => (c.productId === productId || c.id === productId) && c.size === size && c.color === color);
 
     if (existingIndex > -1) {
       const cur = Math.max(1, Number(cart[existingIndex].quantity || cart[existingIndex].qty || 1));
@@ -129,7 +145,7 @@
       let price = item ? Number(item.price) : 450000;
       if (isNaN(price) || price <= 0) price = 450000;
       let oldPrice = item ? Number(item.oldPrice) : 550000;
-      if (isNaN(oldPrice) || oldPrice <= 0) oldPrice = 550000;
+      if (isNaN(oldPrice) || oldPrice <= 0) oldPrice = Math.round(price * 1.25);
 
       cart.push({
         id: productId,
@@ -147,7 +163,7 @@
     }
 
     window.saveCart(cart);
-    window.showToast(`Đã thêm "${item ? item.title : 'sản phẩm'}" (${size}) vào giỏ hàng!`, 'success');
+    window.showToast(`Đã thêm "${item ? item.title : 'sản phẩm'}" (${size}) vào giỏ hàng!`, 'success', 'cart.html', 'Xem Giỏ Hàng →');
 
     // Trigger custom event for reactive UI update
     window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
@@ -156,7 +172,7 @@
   window.removeFromCart = function (index) {
     const cart = window.getCart();
     if (index >= 0 && index < cart.length) {
-      const removed = cart.splice(index, 1);
+      cart.splice(index, 1);
       window.saveCart(cart);
       window.showToast(`Đã xóa sản phẩm khỏi giỏ hàng`, 'info');
       window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
@@ -179,9 +195,13 @@
     }
   };
 
+  // Cross-compatibility aliases
+  window.updateCartQty = function (index, delta) { window.updateCartQuantity(index, delta); };
+  window.removeCartItem = function (index) { window.removeFromCart(index); };
+
   window.clearCart = function () {
     localStorage.removeItem('nguyentu_cart');
-    window.updateCartCounters();
+    window.syncCartState();
     window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart: [] } }));
   };
 
@@ -243,6 +263,125 @@
   };
 
   // --------------------------------------------------------------------------
+  // UNIVERSAL CART DRAWER & REACTIVE SYNC (BFCACHE, CROSS-TAB, RESILIENT)
+  // --------------------------------------------------------------------------
+  window.renderUniversalCartDrawer = function () {
+    const drawerBody = document.getElementById('drawer-cart-items');
+    if (!drawerBody) return;
+
+    const cart = window.getCart();
+    const subtotal = window.getCartSubtotal();
+    const FREE_SHIP_THRESHOLD = 299000;
+
+    const subtotalEl = document.getElementById('cart-subtotal-val');
+    const finalTotalEl = document.getElementById('cart-final-total');
+    const freeShipText = document.getElementById('free-ship-message');
+    const freeShipProgress = document.getElementById('free-ship-progress-bar');
+
+    if (cart.length === 0) {
+      drawerBody.innerHTML = `
+        <div class="empty-cart-state" style="text-align:center; padding:40px 20px;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 12px; display:block; opacity:0.5;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <p style="color:var(--text-secondary); margin-bottom:16px;">Giỏ hàng của bạn đang trống trơn!</p>
+          <button class="btn btn-dark" style="font-size:0.8125rem; padding:8px 20px;" onclick="window.closeCartDrawer()">Lướt Đồ Ngay</button>
+        </div>
+      `;
+      if (subtotalEl) subtotalEl.textContent = window.formatVND(0);
+      if (finalTotalEl) finalTotalEl.textContent = window.formatVND(0);
+      if (freeShipProgress) freeShipProgress.style.width = '0%';
+      if (freeShipText) freeShipText.innerHTML = `Freeship đơn từ <strong>299.000đ</strong> tại Ninh Bình`;
+      return;
+    }
+
+    const remainingForFreeShip = Math.max(0, FREE_SHIP_THRESHOLD - subtotal);
+    const shipPercent = Math.min(100, Math.round((subtotal / FREE_SHIP_THRESHOLD) * 100));
+
+    if (freeShipProgress) freeShipProgress.style.width = `${shipPercent}%`;
+    if (freeShipText) {
+      if (remainingForFreeShip === 0) {
+        freeShipText.innerHTML = `🎉 <strong>CHÚC MỪNG:</strong> Bạn đã được <strong>FREESHIP NỘI THÀNH NINH BÌNH</strong>!`;
+      } else {
+        freeShipText.innerHTML = `Mua thêm <strong>${window.formatVND(remainingForFreeShip)}</strong> để được <strong>FREESHIP NINH BÌNH</strong>!`;
+      }
+    }
+
+    if (subtotalEl) subtotalEl.textContent = window.formatVND(subtotal);
+    if (finalTotalEl) finalTotalEl.textContent = window.formatVND(subtotal);
+
+    drawerBody.innerHTML = cart.map((item, idx) => {
+      const itemQty = Math.max(1, Number(item.qty || item.quantity || 1));
+      const itemPrice = Number(item.price) || 0;
+      return `
+        <div class="cart-item" style="display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border-light);">
+          <img class="cart-item-img" src="${item.image || 'assets/images/products/ao-khoac-argentina-trang.png'}" alt="${item.title}" style="width:64px; height:64px; object-fit:cover; border-radius:6px; background:#1e1e1e;">
+          <div class="cart-item-details" style="flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <h4 class="cart-item-title" style="font-size:0.875rem; font-weight:700; margin:0 0 4px; line-height:1.3; color:#fff;">${item.title}</h4>
+              <div class="cart-item-attr" style="font-size:0.75rem; color:var(--text-secondary);">Size: <strong>${item.size || 'M'}</strong> | Màu: <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${item.color || '#111'};vertical-align:middle;border:1px solid #ccc;"></span></div>
+            </div>
+            <div class="cart-item-bottom" style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <div class="qty-control" style="display:inline-flex; align-items:center; border:1px solid var(--border-light); border-radius:4px; height:28px;">
+                <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, -1)" style="width:28px; height:100%; border:none; background:none; color:#fff; cursor:pointer; font-weight:bold;">-</button>
+                <span class="qty-num" style="min-width:24px; text-align:center; font-size:0.8125rem;">${itemQty}</span>
+                <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, 1)" style="width:28px; height:100%; border:none; background:none; color:#fff; cursor:pointer; font-weight:bold;">+</button>
+              </div>
+              <div class="cart-item-price" style="font-weight:700; color:var(--accent-red); font-size:0.875rem;">${window.formatVND(itemPrice * itemQty)}</div>
+            </div>
+            <span class="cart-item-remove" onclick="window.removeFromCart(${idx})" style="font-size:0.75rem; color:var(--text-muted); cursor:pointer; align-self:flex-start; margin-top:4px; text-decoration:underline;">Xóa</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  window.openCartDrawer = function () {
+    window.syncCartState();
+    const drawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    if (drawer) drawer.classList.add('active');
+    if (backdrop) backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeCartDrawer = function () {
+    const drawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    if (drawer) drawer.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  window.syncCartState = function () {
+    window.updateCartCounters();
+    if (typeof window.renderUniversalCartDrawer === 'function') {
+      window.renderUniversalCartDrawer();
+    }
+    if (typeof window.renderCartTable === 'function') {
+      window.renderCartTable();
+    }
+    if (typeof window.renderOrderSummary === 'function') {
+      window.renderOrderSummary();
+    }
+  };
+
+  // Cross-tab synchronization
+  window.addEventListener('storage', (e) => {
+    if (!e || e.key === 'nguyentu_cart' || e.key === 'nguyentu_wishlist') {
+      window.syncCartState();
+    }
+  });
+
+  // Browser back/forward navigation (bfcache)
+  window.addEventListener('pageshow', () => {
+    window.syncCartState();
+  });
+
+  // Internal reactive updates
+  window.addEventListener('cartUpdated', () => {
+    window.syncCartState();
+  });
+
+// --------------------------------------------------------------------------
   // 4. COMMON HEADER BEHAVIOR (STICKY, MOBILE MENU, SEARCH)
   // --------------------------------------------------------------------------
   window.toggleMobileMenu = function () {

@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  let cart = normalizeCart(JSON.parse(localStorage.getItem('nguyentu_cart') || '[]'));
+  let cart = (typeof window.getCart === 'function') ? window.getCart() : normalizeCart(JSON.parse(localStorage.getItem('nguyentu_cart') || '[]'));
   let wishlist = JSON.parse(localStorage.getItem('nguyentu_wishlist') || '[]');
   let currentFilter = 'all';
   let currentSort = 'default';
@@ -920,6 +920,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cart = normalizeCart(cart);
     localStorage.setItem('nguyentu_cart', JSON.stringify(cart));
     localStorage.setItem('nguyentu_wishlist', JSON.stringify(wishlist));
+    if (window.updateCartCounters) window.updateCartCounters();
     updateCartUI();
     window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
   };
@@ -1137,9 +1138,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const updateCartUI = () => {
+    if (typeof window.getCart === 'function') {
+      cart = normalizeCart(window.getCart());
+    } else {
+      cart = normalizeCart(JSON.parse(localStorage.getItem('nguyentu_cart') || '[]'));
+    }
     const badgeElements = document.querySelectorAll('.cart-count-badge');
-    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-    badgeElements.forEach(el => el.textContent = totalItems);
+    const totalItems = cart.reduce((sum, item) => sum + Math.max(1, Number(item.qty || item.quantity || 1)), 0);
+    badgeElements.forEach(el => {
+      el.textContent = totalItems;
+      el.style.display = totalItems > 0 ? 'inline-flex' : 'none';
+    });
 
     const drawerBody = document.getElementById('drawer-cart-items');
     const subtotalEl = document.getElementById('cart-subtotal-val');
@@ -1222,8 +1231,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Open & Close Drawer
   const openCartDrawer = () => {
-    document.getElementById('cart-drawer').classList.add('active');
-    document.getElementById('drawer-backdrop').classList.add('active');
+    if (typeof window.getCart === 'function') {
+      cart = normalizeCart(window.getCart());
+    } else {
+      cart = normalizeCart(JSON.parse(localStorage.getItem('nguyentu_cart') || '[]'));
+    }
+    updateCartUI();
+    const drawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    if (drawer) drawer.classList.add('active');
+    if (backdrop) backdrop.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
 
@@ -1791,6 +1808,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // INITIALIZE
   // ==========================================
+  // Reactive cart updates across tabs and bfcache
+  window.addEventListener('storage', (e) => {
+    if (!e || e.key === 'nguyentu_cart' || e.key === 'nguyentu_wishlist') {
+      if (typeof window.getCart === 'function') {
+        cart = normalizeCart(window.getCart());
+      }
+      updateCartUI();
+    }
+  });
+
+  window.addEventListener('pageshow', () => {
+    if (typeof window.getCart === 'function') {
+      cart = normalizeCart(window.getCart());
+    }
+    updateCartUI();
+  });
+
+  window.addEventListener('cartUpdated', (e) => {
+    if (e.detail && e.detail.cart) {
+      cart = normalizeCart(e.detail.cart);
+    } else if (typeof window.getCart === 'function') {
+      cart = normalizeCart(window.getCart());
+    }
+    updateCartUI();
+  });
+
   renderProductGrid();
   initCatalogScroll();
   updateCartUI();

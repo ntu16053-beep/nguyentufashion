@@ -128,10 +128,10 @@
           <span class="action-badge wishlist-count-badge" style="display:none;">0</span>
         </a>
 
-        <a href="cart.html" class="action-btn" title="Giỏ hàng">
+        <button class="action-btn" title="Giỏ hàng" onclick="window.openCartDrawer ? window.openCartDrawer() : (window.location.href='cart.html')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
           <span class="action-badge cart-count-badge" style="display:none;">0</span>
-        </a>
+        </button>
       </div>
     </div>
   </header>
@@ -719,7 +719,7 @@
 
       // Colors
       const colorRow = document.getElementById('color-chips-row');
-      const colors = (p.colors && p.colors.length) ? p.colors : ['#ffffff', '#111111'];
+      const colors = Array.isArray(p.colors) && p.colors.length > 0 ? p.colors : (typeof p.colors === 'string' ? p.colors.split(',').map(c => c.trim()).filter(Boolean) : ['#111111', '#ffffff']);
       selectedColor = colors[0];
       colorRow.innerHTML = colors.map((c, idx) => `
         <div class="color-chip-ball ${idx === 0 ? 'active' : ''}" style="background-color:${c};" onclick="window.selectColor('${c}', this)" title="${c}"></div>
@@ -728,7 +728,7 @@
 
       // Sizes
       const sizeRow = document.getElementById('size-pill-row');
-      const sizes = (p.sizes && p.sizes.length) ? p.sizes : ['M', 'L', 'XL', 'XXL'];
+      const sizes = Array.isArray(p.sizes) && p.sizes.length > 0 ? p.sizes : (typeof p.sizes === 'string' ? p.sizes.split(',').map(s => s.trim()).filter(Boolean) : ['M', 'L', 'XL', 'XXL']);
       selectedSize = sizes[0];
       sizeRow.innerHTML = sizes.map((s, idx) => `
         <button class="size-btn-pill ${idx === 0 ? 'active' : ''}" onclick="window.selectSize('${s}', this)">${s}</button>
@@ -789,6 +789,9 @@
     window.handleDetailAddToCart = function () {
       if (!currentProduct) return;
       window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
+      if (typeof window.openCartDrawer === 'function') {
+        window.openCartDrawer();
+      }
     };
 
     window.handleDetailBuyNow = function () {
@@ -1026,6 +1029,56 @@
       initMobileStickyBar();
     });
   </script>
+
+  
+  <!-- ==========================================
+       SHOPPING CART DRAWER
+       ========================================== -->
+  <div class="drawer-backdrop" id="drawer-backdrop" onclick="window.closeCartDrawer()"></div>
+
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="drawer-header">
+      <h3 class="drawer-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        Giỏ Hàng Của Bạn
+      </h3>
+      <button class="drawer-close" onclick="window.closeCartDrawer()" aria-label="Đóng">✕</button>
+    </div>
+
+    <!-- Free Shipping Indicator -->
+    <div class="free-ship-bar">
+      <span id="free-ship-message">Freeship đơn từ <strong>299.000đ</strong> tại Ninh Bình</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="free-ship-progress-bar" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Item List -->
+    <div class="drawer-body" id="drawer-cart-items">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Drawer Footer & Checkout -->
+    <div class="drawer-footer">
+      <div class="subtotal-row">
+        <span>Tạm tính:</span>
+        <strong id="cart-subtotal-val">0 ₫</strong>
+      </div>
+      <div class="total-row">
+        <span>Tổng thanh toán:</span>
+        <span id="cart-final-total" style="color:var(--accent-red);">0 ₫</span>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:12px;">
+        <a href="cart.html" class="btn btn-outline-white" style="flex:1; text-align:center; font-size:0.8125rem; padding:12px;">
+          Xem Giỏ Hàng
+        </a>
+        <a href="checkout.html" class="btn btn-primary" style="flex:1.2; text-align:center; font-size:0.8125rem; padding:12px; font-weight:700;">
+          Thanh Toán →
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================
        MOBILE NAVIGATION DRAWER & BACKDROP
