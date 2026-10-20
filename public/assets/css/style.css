@@ -2694,15 +2694,19 @@ input[type=range]::-webkit-slider-thumb:hover {
   }
 
   /* 3. Header & Brand Navigation */
-  .header {
-    height: 56px !important;
-    overflow: hidden !important;
+/* Mobile Header Brand & Action Spacing Polish */
+  .header-track-btn {
+    display: none !important;
   }
 
   .nav-container {
-    height: 56px !important;
-    min-height: 56px !important;
-    padding: 0 10px !important;
+    padding: 0 12px !important;
+    gap: 8px !important;
+  }
+
+  .mobile-menu-btn {
+    margin-right: 6px !important;
+    flex-shrink: 0 !important;
   }
 
   .brand-wrapper {
@@ -2712,36 +2716,46 @@ input[type=range]::-webkit-slider-thumb:hover {
     border-left: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    gap: 8px !important;
-    max-width: calc(100% - 165px) !important;
+    gap: 10px !important;
+    max-width: none !important;
+    flex: 1 1 auto !important;
     display: inline-flex !important;
     align-items: center !important;
+    margin-right: 14px !important;
+    overflow: hidden !important;
   }
 
   .brand-logo-img {
-    width: 36px !important;
-    height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
     border-radius: 8px !important;
     object-fit: contain !important;
     flex-shrink: 0 !important;
     background-color: #000 !important;
     border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .brand-text {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    min-width: 0 !important;
   }
 
   .brand-name {
-    font-size: 1.125rem !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.03em !important;
-    line-height: 1 !important;
+    font-size: 1.15rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.1 !important;
     margin: 0 !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    color: #ffffff !important;
   }
 
   .brand-sub {
-    font-size: 0.52rem !important;
-    letter-spacing: 0.1em !important;
+    font-size: 0.54rem !important;
+    letter-spacing: 0.12em !important;
     color: var(--accent-gold) !important;
     font-weight: 700 !important;
     line-height: 1 !important;
@@ -2752,18 +2766,17 @@ input[type=range]::-webkit-slider-thumb:hover {
   .nav-actions {
     height: 56px !important;
     border: none !important;
-    border-left: none !important;
-    border-right: none !important;
     gap: 6px !important;
+    flex-shrink: 0 !important;
   }
 
   .action-btn {
-    width: 38px !important;
-    height: 38px !important;
+    width: 36px !important;
+    height: 36px !important;
     padding: 0 !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-right: none !important;
-    border-left: none !important;
+    border-radius: 8px !important;
+    background: linear-gradient(180deg, #8c1125 0%, #630a18 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
   }
 
   /* 4. Hero Section (Hạ ảnh nền lộ rõ nhà & núi, 2 nút nhỏ gọn khớp khung hình) */
