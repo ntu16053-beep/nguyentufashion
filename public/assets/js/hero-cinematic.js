@@ -1,15 +1,15 @@
 /**
  * ==============================================================================
- * NGUYEN TU FASHION - CINEMATIC LIVING HERO BACKGROUND (V3 - REALISTIC CLOUDS)
+ * NGUYEN TU FASHION - CINEMATIC LIVING HERO BACKGROUND (NATURAL & ELEGANT)
  * ==============================================================================
- * Các chuyển động điện ảnh Á Đông chân thực & chuyên nghiệp:
- *  1. MÂY BAY CHÂN THỰC: Tầng mây sương hoàng hôn bồng bềnh lướt nhẹ qua đỉnh núi Phú Sĩ
- *  2. CÁNH HOA ĐÀO 3D: Rơi mềm mại, lật nhào 3 chiều, bay lượn theo luồng gió
- *  3. ÁNH SÁNG LỒNG ĐÈN: Ánh nến ấm áp chao nhẹ, thở dịu êm bên trong lồng đèn giấy
- *  4. ĐÀN CHIM THIÊN DI: Sải cánh thanh thoát bay qua khoảng trời xa xăm
+ * Các chuyển động điện ảnh tinh tế & chuẩn nét:
+ *  1. CÁNH HOA ĐÀO 3D: Rơi mềm mại, xoay 3 chiều, bay lượn theo làn gió chiều
+ *  2. ÁNH SÁNG LỒNG ĐÈN: Ánh nến ấm áp chao nhẹ, thở dịu êm bên trong lồng đèn giấy
+ *  3. ĐÀN CHIM THIÊN DI: Sải cánh thanh thoát bay qua bầu trời xa xăm
+ *  (Bầu trời & mây giữ nguyên bản gốc tự nhiên)
  *
  * Tối ưu hóa:
- *  - 60 FPS siêu mượt nhờ kỹ thuật Sprite Caching (Offscreen Canvas)
+ *  - 60 FPS siêu mượt bằng HTML5 Canvas 2D
  *  - Tự động đồng bộ chuẩn xác với object-fit: cover trên mọi kích thước màn hình
  *  - Hỗ trợ Retina / HiDPI (devicePixelRatio)
  *  - Tự động tạm dừng khi cuộn khỏi màn hình (IntersectionObserver)
@@ -122,137 +122,7 @@
     updateDimensions();
 
     // ==========================================================================
-    // 1. HỆ THỐNG MÂY HOÀNG HÔN CHUYỂN ĐỘNG CHÂN THỰC (VOLUMETRIC CLOUDS)
-    // ==========================================================================
-    // Tạo 3 mẫu texture đám mây tự nhiên bằng Offscreen Canvas
-    function createCloudSprite(w, h, colorType) {
-      const off = document.createElement('canvas');
-      off.width = w;
-      off.height = h;
-      const octx = off.getContext('2d');
-      if (!octx) return off;
-
-      // Vẽ nhiều cụm sương mờ xếp chồng hữu cơ (Organic Cloud Puffs)
-      const puffCount = 14 + Math.floor(Math.random() * 8);
-      for (let i = 0; i < puffCount; i++) {
-        const px = (w * 0.15) + Math.random() * (w * 0.7);
-        const py = (h * 0.25) + Math.random() * (h * 0.5);
-        const pr = (h * 0.25) + Math.random() * (h * 0.45);
-
-        const g = octx.createRadialGradient(px, py, pr * 0.05, px, py, pr);
-        if (colorType === 'sunset') {
-          // Ánh mây hoàng hôn ửng hồng cam ấm
-          g.addColorStop(0, 'rgba(255, 225, 210, 0.14)');
-          g.addColorStop(0.4, 'rgba(255, 185, 175, 0.08)');
-          g.addColorStop(0.8, 'rgba(235, 160, 180, 0.03)');
-          g.addColorStop(1, 'rgba(235, 160, 180, 0)');
-        } else if (colorType === 'twilight') {
-          // Mây sương tím lam chiều tà
-          g.addColorStop(0, 'rgba(240, 220, 245, 0.12)');
-          g.addColorStop(0.4, 'rgba(215, 185, 230, 0.07)');
-          g.addColorStop(0.8, 'rgba(180, 155, 205, 0.025)');
-          g.addColorStop(1, 'rgba(180, 155, 205, 0)');
-        } else {
-          // Mây trắng bạc viền sương mờ
-          g.addColorStop(0, 'rgba(255, 250, 245, 0.15)');
-          g.addColorStop(0.4, 'rgba(250, 235, 225, 0.08)');
-          g.addColorStop(0.8, 'rgba(240, 215, 205, 0.03)');
-          g.addColorStop(1, 'rgba(240, 215, 205, 0)');
-        }
-
-        octx.fillStyle = g;
-        octx.beginPath();
-        octx.arc(px, py, pr, 0, Math.PI * 2);
-        octx.fill();
-      }
-
-      return off;
-    }
-
-    const cloudSprites = [
-      createCloudSprite(420, 120, 'sunset'),
-      createCloudSprite(360, 110, 'twilight'),
-      createCloudSprite(480, 130, 'mist')
-    ];
-
-    // Khởi tạo các dải mây trôi trên bầu trời quanh núi Phú Sĩ
-    const cloudLayers = [
-      {
-        sprite: cloudSprites[0],
-        xRel: 0.35,      // Vị trí ngang ban đầu
-        yRel: 0.08,      // Độ cao tầng trên bầu trời
-        wRel: 0.42,      // Chiều rộng tương đối
-        hRel: 0.18,
-        speed: 0.00018,  // Tốc độ trôi nhẹ nhàng, êm dịu
-        phase: 0.0,
-        opacity: 0.85
-      },
-      {
-        sprite: cloudSprites[1],
-        xRel: 0.62,
-        yRel: 0.18,      // Mây lướt ngang sườn núi Phú Sĩ
-        wRel: 0.38,
-        hRel: 0.16,
-        speed: 0.00025,
-        phase: 1.8,
-        opacity: 0.75
-      },
-      {
-        sprite: cloudSprites[2],
-        xRel: 0.15,
-        yRel: 0.03,      // Tầng mây cao phía trên đỉnh núi
-        wRel: 0.48,
-        hRel: 0.20,
-        speed: 0.00014,
-        phase: 3.2,
-        opacity: 0.65
-      },
-      {
-        sprite: cloudSprites[0],
-        xRel: 0.80,
-        yRel: 0.12,      // Dải mây xa phía trên tháp chùa
-        wRel: 0.36,
-        hRel: 0.15,
-        speed: 0.00022,
-        phase: 4.5,
-        opacity: 0.70
-      }
-    ];
-
-    function drawCinematicClouds(ctx, time) {
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-
-      // Giới hạn vùng bầu trời: Từ mép mái nhà bên trái (X ~ 30%) sang góc phải
-      const skyStartX = coverRect.x + coverRect.w * 0.28;
-
-      cloudLayers.forEach((c) => {
-        // Cập nhật vị trí trôi ngang liên tục
-        c.xRel += c.speed;
-        if (c.xRel > 1.15) {
-          c.xRel = 0.22 - c.wRel; // Vòng lại mép trái bầu trời (sau mái nhà)
-        }
-
-        const cx = coverRect.x + c.xRel * coverRect.w;
-        const cy = coverRect.y + c.yRel * coverRect.h + Math.sin(time * 0.3 + c.phase) * 3;
-        const cw = c.wRel * coverRect.w;
-        const ch = c.hRel * coverRect.h;
-
-        // Làm mờ êm dịu khi mây đến gần mái hiên cửa hàng bên trái để không che nhà
-        let edgeFade = 1.0;
-        if (cx < skyStartX + 80) {
-          edgeFade = Math.max(0, (cx - skyStartX) / 80);
-        }
-
-        ctx.globalAlpha = c.opacity * edgeFade;
-        ctx.drawImage(c.sprite, cx, cy, cw, ch);
-      });
-
-      ctx.restore();
-    }
-
-    // ==========================================================================
-    // 2. HỆ THỐNG CÁNH HOA ANH ĐÀO 3D (MỀM MẠI, TRONG SUỐT, TỰ NHIÊN)
+    // 1. HỆ THỐNG CÁNH HOA ANH ĐÀO 3D (MỀM MẠI, TRONG SUỐT, TỰ NHIÊN)
     // ==========================================================================
     const PETAL_COUNT = 28;
     const petals = [];
@@ -347,7 +217,7 @@
     }
 
     // ==========================================================================
-    // 3. LỒNG ĐÈN: ÁNH SÁNG ẤM ÁP, DỊU NHẸ, GỌN BÊN TRONG LỒNG ĐÈN
+    // 2. LỒNG ĐÈN: ÁNH SÁNG ẤM ÁP, DỊU NHẸ, GỌN BÊN TRONG LỒNG ĐÈN
     // ==========================================================================
     const lanternLeft = {
       nx: 126 / 1024,
@@ -408,7 +278,7 @@
     }
 
     // ==========================================================================
-    // 4. ĐÀN CHIM XA XA BAY QUA PHÍA BẦU TRỜI NÚI PHÚ SĨ
+    // 3. ĐÀN CHIM XA XA BAY QUA PHÍA BẦU TRỜI NÚI PHÚ SĨ
     // ==========================================================================
     class DistantBirdFlock {
       constructor() {
@@ -510,7 +380,7 @@
     const birdFlock = new DistantBirdFlock();
 
     // ==========================================================================
-    // 5. VÒNG LẶP RENDER CHÍNH (60 FPS MƯỢT MÀ)
+    // 4. VÒNG LẶP RENDER CHÍNH (60 FPS MƯỢT MÀ)
     // ==========================================================================
     function render(currentTime) {
       if (!isVisible) {
@@ -526,17 +396,14 @@
 
       const windGust = Math.sin(timeSec * 0.5) * 0.5 + Math.sin(timeSec * 1.4) * 0.25;
 
-      // 1. MÂY HOÀNG HÔN TRÔI CHÂN THỰC TRÊN BẦU TRỜI & ĐỈNH NÚI PHÚ SĨ
-      drawCinematicClouds(ctx, timeSec);
-
-      // 2. Ánh sáng ấm dịu lồng đèn bên trái
+      // 1. Ánh sáng ấm dịu lồng đèn bên trái
       drawLanternSubtleGlow(ctx, timeSec);
 
-      // 3. Đàn chim xa xa sải cánh bay
+      // 2. Đàn chim xa xa sải cánh bay
       birdFlock.update(dt);
       birdFlock.draw(ctx);
 
-      // 4. Cánh hoa anh đào rơi 3D
+      // 3. Cánh hoa anh đào rơi 3D
       for (let i = 0; i < petals.length; i++) {
         petals[i].update(timeSec, windGust);
         petals[i].draw(ctx);
