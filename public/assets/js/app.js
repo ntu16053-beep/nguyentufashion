@@ -933,22 +933,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ? window.ALL_PRODUCTS.slice()
       : (window.getStoredProducts ? window.getStoredProducts() : (window.DEFAULT_PRODUCTS || []).slice());
 
-        // 2. Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website (có cơ chế tự phục hồi nếu bị trống)
-    try {
-      const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
-      if (deletedIds.length > 0 && Array.isArray(currentList)) {
-        const remaining = currentList.filter(p => !deletedIds.includes(p.id));
-        if (remaining.length > 0) {
-          currentList = remaining;
-        } else {
-          localStorage.removeItem('nguyentu_deleted_product_ids');
-          localStorage.removeItem('nguyentu_cached_products');
-          currentList = (window.DEFAULT_PRODUCTS || []).slice();
-        }
-      }
+        try {
+      localStorage.removeItem('nguyentu_deleted_product_ids');
     } catch (e) {}
-
-    if (!currentList || currentList.length === 0) {
+    if (!currentList || currentList.length < 50) {
       currentList = (window.DEFAULT_PRODUCTS || []).slice();
     }
 

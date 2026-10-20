@@ -16,6 +16,9 @@
   window.DEFAULT_ORDERS = [{"id":"NT-NB1024","customerName":"Trần Quốc Hưng","customerPhone":"0988123456","district":"TP. Ninh Bình","address":"Số 48 Đường Lương Văn Tụy, P. Tân Thành","items":[{"productId":"nt-01","title":"Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng","size":"L","color":"#ffffff","price":480000,"quantity":1,"image":"assets/images/products/ao-khoac-argentina-trang.png"},{"productId":"nt-03","title":"Áo Khoác Gió FC Barcelona Retro Heritage Kem Phối Sọc","size":"L","color":"#f4f1ea","price":490000,"quantity":1,"image":"assets/images/products/ao-khoac-barca-retro.png"}],"subtotal":970000,"discountAmount":145500,"couponCode":"NINHBINH","shippingFee":0,"totalAmount":824500,"paymentMethod":"vietqr","paymentStatus":"paid","status":"shipping","shippingNote":"Giao hỏa tốc 2H trước 17h chiều tại Lương Văn Tụy","createdAt":"2026-10-18T09:15:00Z","timeline":[{"status":"pending","time":"2026-10-18T09:15:00Z","note":"Đơn hàng đã được tạo qua VietQR"},{"status":"confirmed","time":"2026-10-18T09:25:00Z","note":"Shop đã xác nhận đơn & kiểm tra thanh toán"},{"status":"shipping","time":"2026-10-18T10:10:00Z","note":"Shipper hỏa tốc Ninh Bình đang giao hàng"}]},{"id":"NT-NB1025","customerName":"Lê Mai Anh","customerPhone":"0912345678","district":"Huyện Hoa Lư","address":"Thôn Đam Khê, Xã Ninh Hải","items":[{"productId":"nt-02","title":"Bộ Quần Áo Thể Thao Tracksuit Adidas Argentina \"AFA 3 Sao\" Đen","size":"M","color":"#111111","price":650000,"quantity":1,"image":"assets/images/products/bo-the-thao-argentina-den.png"}],"subtotal":650000,"discountAmount":0,"couponCode":null,"shippingFee":0,"totalAmount":650000,"paymentMethod":"cod","paymentStatus":"unpaid","status":"pending","shippingNote":"Giao vào buổi tối sau 18h","createdAt":"2026-10-14T13:40:00Z","timeline":[{"status":"pending","time":"2026-10-14T13:40:00Z","note":"Đơn hàng mới chờ shop xác nhận"}]},{"id":"NT-NB1020","customerName":"Hoàng Anh Tuấn","customerPhone":"0977889900","district":"TP. Ninh Bình","address":"15 Trần Hưng Đạo, P. Đông Thành","items":[{"productId":"nt-04","title":"Nón Kết Lưỡi Trai Signature NT Crown Thêu Nổi 3D","size":"Free Size","color":"#000000","price":189000,"quantity":1,"image":"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&auto=format&fit=crop&q=80"},{"productId":"nt-08","title":"Túi Đeo Chéo Mini Techwear Chống Nước NT Tactical","size":"Free Size","color":"#111111","price":219000,"quantity":1,"image":"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop&q=80"}],"subtotal":408000,"discountAmount":50000,"couponCode":"STREETWEAR50K","shippingFee":0,"totalAmount":358000,"paymentMethod":"cod","paymentStatus":"paid","status":"completed","shippingNote":"Khách đã nhận hàng và khen chất vải tốt","createdAt":"2026-10-13T15:20:00Z","timeline":[{"status":"pending","time":"2026-10-13T15:20:00Z","note":"Đơn hàng được tạo"},{"status":"confirmed","time":"2026-10-13T15:35:00Z","note":"Shop đã đóng gói"},{"status":"shipping","time":"2026-10-13T16:00:00Z","note":"Shipper giao hỏa tốc"},{"status":"completed","time":"2026-10-13T17:15:00Z","note":"Giao hàng thành công - Thu tiền COD 358.000₫"}]}];
 
   window.getStoredProducts = function () {
+    try {
+      localStorage.removeItem('nguyentu_deleted_product_ids');
+    } catch (e) {}
     let list = null;
     try {
       const stored = localStorage.getItem('nguyentu_cached_products');
@@ -29,13 +32,7 @@
       list = (window.DEFAULT_PRODUCTS || []).slice();
     }
 
-    // Luôn lọc bỏ các sản phẩm đã bị xóa khỏi website
-    try {
-      const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
-      if (deletedIds.length > 0 && Array.isArray(list)) {
-        list = list.filter(p => !deletedIds.includes(p.id));
-      }
-    } catch (e) {}
+    // Đã loại bỏ bộ lọc xóa client để luôn hiển thị đầy đủ danh mục sản phẩm
 
     return list;
   };
@@ -147,7 +144,6 @@
         quantity: quantity,
         qty: quantity
       });
-    });
     }
 
     window.saveCart(cart);
@@ -366,19 +362,8 @@
       window.ALL_PRODUCTS = window.getStoredProducts();
     }
 
-        // Luôn lọc bỏ những sản phẩm đã bị xóa khỏi website
-    try {
-      const deletedIds = JSON.parse(localStorage.getItem('nguyentu_deleted_product_ids') || '[]');
-      if (deletedIds.length > 0 && Array.isArray(window.ALL_PRODUCTS)) {
-        const remaining = window.ALL_PRODUCTS.filter(p => !deletedIds.includes(p.id));
-        if (remaining.length > 0) {
-          window.ALL_PRODUCTS = remaining;
-        } else {
-          // Bị xóa hết do nhầm lẫn trên client -> tự động khôi phục toàn bộ danh mục
-          localStorage.removeItem('nguyentu_deleted_product_ids');
-          localStorage.removeItem('nguyentu_cached_products');
-        }
-      }
+        try {
+      localStorage.removeItem('nguyentu_deleted_product_ids');
     } catch (e) {}
 
     if (window.applyPriceOverrides) {
@@ -459,44 +444,82 @@
   };
 
   // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
   // 6. GLOBAL ORDER TRACKING MODAL
   // --------------------------------------------------------------------------
+  window.fillAndTrackOrder = function (query) {
+    const input = document.getElementById('order-tracking-input');
+    if (input) {
+      input.value = query;
+      window.performOrderTracking();
+    }
+  };
+
   window.openOrderTrackingModal = function (prefillQuery = '') {
+    if (typeof window.closeMobileMenu === 'function') {
+      window.closeMobileMenu();
+    }
+
     let modal = document.getElementById('order-tracking-modal');
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'order-tracking-modal';
       modal.className = 'modal-overlay';
+      modal.style.zIndex = '100050';
       modal.innerHTML = `
-        <div class="modal-card" style="max-width:640px; width:95%; max-height:90vh; overflow-y:auto; padding:26px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="font-size:1.5rem;">📦</span>
+        <div class="modal-card" style="max-width:640px; width:95%; max-height:90vh; overflow-y:auto; padding:26px; border:1px solid rgba(255,255,255,0.12); box-shadow:0 20px 50px rgba(0,0,0,0.85);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; border-bottom:1px solid var(--border-light); padding-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="font-size:1.8rem; line-height:1;">📦</span>
               <div>
-                <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase; margin:0;">TRA CỨU TIẾN TRÌNH ĐƠN HÀNG</h3>
-                <p style="font-size:0.75rem; color:var(--text-muted); margin:0;">Nhập số điện thoại hoặc mã đơn hàng (VD: NT-NB1234)</p>
+                <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase; margin:0; letter-spacing:0.02em;">TRA CỨU TIẾN TRÌNH ĐƠN HÀNG</h3>
+                <p style="font-size:0.775rem; color:var(--text-muted); margin:2px 0 0;">Nhập số điện thoại đặt hàng hoặc mã đơn (VD: NT-NB1024)</p>
               </div>
             </div>
-            <button onclick="document.getElementById('order-tracking-modal').classList.remove('active')" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+            <button onclick="document.getElementById('order-tracking-modal').classList.remove('active')" aria-label="Đóng" style="font-size:1.8rem; line-height:1; color:#fff; background:none; border:none; cursor:pointer; padding:4px 8px; border-radius:6px; opacity:0.8; transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">&times;</button>
           </div>
 
-          <div style="display:flex; gap:10px; margin-bottom:20px;">
-            <input type="text" id="order-tracking-input" class="custom-input" placeholder="Nhập SĐT hoặc Mã đơn..." style="flex:1; height:46px; font-size:0.9375rem;" onkeydown="if(event.key==='Enter') window.performOrderTracking();">
-            <button class="btn btn-primary" onclick="window.performOrderTracking()" style="height:46px; padding:0 22px; font-weight:700;">Tra Cứu</button>
+          <div style="display:flex; gap:10px; margin-bottom:12px;">
+            <input type="text" id="order-tracking-input" class="custom-input" placeholder="Nhập SĐT hoặc Mã đơn hàng..." style="flex:1; height:46px; font-size:0.9375rem; border:1.5px solid rgba(255,255,255,0.2);" onkeydown="if(event.key==='Enter') window.performOrderTracking();">
+            <button class="btn btn-primary" id="order-tracking-btn" onclick="window.performOrderTracking()" style="height:46px; padding:0 24px; font-weight:700; white-space:nowrap; display:inline-flex; align-items:center; gap:6px;">
+              <span>🔍</span> Tra Cứu
+            </button>
+          </div>
+
+          <div id="order-tracking-quick-suggestions" style="margin-bottom:18px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:0.775rem; color:var(--text-muted);">
+            <span>Gợi ý mẫu:</span>
+            <button type="button" onclick="window.fillAndTrackOrder('NT-NB1024')" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:3px 10px; border-radius:12px; cursor:pointer; font-size:0.75rem;">Mã NT-NB1024</button>
+            <button type="button" onclick="window.fillAndTrackOrder('0988123456')" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; padding:3px 10px; border-radius:12px; cursor:pointer; font-size:0.75rem;">SĐT 0988123456</button>
+            <span id="order-recent-badge-slot"></span>
           </div>
 
           <div id="order-tracking-result" style="min-height:100px;">
-            <div style="text-align:center; padding:30px 10px; color:var(--text-muted); font-size:0.875rem;">
+            <div style="text-align:center; padding:30px 10px; color:var(--text-muted); font-size:0.875rem; background:rgba(0,0,0,0.2); border-radius:8px;">
               🔍 Hãy nhập số điện thoại đặt hàng hoặc mã đơn để theo dõi hành trình giao nhận hỏa tốc tại Ninh Bình & Toàn quốc.
             </div>
           </div>
         </div>
       `;
       document.body.appendChild(modal);
+
       modal.addEventListener('click', (e) => {
         if (e.target === modal) modal.classList.remove('active');
       });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          modal.classList.remove('active');
+        }
+      });
     }
+
+    try {
+      const recentOrder = JSON.parse(localStorage.getItem('nt_recent_order') || 'null');
+      const badgeSlot = document.getElementById('order-recent-badge-slot');
+      if (badgeSlot && recentOrder && recentOrder.id) {
+        badgeSlot.innerHTML = `<button type="button" onclick="window.fillAndTrackOrder('${recentOrder.id}')" style="background:rgba(239,68,68,0.18); border:1px solid var(--accent-red); color:#fff; padding:3px 10px; border-radius:12px; cursor:pointer; font-size:0.75rem; font-weight:700;">⚡ Đơn gần nhất: ${recentOrder.id}</button>`;
+      }
+    } catch (e) {}
 
     modal.classList.add('active');
     const input = document.getElementById('order-tracking-input');
@@ -504,31 +527,75 @@
       input.value = prefillQuery;
       window.performOrderTracking();
     } else {
-      setTimeout(() => input.focus(), 100);
+      setTimeout(() => input.focus(), 120);
     }
   };
 
   window.performOrderTracking = async function () {
-    const query = document.getElementById('order-tracking-input').value.trim();
+    const input = document.getElementById('order-tracking-input');
+    const btn = document.getElementById('order-tracking-btn');
     const resultDiv = document.getElementById('order-tracking-result');
+    if (!input || !resultDiv) return;
+
+    const query = input.value.trim();
     if (!query) {
       window.showToast('Vui lòng nhập SĐT hoặc mã đơn hàng!', 'error');
+      input.focus();
       return;
     }
 
-    resultDiv.innerHTML = '<div style="text-align:center; padding:30px; color:var(--text-muted);">Đang tra cứu dữ liệu đơn hàng...</div>';
+    if (btn) btn.disabled = true;
+    resultDiv.innerHTML = '<div style="text-align:center; padding:32px; color:var(--text-muted);"><span style="display:inline-block; animation:spin 1s linear infinite; margin-right:8px;">⏳</span> Đang tra cứu dữ liệu đơn hàng...</div>';
 
     try {
       const isId = query.toUpperCase().startsWith('NT-') || /^[a-zA-Z]/.test(query);
       const param = isId ? `orderId=${encodeURIComponent(query)}` : `phone=${encodeURIComponent(query)}`;
-      const res = await fetch(`/api/orders/track?${param}`);
-      const data = await res.json();
+      let orders = [];
 
-      if (!data.success || !data.orders || data.orders.length === 0) {
+      try {
+        const res = await fetch(`/api/orders/track?${param}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.orders)) {
+            orders = data.orders;
+          }
+        }
+      } catch (networkErr) {
+        console.warn('Backend tracking unreachable, trying local fallback:', networkErr);
+      }
+
+      // Fallback: Tìm trong localStorage nếu server không có hoặc offline
+      if (orders.length === 0) {
+        try {
+          const myOrders = JSON.parse(localStorage.getItem('nt_my_orders') || '[]');
+          const recentOrder = JSON.parse(localStorage.getItem('nt_recent_order') || 'null');
+          const allLocal = [...myOrders];
+          if (recentOrder && !allLocal.find(o => o.id === recentOrder.id)) {
+            allLocal.unshift(recentOrder);
+          }
+
+          const cleanQuery = query.toLowerCase().replace(/\s+/g, '');
+          const matched = allLocal.filter(o => {
+            const mId = (o.id || '').toLowerCase();
+            const mPhone = (o.customerPhone || '').replace(/\s+/g, '');
+            return mId === cleanQuery || mPhone === cleanQuery;
+          });
+
+          if (matched.length > 0) {
+            orders = matched;
+          }
+        } catch (localErr) {}
+      }
+
+      if (orders.length === 0) {
         resultDiv.innerHTML = `
-          <div style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); border-radius:8px; padding:20px; text-align:center;">
-            <p style="color:#f87171; font-weight:700; margin-bottom:6px;">Không tìm thấy đơn hàng phù hợp!</p>
-            <p style="font-size:0.8125rem; color:var(--text-secondary); margin:0;">Vui lòng kiểm tra lại số điện thoại hoặc mã đơn hàng đã nhập khi đặt mua.</p>
+          <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:10px; padding:24px; text-align:center;">
+            <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+            <p style="color:#f87171; font-weight:700; font-size:1rem; margin-bottom:6px;">Không tìm thấy đơn hàng "${query}"!</p>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin:0 0 14px;">Vui lòng kiểm tra lại số điện thoại hoặc mã đơn hàng đã nhập khi đặt mua.</p>
+            <div style="font-size:0.8125rem; color:var(--text-muted);">
+              Cần hỗ trợ gấp? Gọi ngay Hotline: <a href="tel:0342767002" style="color:var(--accent-gold); font-weight:800;">0342.767.002</a>
+            </div>
           </div>
         `;
         return;
@@ -542,19 +609,19 @@
         cancelled: { label: 'Đã hủy', color: '#f87171', step: 0 }
       };
 
-      resultDiv.innerHTML = data.orders.map(order => {
-        const st = statusMap[order.status] || { label: order.status, color: '#fff', step: 1 };
+      resultDiv.innerHTML = orders.map(order => {
+        const st = statusMap[order.status] || { label: order.status || 'Chờ xác nhận', color: '#fbbf24', step: 1 };
         const items = order.items || [];
         const currentStep = st.step;
 
         return `
-          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:10px; padding:18px; margin-bottom:16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--border-light); border-radius:12px; padding:20px; margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:12px;">
               <div>
                 <span style="font-size:0.75rem; color:var(--text-muted);">Mã đơn hàng:</span>
-                <strong style="color:var(--accent-red); font-size:1rem; margin-left:6px;">${order.id}</strong>
+                <strong style="color:var(--accent-red); font-size:1.05rem; margin-left:6px; letter-spacing:0.04em;">${order.id}</strong>
               </div>
-              <span style="font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:12px; background:${st.color}22; color:${st.color}; border:1px solid ${st.color};">
+              <span style="font-size:0.75rem; font-weight:800; padding:4px 12px; border-radius:14px; background:${st.color}22; color:${st.color}; border:1px solid ${st.color};">
                 ${st.label.toUpperCase()}
               </span>
             </div>
@@ -565,7 +632,7 @@
                   const isActive = (idx + 1) <= currentStep;
                   return `
                     <div>
-                      <div style="height:5px; border-radius:3px; background:${isActive ? 'var(--accent-red)' : 'rgba(255,255,255,0.1)'}; margin-bottom:6px;"></div>
+                      <div style="height:5px; border-radius:3px; background:${isActive ? 'var(--accent-red)' : 'rgba(255,255,255,0.1)'}; margin-bottom:6px; transition:all 0.3s;"></div>
                       <span style="font-size:0.6875rem; font-weight:${isActive ? '700' : '400'}; color:${isActive ? '#fff' : 'var(--text-muted)'};">${stepLabel}</span>
                     </div>
                   `;
@@ -573,43 +640,50 @@
               </div>
             ` : ''}
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.8125rem; margin-bottom:14px; background:rgba(0,0,0,0.25); padding:12px; border-radius:6px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.8125rem; margin-bottom:14px; background:rgba(0,0,0,0.25); padding:12px; border-radius:8px;">
               <div>
-                <div style="color:var(--text-muted); margin-bottom:3px;">Người nhận: <strong style="color:#fff;">${order.customerName}</strong></div>
-                <div style="color:var(--text-muted);">SĐT: <strong style="color:#fff;">${order.customerPhone}</strong></div>
-                <div style="color:var(--text-muted); margin-top:3px;">Địa chỉ: <span>${order.address}, ${order.district || ''}</span></div>
+                <div style="color:var(--text-muted); margin-bottom:4px;">Người nhận: <strong style="color:#fff;">${order.customerName || 'Khách hàng'}</strong></div>
+                <div style="color:var(--text-muted); margin-bottom:4px;">SĐT: <strong style="color:#fff;">${order.customerPhone}</strong></div>
+                <div style="color:var(--text-muted);">Địa chỉ: <span style="color:#ddd;">${order.address || ''}${order.district ? ', ' + order.district : ''}</span></div>
               </div>
               <div style="text-align:right;">
-                <div style="color:var(--text-muted); margin-bottom:3px;">Thanh toán: <strong style="color:#fff;">${order.paymentMethod === 'vietqr' ? 'VietQR (Napas247)' : 'COD (Khi nhận)'}</strong></div>
-                <div style="color:var(--text-muted); margin-bottom:3px;">Ngày tạo: <span>${new Date(order.createdAt).toLocaleDateString('vi-VN')}</span></div>
-                <div style="font-size:0.9375rem; color:#fff; margin-top:4px;">Tổng tiền: <strong style="color:var(--accent-red);">${window.formatVND(order.totalAmount)}</strong></div>
+                <div style="color:var(--text-muted); margin-bottom:4px;">Thanh toán: <strong style="color:#fff;">${order.paymentMethod === 'vietqr' ? 'VietQR (Napas247)' : 'COD (Khi nhận)'}</strong></div>
+                <div style="color:var(--text-muted); margin-bottom:4px;">Ngày tạo: <span style="color:#ddd;">${order.createdAt ? new Date(order.createdAt).toLocaleDateString('vi-VN') : 'Mới đây'}</span></div>
+                <div style="font-size:0.95rem; color:#fff; margin-top:4px;">Tổng tiền: <strong style="color:var(--accent-red);">${window.formatVND ? window.formatVND(order.totalAmount) : (order.totalAmount ? Number(order.totalAmount).toLocaleString('vi-VN') + ' đ' : '0 đ')}</strong></div>
               </div>
             </div>
 
-            <div style="border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px;">
+            <div style="border-top:1px dashed rgba(255,255,255,0.1); padding-top:12px;">
               <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px;">Sản phẩm (${items.length}):</span>
               <div style="display:flex; flex-direction:column; gap:8px;">
                 ${items.map(it => `
                   <div style="display:flex; align-items:center; gap:10px; font-size:0.8125rem;">
-                    <img src="${it.image || 'assets/images/products/ao-khoac-argentina-trang.png'}" alt="${it.title}" style="width:36px; height:44px; object-fit:cover; border-radius:4px; background:#2a050b;">
+                    <img src="${it.image || 'assets/images/products/ao-khoac-argentina-trang.png'}" alt="${it.title}" style="width:40px; height:48px; object-fit:cover; border-radius:4px; background:#2a050b;">
                     <div style="flex:1;">
                       <div style="color:#fff; font-weight:600; line-height:1.3;">${it.title}</div>
                       <div style="color:var(--text-muted); font-size:0.75rem;">Size: ${it.size} • Số lượng: ${it.quantity}</div>
                     </div>
-                    <strong style="color:var(--text-primary); font-size:0.8125rem;">${window.formatVND(it.price * it.quantity)}</strong>
+                    <strong style="color:var(--text-primary); font-size:0.8125rem;">${window.formatVND ? window.formatVND((it.price || 0) * (it.quantity || 1)) : (Number(it.price || 0) * Number(it.quantity || 1)).toLocaleString('vi-VN') + ' đ'}</strong>
                   </div>
                 `).join('')}
               </div>
+            </div>
+
+            <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted);">
+              <span>⚡ Hỗ trợ đơn: <a href="tel:0342767002" style="color:var(--accent-gold); font-weight:700;">0342.767.002</a></span>
+              <span>🏪 Showroom Khánh Nhạc, Ninh Bình</span>
             </div>
           </div>
         `;
       }).join('');
     } catch (err) {
-      resultDiv.innerHTML = '<div style="color:#f87171; text-align:center; padding:20px;">Lỗi kết nối máy chủ tra cứu! Vui lòng thử lại sau.</div>';
+      console.error('[Order Track Error]', err);
+      resultDiv.innerHTML = '<div style="color:#f87171; text-align:center; padding:20px;">Lỗi kết nối máy chủ tra cứu! Vui lòng thử lại sau hoặc gọi hotline 0342.767.002.</div>';
+    } finally {
+      if (btn) btn.disabled = false;
     }
   };
 
-  // --------------------------------------------------------------------------
   // 7. GLOBAL QUICK VIEW MODAL
   // --------------------------------------------------------------------------
   window.openQuickView = async function (productId) {

@@ -3678,3 +3678,39 @@ input[type=range]::-webkit-slider-thumb:hover {
     font-size: 0.75rem !important;
   }
 }
+
+/* ==========================================================================
+   ORDER TRACKING MODAL STYLES (ALWAYS TOP LAYER & MOBILE POLISHED)
+   ========================================================================== */
+#order-tracking-modal {
+  z-index: 100050 !important;
+}
+
+#order-tracking-modal.active {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+#order-tracking-modal .modal-card {
+  background: #180307;
+  background: linear-gradient(180deg, #22040b 0%, #120205 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 600px) {
+  #order-tracking-modal {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+  #order-tracking-modal .modal-card {
+    border-radius: 20px 20px 0 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 85vh !important;
+    padding: 20px 16px 32px !important;
+  }
+}
