@@ -331,7 +331,7 @@ a.announcement-item:hover {
   justify-content: space-between;
   height: 74px;
   width: 100%;
-  padding: 0 16px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -340,7 +340,7 @@ a.announcement-item:hover {
   align-items: center;
   gap: 12px;
   padding-right: 18px;
-  padding-left: 14px;
+  padding-left: 20px;
   border-right: 1.5px solid #000000;
   height: 74px;
   flex-shrink: 0;
@@ -500,7 +500,7 @@ a.announcement-item:hover {
 }
 
 .action-btn:last-child {
-  border-right: 1.5px solid #000000;
+  border-right: none;
 }
 
 .action-btn svg {
