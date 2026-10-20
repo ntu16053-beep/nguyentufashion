@@ -2816,7 +2816,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   }
 
   .hero-bg-img {
-    object-position: 24% 55% !important; /* Hướng nhẹ ra phía Núi Phú Sĩ, giữ trọn ngôi nhà bên trái */
+    object-position: 22% 50% !important; /* Hien thi ro net ngoi nha, bang hieu va long den Oni */
     filter: brightness(0.96) contrast(1.05) !important;
   }
 
