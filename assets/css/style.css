@@ -2540,8 +2540,8 @@ input[type=range]::-webkit-slider-thumb:hover {
     gap: 24px;
   }
   .hero-trust-bar {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
   }
   .flash-sale-inner {
     padding: 24px;
@@ -2732,49 +2732,147 @@ input[type=range]::-webkit-slider-thumb:hover {
     border-left: none !important;
   }
 
-  /* 4. Hero Section */
+  /* 4. Hero Section (Hạ ảnh nền lộ rõ nhà & núi, 2 nút nhỏ gọn khớp khung hình) */
   .hero-section {
-    padding: 36px 0 24px !important;
+    padding: 22px 0 16px !important;
     min-height: auto !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .hero-bg-img {
+    object-position: center 70% !important; /* Dịch chuyển trọng tâm xuống thấp để thấy trọn vẹn làng nhà cổ và dãy núi */
+    filter: brightness(0.96) contrast(1.05) !important;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg, 
+      rgba(10, 10, 10, 0.22) 0%, 
+      rgba(10, 10, 10, 0.16) 35%, 
+      rgba(40, 6, 12, 0.42) 70%,
+      rgba(40, 6, 12, 0.82) 100%
+    ) !important; /* Giảm độ tối ở giữa và dưới để nhà và núi lộ rõ rệt, đẹp lung linh */
+  }
+
+  .hero-content {
+    padding: 10px 0 8px !important;
   }
 
   .hero-tagline-wrapper {
-    margin-bottom: 10px !important;
+    margin-bottom: 8px !important;
+    padding: 3px 10px !important;
+    background: rgba(0, 0, 0, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
   }
 
   .hero-tagline {
-    font-size: 0.6875rem !important;
-    letter-spacing: 0.08em !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.06em !important;
   }
 
   .hero-title {
-    font-size: 1.65rem !important;
-    line-height: 1.25 !important;
-    margin-bottom: 10px !important;
+    font-size: 1.38rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 6px !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95) !important;
   }
 
   .hero-desc {
-    font-size: 0.8125rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 20px !important;
-    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 12px !important;
+    max-width: 310px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9) !important;
   }
 
+  /* Hai nút thu nhỏ gọn gàng, vừa vặn khung hình điện thoại */
   .hero-actions {
     display: flex !important;
     flex-direction: column !important;
-    gap: 10px !important;
+    align-items: center !important;
+    gap: 7px !important;
     width: 100% !important;
-    max-width: 320px !important;
+    max-width: 250px !important;
     margin: 0 auto !important;
   }
 
   .hero-actions .btn {
     width: 100% !important;
-    padding: 12px 18px !important;
-    font-size: 0.8125rem !important;
-    border-radius: 30px !important;
+    max-width: 240px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 6px 14px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    border-radius: 9999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
     justify-content: center !important;
+    gap: 6px !important;
+    letter-spacing: 0.02em !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .hero-actions .btn svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  /* Thanh tiêu chí uy tín gọn gàng dạng 3 ô ngang, không choán diện tích */
+  .hero-trust-bar {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    margin-top: 14px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    max-width: 340px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .trust-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 3px !important;
+    padding: 6px 4px !important;
+    background: rgba(0, 0, 0, 0.35) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+
+  .trust-icon {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #8c1125 0%, #630a18 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .trust-label {
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  .trust-sub {
+    display: none !important;
   }
 
   /* 5. Product Grid & Card (FIX GIÁ TO VÀ CHÈN LÊN NHAU) */
