@@ -2248,7 +2248,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 .footer-brand-name .brand-fashion {
   font-weight: 800;
   letter-spacing: 0.07em;
-  color: var(--accent-gold);
+  color: #ffffff;
   transition: color var(--transition-fast);
 }
 
