@@ -586,11 +586,9 @@
       modal.id = 'quick-view-modal';
       modal.className = 'modal-overlay';
       modal.innerHTML = `
-        <div class="modal-card" style="max-width:760px; width:95%; max-height:90vh; overflow-y:auto; padding:28px;">
-          <div style="display:flex; justify-content:flex-end;">
-            <button onclick="document.getElementById('quick-view-modal').classList.remove('active')" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
-          </div>
-          <div id="quick-view-content" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+        <div class="modal-card">
+          <button class="modal-close-btn" onclick="document.getElementById('quick-view-modal').classList.remove('active')" aria-label="Đóng">&times;</button>
+          <div id="quick-view-content" class="quick-view-grid">
           </div>
         </div>
       `;
@@ -625,7 +623,7 @@
 
     content.innerHTML = `
       <div style="background:#2a050b; border-radius:8px; overflow:hidden; position:relative;">
-        <img src="${prod.image}" alt="${prod.title}" id="qv-main-img" style="width:100%; height:380px; object-fit:cover;">
+        <img src="${prod.image}" alt="${prod.title}" id="qv-main-img" class="quick-view-img">
       </div>
       <div>
         <span style="font-size:0.75rem; color:var(--accent-red); font-weight:800; text-transform:uppercase;">${prod.categoryName || 'Streetwear'}</span>
