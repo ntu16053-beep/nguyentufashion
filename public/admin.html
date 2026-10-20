@@ -544,10 +544,6 @@
         <span>Đăng Nhập</span>
         <span style="font-size:1.2rem;">→</span>
       </button>
-
-      <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">
-        Mật khẩu quản trị duy nhất: <code style="color:var(--accent-gold); font-size:0.8rem; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">nguyentu978</code>
-      </div>
     </div>
   </div>
 
@@ -873,11 +869,11 @@
 
           <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border-light);">
             <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--accent-red);">🔐 Đổi Mật Mã Quản Trị (Admin PIN)</h4>
-            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Mật mã hiện tại: <strong>nguyentu978</strong>. Bạn có thể đổi sang mật mã mới bất kỳ lúc nào.</p>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Mật mã quản trị được mã hóa bảo mật. Nhập mật mã mới vào bên dưới nếu bạn muốn thay đổi.</p>
 
             <div class="form-control-wrap" style="margin-bottom:12px;">
               <label>Mật mã quản trị mới:</label>
-              <input type="text" id="new-admin-pin-input" class="custom-input" placeholder="Nhập mật mã quản trị mới..." value="nguyentu978">
+              <input type="password" id="new-admin-pin-input" class="custom-input" placeholder="Nhập mật mã quản trị mới..." autocomplete="new-password">
             </div>
 
             <button class="btn btn-primary" style="width:100%;" onclick="window.saveAdminPinSetting()">💾 Lưu Mật Mã Quản Trị Mới</button>
@@ -1281,22 +1277,13 @@
         if (res.ok && data.success && data.token) {
           loginSuccess = true;
           token = data.token;
-        } else if (pin === 'nguyentu978') {
-          loginSuccess = true;
-          token = 'admin-session-' + Date.now();
         } else {
           alert(data.message || 'Mật mã quản trị viên không chính xác!');
           return;
         }
       } catch (e) {
-        // Fallback when server is offline
-        if (pin === 'nguyentu978') {
-          loginSuccess = true;
-          token = 'admin-session-' + Date.now();
-        } else {
-          alert('Mật mã quản trị viên không chính xác hoặc không thể kết nối đến máy chủ!');
-          return;
-        }
+        alert('Không thể kết nối đến máy chủ xác thực. Vui lòng kiểm tra lại mạng hoặc thử lại sau!');
+        return;
       }
 
       if (loginSuccess) {
@@ -2350,8 +2337,10 @@
         });
         const data = await res.json();
         if (data.success) {
-          if (resultDiv) resultDiv.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">✓ Đã lưu mật mã quản trị mới (${pin}) thành công!</span>`;
+          if (resultDiv) resultDiv.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">✓ Đã lưu mật mã quản trị mới thành công!</span>`;
           window.showToast('✅ Đã đổi mật mã quản trị thành công!', 'success');
+          const pinInput = document.getElementById('new-admin-pin-input');
+          if (pinInput) pinInput.value = '';
         } else {
           if (resultDiv) resultDiv.innerHTML = `<span style="color:var(--accent-red); font-weight:700;">✕ ${data.message || 'Lỗi lưu mật mã'}</span>`;
         }
