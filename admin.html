@@ -76,10 +76,19 @@
       pointer-events: auto !important;
     }
 
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
     .admin-layout {
       display: grid;
       grid-template-columns: 240px 1fr;
       min-height: 100vh;
+      width: 100%;
     }
     .admin-aside {
       background: #1c0408;
@@ -87,7 +96,183 @@
       padding: 24px 16px;
       display: flex;
       flex-direction: column;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
     }
+    .admin-aside-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .admin-close-aside-btn {
+      display: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-light);
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 1;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .admin-close-aside-btn:hover {
+      background: var(--accent-red);
+    }
+    .admin-sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .admin-sidebar-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Mobile Topbar */
+    .admin-mobile-topbar {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: #190206;
+      border-bottom: 1px solid var(--border-light);
+      padding: 10px 14px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+    .admin-menu-toggle-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-light);
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .admin-menu-toggle-btn:active {
+      background: var(--accent-red);
+    }
+    .admin-topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      min-width: 0;
+    }
+    .admin-topbar-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .admin-topbar-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .admin-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .admin-topbar-btn {
+      padding: 6px 10px !important;
+      font-size: 0.75rem !important;
+      border-radius: 6px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      white-space: nowrap !important;
+    }
+
+    /* Mobile Bottom Navigation */
+    .admin-mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #190206;
+      border-top: 1px solid var(--border-light);
+      z-index: 9998;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 4px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+    }
+    .admin-bottom-nav-item {
+      flex: 1;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: color 0.2s, transform 0.1s;
+      position: relative;
+    }
+    .admin-bottom-nav-item:active {
+      transform: scale(0.95);
+    }
+    .admin-bottom-nav-item.active {
+      color: var(--accent-red);
+      font-weight: 700;
+    }
+    .admin-bottom-nav-item .b-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+      position: relative;
+    }
+    .admin-bottom-nav-item .b-badge {
+      position: absolute;
+      top: -4px;
+      right: -8px;
+      background: var(--accent-red);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 800;
+      min-width: 15px;
+      height: 15px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+    }
+
     .admin-nav-item {
       display: flex;
       align-items: center;
@@ -100,6 +285,7 @@
       cursor: pointer;
       margin-bottom: 6px;
       transition: all var(--transition-fast);
+      user-select: none;
     }
     .admin-nav-item:hover, .admin-nav-item.active {
       background: var(--accent-red);
@@ -108,6 +294,7 @@
     .admin-main-area {
       padding: 30px;
       overflow-y: auto;
+      min-width: 0;
     }
     .stat-card-grid {
       display: grid;
@@ -145,21 +332,162 @@
       padding: 4px 10px;
       border-radius: var(--radius-full);
       text-transform: uppercase;
+      white-space: nowrap;
+      display: inline-block;
     }
     .status-pending { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
     .status-confirmed { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
     .status-shipping { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #c084fc; }
     .status-completed { background: rgba(52, 211, 153, 0.2); color: #34d399; border: 1px solid #34d399; }
     .status-cancelled { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #f87171; }
+    
     .login-box-overlay {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.85);
       backdrop-filter: blur(8px);
-      z-index: 2000;
+      z-index: 20000;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 16px;
+    }
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    }
+
+    .table-responsive-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 24px;
+    }
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart-table th, .cart-table td {
+      padding: 10px 12px;
+      vertical-align: middle;
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 992px) {
+      .admin-layout, .admin-layout.active {
+        display: block !important;
+        grid-template-columns: 1fr !important;
+        min-height: 100vh;
+        width: 100%;
+      }
+      .admin-sidebar-backdrop {
+        display: block;
+      }
+      .admin-mobile-topbar {
+        display: flex;
+      }
+      .admin-aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        max-width: 82vw;
+        height: 100vh;
+        z-index: 10001;
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .admin-aside.open {
+        transform: translateX(0);
+        box-shadow: 12px 0 40px rgba(0, 0, 0, 0.85);
+      }
+      .admin-close-aside-btn {
+        display: inline-flex;
+      }
+      .admin-main-area {
+        padding: 16px 14px 85px 14px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+      }
+      .admin-pane-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+      .admin-pane-title {
+        font-size: 1.25rem !important;
+        word-break: break-word !important;
+      }
+      .admin-header-actions {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+      }
+      .admin-header-actions input,
+      .admin-header-actions select,
+      .admin-header-actions button {
+        width: 100% !important;
+      }
+      .stat-card-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        margin-bottom: 20px !important;
+      }
+      .stat-card {
+        padding: 14px 12px !important;
+      }
+      .stat-card-title {
+        font-size: 0.72rem !important;
+      }
+      .stat-card-value {
+        font-size: 1.25rem !important;
+        word-break: break-all;
+      }
+      .table-responsive-wrapper {
+        padding: 12px 8px !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-mobile-bottom-nav {
+        display: flex;
+      }
+      .modal-card {
+        padding: 18px 14px !important;
+        width: 95% !important;
+      }
+      .modal-form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stat-card-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .stat-card {
+        padding: 10px !important;
+      }
+      .stat-card-value {
+        font-size: 1.1rem !important;
+      }
     }
   </style>
 </head>
@@ -167,27 +495,67 @@
 
   <!-- LOGIN PIN MODAL -->
   <div class="login-box-overlay" id="admin-login-modal">
-    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:36px; width:360px; text-align:center;">
-      <img src="assets/images/logo.png" alt="Logo" style="width:50px; height:50px; margin:0 auto 14px;">
-      <h3 style="font-family:var(--font-heading); font-size:1.25rem; font-weight:800; margin-bottom:6px;">QUẢN TRỊ VIÊN</h3>
-      <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:20px;">Vui lòng nhập mật mã quản trị</p>
-      <input type="password" id="admin-pin-input" class="custom-input" placeholder="Mật mã quản trị viên" style="text-align:center; font-size:1.1rem; letter-spacing:2px; margin-bottom:16px;" onkeydown="if(event.key==='Enter') window.verifyAdminLogin();">
-      <button class="btn btn-primary" style="width:100%;" onclick="window.verifyAdminLogin()">Đăng Nhập</button>
+    <div class="login-card">
+      <img src="assets/images/logo.png" alt="Logo" style="width:56px; height:56px; margin:0 auto 12px; display:block;">
+      <h3 style="font-family:var(--font-heading); font-size:1.3rem; font-weight:800; margin-bottom:4px; color:#fff;">QUẢN TRỊ VIÊN</h3>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px;">Vui lòng nhập mật mã quản trị</p>
+      
+      <div style="position:relative; margin-bottom:16px;">
+        <input type="password" id="admin-pin-input" class="custom-input" placeholder="Mật mã quản trị viên" style="text-align:center; font-size:1.15rem; letter-spacing:2px; height:48px; padding-right:44px; width:100%; border-radius:8px;" onkeydown="if(event.key==='Enter') window.verifyAdminLogin();" autocomplete="current-password">
+        <button type="button" onclick="window.toggleAdminPinVisibility()" id="btn-toggle-pin-vis" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text-secondary); font-size:1.2rem; cursor:pointer; padding:6px; display:flex; align-items:center; justify-content:center;" title="Hiện / Ẩn mật khẩu" aria-label="Hiện / Ẩn mật khẩu">👁️</button>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%; height:48px; font-size:1rem; font-weight:700; border-radius:8px; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="window.verifyAdminLogin()">
+        <span>Đăng Nhập</span>
+        <span style="font-size:1.2rem;">→</span>
+      </button>
+
+      <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">
+        Mật khẩu quản trị mặc định: <code style="color:var(--accent-gold); font-size:0.8rem; background:rgba(255,255,255,0.06); padding:2px 6px; border-radius:4px;">nguyentu978</code>
+      </div>
     </div>
   </div>
 
   <!-- ADMIN WORKSPACE -->
   <div class="admin-layout" id="admin-app" style="display:none;">
     
-    <!-- SIDEBAR -->
-    <aside class="admin-aside">
-      <a href="index.html" class="brand-wrapper" style="margin-bottom:28px;">
-        <img src="assets/images/logo.png" alt="Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <span class="brand-name">NGUYENTU</span>
-          <span class="brand-sub">ADMIN PORTAL</span>
+    <!-- MOBILE TOPBAR (Visible only on mobile/tablet <= 992px) -->
+    <header class="admin-mobile-topbar">
+      <button type="button" class="admin-menu-toggle-btn" id="btn-toggle-admin-menu" onclick="window.toggleAdminSidebar()" aria-label="Mở menu quản trị">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      
+      <div class="admin-topbar-brand">
+        <img src="assets/images/logo.png" alt="Logo" class="admin-topbar-logo">
+        <div style="display:flex; flex-direction:column; line-height:1.2;">
+          <span class="admin-topbar-title">NGUYENTU ADMIN</span>
+          <span style="font-size:0.7rem; color:var(--accent-red); font-weight:700;" id="mobile-topbar-current-tab">Tổng Quan</span>
         </div>
-      </a>
+      </div>
+
+      <div class="admin-topbar-actions">
+        <a href="index.html" class="btn btn-outline-white admin-topbar-btn" title="Xem Storefront">🛍️ Shop</a>
+        <button type="button" class="btn btn-outline-white admin-topbar-btn" onclick="window.adminLogout()" title="Đăng Xuất">🚪</button>
+      </div>
+    </header>
+
+    <!-- BACKDROP FOR MOBILE SIDEBAR -->
+    <div class="admin-sidebar-backdrop" id="admin-sidebar-backdrop" onclick="window.closeAdminSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="admin-aside" id="admin-sidebar">
+      <div class="admin-aside-header">
+        <a href="index.html" class="brand-wrapper">
+          <img src="assets/images/logo.png" alt="Logo" class="brand-logo-img">
+          <div class="brand-text">
+            <span class="brand-name">NGUYENTU</span>
+            <span class="brand-sub">ADMIN PORTAL</span>
+          </div>
+        </a>
+        <button type="button" class="admin-close-aside-btn" onclick="window.closeAdminSidebar()" aria-label="Đóng menu">
+          &times;
+        </button>
+      </div>
 
       <div class="admin-nav-item active" onclick="window.switchAdminTab('overview', this)">
         <span>📊</span> <span>Tổng Quan</span>
@@ -226,9 +594,9 @@
       
       <!-- 1. TAB OVERVIEW -->
       <section class="admin-tab-pane active" id="pane-overview">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-          <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">TỔNG QUAN DOANH SỐ</h2>
-          <button class="btn btn-outline-white" onclick="window.loadAnalyticsData()" style="font-size:0.8125rem;">Làm Mới</button>
+        <div class="admin-pane-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <h2 class="admin-pane-title" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">TỔNG QUAN DOANH SỐ</h2>
+          <button class="btn btn-outline-white" onclick="window.loadAnalyticsData()" style="font-size:0.8125rem;">🔄 Làm Mới</button>
         </div>
 
         <div class="stat-card-grid">
@@ -250,26 +618,28 @@
           </div>
         </div>
 
-        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:24px; margin-bottom:30px;">
+        <div class="table-responsive-wrapper">
           <h3 style="font-size:1.1rem; font-weight:800; margin-bottom:16px;">TOP SẢN PHẨM BÁN CHẠY NHẤT</h3>
-          <table class="cart-table" id="top-products-table">
-            <thead>
-              <tr>
-                <th>Sản phẩm</th>
-                <th>Số lượng đã bán</th>
-                <th>Doanh thu</th>
-              </tr>
-            </thead>
-            <tbody id="top-products-tbody"></tbody>
-          </table>
+          <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+            <table class="cart-table" id="top-products-table" style="min-width:480px;">
+              <thead>
+                <tr>
+                  <th>Sản phẩm</th>
+                  <th>Số lượng đã bán</th>
+                  <th>Doanh thu</th>
+                </tr>
+              </thead>
+              <tbody id="top-products-tbody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <!-- 2. TAB ORDERS -->
       <section class="admin-tab-pane" id="pane-orders">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
-          <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">QUẢN LÝ ĐƠN HÀNG</h2>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <div class="admin-pane-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <h2 class="admin-pane-title" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">QUẢN LÝ ĐƠN HÀNG</h2>
+          <div class="admin-header-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
             <input type="text" id="order-search-input" class="custom-input" placeholder="🔍 Tìm SĐT / Mã đơn..." style="width:200px; height:38px; font-size:0.8125rem;" oninput="window.loadOrders()">
             <select class="custom-select" id="order-filter-status" onchange="window.loadOrders()" style="height:38px; font-size:0.8125rem;">
               <option value="all">Tất cả trạng thái</option>
@@ -282,8 +652,8 @@
           </div>
         </div>
 
-        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
-          <table class="cart-table">
+        <div class="table-responsive-wrapper">
+          <table class="cart-table" style="min-width:680px;">
             <thead>
               <tr>
                 <th>Mã Đơn</th>
@@ -304,12 +674,12 @@
 
       <!-- 3. TAB PRODUCTS -->
       <section class="admin-tab-pane" id="pane-products">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+        <div class="admin-pane-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
           <div>
-            <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">DANH SÁCH SẢN PHẨM (<span id="admin-prod-count">50</span>)</h2>
+            <h2 class="admin-pane-title" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">DANH SÁCH SẢN PHẨM (<span id="admin-prod-count">50</span>)</h2>
             <p style="font-size:0.8125rem; color:var(--text-secondary); margin-top:4px;">Chỉnh sửa giá trực tiếp, tạo sản phẩm mới hoặc chọn xóa sản phẩm khỏi website</p>
           </div>
-          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <div class="admin-header-actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
             <input type="text" id="admin-search-product" placeholder="🔍 Tìm theo tên hoặc mã..." class="custom-input" style="width:230px; padding:8px 12px; font-size:0.8125rem;" oninput="window.filterAdminProducts(this.value)">
             <button class="btn btn-dark" style="color:#38bdf8; border-color:rgba(56,189,248,0.5); display:inline-flex; align-items:center; gap:6px; padding:8px 14px;" onclick="window.restoreDefaultProducts()" title="Khôi phục lại toàn bộ 50 sản phẩm ban đầu">
               🔄 Khôi Phục Sản Phẩm
@@ -321,8 +691,8 @@
           </div>
         </div>
 
-        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
-          <table class="cart-table">
+        <div class="table-responsive-wrapper">
+          <table class="cart-table" style="min-width:720px;">
             <thead>
               <tr>
                 <th style="width:36px; text-align:center;"><input type="checkbox" id="check-all-products" onchange="window.toggleCheckAllProducts(this.checked)" title="Chọn tất cả"></th>
@@ -344,12 +714,12 @@
 
       <!-- 4. TAB COUPONS -->
       <section class="admin-tab-pane" id="pane-coupons">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
-          <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">MÃ GIẢM GIÁ & KHUYẾN MÃI</h2>
+        <div class="admin-pane-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <h2 class="admin-pane-title" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">MÃ GIẢM GIÁ & KHUYẾN MÃI</h2>
           <button class="btn btn-primary" id="btn-open-create-coupon" onclick="window.openCreateCouponModal()" style="cursor:pointer;">+ Thêm Mã Giảm Giá</button>
         </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
-          <table class="cart-table">
+        <div class="table-responsive-wrapper">
+          <table class="cart-table" style="min-width:580px;">
             <thead>
               <tr>
                 <th>Mã Code</th>
@@ -369,9 +739,11 @@
 
       <!-- 5. TAB INQUIRIES -->
       <section class="admin-tab-pane" id="pane-inquiries">
-        <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase; margin-bottom:24px;">YÊU CẦU TƯ VẤN & LIÊN HỆ</h2>
-        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:20px; overflow-x:auto;">
-          <table class="cart-table">
+        <div class="admin-pane-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+          <h2 class="admin-pane-title" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">YÊU CẦU TƯ VẤN & LIÊN HỆ</h2>
+        </div>
+        <div class="table-responsive-wrapper">
+          <table class="cart-table" style="min-width:580px;">
             <thead>
               <tr>
                 <th>Thời Gian</th>
@@ -459,6 +831,22 @@
             </div>
             <div id="gh-test-result" style="margin-top:12px; font-size:0.8125rem;"></div>
           </div>
+
+          <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border-light);">
+            <h4 style="font-size:1rem; font-weight:800; margin-bottom:8px; color:var(--accent-red);">🔐 Đổi Mật Mã Quản Trị (Admin PIN)</h4>
+            <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:14px;">Mật mã hiện tại: <strong>nguyentu978</strong>. Bạn có thể đổi sang mật mã mới bất kỳ lúc nào.</p>
+
+            <div class="form-control-wrap" style="margin-bottom:12px;">
+              <label>Mật mã quản trị mới:</label>
+              <input type="text" id="new-admin-pin-input" class="custom-input" placeholder="Nhập mật mã quản trị mới..." value="nguyentu978">
+            </div>
+
+            <button class="btn btn-primary" style="width:100%;" onclick="window.saveAdminPinSetting()">💾 Lưu Mật Mã Quản Trị Mới</button>
+            <div id="pin-save-result" style="margin-top:12px; font-size:0.8125rem;"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- 7. TAB ARTICLES -->
       <section class="admin-tab-pane" id="pane-articles">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
@@ -469,8 +857,8 @@
           <button class="btn btn-primary" onclick="window.openCreateArticleModal()">+ Viết Bài Mới</button>
         </div>
 
-        <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse; font-size:0.875rem;">
+        <div class="table-responsive-wrapper">
+          <table style="width:100%; min-width:650px; border-collapse:collapse; font-size:0.875rem;">
             <thead>
               <tr style="border-bottom:1px solid var(--border-light); text-align:left; color:var(--text-muted);">
                 <th style="padding:14px 16px;">Hình Ảnh</th>
@@ -491,6 +879,30 @@
 
     </main>
 
+    <!-- MOBILE BOTTOM NAVIGATION (Visible only on mobile <= 768px) -->
+    <nav class="admin-mobile-bottom-nav">
+      <button type="button" class="admin-bottom-nav-item active" data-tab="overview" onclick="window.switchAdminTab('overview')">
+        <span class="b-icon">📊</span>
+        <span class="b-label">Tổng Quan</span>
+      </button>
+      <button type="button" class="admin-bottom-nav-item" data-tab="orders" onclick="window.switchAdminTab('orders')">
+        <span class="b-icon">📦<span class="b-badge" id="mobile-orders-badge" style="display:none;">0</span></span>
+        <span class="b-label">Đơn Hàng</span>
+      </button>
+      <button type="button" class="admin-bottom-nav-item" data-tab="products" onclick="window.switchAdminTab('products')">
+        <span class="b-icon">👕</span>
+        <span class="b-label">Sản Phẩm</span>
+      </button>
+      <button type="button" class="admin-bottom-nav-item" data-tab="coupons" onclick="window.switchAdminTab('coupons')">
+        <span class="b-icon">🏷️</span>
+        <span class="b-label">Mã Giảm</span>
+      </button>
+      <button type="button" class="admin-bottom-nav-item" onclick="window.toggleAdminSidebar()">
+        <span class="b-icon">☰</span>
+        <span class="b-label">Menu</span>
+      </button>
+    </nav>
+
   </div>
 
   <!-- CREATE ARTICLE MODAL -->
@@ -506,7 +918,7 @@
         <input type="text" id="art-title-input" class="custom-input" placeholder="VD: Xu hướng Streetwear mùa hè 2026..." required>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;" class="modal-form-grid">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Chuyên Mục *</label>
           <select id="art-cat-input" class="custom-input">
@@ -615,7 +1027,7 @@
         <input type="text" id="new-p-title" class="custom-input" placeholder="VD: Áo Thun LV Monogram Đỏ Mận..." required>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;" class="modal-form-grid">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Danh Mục *</label>
           <select id="new-p-category" class="custom-input">
@@ -641,7 +1053,7 @@
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;" class="modal-form-grid">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Giá Bán (VNĐ) *</label>
           <input type="number" id="new-p-price" class="custom-input" placeholder="VD: 450000" required>
@@ -657,7 +1069,7 @@
         <input type="text" id="new-p-image" class="custom-input" placeholder="VD: assets/images/products/ao-khoac-argentina-trang.png">
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;" class="modal-form-grid">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Các Size (Cách nhau dấu phẩy)</label>
           <input type="text" id="new-p-sizes" class="custom-input" value="M, L, XL, XXL">
@@ -698,7 +1110,7 @@
         <input type="text" id="new-cp-desc" class="custom-input" placeholder="VD: Giảm 20% cho học sinh sinh viên Ninh Bình">
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;" class="modal-form-grid">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Loại Giảm Giá *</label>
           <select id="new-cp-type" class="custom-input" onchange="window.handleCouponTypeChange(this.value)">
@@ -712,7 +1124,7 @@
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;" class="modal-form-grid">
         <div class="form-control-wrap">
           <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Đơn Hàng Tối Thiểu (VNĐ)</label>
           <input type="number" id="new-cp-min" class="custom-input" placeholder="VD: 299000" value="0">
@@ -772,6 +1184,43 @@
       };
     })();
 
+    window.toggleAdminPinVisibility = function () {
+      const pinInput = document.getElementById('admin-pin-input');
+      const btn = document.getElementById('btn-toggle-pin-vis');
+      if (!pinInput) return;
+      if (pinInput.type === 'password') {
+        pinInput.type = 'text';
+        if (btn) btn.textContent = '🙈';
+      } else {
+        pinInput.type = 'password';
+        if (btn) btn.textContent = '👁️';
+      }
+    };
+
+    window.toggleAdminSidebar = function () {
+      const sidebar = document.getElementById('admin-sidebar');
+      const backdrop = document.getElementById('admin-sidebar-backdrop');
+      if (!sidebar) return;
+      const isOpen = sidebar.classList.contains('open');
+      if (isOpen) {
+        sidebar.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      } else {
+        sidebar.classList.add('open');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    window.closeAdminSidebar = function () {
+      const sidebar = document.getElementById('admin-sidebar');
+      const backdrop = document.getElementById('admin-sidebar-backdrop');
+      if (sidebar) sidebar.classList.remove('open');
+      if (backdrop) backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
     window.verifyAdminLogin = async function () {
       const pin = document.getElementById('admin-pin-input').value.trim();
       if (!pin) {
@@ -793,7 +1242,7 @@
         if (res.ok && data.success && data.token) {
           loginSuccess = true;
           token = data.token;
-        } else if (pin === 'admin123' || pin === 'nguyentu2026') {
+        } else if (pin === 'admin123' || pin === 'nguyentu978') {
           loginSuccess = true;
           token = 'admin-session-' + Date.now();
         } else {
@@ -802,11 +1251,11 @@
         }
       } catch (e) {
         // Fallback when server is offline
-        if (pin === 'admin123' || pin === 'nguyentu2026') {
+        if (pin === 'admin123' || pin === 'nguyentu978') {
           loginSuccess = true;
           token = 'admin-session-' + Date.now();
         } else {
-          alert('Không thể kết nối đến máy chủ. Mật mã mặc định: admin123');
+          alert('Không thể kết nối đến máy chủ. Mật mã mặc định: nguyentu978');
           return;
         }
       }
@@ -816,7 +1265,11 @@
         localStorage.setItem('nt_admin_token', token);
         sessionStorage.setItem('admin_logged_in', 'true');
         document.getElementById('admin-login-modal').style.display = 'none';
-        document.getElementById('admin-app').style.display = 'grid';
+        const app = document.getElementById('admin-app');
+        if (app) {
+          app.classList.add('active');
+          app.style.display = '';
+        }
         window.loadAnalyticsData();
         window.loadOrders();
         window.loadAdminProducts();
@@ -825,29 +1278,50 @@
     };
 
     window.adminLogout = function () {
-      sessionStorage.removeItem('nt_admin_token');
-      localStorage.removeItem('nt_admin_token');
-      sessionStorage.removeItem('admin_logged_in');
-      location.reload();
+      if (confirm('Bạn có chắc chắn muốn đăng xuất tài khoản Quản trị?')) {
+        sessionStorage.removeItem('nt_admin_token');
+        localStorage.removeItem('nt_admin_token');
+        sessionStorage.removeItem('admin_logged_in');
+        location.reload();
+      }
     };
 
     window.switchAdminTab = function (paneKey, el) {
       try {
         document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.admin-bottom-nav-item').forEach(i => i.classList.remove('active'));
         document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
 
         let targetNav = el;
-        if (!targetNav) {
+        if (!targetNav || !targetNav.classList.contains('admin-nav-item')) {
           targetNav = document.getElementById(`admin-nav-${paneKey}`) ||
                       document.querySelector(`.admin-nav-item[data-tab="${paneKey}"]`) ||
                       Array.from(document.querySelectorAll('.admin-nav-item')).find(i => i.getAttribute('onclick')?.includes(`'${paneKey}'`));
         }
         if (targetNav) targetNav.classList.add('active');
 
+        const bottomTarget = document.querySelector(`.admin-bottom-nav-item[data-tab="${paneKey}"]`);
+        if (bottomTarget) bottomTarget.classList.add('active');
+
         const targetPane = document.getElementById(`pane-${paneKey}`);
         if (targetPane) {
           targetPane.classList.add('active');
         }
+
+        const titleMap = {
+          overview: 'Tổng Quan',
+          orders: 'Đơn Hàng',
+          products: 'Sản Phẩm',
+          coupons: 'Mã Giảm Giá',
+          inquiries: 'Tư Vấn',
+          articles: 'Bài Viết Blog',
+          settings: 'Cài Đặt & Bot'
+        };
+        const curTabEl = document.getElementById('mobile-topbar-current-tab');
+        if (curTabEl && titleMap[paneKey]) curTabEl.textContent = titleMap[paneKey];
+
+        window.closeAdminSidebar();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         if (paneKey === 'orders') window.loadOrders();
         if (paneKey === 'products') window.loadAdminProducts();
@@ -940,25 +1414,51 @@
         );
       }
 
+      const allPending = ordersList.filter(o => o.status === 'pending').length;
+      const statPending = document.getElementById('stat-pending-orders');
+      if (statPending && status === 'all') statPending.textContent = allPending;
+      const mobileBadge = document.getElementById('mobile-orders-badge');
+      if (mobileBadge) {
+        if (allPending > 0) {
+          mobileBadge.textContent = allPending;
+          mobileBadge.style.display = 'inline-flex';
+        } else {
+          mobileBadge.style.display = 'none';
+        }
+      }
+
+      const statusLabels = {
+        pending: 'Chờ duyệt',
+        confirmed: 'Đã duyệt',
+        shipping: 'Đang giao 2H',
+        completed: 'Hoàn tất',
+        cancelled: 'Đã hủy'
+      };
+
       const tbody = document.getElementById('orders-tbody');
       tbody.innerHTML = ordersList.map(o => `
         <tr>
-          <td><code>${o.id}</code></td>
-          <td><strong>${o.customerName}</strong></td>
-          <td>${o.customerPhone}<br><span style="font-size:0.75rem; color:#888;">${o.address}</span></td>
-          <td><strong style="color:var(--accent-red);">${window.formatVND(o.totalAmount)}</strong></td>
-          <td>${(o.paymentMethod || 'cod').toUpperCase()}</td>
-          <td><span class="status-badge status-${o.status}">${o.status}</span></td>
+          <td><code style="font-weight:700; color:#fff;">${o.id}</code></td>
+          <td><strong>${o.customerName || 'Khách vãng lai'}</strong></td>
           <td>
-            <select class="custom-select" style="font-size:0.75rem; padding:4px 8px; margin-bottom:4px;" onchange="window.updateOrderStatus('${o.id}', this.value)">
+            <a href="tel:${o.customerPhone}" style="color:var(--accent-red); font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+              <span>📞</span> ${o.customerPhone || 'N/A'}
+            </a>
+            <br><span style="font-size:0.75rem; color:#aaa; line-height:1.3; display:inline-block; margin-top:2px;">${o.address || ''}</span>
+          </td>
+          <td><strong style="color:var(--accent-red); font-size:0.95rem;">${window.formatVND(o.totalAmount)}</strong></td>
+          <td><span style="font-size:0.8rem; font-weight:700; background:rgba(255,255,255,0.08); padding:3px 8px; border-radius:4px;">${(o.paymentMethod || 'cod').toUpperCase()}</span></td>
+          <td><span class="status-badge status-${o.status}">${statusLabels[o.status] || o.status}</span></td>
+          <td>
+            <select class="custom-select" style="font-size:0.8125rem; padding:6px 10px; margin-bottom:6px; min-height:36px; min-width:130px; border-radius:6px;" onchange="window.updateOrderStatus('${o.id}', this.value)">
               <option value="pending" ${o.status==='pending'?'selected':''}>Chờ duyệt</option>
               <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Đã duyệt</option>
               <option value="shipping" ${o.status==='shipping'?'selected':''}>Đang giao 2H</option>
               <option value="completed" ${o.status==='completed'?'selected':''}>Hoàn tất</option>
-              <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Hủy</option>
+              <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Hủy đơn</option>
             </select>
             <div>
-              <button class="btn btn-outline-white" style="font-size:0.7rem; padding:3px 8px;" onclick="window.printOrderReceipt('${o.id}')">🖨️ In Phiếu</button>
+              <button class="btn btn-outline-white" style="font-size:0.75rem; padding:5px 10px; min-height:32px; border-radius:6px; width:100%; display:inline-flex; align-items:center; justify-content:center; gap:4px;" onclick="window.printOrderReceipt('${o.id}')">🖨️ In Phiếu</button>
             </div>
           </td>
         </tr>
@@ -1794,6 +2294,33 @@
       }
     };
 
+    window.saveAdminPinSetting = async function () {
+      const pin = document.getElementById('new-admin-pin-input').value.trim();
+      const resultDiv = document.getElementById('pin-save-result');
+      if (!pin) {
+        alert('Vui lòng nhập mật mã quản trị mới!');
+        return;
+      }
+      if (resultDiv) resultDiv.innerHTML = '<span style="color:#aaa;">Đang lưu mật mã mới...</span>';
+
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ adminPin: pin })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (resultDiv) resultDiv.innerHTML = `<span style="color:var(--accent-green); font-weight:700;">✓ Đã lưu mật mã quản trị mới (${pin}) thành công!</span>`;
+          window.showToast('✅ Đã đổi mật mã quản trị thành công!', 'success');
+        } else {
+          if (resultDiv) resultDiv.innerHTML = `<span style="color:var(--accent-red); font-weight:700;">✕ ${data.message || 'Lỗi lưu mật mã'}</span>`;
+        }
+      } catch (e) {
+        if (resultDiv) resultDiv.innerHTML = '<span style="color:var(--accent-red);">Lỗi kết nối máy chủ!</span>';
+      }
+    };
+
     // ==========================================
     // ARTICLE / BLOG MANAGEMENT
     // ==========================================
@@ -2023,7 +2550,10 @@
         const modal = document.getElementById('admin-login-modal');
         if (modal) modal.style.display = 'none';
         const app = document.getElementById('admin-app');
-        if (app) app.style.display = 'grid';
+        if (app) {
+          app.classList.add('active');
+          app.style.display = '';
+        }
         window.loadAnalyticsData();
         window.loadOrders();
         window.loadAdminProducts();
@@ -2031,7 +2561,10 @@
         const modal = document.getElementById('admin-login-modal');
         if (modal) modal.style.display = 'flex';
         const app = document.getElementById('admin-app');
-        if (app) app.style.display = 'none';
+        if (app) {
+          app.classList.remove('active');
+          app.style.display = 'none';
+        }
       }
     });
   </script>
