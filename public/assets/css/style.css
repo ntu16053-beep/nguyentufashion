@@ -2205,16 +2205,55 @@ input[type=range]::-webkit-slider-thumb:hover {
 }
 
 .footer-brand-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.footer-brand-logo img {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
+.footer-brand-logo img,
+.footer-brand-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  background-color: #0c0103;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  flex-shrink: 0;
+  transition: transform var(--transition-bounce);
+}
+
+.footer-brand-logo:hover img,
+.footer-brand-logo:hover .footer-brand-img {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+.footer-brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  line-height: 1.1;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  text-transform: uppercase;
+}
+
+.footer-brand-name .brand-fashion {
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  color: var(--accent-gold);
+  transition: color var(--transition-fast);
+}
+
+.footer-brand-logo:hover .footer-brand-name .brand-fashion {
+  color: #ffffff;
 }
 
 .footer-desc {
@@ -3609,6 +3648,26 @@ input[type=range]::-webkit-slider-thumb:hover {
   }
 
   /* 1. Brand column spans full 100% width on mobile */
+  
+  /* Mobile Footer Brand Logo & Typography Polished */
+  .footer-brand-logo {
+    gap: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .footer-brand-logo img,
+  .footer-brand-img {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 8px !important;
+  }
+
+  .footer-brand-name {
+    font-size: 1.14rem !important;
+    letter-spacing: 0.03em !important;
+    gap: 6px !important;
+  }
+
   .footer-top > div:first-child {
     grid-column: 1 / -1 !important;
     padding-bottom: 16px !important;
