@@ -2789,24 +2789,24 @@ input[type=range]::-webkit-slider-thumb:hover {
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9) !important;
   }
 
-  /* Hai nút thu nhỏ gọn gàng, vừa vặn khung hình điện thoại */
+  /* Hai nút chuẩn tỷ lệ khung nhìn, không bị gãy dòng, đối xứng cân đối tuyệt đối */
   .hero-actions {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 7px !important;
+    gap: 8px !important;
     width: 100% !important;
-    max-width: 250px !important;
+    max-width: 290px !important;
     margin: 0 auto !important;
   }
 
   .hero-actions .btn {
     width: 100% !important;
-    max-width: 240px !important;
-    height: 38px !important;
-    min-height: 38px !important;
-    padding: 6px 14px !important;
-    font-size: 0.75rem !important;
+    max-width: 280px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    font-size: 0.725rem !important;
     font-weight: 700 !important;
     border-radius: 9999px !important;
     display: inline-flex !important;
@@ -2814,12 +2814,20 @@ input[type=range]::-webkit-slider-thumb:hover {
     justify-content: center !important;
     gap: 6px !important;
     letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-actions .btn span {
+    white-space: nowrap !important;
+    overflow: visible !important;
   }
 
   .hero-actions .btn svg {
-    width: 13px !important;
-    height: 13px !important;
+    width: 14px !important;
+    height: 14px !important;
+    flex-shrink: 0 !important;
   }
 
   /* Thanh tiêu chí uy tín gọn gàng dạng 3 ô ngang, không choán diện tích */
