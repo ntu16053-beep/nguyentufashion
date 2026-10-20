@@ -87,7 +87,21 @@
   // --------------------------------------------------------------------------
   window.getCart = function () {
     try {
-      return JSON.parse(localStorage.getItem('nguyentu_cart') || '[]');
+      const raw = JSON.parse(localStorage.getItem('nguyentu_cart') || '[]');
+      if (!Array.isArray(raw)) return [];
+      return raw.map(item => {
+        const q = Math.max(1, Number(item.qty || item.quantity || 1));
+        let p = Number(item.price);
+        if (isNaN(p) || p <= 0) p = 450000;
+        return {
+          ...item,
+          id: item.id || item.productId || 'item-' + Date.now(),
+          productId: item.productId || item.id || 'item-' + Date.now(),
+          qty: q,
+          quantity: q,
+          price: p
+        };
+      });
     } catch (e) {
       return [];
     }
@@ -111,19 +125,29 @@
     const existingIndex = cart.findIndex(c => c.productId === productId && c.size === size && c.color === color);
 
     if (existingIndex > -1) {
-      cart[existingIndex].quantity += quantity;
+      const cur = Math.max(1, Number(cart[existingIndex].quantity || cart[existingIndex].qty || 1));
+      cart[existingIndex].quantity = cur + quantity;
+      cart[existingIndex].qty = cur + quantity;
     } else {
+      let price = item ? Number(item.price) : 450000;
+      if (isNaN(price) || price <= 0) price = 450000;
+      let oldPrice = item ? Number(item.oldPrice) : 550000;
+      if (isNaN(oldPrice) || oldPrice <= 0) oldPrice = 550000;
+
       cart.push({
+        id: productId,
         productId: productId,
         title: item ? item.title : 'Sản phẩm ' + productId,
-        price: item ? item.price : 450000,
-        oldPrice: item ? item.oldPrice : 550000,
+        price: price,
+        oldPrice: oldPrice,
         image: item ? item.image : 'assets/images/products/ao-khoac-argentina-trang.png',
         category: item ? item.category : 'jacket',
         size: size,
         color: color,
-        quantity: quantity
+        quantity: quantity,
+        qty: quantity
       });
+    });
     }
 
     window.saveCart(cart);
@@ -146,11 +170,13 @@
   window.updateCartQuantity = function (index, delta) {
     const cart = window.getCart();
     if (index >= 0 && index < cart.length) {
-      const newQty = cart[index].quantity + delta;
+      const cur = Math.max(1, Number(cart[index].quantity || cart[index].qty || 1));
+      const newQty = cur + delta;
       if (newQty <= 0) {
         window.removeFromCart(index);
       } else {
         cart[index].quantity = newQty;
+        cart[index].qty = newQty;
         window.saveCart(cart);
         window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
       }
@@ -165,12 +191,12 @@
 
   window.getCartSubtotal = function () {
     const cart = window.getCart();
-    return cart.reduce((sum, item) => sum + (Number(item.price) * Number(item.quantity)), 0);
+    return cart.reduce((sum, item) => sum + ((Number(item.price) || 0) * Math.max(1, Number(item.quantity || item.qty || 1))), 0);
   };
 
   window.getCartCount = function () {
     const cart = window.getCart();
-    return cart.reduce((sum, item) => sum + Number(item.quantity), 0);
+    return cart.reduce((sum, item) => sum + Math.max(1, Number(item.quantity || item.qty || 1)), 0);
   };
 
   // --------------------------------------------------------------------------

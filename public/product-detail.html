@@ -270,9 +270,9 @@
       <!-- TABS SECTION: DETAILS, SIZE GUIDE, REVIEWS -->
       <section class="product-tabs-section">
         <div class="tab-nav-bar">
-          <button class="tab-nav-item active" onclick="window.switchDetailTab('desc', this)">Mô Tả & Chất Liệu</button>
-          <button class="tab-nav-item" onclick="window.switchDetailTab('size', this)">Bảng Số Đo Chi Tiết</button>
-          <button class="tab-nav-item" onclick="window.switchDetailTab('shipping', this)">Chính Sách Vận Chuyển</button>
+          <button class="tab-nav-item active" onclick="window.switchDetailTab('desc', this)">Mô Tả Chi Tiết</button>
+          <button class="tab-nav-item" onclick="window.switchDetailTab('size', this)">Bảng Size Chuẩn</button>
+          <button class="tab-nav-item" onclick="window.switchDetailTab('shipping', this)">Giao Hàng & Đổi Trả</button>
           <button class="tab-nav-item" onclick="window.switchDetailTab('reviews', this)">Đánh Giá (<span id="tab-review-count">186</span>)</button>
         </div>
 
@@ -356,12 +356,14 @@
 
         <!-- Tab 4: Reviews -->
         <div class="tab-content-panel" id="tab-pane-reviews">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+          <div class="reviews-header-wrap" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; gap:16px; flex-wrap:wrap;">
             <div>
-              <h3 style="font-size:1.25rem; font-weight:800;">Đánh Giá Từ Khách Hàng Ninh Bình</h3>
-              <p style="font-size:0.8125rem; color:var(--text-muted);">100% người mua hàng thực tế đã trải nghiệm</p>
+              <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Đánh Giá Từ Khách Hàng</h3>
+              <p style="font-size:0.8125rem; color:var(--text-muted); margin-top:2px;">100% người mua hàng thực tế đã trải nghiệm tại Ninh Bình</p>
             </div>
-            <button class="btn btn-outline-white" onclick="window.openReviewModal()">Viết Đánh Giá</button>
+            <button class="btn-write-review-pill" onclick="window.openReviewModal()">
+              <span>✍️ Viết Đánh Giá</span>
+            </button>
           </div>
 
           <div style="display:flex; flex-direction:column; gap:16px;" id="detail-reviews-list">
@@ -375,7 +377,7 @@
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
           <div>
             <span style="color:var(--accent-red); font-size:0.8125rem; font-weight:800; text-transform:uppercase;">GỢI Ý TỪ STYLIST</span>
-            <h2 style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; text-transform:uppercase;">CÓ THỂ BẠN CŨNG THÍCH</h2>
+            <h2 style="font-family:var(--font-heading); font-size:clamp(1.15rem, 4.5vw, 1.45rem); font-weight:800; text-transform:uppercase; line-height:1.3; margin:0;">CÓ THỂ BẠN CŨNG THÍCH</h2>
           </div>
           <a href="products.html" style="font-size:0.875rem; font-weight:700; color:var(--accent-red);">Xem Tất Cả →</a>
         </div>
@@ -718,7 +720,7 @@
       colorRow.innerHTML = colors.map((c, idx) => `
         <div class="color-chip-ball ${idx === 0 ? 'active' : ''}" style="background-color:${c};" onclick="window.selectColor('${c}', this)" title="${c}"></div>
       `).join('');
-      document.getElementById('selected-color-name').textContent = colors[0];
+      document.getElementById('selected-color-name').textContent = window.getColorVietnameseName(colors[0]);
 
       // Sizes
       const sizeRow = document.getElementById('size-pill-row');
@@ -741,7 +743,7 @@
 
     window.selectColor = function (color, el) {
       selectedColor = color;
-      document.getElementById('selected-color-name').textContent = color;
+      document.getElementById('selected-color-name').textContent = window.getColorVietnameseName(color);
       document.querySelectorAll('.color-chip-ball').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
     };

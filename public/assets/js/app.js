@@ -867,7 +867,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 2. STATE MANAGEMENT
   // ==========================================
-  let cart = JSON.parse(localStorage.getItem('nguyentu_cart') || '[]');
+  const normalizeCart = (rawCart) => {
+    if (!Array.isArray(rawCart)) return [];
+    return rawCart.map(item => {
+      const q = Math.max(1, Number(item.qty || item.quantity || 1));
+      let p = Number(item.price);
+      if (isNaN(p) || p <= 0) p = 450000;
+      return {
+        ...item,
+        id: item.id || item.productId || 'item-' + Date.now(),
+        productId: item.productId || item.id || 'item-' + Date.now(),
+        qty: q,
+        quantity: q,
+        price: p
+      };
+    });
+  };
+
+  let cart = normalizeCart(JSON.parse(localStorage.getItem('nguyentu_cart') || '[]'));
   let wishlist = JSON.parse(localStorage.getItem('nguyentu_wishlist') || '[]');
   let currentFilter = 'all';
   let currentSort = 'default';
@@ -877,7 +894,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Format Currency VND
   const formatVND = (num) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num);
+    const val = Number(num);
+    if (isNaN(val) || !isFinite(val)) return '0₫';
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
   };
 
   // Toast System
@@ -898,10 +917,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Save to LocalStorage
   const saveState = () => {
+    cart = normalizeCart(cart);
     localStorage.setItem('nguyentu_cart', JSON.stringify(cart));
     localStorage.setItem('nguyentu_wishlist', JSON.stringify(wishlist));
     updateCartUI();
-    updateWishlistUI();
+    window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
   };
 
   // ==========================================
@@ -1112,10 +1132,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.updateCartQty = (index, delta) => {
     if (!cart[index]) return;
-    cart[index].qty += delta;
-    if (cart[index].qty <= 0) {
+    const curQty = Math.max(1, Number(cart[index].qty || cart[index].quantity || 1));
+    const newQty = curQty + delta;
+    if (newQty <= 0) {
       cart.splice(index, 1);
       showToast('Đã xóa sản phẩm khỏi giỏ hàng', '🗑️');
+    } else {
+      cart[index].qty = newQty;
+      cart[index].quantity = newQty;
     }
     saveState();
   };
@@ -1155,7 +1179,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const subtotal = cart.reduce((sum, item) => {
+      const q = Math.max(1, Number(item.qty || item.quantity || 1));
+      const p = Number(item.price) || 0;
+      return sum + (p * q);
+    }, 0);
     let discountAmount = 0;
     if (discountType === 'percent') {
       discountAmount = Math.round(subtotal * (appliedDiscount / 100));
@@ -1181,26 +1209,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (discountEl) discountEl.textContent = `-${formatVND(discountAmount)}`;
     if (finalTotalEl) finalTotalEl.textContent = formatVND(finalTotal);
 
-    drawerBody.innerHTML = cart.map((item, idx) => `
+    drawerBody.innerHTML = cart.map((item, idx) => {
+      const itemQty = Math.max(1, Number(item.qty || item.quantity || 1));
+      const itemPrice = Number(item.price) || 0;
+      return `
       <div class="cart-item">
-        <img class="cart-item-img" src="${item.image}" alt="${item.title}">
+        <img class="cart-item-img" src="${item.image || 'assets/images/products/ao-khoac-argentina-trang.png'}" alt="${item.title}">
         <div class="cart-item-details">
           <div>
             <h4 class="cart-item-title">${item.title}</h4>
-            <div class="cart-item-attr">Size: <strong>${item.size}</strong> | Màu: <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${item.color};vertical-align:middle;border:1px solid #ccc;"></span></div>
+            <div class="cart-item-attr">Size: <strong>${item.size || 'M'}</strong> | Màu: <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${item.color || '#111'};vertical-align:middle;border:1px solid #ccc;"></span></div>
           </div>
           <div class="cart-item-bottom">
             <div class="qty-control">
               <button class="qty-btn" onclick="window.updateCartQty(${idx}, -1)">-</button>
-              <span class="qty-num">${item.qty}</span>
+              <span class="qty-num">${itemQty}</span>
               <button class="qty-btn" onclick="window.updateCartQty(${idx}, 1)">+</button>
             </div>
-            <div class="cart-item-price">${formatVND(item.price * item.qty)}</div>
+            <div class="cart-item-price">${formatVND(itemPrice * itemQty)}</div>
           </div>
           <span class="cart-item-remove" onclick="window.removeCartItem(${idx})">Xóa</span>
         </div>
       </div>
-    `).join('');
+    `;}).join('');
   };
 
   // Open & Close Drawer

@@ -404,7 +404,9 @@
       emptyView.style.display = 'none';
 
       tbody.innerHTML = cart.map((item, idx) => {
-        const itemSubtotal = item.price * item.quantity;
+        const itemQty = Math.max(1, Number(item.quantity || item.qty || 1));
+        const itemPrice = Number(item.price) || 0;
+        const itemSubtotal = itemPrice * itemQty;
         return `
           <tr>
             <td>
@@ -418,11 +420,11 @@
                 </div>
               </div>
             </td>
-            <td><strong>${window.formatVND(item.price)}</strong></td>
+            <td><strong>${window.formatVND(itemPrice)}</strong></td>
             <td style="text-align:center;">
               <div class="qty-counter" style="display:inline-flex; height:38px;">
                 <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, -1)">-</button>
-                <input type="text" class="qty-input" value="${item.quantity}" readonly style="width:36px;">
+                <input type="text" class="qty-input" value="${itemQty}" readonly style="width:36px;">
                 <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, 1)">+</button>
               </div>
             </td>
