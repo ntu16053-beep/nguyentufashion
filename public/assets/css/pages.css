@@ -516,14 +516,16 @@ select option:hover {
   margin-bottom: 20px;
 }
 
-.price-current {
+.product-price-section .price-current,
+.product-detail-info .price-current {
   font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 800;
   color: var(--accent-red);
 }
 
-.price-old {
+.product-price-section .price-old,
+.product-detail-info .price-old {
   font-size: 1.15rem;
   color: var(--text-muted);
   text-decoration: line-through;
