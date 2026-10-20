@@ -243,33 +243,48 @@
               Lọc Sản Phẩm
             </button>
 
-            <div class="catalog-sort-wrap">
-              <label for="catalog-sort-select">Sắp xếp theo:</label>
-              <select id="catalog-sort-select" class="custom-select" onchange="window.handleSortChange(this.value)">
-                <option value="featured">Nổi bật nhất</option>
-                <option value="newest">Hàng mới nhất</option>
-                <option value="price-asc">Giá: Thấp đến Cao</option>
-                <option value="price-desc">Giá: Cao đến Thấp</option>
-                <option value="rating">Đánh giá cao nhất</option>
-              </select>
+            <div class="catalog-toolbar-actions">
+              <!-- View Grid Switcher: 3 cột / 4 cột -->
+              <div class="catalog-view-toggle desktop-only" role="group" aria-label="Kiểu hiển thị">
+                <button type="button" class="view-toggle-btn active" id="btn-view-3col" title="Hiển thị 3 cột to rõ" onclick="window.setGridCols(3)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="4" width="5.5" height="16" rx="1.5"></rect>
+                    <rect x="9.5" y="4" width="5.5" height="16" rx="1.5"></rect>
+                    <rect x="17" y="4" width="5.5" height="16" rx="1.5"></rect>
+                  </svg>
+                  <span>3 Cột</span>
+                </button>
+                <button type="button" class="view-toggle-btn" id="btn-view-4col" title="Hiển thị 4 cột vừa vặn" onclick="window.setGridCols(4)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="2" y="4" width="3.5" height="16" rx="1"></rect>
+                    <rect x="7.5" y="4" width="3.5" height="16" rx="1"></rect>
+                    <rect x="13" y="4" width="3.5" height="16" rx="1"></rect>
+                    <rect x="18.5" y="4" width="3.5" height="16" rx="1"></rect>
+                  </svg>
+                  <span>4 Cột</span>
+                </button>
+              </div>
+
+              <div class="catalog-sort-wrap">
+                <label for="catalog-sort-select">Sắp xếp theo:</label>
+                <select id="catalog-sort-select" class="custom-select" onchange="window.handleSortChange(this.value)">
+                  <option value="featured">Nổi bật nhất</option>
+                  <option value="newest">Hàng mới nhất</option>
+                  <option value="price-asc">Giá: Thấp đến Cao</option>
+                  <option value="price-desc">Giá: Cao đến Thấp</option>
+                  <option value="rating">Đánh giá cao nhất</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <!-- Product Grid with Horizontal Scroll (Lướt sang trái / phải để nhìn rõ sản phẩm) -->
+          <!-- Product Grid -->
           <div class="catalog-scroll-container">
-            <button class="catalog-scroll-arrow prev" id="catalog-scroll-prev" aria-label="Lướt sang trái" title="Lướt sang trái">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-
             <div class="catalog-scroll-viewport" id="catalog-scroll-viewport">
-              <div class="product-grid" id="catalog-product-grid">
+              <div class="product-grid grid-cols-3" id="catalog-product-grid">
                 <!-- Rendered dynamically -->
               </div>
             </div>
-
-            <button class="catalog-scroll-arrow next" id="catalog-scroll-next" aria-label="Lướt sang phải" title="Lướt sang phải">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
           </div>
 
           <!-- Empty State -->
@@ -661,6 +676,27 @@
       setTimeout(updateArrows, 150);
     }
 
+    // Toggle 3-column / 4-column grid view
+    window.setGridCols = function (cols) {
+      const grid = document.getElementById('catalog-product-grid');
+      const btn3 = document.getElementById('btn-view-3col');
+      const btn4 = document.getElementById('btn-view-4col');
+      if (!grid) return;
+      if (cols === 4) {
+        grid.classList.remove('grid-cols-3');
+        grid.classList.add('grid-cols-4');
+        if (btn4) btn4.classList.add('active');
+        if (btn3) btn3.classList.remove('active');
+        try { localStorage.setItem('catalog_cols', '4'); } catch(e) {}
+      } else {
+        grid.classList.remove('grid-cols-4');
+        grid.classList.add('grid-cols-3');
+        if (btn3) btn3.classList.add('active');
+        if (btn4) btn4.classList.remove('active');
+        try { localStorage.setItem('catalog_cols', '3'); } catch(e) {}
+      }
+    };
+
     // Mobile filter drawer controls
     window.openMobileFilter = function () {
       document.getElementById('filter-sidebar').classList.add('active-mobile');
@@ -679,6 +715,15 @@
       await window.loadAllProducts();
       renderCatalog();
       initCatalogScroll();
+
+      try {
+        const savedCols = localStorage.getItem('catalog_cols');
+        if (savedCols === '4') {
+          window.setGridCols(4);
+        } else {
+          window.setGridCols(3);
+        }
+      } catch(e) {}
     });
   </script>
 </body>

@@ -1042,7 +1042,7 @@ a.announcement-item:hover {
 }
 
 /* ==========================================================================
-   CATALOG HORIZONTAL SCROLL VIEWPORT (Lướt sang trái phải để nhìn rõ sản phẩm)
+   CATALOG GRID VIEWPORT & PRODUCT LAYOUT
    ========================================================================== */
 .catalog-scroll-container {
   position: relative;
@@ -1051,102 +1051,47 @@ a.announcement-item:hover {
 
 .catalog-scroll-viewport {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  padding: 8px 4px 18px 4px;
-  scrollbar-width: thin;
-  scrollbar-color: #8b1528 rgba(255, 255, 255, 0.08);
-  cursor: grab;
-}
-
-.catalog-scroll-viewport.is-dragging {
-  cursor: grabbing;
-  user-select: none;
-}
-
-.catalog-scroll-viewport::-webkit-scrollbar {
-  height: 8px;
-}
-
-.catalog-scroll-viewport::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-  margin: 0 40px;
-}
-
-.catalog-scroll-viewport::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #631221, #8b1528);
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.catalog-scroll-viewport::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-red);
+  overflow: visible;
+  padding: 6px 0 20px 0;
 }
 
 .catalog-scroll-viewport .product-grid {
-  min-width: 1240px; /* Đảm bảo đủ chiều rộng để các sản phẩm hiển thị to rõ, không bị bóp nghẽn */
+  min-width: 0 !important;
+  width: 100% !important;
 }
 
-/* Floating Navigation Arrows */
+/* Hide floating scroll arrows since grid wraps cleanly */
 .catalog-scroll-arrow {
-  position: absolute;
-  top: 36%;
-  transform: translateY(-50%);
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: rgba(30, 4, 8, 0.96);
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  outline: none;
+  display: none !important;
 }
 
-.catalog-scroll-arrow:hover {
-  background: #8b1528;
-  border-color: var(--accent-red);
-  color: #ffffff;
-  transform: translateY(-50%) scale(1.12);
-  box-shadow: 0 8px 24px rgba(255, 51, 75, 0.45);
-}
-
-.catalog-scroll-arrow.prev {
-  left: -22px;
-}
-
-.catalog-scroll-arrow.next {
-  right: -22px;
-}
-
-@media (max-width: 1280px) {
-  .catalog-scroll-arrow.prev {
-    left: -12px;
-  }
-  .catalog-scroll-arrow.next {
-    right: -12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .catalog-scroll-arrow {
-    display: none !important;
-  }
-}
-
-/* 4-Column balanced product grid */
+/* 4-Column balanced product grid for full-width sections (e.g. Homepage index.html) */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px 18px;
+  gap: 20px 16px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Catalog page layout (products.html with 280px sidebar):
+   3 columns provides the exact same ~305px spacious card size as homepage, 
+   ensuring NO product is ever cut off or pushed off-screen */
+.catalog-layout .product-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 18px;
+  width: 100%;
+  min-width: 0;
+}
+
+.catalog-layout .product-grid.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 12px;
+}
+
+.catalog-layout .product-grid.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 18px;
 }
 
 /* Product Card */
@@ -2315,13 +2260,23 @@ input[type=range]::-webkit-slider-thumb:hover {
    ========================================================================== */
 @media (max-width: 1240px) {
   .product-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 12px;
+  }
+  .catalog-layout .product-grid,
+  .catalog-layout .product-grid.grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px 12px;
   }
 }
 
 @media (max-width: 1024px) {
   .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 10px;
+  }
+  .catalog-layout .product-grid,
+  .catalog-layout .product-grid.grid-cols-4 {
     grid-template-columns: repeat(3, 1fr);
     gap: 14px 10px;
   }
@@ -2351,7 +2306,10 @@ input[type=range]::-webkit-slider-thumb:hover {
   .promo-card {
     height: 320px;
   }
-  .product-grid {
+  .product-grid,
+  .catalog-layout .product-grid,
+  .catalog-layout .product-grid.grid-cols-4,
+  .catalog-layout .product-grid.grid-cols-3 {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px 8px;
   }
