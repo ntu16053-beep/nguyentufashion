@@ -1,12 +1,14 @@
 /**
  * ==============================================================================
- * NGUYEN TU FASHION - CINEMATIC LIVING HERO BACKGROUND (NATURAL & ELEGANT)
+ * NGUYEN TU FASHION - CINEMATIC LIVING HERO BACKGROUND (V4 - MULTI-FLOCK SYSTEM)
  * ==============================================================================
  * Các chuyển động điện ảnh tinh tế & chuẩn nét:
  *  1. CÁNH HOA ĐÀO 3D: Rơi mềm mại, xoay 3 chiều, bay lượn theo làn gió chiều
  *  2. ÁNH SÁNG LỒNG ĐÈN: Ánh nến ấm áp chao nhẹ, thở dịu êm bên trong lồng đèn giấy
- *  3. ĐÀN CHIM THIÊN DI: Sải cánh thanh thoát bay qua bầu trời xa xăm
- *  (Bầu trời & mây giữ nguyên bản gốc tự nhiên)
+ *  3. ĐÀN CHIM THIÊN DI (2 - 3 ĐÀN BAY QUA LẠI):
+ *     - Đàn 1: Bay tầng trung từ trái sang phải qua đỉnh núi Phú Sĩ
+ *     - Đàn 2: Bay tầng cao từ phải sang trái ngược chiều xa xăm
+ *     - Đàn 3: Nhóm chim liệng cánh ngang sườn núi và tháp chùa
  *
  * Tối ưu hóa:
  *  - 60 FPS siêu mượt bằng HTML5 Canvas 2D
@@ -278,40 +280,59 @@
     }
 
     // ==========================================================================
-    // 3. ĐÀN CHIM XA XA BAY QUA PHÍA BẦU TRỜI NÚI PHÚ SĨ
+    // 3. HỆ THỐNG 2 - 3 ĐÀN CHIM BAY QUA LẠI TRÊN BẦU TRỜI
     // ==========================================================================
-    class DistantBirdFlock {
-      constructor() {
+    class BirdFlock {
+      constructor(config) {
+        this.dir = config.dir || 1; // 1: Trái -> Phải, -1: Phải -> Trái
+        this.count = config.count || 6;
+        this.scale = config.scale || 1.0;
+        this.yRatioMin = config.yRatioMin || 0.12;
+        this.yRatioMax = config.yRatioMax || 0.24;
+        this.baseSpeed = config.baseSpeed || 1.2;
+        this.initialDelay = config.initialDelay || 1.0;
+
         this.birds = [];
         this.active = false;
-        this.spawnTimer = 1.5;
+        this.spawnTimer = this.initialDelay;
         this.leaderX = 0;
         this.leaderY = 0;
-        this.speedX = 1.25;
-        this.speedY = -0.08;
+        this.speedX = 0;
+        this.speedY = 0;
       }
 
       spawn() {
         this.active = true;
-        this.leaderX = -50;
-        this.leaderY = height * (0.16 + Math.random() * 0.12);
-        this.speedX = 1.1 + Math.random() * 0.35;
+
+        if (this.dir === 1) {
+          // Bay từ Trái sang Phải
+          this.leaderX = -60;
+          this.speedX = this.baseSpeed * (0.9 + Math.random() * 0.3);
+        } else {
+          // Bay từ Phải sang Trái (Bay qua lại)
+          this.leaderX = width + 60;
+          this.speedX = -this.baseSpeed * (0.9 + Math.random() * 0.3);
+        }
+
+        this.leaderY = height * (this.yRatioMin + Math.random() * (this.yRatioMax - this.yRatioMin));
         this.speedY = -0.04 + (Math.random() - 0.5) * 0.08;
 
-        const count = 6;
         this.birds = [];
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < this.count; i++) {
           const rank = Math.ceil(i / 2);
           const side = i % 2 === 0 ? 1 : -1;
-          const offsetX = i === 0 ? 0 : -rank * 18;
-          const offsetY = i === 0 ? 0 : side * rank * 9;
+
+          // Đội hình chữ V đuôi chim hướng về phía sau hướng bay
+          const trailSign = -this.dir;
+          const offsetX = i === 0 ? 0 : trailSign * rank * (16 * this.scale + Math.random() * 4);
+          const offsetY = i === 0 ? 0 : side * rank * (8 * this.scale + Math.random() * 3);
 
           this.birds.push({
             relX: offsetX,
             relY: offsetY,
-            w: 8 + Math.random() * 3,
+            w: (7.5 + Math.random() * 2.5) * this.scale,
             phase: Math.random() * Math.PI * 2,
-            speed: 0.11 + Math.random() * 0.02,
+            speed: 0.11 + Math.random() * 0.025,
             isGliding: false,
             glideTimer: 0
           });
@@ -330,7 +351,7 @@
 
         for (const bird of this.birds) {
           bird.glideTimer += dt;
-          if (bird.glideTimer > 3) {
+          if (bird.glideTimer > 2.8) {
             bird.isGliding = Math.random() < 0.35;
             bird.glideTimer = 0;
           }
@@ -339,9 +360,12 @@
           }
         }
 
-        if (this.leaderX > width + 140) {
+        // Kiểm tra khi cả đàn đã bay ra khỏi màn hình
+        const hasLeft = this.dir === 1 ? (this.leaderX > width + 150) : (this.leaderX < -150);
+        if (hasLeft) {
           this.active = false;
-          this.spawnTimer = 14 + Math.random() * 10;
+          // Nghỉ 8 - 14 giây rồi lại bay tiếp
+          this.spawnTimer = 8 + Math.random() * 8;
         }
       }
 
@@ -349,21 +373,25 @@
         if (!this.active) return;
 
         ctx.save();
-        ctx.fillStyle = 'rgba(32, 22, 35, 0.72)';
+        // Sắc màu hoàng hôn cho bóng chim (màu chiều sẫm thanh thoát)
+        const alpha = Math.min(0.78, 0.55 + this.scale * 0.22);
+        ctx.fillStyle = `rgba(32, 20, 36, ${alpha.toFixed(2)})`;
 
         for (const bird of this.birds) {
           const bx = this.leaderX + bird.relX;
           const by = this.leaderY + bird.relY;
-          if (bx < -20 || bx > width + 20) continue;
+          if (bx < -30 || bx > width + 30) continue;
 
           const wingDeflect = bird.isGliding ? 0.12 : Math.sin(bird.phase);
           const w = bird.w;
-          const wingY = wingDeflect * (w * 0.4);
+          const wingY = wingDeflect * (w * 0.42);
 
+          // Thân chim nhỏ thanh thoát
           ctx.beginPath();
-          ctx.ellipse(bx, by, 1.4, 0.9, 0.05, 0, Math.PI * 2);
+          ctx.ellipse(bx, by, 1.4 * this.scale, 0.9 * this.scale, this.dir * 0.08, 0, Math.PI * 2);
           ctx.fill();
 
+          // Sải cánh uốn lượn hình chữ V mềm mại
           ctx.beginPath();
           ctx.moveTo(bx, by);
           ctx.quadraticCurveTo(bx - w * 0.45, by - wingY - 0.8, bx - w, by - wingY * 0.65);
@@ -377,7 +405,41 @@
       }
     }
 
-    const birdFlock = new DistantBirdFlock();
+    // Khởi tạo 3 đàn chim bay qua lại đa tầng:
+    const flocks = [
+      // Đàn 1: Bay tầng trung từ Trái sang Phải qua đỉnh núi Phú Sĩ
+      new BirdFlock({
+        dir: 1,
+        count: 7,
+        scale: 1.05,
+        yRatioMin: 0.15,
+        yRatioMax: 0.23,
+        baseSpeed: 1.25,
+        initialDelay: 0.4 // Xuất hiện ngay khi mở web
+      }),
+
+      // Đàn 2: Bay tầng cao từ Phải sang Trái (Bay qua lại ngược chiều trên đỉnh trời)
+      new BirdFlock({
+        dir: -1,
+        count: 5,
+        scale: 0.85, // Nhỏ hơn, cảm giác bay xa xăm
+        yRatioMin: 0.07,
+        yRatioMax: 0.14,
+        baseSpeed: 1.05,
+        initialDelay: 3.5 // Xuất hiện sau 3.5 giây
+      }),
+
+      // Đàn 3: Nhóm chim liệng tầng sườn núi & tháp chùa (Trái sang Phải)
+      new BirdFlock({
+        dir: 1,
+        count: 4,
+        scale: 0.95,
+        yRatioMin: 0.24,
+        yRatioMax: 0.32,
+        baseSpeed: 1.35,
+        initialDelay: 7.2 // Xuất hiện sau 7.2 giây
+      })
+    ];
 
     // ==========================================================================
     // 4. VÒNG LẶP RENDER CHÍNH (60 FPS MƯỢT MÀ)
@@ -399,9 +461,11 @@
       // 1. Ánh sáng ấm dịu lồng đèn bên trái
       drawLanternSubtleGlow(ctx, timeSec);
 
-      // 2. Đàn chim xa xa sải cánh bay
-      birdFlock.update(dt);
-      birdFlock.draw(ctx);
+      // 2. 2 - 3 ĐÀN CHIM BAY QUA LẠI TRÊN BẦU TRỜI
+      for (let i = 0; i < flocks.length; i++) {
+        flocks[i].update(dt);
+        flocks[i].draw(ctx);
+      }
 
       // 3. Cánh hoa anh đào rơi 3D
       for (let i = 0; i < petals.length; i++) {
@@ -412,7 +476,7 @@
       animationFrameId = requestAnimationFrame(render);
     }
 
-    // Tự động tạm dừng tiết kiệm CPU
+    // Tự động tạm dừng tiết kiệm CPU khi cuộn qua
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries) => {
