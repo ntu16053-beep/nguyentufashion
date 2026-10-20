@@ -60,8 +60,8 @@
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    let nativeImgW = 1920;
-    let nativeImgH = 1080;
+    const NATIVE_IMG_W = 1024;
+    const NATIVE_IMG_H = 384;
 
     let width = 0;
     let height = 0;
@@ -105,11 +105,7 @@
       }
 
       const containerAspect = width / height;
-      if (heroBgImg && heroBgImg.naturalWidth && heroBgImg.naturalHeight) {
-        nativeImgW = heroBgImg.naturalWidth;
-        nativeImgH = heroBgImg.naturalHeight;
-      }
-      const imgAspect = nativeImgW / nativeImgH;
+      const imgAspect = NATIVE_IMG_W / NATIVE_IMG_H;
 
       if (containerAspect > imgAspect) {
         coverRect.w = width;
