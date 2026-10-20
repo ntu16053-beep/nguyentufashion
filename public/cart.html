@@ -155,15 +155,15 @@
   </section>
 
   <!-- MAIN CART CONTENT -->
-  <main class="container" style="padding: 40px 24px 80px;">
+  <main class="container cart-main-container" style="padding: 40px 24px 80px;">
     
     <!-- Free Shipping Progress -->
-    <div style="background:var(--bg-card); border:1px solid var(--border-light); border-radius:var(--radius-md); padding:16px 20px; margin-bottom:30px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.875rem;">
+    <div class="cart-freeship-box">
+      <div class="cart-freeship-header">
         <span id="freeship-status-msg">Đang tính điều kiện Freeship...</span>
-        <strong style="color:var(--accent-gold);">Freeship Ninh Bình: 299.000₫</strong>
+        <strong class="cart-freeship-target">Freeship Ninh Bình: 299.000₫</strong>
       </div>
-      <div style="background:rgba(255,255,255,0.1); height:8px; border-radius:4px; overflow:hidden;">
+      <div class="cart-freeship-track">
         <div id="freeship-meter-bar" style="background:var(--accent-red); height:100%; width:0%; transition:width 0.4s ease;"></div>
       </div>
     </div>
@@ -189,7 +189,7 @@
             </tbody>
           </table>
 
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; padding-top:20px; border-top:1px solid var(--border-light); flex-wrap:wrap; gap:12px;">
+          <div class="cart-bottom-actions">
             <a href="products.html" class="btn btn-outline-white" style="font-size:0.8125rem;">
               ← Tiếp Tục Mua Sắm
             </a>
@@ -412,30 +412,35 @@
         const itemQty = Math.max(1, Number(item.quantity || item.qty || 1));
         const itemPrice = Number(item.price) || 0;
         const itemSubtotal = itemPrice * itemQty;
+        const pid = item.productId || item.id || '';
         return `
-          <tr>
-            <td>
+          <tr class="cart-table-row">
+            <td class="col-product">
               <div class="cart-product-cell">
-                <a href="product-detail.html?id=${item.productId}">
-                  <img src="${item.image}" alt="${item.title}" class="cart-item-img">
+                <a href="product-detail.html?id=${pid}" class="cart-item-img-link">
+                  <img src="${item.image || 'assets/images/products/ao-khoac-argentina-trang.png'}" alt="${item.title}" class="cart-item-img">
                 </a>
                 <div class="cart-item-info">
-                  <h4><a href="product-detail.html?id=${item.productId}" style="color:#fff;">${item.title}</a></h4>
+                  <h4><a href="product-detail.html?id=${pid}" style="color:#fff;">${item.title}</a></h4>
                   <div class="cart-item-attr">Size: <strong>${item.size || 'M'}</strong> • Màu: <span style="display:inline-block; width:10px; height:10px; background:${item.color || '#111'}; border-radius:50%; vertical-align:middle; border:1px solid #fff;"></span></div>
+                  <div class="mobile-price-tag">Đơn giá: <strong>${window.formatVND(itemPrice)}</strong></div>
                 </div>
               </div>
             </td>
-            <td><strong>${window.formatVND(itemPrice)}</strong></td>
-            <td style="text-align:center;">
-              <div class="qty-counter" style="display:inline-flex; height:38px;">
-                <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, -1)">-</button>
-                <input type="text" class="qty-input" value="${itemQty}" readonly style="width:36px;">
-                <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, 1)">+</button>
+            <td class="col-unit-price"><strong>${window.formatVND(itemPrice)}</strong></td>
+            <td class="col-qty">
+              <div class="qty-counter cart-item-qty-counter">
+                <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, -1)" aria-label="Giảm">-</button>
+                <input type="text" class="qty-input" value="${itemQty}" readonly>
+                <button class="qty-btn" onclick="window.updateCartQuantity(${idx}, 1)" aria-label="Tăng">+</button>
               </div>
             </td>
-            <td style="text-align:right;"><strong style="color:var(--accent-red);">${window.formatVND(itemSubtotal)}</strong></td>
-            <td style="text-align:center;">
-              <button onclick="window.removeFromCart(${idx})" title="Xóa" style="color:var(--text-muted); font-size:1.2rem; cursor:pointer;">&times;</button>
+            <td class="col-subtotal">
+              <span class="mobile-subtotal-label">Tổng: </span>
+              <strong style="color:var(--accent-red);">${window.formatVND(itemSubtotal)}</strong>
+            </td>
+            <td class="col-delete">
+              <button onclick="window.removeFromCart(${idx})" class="cart-remove-btn" title="Xóa khỏi giỏ">&times;</button>
             </td>
           </tr>
         `;
