@@ -1614,6 +1614,41 @@
   ],
   "orders": [
     {
+      "id": "NT-NB3382",
+      "customerName": "nguen van tu",
+      "customerPhone": "-000000000",
+      "district": "Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H), Ninh Bình",
+      "address": "xóm 10",
+      "items": [
+        {
+          "productId": "nt-36",
+          "title": "Mũ Lưỡi Trai Louis Vuitton Monogram Hoa Ren Xanh Khói",
+          "size": "M",
+          "color": "#1e3a5f",
+          "price": 280000,
+          "quantity": 1,
+          "image": "assets/images/products/mu-luoi-trai-lv-monogram-hoa-ren-denim.png"
+        }
+      ],
+      "subtotal": 280000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 30000,
+      "totalAmount": 310000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "pending",
+      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
+      "createdAt": "2026-10-21T12:27:18.785Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-10-21T12:27:18.785Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        }
+      ]
+    },
+    {
       "id": "NT-NB1024",
       "customerName": "Trần Quốc Hưng",
       "customerPhone": "0988123456",
