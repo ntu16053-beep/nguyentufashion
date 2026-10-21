@@ -20,7 +20,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 19,
+        "M": 20,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -33,7 +33,7 @@
       "description": "Chất liệu vải dù gió 2 lớp cao cấp cản gió và chống nước nhẹ. Logo Adidas mạ vàng thêu nổi cùng huy hiệu AFA 3 sao World Cup danh giá. Phối sọc xanh lượn sóng biểu tượng hai bên tay áo.",
       "isActive": true,
       "createdAt": "2026-10-18T10:00:00Z",
-      "updatedAt": "2026-10-20T20:02:31.742Z"
+      "updatedAt": "2026-10-21T14:36:13.405Z"
     },
     {
       "id": "nt-02",
@@ -1485,7 +1485,7 @@
       "oldPrice": 1650000,
       "rating": 5,
       "reviews": 142,
-      "badge": "best",
+      "badge": "",
       "isLocal": true,
       "image": "assets/images/products/tui-trong-lv-keepall-55-monogram-nau.png",
       "imageHover": "assets/images/products/tui-trong-lv-keepall-55-monogram-nau.png",
@@ -1501,7 +1501,8 @@
       ],
       "description": "Biểu tượng du lịch xa xỉ vượt thời gian kể từ năm 1930. Chất liệu Canvas Monogram phủ lớp chống thấm nước bền bỉ, quai xách đôi bằng da bò tự nhiên Vachetta may chỉ vàng nổi bật, phụ kiện khóa mạ vàng đồng sang trọng và dây đeo vai tháo rời linh hoạt.",
       "isActive": true,
-      "createdAt": "2026-10-20T07:00:00Z"
+      "createdAt": "2026-10-20T07:00:00Z",
+      "updatedAt": "2026-10-21T14:29:02.982Z"
     },
     {
       "id": "nt-47",
