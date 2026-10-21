@@ -1739,8 +1739,8 @@
       "shippingFee": 30000,
       "totalAmount": 310000,
       "paymentMethod": "cod",
-      "paymentStatus": "unpaid",
-      "status": "confirmed",
+      "paymentStatus": "paid",
+      "status": "completed",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T12:27:18.785Z",
       "timeline": [
@@ -1753,6 +1753,11 @@
           "status": "confirmed",
           "time": "2026-10-21T19:15:28.558Z",
           "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
+        },
+        {
+          "status": "completed",
+          "time": "2026-10-21T19:17:41.759Z",
+          "note": "Đơn hàng đã được giao thành công"
         }
       ]
     },
