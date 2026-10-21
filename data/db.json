@@ -1493,10 +1493,12 @@
       "image": "assets/images/products/tui-trong-lv-keepall-55-monogram-nau.png",
       "imageHover": "assets/images/products/tui-trong-lv-keepall-55-monogram-nau.png",
       "sizes": [
-        "55cm"
+        "55cm",
+        "50CM"
       ],
       "stock": {
-        "55cm": 20
+        "55cm": 20,
+        "50CM": 20
       },
       "colors": [
         "#78350f",
@@ -1505,7 +1507,7 @@
       "description": "Biểu tượng du lịch xa xỉ vượt thời gian kể từ năm 1930. Chất liệu Canvas Monogram phủ lớp chống thấm nước bền bỉ, quai xách đôi bằng da bò tự nhiên Vachetta may chỉ vàng nổi bật, phụ kiện khóa mạ vàng đồng sang trọng và dây đeo vai tháo rời linh hoạt.",
       "isActive": true,
       "createdAt": "2026-10-20T07:00:00Z",
-      "updatedAt": "2026-10-21T14:29:02.982Z"
+      "updatedAt": "2026-10-21T17:41:58.936Z"
     },
     {
       "id": "nt-47",
