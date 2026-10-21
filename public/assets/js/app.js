@@ -1612,12 +1612,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 10. FILTER & SEARCH HANDLERS
   // ==========================================
+  const updateCircleActiveState = (category) => {
+    document.querySelectorAll('.category-circle-item').forEach(item => {
+      const onclickAttr = item.getAttribute('onclick') || '';
+      if (onclickAttr.includes(`'${category}'`)) {
+        item.classList.add('active');
+      } else if (!onclickAttr.includes('flash-sale')) {
+        item.classList.remove('active');
+      }
+    });
+  };
+
   const filterButtons = document.querySelectorAll('.tab-btn');
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentFilter = btn.getAttribute('data-filter') || 'all';
+      updateCircleActiveState(currentFilter);
       renderProductGrid();
     });
   });
@@ -1640,6 +1652,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.remove('active');
       }
     });
+    updateCircleActiveState(category);
     const catalogEl = document.getElementById('catalog');
     if (catalogEl) catalogEl.scrollIntoView({ behavior: 'smooth' });
     renderProductGrid();
