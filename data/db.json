@@ -1740,7 +1740,7 @@
       "totalAmount": 310000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "pending",
+      "status": "confirmed",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T12:27:18.785Z",
       "timeline": [
@@ -1748,6 +1748,11 @@
           "status": "pending",
           "time": "2026-10-21T12:27:18.785Z",
           "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:28.558Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ]
     },
@@ -1784,7 +1789,7 @@
       "totalAmount": 824500,
       "paymentMethod": "vietqr",
       "paymentStatus": "paid",
-      "status": "shipping",
+      "status": "confirmed",
       "shippingNote": "Giao hỏa tốc 2H trước 17h chiều tại Lương Văn Tụy",
       "createdAt": "2026-10-18T09:15:00Z",
       "timeline": [
@@ -1802,6 +1807,11 @@
           "status": "shipping",
           "time": "2026-10-18T10:10:00Z",
           "note": "Shipper hỏa tốc Ninh Bình đang giao hàng"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:30.652Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ]
     },
