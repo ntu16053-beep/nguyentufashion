@@ -1726,7 +1726,7 @@
       "totalAmount": 650000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "pending",
+      "status": "confirmed",
       "shippingNote": "Giao vào buổi tối sau 18h",
       "createdAt": "2026-10-14T13:40:00Z",
       "timeline": [
@@ -1734,6 +1734,11 @@
           "status": "pending",
           "time": "2026-10-14T13:40:00Z",
           "note": "Đơn hàng mới chờ shop xác nhận"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T14:00:30.974Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ]
     },
