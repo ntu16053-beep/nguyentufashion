@@ -169,14 +169,18 @@
     window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
   };
 
-  window.removeFromCart = function (index) {
+  window.removeFromCart = function (index, silent = false) {
     const cart = window.getCart();
     if (index >= 0 && index < cart.length) {
-      cart.splice(index, 1);
+      const removed = cart.splice(index, 1)[0];
       window.saveCart(cart);
-      window.showToast(`Đã xóa sản phẩm khỏi giỏ hàng`, 'info');
-      window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart } }));
+      if (!silent) {
+        window.showToast(`Đã xóa sản phẩm khỏi giỏ hàng`, 'info');
+      }
+      window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart, removed } }));
+      return removed;
     }
+    return null;
   };
 
   window.updateCartQuantity = function (index, delta) {
