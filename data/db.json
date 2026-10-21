@@ -1620,6 +1620,41 @@
   ],
   "orders": [
     {
+      "id": "NT-NB7789",
+      "customerName": "Nguyễn Văn Test",
+      "customerPhone": "0988112233",
+      "district": "TP. Ninh Bình",
+      "address": "123 Trần Hưng Đạo",
+      "items": [
+        {
+          "productId": "nt-jk-01",
+          "title": "Áo Khoác Gió Retro Adidas Beckenbauer",
+          "size": "L",
+          "color": "#111111",
+          "price": 395000,
+          "quantity": 1,
+          "image": "assets/images/products/ao-khoac-adidas-beckenbauer-kem.png"
+        }
+      ],
+      "subtotal": 395000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 0,
+      "totalAmount": 395000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "pending",
+      "shippingNote": "Đơn test hủy tự động",
+      "createdAt": "2026-10-21T18:56:07.980Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-10-21T18:56:07.980Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        }
+      ]
+    },
+    {
       "id": "NT-NB3382",
       "customerName": "nguen van tu",
       "customerPhone": "-000000000",
