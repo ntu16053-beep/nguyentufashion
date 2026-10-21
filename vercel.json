@@ -47,6 +47,10 @@
       "destination": "/cart.html"
     },
     {
+      "source": "/orders",
+      "destination": "/orders.html"
+    },
+    {
       "source": "/checkout",
       "destination": "/checkout.html"
     },

@@ -332,6 +332,80 @@ function sendTelegramAlert(order, settings) {
 // ==========================================
 
 // GET /api/products
+
+function escapeTelegramHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
+ * Gửi thông báo HỦY ĐƠN HÀNG về Telegram
+ * Sử dụng cú pháp diff code block (- ...) và emoji cảnh báo đỏ
+ * để ứng dụng Telegram hiển thị các dòng chữ màu ĐỎ nổi bật nhận biết ngay lập tức!
+ */
+function sendTelegramCancelAlert(order, reason, settings, cancelledBy = 'Khách hàng') {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN || settings?.telegram?.botToken;
+  const chatId = process.env.TELEGRAM_CHAT_ID || settings?.telegram?.chatId;
+
+  if (!botToken || !chatId) {
+    return;
+  }
+
+  const cancelReason = (reason && String(reason).trim()) ? String(reason).trim() : 'Khách yêu cầu hủy đơn hàng trực tuyến';
+  const cancelTime = new Date().toLocaleString('vi-VN');
+
+  const itemsText = (order.items || [])
+    .map(i => '• ' + escapeTelegramHtml(i.title) + ' (' + escapeTelegramHtml(i.size || 'FreeSize') + ') x' + i.quantity + ' = ' + (Number(i.price) * Number(i.quantity)).toLocaleString('vi-VN') + '₫')
+    .join('\n');
+
+  // Telegram syntax highlighting diff block renders lines starting with '-' as BRIGHT RED text!
+  const text = '🚨🚨🚨 <b>THÔNG BÁO HỦY ĐƠN HÀNG</b> 🚨🚨🚨\n' +
+    '🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴\n' +
+    '<pre><code class="language-diff">- ⚠️ [CẢNH BÁO: ĐƠN HÀNG ĐÃ BỊ HỦY]\n' +
+    '- MÃ ĐƠN: ' + escapeTelegramHtml(order.id) + '\n' +
+    '- NGƯỜI HỦY: ' + escapeTelegramHtml(cancelledBy) + '\n' +
+    '- LÝ DO HỦY: ' + escapeTelegramHtml(cancelReason) + '\n' +
+    '- YÊU CẦU: VUI LÒNG KHÔNG XUẤT KHO / KHÔNG GIAO HÀNG!</code></pre>\n' +
+    '❌ <b>Trạng thái:</b> <b>ĐÃ HỦY (CANCELLED)</b>\n' +
+    '📦 <b>Mã đơn hàng:</b> <code>' + escapeTelegramHtml(order.id) + '</code>\n' +
+    '👤 <b>Khách hàng:</b> ' + escapeTelegramHtml(order.customerName) + '\n' +
+    '📞 <b>Số điện thoại:</b> <code>' + escapeTelegramHtml(order.customerPhone) + '</code>\n' +
+    '📍 <b>Địa chỉ giao:</b> ' + escapeTelegramHtml(order.address || '') + ', ' + escapeTelegramHtml(order.district || '') + '\n' +
+    '💳 <b>Hình thức TT:</b> ' + (order.paymentMethod === 'vietqr' ? 'VietQR (Napas247)' : 'COD (Thu tiền khi nhận)') + '\n' +
+    '💰 <b>Giá trị đơn:</b> <b>' + Number(order.totalAmount || 0).toLocaleString('vi-VN') + '₫</b>\n\n' +
+    '🛍️ <b>Danh sách sản phẩm hủy:</b>\n' + (itemsText || '• Không có dữ liệu sản phẩm') + '\n\n' +
+    '⏰ <b>Thời gian hủy:</b> ' + cancelTime + '\n' +
+    '🔴 <i>Ghi chú: Hệ thống đã tự động hoàn lại số lượng tồn kho sản phẩm tương ứng vào kho dữ liệu.</i>';
+
+  const postData = JSON.stringify({
+    chat_id: chatId,
+    text: text,
+    parse_mode: 'HTML'
+  });
+
+  const req = https.request({
+    hostname: 'api.telegram.org',
+    path: '/bot' + botToken + '/sendMessage',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(postData)
+    }
+  }, (res) => {
+    res.on('data', () => {});
+  });
+
+  req.on('error', (e) => {
+    console.error('[Telegram Cancel send error]', e.message);
+  });
+
+  req.write(postData);
+  req.end();
+}
+
 app.get('/api/products', (req, res) => {
   const db = readDB();
   let list = db.products || [];
@@ -866,6 +940,125 @@ app.get('/api/orders/:id', (req, res) => {
   res.json({ success: true, order });
 });
 
+// POST /api/orders/:id/cancel (Customer cancels order from storefront)
+app.post('/api/orders/:id/cancel', (req, res) => {
+  const { reason, customerPhone } = req.body || {};
+  const db = readDB();
+  const orderId = (req.params.id || '').toUpperCase().trim();
+  const order = (db.orders || []).find(o => o.id.toUpperCase() === orderId);
+
+  if (!order) {
+    return res.status(404).json({ success: false, message: 'Không tìm thấy đơn hàng "' + orderId + '"!' });
+  }
+
+  if (order.status === 'cancelled') {
+    return res.status(400).json({ success: false, message: 'Đơn hàng này đã được hủy trước đó!' });
+  }
+
+  if (order.status === 'completed') {
+    return res.status(400).json({ success: false, message: 'Đơn hàng đã giao thành công, không thể hủy trực tuyến! Quý khách vui lòng liên hệ hotline để đổi trả.' });
+  }
+
+  const prevStatus = order.status;
+  order.status = 'cancelled';
+  order.cancelledAt = new Date().toISOString();
+  order.cancelReason = (reason && reason.trim()) ? reason.trim() : 'Khách hàng yêu cầu hủy trên website';
+
+  // Restore stock
+  (order.items || []).forEach(item => {
+    const prod = (db.products || []).find(p => p.id === item.productId);
+    if (prod && prod.stock && item.size && prod.stock[item.size] !== undefined) {
+      prod.stock[item.size] = (Number(prod.stock[item.size]) || 0) + (Number(item.quantity) || 1);
+    }
+  });
+
+  order.timeline = order.timeline || [];
+  order.timeline.push({
+    status: 'cancelled',
+    time: new Date().toISOString(),
+    note: 'Khách hàng hủy đơn: ' + order.cancelReason
+  });
+
+  writeDB(db, 'chore(orders): customer cancelled order ' + order.id);
+
+  // Dispatch red alert to Telegram
+  try {
+    sendTelegramCancelAlert(order, order.cancelReason, db.settings, 'Khách hàng (Trực tuyến)');
+  } catch (err) {
+    console.error('[Telegram Cancel Dispatch Error]', err);
+  }
+
+  res.json({
+    success: true,
+    message: 'Hủy đơn hàng thành công! Hệ thống đã gửi thông báo đến shop.',
+    order
+  });
+});
+
+// POST /api/orders/:id/review (Customer reviews items from order)
+app.post('/api/orders/:id/review', (req, res) => {
+  const db = readDB();
+  const orderId = (req.params.id || '').toUpperCase().trim();
+  const order = (db.orders || []).find(o => o.id.toUpperCase() === orderId);
+
+  if (!order) {
+    return res.status(404).json({ success: false, message: 'Không tìm thấy đơn hàng' });
+  }
+
+  const { productId, rating, comment, size, name } = req.body || {};
+  const starNum = Number(rating);
+  if (!starNum || starNum < 1 || starNum > 5) {
+    return res.status(400).json({ success: false, message: 'Vui lòng chọn số sao đánh giá (1 đến 5 sao)!' });
+  }
+
+  const targetProdId = productId || (order.items && order.items[0]?.productId);
+  const prod = (db.products || []).find(p => p.id === targetProdId);
+
+  const customerName = name || order.customerName || 'Khách hàng';
+  const customerPhone = order.customerPhone || '';
+  const maskedPhone = customerPhone ? customerPhone.trim().slice(0, 3) + '****' + customerPhone.trim().slice(-3) : '';
+
+  const newReview = {
+    id: 'rev-' + Date.now(),
+    productId: targetProdId,
+    orderId: order.id,
+    name: customerName,
+    phone: maskedPhone,
+    rating: starNum,
+    comment: (comment && comment.trim()) ? comment.trim() : 'Sản phẩm đẹp đúng mô tả, chất vải dày dặn rất ưng ý!',
+    size: size || (order.items && order.items.find(i => i.productId === targetProdId)?.size) || 'M',
+    fitFeedback: 'true_to_size',
+    createdAt: new Date().toISOString(),
+    isVerifiedPurchase: true
+  };
+
+  db.reviews = db.reviews || [];
+  db.reviews.unshift(newReview);
+
+  // Recalculate average rating & reviews count for product
+  if (prod) {
+    const prodReviews = db.reviews.filter(r => r.productId === targetProdId);
+    const totalStars = prodReviews.reduce((sum, r) => sum + (Number(r.rating) || 5), 0);
+    prod.reviews = prodReviews.length;
+    prod.rating = Number((totalStars / prodReviews.length).toFixed(1));
+  }
+
+  // Mark order item reviewed
+  order.reviewedItems = order.reviewedItems || [];
+  if (!order.reviewedItems.includes(targetProdId)) {
+    order.reviewedItems.push(targetProdId);
+  }
+
+  writeDB(db, 'feat(reviews): add verified review from order ' + order.id);
+
+  res.status(201).json({
+    success: true,
+    message: 'Gửi đánh giá thành công! Cảm ơn bạn đã phản hồi cho Nguyen Tu Fashion.',
+    review: newReview,
+    order
+  });
+});
+
 // PUT /api/orders/:id/status (Admin change order status with stock auto-management - Protected)
 app.put('/api/orders/:id/status', requireAdminAuth, (req, res) => {
   const { status, note } = req.body;
@@ -891,6 +1084,13 @@ app.put('/api/orders/:id/status', requireAdminAuth, (req, res) => {
         prod.stock[item.size] += Number(item.quantity) || 1;
       }
     });
+
+    // Alert Telegram with Red Warning Lines
+    try {
+      sendTelegramCancelAlert(order, note || 'Admin hủy đơn hàng từ trang quản trị', db.settings, 'Quản trị viên (Admin)');
+    } catch (e) {
+      console.error('[Telegram Cancel Alert Error]', e);
+    }
   } else if (prevStatus === 'cancelled' && status !== 'cancelled') {
     // Re-deduct stock if un-cancelling
     (order.items || []).forEach(item => {
@@ -921,7 +1121,7 @@ app.put('/api/orders/:id/status', requireAdminAuth, (req, res) => {
     note: note || statusNoteMap[status]
   });
 
-  writeDB(db, `chore(orders): update status for ${order.id} to ${status}`);
+  writeDB(db, 'chore(orders): update status for ' + order.id + ' to ' + status);
 
   res.json({ success: true, message: 'Cập nhật trạng thái thành công', order });
 });
@@ -1304,6 +1504,11 @@ app.get('/checkout', (req, res) => res.sendFile(path.join(__dirname, 'checkout.h
 app.get('/blog', (req, res) => res.sendFile(path.join(__dirname, 'blog.html')));
 app.get('/blog/:id', (req, res) => res.sendFile(path.join(__dirname, 'blog-detail.html')));
 app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'contact.html')));
+
+// Route /orders to orders.html
+app.get('/orders', (req, res) => {
+  res.sendFile(path.join(__dirname, 'orders.html'));
+});
 
 // Route /admin to admin.html
 app.get('/admin', (req, res) => {

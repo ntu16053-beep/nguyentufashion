@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đơn Hàng Của Bạn | NGUYEN TU FASHION - Ninh Bình</title>
+  <meta name="description" content="Quản lý và tra cứu tiến trình đơn hàng của bạn tại Nguyen Tu Fashion. Hỗ trợ hủy đơn hàng trực tuyến và đánh giá chất lượng sản phẩm.">
+
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <!-- Core Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+
+  <style>
+    /* ==========================================================================
+       MY ORDERS PAGE CUSTOM STYLES
+       ========================================================================== */
+    .orders-hero-banner {
+      padding: 40px 0 24px;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 51, 75, 0.18) 0%, rgba(18, 3, 7, 0.95) 75%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .orders-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .orders-hero-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .orders-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+    }
+
+    .orders-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .order-tab-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .order-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .order-tab-btn.active {
+      background: var(--accent-red);
+      color: #ffffff;
+      border-color: var(--accent-red);
+      box-shadow: 0 4px 14px rgba(255, 51, 75, 0.35);
+    }
+
+    .order-tab-count {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 0.7rem;
+    }
+
+    .order-tab-btn.active .order-tab-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .orders-search-box {
+      display: flex;
+      gap: 8px;
+      min-width: 280px;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    /* ORDER CARD */
+    .my-order-card {
+      background: linear-gradient(180deg, rgba(34, 4, 11, 0.85) 0%, rgba(20, 3, 7, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .my-order-card:hover {
+      border-color: rgba(255, 51, 75, 0.35);
+    }
+
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+    }
+
+    .order-id-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .order-id-text {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--accent-red);
+      letter-spacing: 0.04em;
+    }
+
+    .order-copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .order-copy-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .order-date-text {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    .order-badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-pending {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.4);
+    }
+
+    .badge-confirmed {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-shipping {
+      background: rgba(192, 132, 252, 0.18);
+      color: #c084fc;
+      border: 1px solid rgba(192, 132, 252, 0.45);
+    }
+
+    .badge-completed {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+    }
+
+    .badge-cancelled {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.55);
+    }
+
+    /* TIMELINE TRACKER */
+    .order-timeline-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 14px 16px;
+      border-radius: 10px;
+    }
+
+    .timeline-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .timeline-line {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.12);
+      margin-bottom: 6px;
+      transition: background 0.3s;
+    }
+
+    .timeline-step.active .timeline-line {
+      background: var(--accent-red);
+      box-shadow: 0 0 8px rgba(255, 51, 75, 0.6);
+    }
+
+    .timeline-step.completed .timeline-line {
+      background: var(--accent-green);
+    }
+
+    .timeline-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .timeline-step.active .timeline-label {
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    /* ITEMS LIST */
+    .order-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .order-item-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.025);
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .order-item-img {
+      width: 58px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #2b050d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    .order-item-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .order-item-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-item-tags {
+      display: flex;
+      gap: 10px;
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    .order-item-price-col {
+      text-align: right;
+    }
+
+    .order-item-unit-price {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    .order-item-total-price {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* META SUMMARY & ACTIONS */
+    .order-meta-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 0.8125rem;
+    }
+
+    @media (max-width: 768px) {
+      .order-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .order-meta-line {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+
+    .order-meta-line strong {
+      color: #ffffff;
+    }
+
+    .order-total-highlight {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--accent-red);
+    }
+
+    .order-actions-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 16px;
+    }
+
+    .order-actions-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .order-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ACTION BUTTONS */
+    .btn-cancel-order {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #f87171;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-cancel-order:hover {
+      background: var(--accent-red);
+      color: #ffffff;
+      border-color: var(--accent-red);
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-review-order {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-review-order:hover {
+      background: #f59e0b;
+      color: #111111;
+      border-color: #f59e0b;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-vietqr-pay {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-vietqr-pay:hover {
+      background: #38bdf8;
+      color: #0b192c;
+    }
+
+    .btn-reorder {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reorder:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* CANCEL REASON BADGE */
+    .cancel-reason-callout {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 3px solid #ef4444;
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      font-size: 0.8125rem;
+      color: #fca5a5;
+    }
+
+    /* EMPTY STATE */
+    .orders-empty-box {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      max-width: 540px;
+      margin: 40px auto;
+    }
+
+    .orders-empty-icon {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+
+    .orders-empty-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .orders-empty-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* STAR RATING PICKER */
+    .star-rating-box {
+      display: flex;
+      gap: 6px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      margin: 8px 0 16px;
+    }
+
+    .star-item {
+      color: rgba(255, 255, 255, 0.2);
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .star-item.active,
+    .star-item.hovered {
+      color: #fbbf24;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+  <header class="header">
+    <div class="nav-container">
+      <button class="mobile-menu-btn" aria-label="Menu" onclick="window.toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="index.html" class="brand-wrapper">
+        <img src="assets/images/logo.png" alt="Nguyen Tu Fashion Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">NGUYENTU</span>
+          <span class="brand-sub">FASHION • EST. 2026</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Trang Chủ</a>
+        <a href="products.html" class="nav-link">Sản Phẩm</a>
+        <a href="products.html?category=tee" class="nav-link">Áo Thun</a>
+        <a href="products.html?category=jacket" class="nav-link">Áo Khoác</a>
+        <a href="products.html?category=pants" class="nav-link">Quần Dài</a>
+        <a href="products.html?category=tracksuit" class="nav-link">Tracksuit</a>
+        <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
+        <a href="orders.html" class="nav-link active" style="color:var(--accent-red); font-weight:800;">Đơn Hàng</a>
+        <a href="blog.html" class="nav-link">Bài Viết</a>
+        <a href="contact.html" class="nav-link">Liên Hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Order Tracking / My Orders Button -->
+        <a href="orders.html" class="action-btn header-track-btn" title="Đơn hàng của bạn" style="position:relative; color:var(--accent-red);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span class="action-badge" id="header-orders-badge" style="display:none; background:var(--accent-red);">0</span>
+        </a>
+
+        <!-- Live Instant Search -->
+        <button class="action-btn" title="Tìm kiếm" onclick="window.openSearchModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+
+        <!-- Wishlist -->
+        <a href="products.html?filter=wishlist" class="action-btn" title="Yêu thích">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span class="action-badge wishlist-count-badge" style="display:none;">0</span>
+        </a>
+
+        <!-- Cart Drawer Button -->
+        <button class="action-btn" title="Giỏ hàng" onclick="window.openCartDrawer()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="action-badge cart-count-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       PAGE HERO & BREADCRUMB
+       ========================================== -->
+  <section class="orders-hero-banner">
+    <div class="container">
+      <nav class="breadcrumb-nav" style="margin-bottom:12px;">
+        <a href="index.html">Trang Chủ</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Đơn Hàng Của Bạn</span>
+      </nav>
+
+      <h1 class="orders-hero-title">
+        <span>📦</span> <span>Đơn Hàng Của Bạn</span>
+      </h1>
+      <p class="orders-hero-subtitle">
+        Theo dõi tiến trình giao hỏa tốc 2H tại Ninh Bình, hủy đơn nhanh chóng và gửi đánh giá sản phẩm để tích lũy ưu đãi thành viên.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       MAIN CONTENT: ORDERS LIST
+       ========================================== -->
+  <main class="container" style="min-height:600px; padding-bottom:60px;">
+
+    <!-- SEARCH & FILTER TOOLBAR -->
+    <div class="orders-filter-bar">
+      <!-- Tabs -->
+      <div class="orders-tabs" id="order-status-tabs">
+        <button type="button" class="order-tab-btn active" data-status="all" onclick="filterOrdersByStatus('all', this)">
+          Tất cả <span class="order-tab-count" id="tab-count-all">0</span>
+        </button>
+        <button type="button" class="order-tab-btn" data-status="pending" onclick="filterOrdersByStatus('pending', this)">
+          Chờ duyệt <span class="order-tab-count" id="tab-count-pending">0</span>
+        </button>
+        <button type="button" class="order-tab-btn" data-status="processing" onclick="filterOrdersByStatus('processing', this)">
+          Đang giao 2H <span class="order-tab-count" id="tab-count-processing">0</span>
+        </button>
+        <button type="button" class="order-tab-btn" data-status="completed" onclick="filterOrdersByStatus('completed', this)">
+          Hoàn tất <span class="order-tab-count" id="tab-count-completed">0</span>
+        </button>
+        <button type="button" class="order-tab-btn" data-status="cancelled" onclick="filterOrdersByStatus('cancelled', this)">
+          Đã hủy <span class="order-tab-count" id="tab-count-cancelled">0</span>
+        </button>
+      </div>
+
+      <!-- Quick Search / Lookup -->
+      <div class="orders-search-box">
+        <input type="text" id="order-search-input" class="custom-input" placeholder="Nhập SĐT hoặc Mã đơn hàng..." style="height:40px; font-size:0.8125rem;" onkeydown="if(event.key==='Enter') searchCustomerOrders();">
+        <button class="btn btn-primary" onclick="searchCustomerOrders()" style="height:40px; padding:0 16px; font-size:0.8125rem; white-space:nowrap;">
+          🔍 Tra Cứu
+        </button>
+      </div>
+    </div>
+
+    <!-- ORDERS CONTAINER -->
+    <div id="orders-list-container">
+      <div style="text-align:center; padding:50px 20px; color:var(--text-muted);">
+        <span style="display:inline-block; animation:spin 1s linear infinite; margin-right:8px;">⏳</span> Đang tải thông tin đơn hàng của bạn...
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==========================================
+       MODAL 1: HỦY ĐƠN HÀNG (CANCEL ORDER MODAL)
+       ========================================== -->
+  <div class="modal-overlay" id="cancel-order-modal" style="z-index:100060;">
+    <div class="modal-card" style="max-width:520px; border-radius:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.5rem; line-height:1;">🚫</span>
+          <h3 style="font-family:var(--font-heading); font-size:1.2rem; font-weight:900; text-transform:uppercase; color:#fff; margin:0;">
+            HỦY ĐƠN HÀNG
+          </h3>
+        </div>
+        <button onclick="closeCancelModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:12px; margin-bottom:18px; font-size:0.8125rem; color:#fca5a5; line-height:1.5;">
+        ⚠️ <strong>Lưu ý:</strong> Khi bạn xác nhận hủy, hệ thống sẽ tự động gửi thông báo trực tiếp đến quản trị viên shop qua Telegram (kèm cảnh báo đỏ) và hoàn lại số lượng tồn kho sản phẩm.
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="font-size:0.775rem; color:var(--text-muted); display:block; margin-bottom:4px;">Mã đơn muốn hủy:</label>
+        <div id="cancel-modal-order-id" style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; color:var(--accent-red);">NT-NB0000</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:8px;">Vui lòng chọn lý do hủy đơn: <span style="color:var(--accent-red);">*</span></label>
+        <select id="cancel-reason-select" class="custom-select" style="width:100%; height:42px; font-size:0.875rem;">
+          <option value="Muốn thay đổi kích cỡ (Size) hoặc màu sắc">Muốn thay đổi kích cỡ (Size) hoặc màu sắc</option>
+          <option value="Đặt nhầm sản phẩm hoặc số lượng">Đặt nhầm sản phẩm hoặc số lượng</option>
+          <option value="Muốn thay đổi địa chỉ hoặc số điện thoại nhận hàng">Muốn thay đổi địa chỉ hoặc SĐT nhận hàng</option>
+          <option value="Đổi ý không còn nhu cầu mua nữa">Đổi ý không còn nhu cầu mua nữa</option>
+          <option value="Thời gian giao hàng không phù hợp">Thời gian giao hàng không phù hợp</option>
+          <option value="Muốn gộp chung với đơn hàng khác">Muốn gộp chung với đơn hàng khác</option>
+          <option value="Lý do khác">Lý do khác...</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:6px;">Ghi chú thêm (không bắt buộc):</label>
+        <textarea id="cancel-note-input" class="custom-input" rows="3" placeholder="Chia sẻ thêm lý do để shop cải thiện dịch vụ..." style="width:100%; height:auto; padding:10px; font-size:0.8125rem; resize:vertical;"></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" class="btn btn-outline-white" onclick="closeCancelModal()" style="padding:10px 18px; font-size:0.8125rem;">
+          Giữ Lại Đơn
+        </button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-cancel" onclick="confirmCancelOrder()" style="background:#ef4444; border-color:#ef4444; padding:10px 22px; font-size:0.8125rem; font-weight:800;">
+          Xác Nhận Hủy Đơn
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 2: ĐÁNH GIÁ SẢN PHẨM (REVIEW MODAL)
+       ========================================== -->
+  <div class="modal-overlay" id="review-order-modal" style="z-index:100060;">
+    <div class="modal-card" style="max-width:540px; border-radius:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:1.5rem; line-height:1;">⭐</span>
+          <h3 style="font-family:var(--font-heading); font-size:1.2rem; font-weight:900; text-transform:uppercase; color:#fff; margin:0;">
+            ĐÁNH GIÁ SẢN PHẨM
+          </h3>
+        </div>
+        <button onclick="closeReviewModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+
+      <div id="review-target-product" style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:8px; margin-bottom:18px;">
+        <img id="review-prod-img" src="assets/images/products/ao-khoac-argentina-trang.png" style="width:50px; height:60px; object-fit:cover; border-radius:4px; background:#240409;">
+        <div>
+          <h4 id="review-prod-title" style="font-size:0.9375rem; font-weight:700; color:#fff; margin-bottom:4px;">Áo Khoác Streetwear</h4>
+          <span id="review-prod-meta" style="font-size:0.75rem; color:var(--text-muted);">Size: M • Mã đơn: NT-NB0000</span>
+        </div>
+      </div>
+
+      <!-- Rating Stars Picker -->
+      <div style="text-align:center; margin-bottom:18px;">
+        <label style="font-size:0.875rem; font-weight:700; color:#fff; display:block; margin-bottom:6px;">Chất lượng sản phẩm & trải nghiệm mua sắm:</label>
+        <div class="star-rating-box" id="review-stars-container" style="justify-content:center;">
+          <span class="star-item active" data-star="1">★</span>
+          <span class="star-item active" data-star="2">★</span>
+          <span class="star-item active" data-star="3">★</span>
+          <span class="star-item active" data-star="4">★</span>
+          <span class="star-item active" data-star="5">★</span>
+        </div>
+        <div id="star-desc-text" style="font-size:0.8125rem; font-weight:700; color:#fbbf24;">Rất hài lòng (5 sao)</div>
+      </div>
+
+      <!-- Customer Name & Phone -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+        <div>
+          <label style="font-size:0.775rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Tên của bạn:</label>
+          <input type="text" id="review-author-name" class="custom-input" placeholder="Nguyễn Văn A" style="height:38px; font-size:0.8125rem;">
+        </div>
+        <div>
+          <label style="font-size:0.775rem; font-weight:700; color:#fff; display:block; margin-bottom:4px;">Số điện thoại:</label>
+          <input type="text" id="review-author-phone" class="custom-input" placeholder="0988xxxxxx" style="height:38px; font-size:0.8125rem;">
+        </div>
+      </div>
+
+      <!-- Comment text -->
+      <div style="margin-bottom:20px;">
+        <label style="font-size:0.8125rem; font-weight:700; color:#fff; display:block; margin-bottom:6px;">Nhận xét chi tiết (chất vải, form áo, đóng gói...):</label>
+        <textarea id="review-comment-input" class="custom-input" rows="3" placeholder="Sản phẩm rất đẹp, chất vải dày dặn đúng chuẩn hình ảnh. Shop giao hỏa tốc Ninh Bình cực nhanh..." style="width:100%; height:auto; padding:10px; font-size:0.8125rem; resize:vertical;"></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" class="btn btn-outline-white" onclick="closeReviewModal()" style="padding:10px 18px; font-size:0.8125rem;">
+          Đóng
+        </button>
+        <button type="button" class="btn btn-primary" id="btn-submit-review" onclick="submitOrderReview()" style="padding:10px 22px; font-size:0.8125rem; font-weight:800;">
+          Gửi Đánh Giá Ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 3: VIETQR QUÉT LẠI
+       ========================================== -->
+  <div class="modal-overlay" id="vietqr-view-modal" style="z-index:100060;">
+    <div class="modal-card" style="max-width:440px; text-align:center; padding:28px 20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-size:1.1rem; font-weight:900; text-transform:uppercase; color:#fff; margin:0;">MÃ THANH TOÁN VIETQR</h3>
+        <button onclick="document.getElementById('vietqr-view-modal').classList.remove('active')" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+      </div>
+      <p style="font-size:0.8125rem; color:var(--text-secondary); margin-bottom:16px;">Mở ứng dụng Mobile Banking / MoMo quét mã QR chuyển khoản:</p>
+      <div style="background:#fff; padding:14px; border-radius:12px; display:inline-block; margin-bottom:14px;">
+        <img id="vietqr-view-img" src="" alt="VietQR" style="width:230px; height:auto; display:block;">
+      </div>
+      <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:8px; text-align:left; font-size:0.8125rem; margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span>Ngân hàng:</span> <strong>MB Bank (Quân Đội)</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span>Số tài khoản:</span> <strong id="vq-acc">0988888888</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span>Nội dung CK:</span> <strong id="vq-memo" style="color:var(--accent-red);">NT-NB0000</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span>Số tiền:</span> <strong id="vq-amount" style="color:#ef4444; font-size:1rem;">0₫</strong>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="document.getElementById('vietqr-view-modal').classList.remove('active')" style="width:100%;">
+        Đã Chuyển Khoản Thành Công
+      </button>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tìm Kiếm Sản Phẩm</h3>
+        <button onclick="window.closeSearchModal()" style="font-size:1.5rem; color:#fff;">&times;</button>
+      </div>
+      <input type="text" id="search-input" class="custom-input" placeholder="Tìm theo tên áo, quần, nón..." oninput="window.handleSearchInput(event)">
+      <div id="search-results-list" style="margin-top:16px; max-height:360px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="footer" style="margin-top:60px;">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="index.html" class="footer-brand-logo">
+            <img src="assets/images/logo.png" alt="Logo NGUYENTU FASHION" class="footer-brand-img">
+            <span class="footer-brand-name">NGUYENTU <span class="brand-fashion">FASHION</span></span>
+          </a>
+          <p style="color:#9ca3af; font-size:0.875rem; line-height:1.6; max-width:320px;">
+            Thương hiệu thời trang Streetwear phong cách giới trẻ hàng đầu Ninh Bình. Showroom trải nghiệm tại Khánh Nhạc, giao hỏa tốc 2H toàn tỉnh.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Danh Mục</h4>
+          <ul class="footer-links">
+            <li><a href="products.html?category=jacket">Áo Khoác Gió</a></li>
+            <li><a href="products.html?category=tee">Áo Thun Streetwear</a></li>
+            <li><a href="products.html?category=tracksuit">Bộ Thể Thao Tracksuit</a></li>
+            <li><a href="products.html?category=pants">Quần Dài Parachute</a></li>
+            <li><a href="products.html?category=shoes">Giày Sneakers</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Chính Sách</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Đổi Trả 7 Ngày Miễn Phí</a></li>
+            <li><a href="contact.html">Vận Chuyển Hỏa Tốc Ninh Bình</a></li>
+            <li><a href="contact.html">Chính Sách Đồng Kiểm COD</a></li>
+            <li><a href="contact.html">Bảo Hành & Đổi Size</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Showroom Ninh Bình</h4>
+          <p style="font-size:0.875rem; color:#9ca3af; line-height:1.6; margin-bottom:8px;">
+            <a href="contact.html" style="color:inherit; text-decoration:none;">📍 Khánh Nhạc, Yên Khánh, Ninh Bình</a>
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:8px;">
+            📞 <a href="tel:0342767002" style="color:var(--accent-gold); font-weight:700; text-decoration:none;">0342.767.002</a>
+          </p>
+          <p style="font-size:0.875rem; color:#9ca3af; margin-bottom:12px;">
+            🕒 08:30 - 22:00 hàng ngày
+          </p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/share/1EuzNVRiqY/?mibextid=wwXIfr" target="_blank" class="social-circle" title="Facebook">FB</a>
+            <a href="https://zalo.me/0342767002" target="_blank" class="social-circle" title="Zalo">ZL</a>
+            <a href="tel:0342767002" class="social-circle" title="Hotline">📞</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NGUYEN TU FASHION. All Rights Reserved.</span>
+        <span>Made with passion in Ninh Binh, Vietnam.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span>Trang Chủ</span>
+    </a>
+    <a href="products.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Sản Phẩm</span>
+    </a>
+    <a href="orders.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+      <span>Đơn Hàng</span>
+    </a>
+    <a href="cart.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+      <span class="action-badge cart-count-badge" style="top:-2px; right:10px;">0</span>
+      <span>Giỏ Hàng</span>
+    </a>
+  </nav>
+
+  <!-- COMMON JS & CHAT WIDGET -->
+  <script src="assets/js/common.js?v=7.0"></script>
+  <script src="assets/js/chat-widget.js"></script>
+
+  <!-- ==========================================
+       MY ORDERS PAGE JAVASCRIPT LOGIC
+       ========================================== -->
+  <script>
+    let myOrdersList = [];
+    let currentFilterStatus = 'all';
+    let currentCancelOrderId = null;
+    let currentReviewOrder = null;
+    let currentReviewProduct = null;
+    let selectedRatingStars = 5;
+
+    // Trạng thái đơn hàng
+    const STATUS_MAP = {
+      pending: { label: 'Chờ duyệt', badgeClass: 'badge-pending', step: 1, stepText: 'Đã nhận đơn' },
+      confirmed: { label: 'Đã đóng gói', badgeClass: 'badge-confirmed', step: 2, stepText: 'Đang đóng gói' },
+      shipping: { label: 'Đang giao 2H', badgeClass: 'badge-shipping', step: 3, stepText: 'Shipper đang giao hỏa tốc' },
+      completed: { label: 'Hoàn tất', badgeClass: 'badge-completed', step: 4, stepText: 'Giao hàng thành công' },
+      cancelled: { label: 'Đã hủy', badgeClass: 'badge-cancelled', step: 0, stepText: 'Đơn hàng đã hủy' }
+    };
+
+    // Khởi tạo trang
+    document.addEventListener('DOMContentLoaded', async () => {
+      setupStarRatingPicker();
+      await loadMyOrders();
+    });
+
+    // 1. Tải danh sách đơn hàng của khách
+    async function loadMyOrders() {
+      const container = document.getElementById('orders-list-container');
+      container.innerHTML = '<div style="text-align:center; padding:50px 20px; color:var(--text-muted);"><span style="display:inline-block; animation:spin 1s linear infinite; margin-right:8px;">⏳</span> Đang đồng bộ trạng thái đơn hàng mới nhất...</div>';
+
+      try {
+        // Lấy danh sách local
+        const savedOrders = JSON.parse(localStorage.getItem('nt_my_orders') || '[]');
+        const recentOrder = JSON.parse(localStorage.getItem('nt_recent_order') || 'null');
+        const combinedMap = new Map();
+
+        if (recentOrder && recentOrder.id) combinedMap.set(recentOrder.id, recentOrder);
+        savedOrders.forEach(o => {
+          if (o && o.id) combinedMap.set(o.id, o);
+        });
+
+        const localList = Array.from(combinedMap.values());
+
+        // Đồng bộ live từ server cho từng đơn
+        if (localList.length > 0) {
+          const promises = localList.map(async (ord) => {
+            try {
+              const res = await fetch(`/api/orders/${encodeURIComponent(ord.id)}`);
+              if (res.ok) {
+                const data = await res.json();
+                if (data.success && data.order) return data.order;
+              }
+            } catch (e) {}
+            return ord;
+          });
+
+          myOrdersList = await Promise.all(promises);
+          // Cập nhật lại localStorage
+          localStorage.setItem('nt_my_orders', JSON.stringify(myOrdersList.slice(0, 15)));
+        } else {
+          myOrdersList = [];
+        }
+
+        updateTabCounters();
+        renderOrdersList();
+      } catch (err) {
+        console.error('[Load Orders Error]', err);
+        container.innerHTML = '<div style="text-align:center; padding:40px; color:#f87171;">Lỗi tải dữ liệu đơn hàng. Vui lòng thử lại!</div>';
+      }
+    }
+
+    // 2. Tra cứu đơn hàng theo input (SĐT hoặc mã đơn)
+    async function searchCustomerOrders() {
+      const input = document.getElementById('order-search-input');
+      const query = input.value.trim();
+
+      if (!query) {
+        await loadMyOrders();
+        return;
+      }
+
+      const container = document.getElementById('orders-list-container');
+      container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted);"><span style="display:inline-block; animation:spin 1s linear infinite; margin-right:8px;">⏳</span> Đang tra cứu đơn hàng...</div>';
+
+      try {
+        const isId = query.toUpperCase().startsWith('NT-') || /^[a-zA-Z]/.test(query);
+        const param = isId ? `orderId=${encodeURIComponent(query)}` : `phone=${encodeURIComponent(query)}`;
+
+        const res = await fetch(`/api/orders/track?${param}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.orders) && data.orders.length > 0) {
+            // Hợp nhất vào list hiện tại
+            const map = new Map();
+            data.orders.forEach(o => map.set(o.id, o));
+            myOrdersList.forEach(o => { if (!map.has(o.id)) map.set(o.id, o); });
+            myOrdersList = Array.from(map.values());
+
+            // Lưu vào localStorage
+            localStorage.setItem('nt_my_orders', JSON.stringify(myOrdersList.slice(0, 15)));
+            window.showToast(`Tìm thấy ${data.orders.length} đơn hàng khớp với "${query}"!`, 'success');
+            updateTabCounters();
+            renderOrdersList();
+            return;
+          }
+        }
+
+        // Nếu server không thấy, tìm local
+        const matched = myOrdersList.filter(o =>
+          (o.id && o.id.toLowerCase().includes(query.toLowerCase())) ||
+          (o.customerPhone && o.customerPhone.includes(query))
+        );
+
+        if (matched.length > 0) {
+          window.showToast(`Tìm thấy ${matched.length} đơn trong thiết bị của bạn!`, 'info');
+          renderOrdersList(matched);
+        } else {
+          container.innerHTML = `
+            <div class="orders-empty-box">
+              <div class="orders-empty-icon">🔍</div>
+              <h3 class="orders-empty-title">Không Tìm Thấy Đơn Hàng</h3>
+              <p class="orders-empty-desc">Không có đơn hàng nào khớp với từ khóa "<strong>${escapeHtml(query)}</strong>". Vui lòng kiểm tra lại số điện thoại hoặc mã đơn hàng.</p>
+              <button class="btn btn-outline-white" onclick="document.getElementById('order-search-input').value=''; loadMyOrders();">
+                Xem Lại Toàn Bộ Đơn
+              </button>
+            </div>
+          `;
+        }
+      } catch (err) {
+        window.showToast('Lỗi kết nối tra cứu!', 'error');
+      }
+    }
+
+    // 3. Render danh sách đơn hàng
+    function renderOrdersList(customList = null) {
+      const container = document.getElementById('orders-list-container');
+      let list = customList || myOrdersList;
+
+      // Lọc theo status tab
+      if (currentFilterStatus !== 'all') {
+        if (currentFilterStatus === 'processing') {
+          list = list.filter(o => o.status === 'confirmed' || o.status === 'shipping');
+        } else {
+          list = list.filter(o => o.status === currentFilterStatus);
+        }
+      }
+
+      if (!list || list.length === 0) {
+        container.innerHTML = `
+          <div class="orders-empty-box">
+            <div class="orders-empty-icon">🛍️</div>
+            <h3 class="orders-empty-title">Chưa Có Đơn Hàng Nào</h3>
+            <p class="orders-empty-desc">Bạn chưa có đơn hàng nào trong mục này. Khám phá các mẫu áo khoác, hoodie và áo thun Streetwear mới nhất để nhận mã giảm giá ngay!</p>
+            <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+              <a href="products.html" class="btn btn-primary" style="padding:12px 24px; font-weight:800;">
+                🔥 Mua Sắm Ngay
+              </a>
+              <button class="btn btn-outline-white" onclick="document.getElementById('order-search-input').focus();" style="padding:12px 20px;">
+                Tra Cứu Bằng Số Điện Thoại
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(order => {
+        const st = STATUS_MAP[order.status] || STATUS_MAP.pending;
+        const items = order.items || [];
+        const isCancelled = order.status === 'cancelled';
+        const isCompleted = order.status === 'completed';
+        const canCancel = (order.status === 'pending' || order.status === 'confirmed') && !isCancelled;
+        const dateStr = order.createdAt ? new Date(order.createdAt).toLocaleString('vi-VN') : 'Vừa xong';
+        const totalVND = window.formatVND ? window.formatVND(order.totalAmount || 0) : ((order.totalAmount || 0).toLocaleString('vi-VN') + '₫');
+
+        return `
+          <article class="my-order-card" id="order-card-${order.id}">
+            <!-- Header -->
+            <div class="order-card-header">
+              <div class="order-id-group">
+                <span class="order-id-text">#${order.id}</span>
+                <button type="button" class="order-copy-btn" onclick="navigator.clipboard.writeText('${order.id}'); window.showToast('Đã chép mã đơn: ${order.id}', 'success');" title="Sao chép mã đơn">
+                  📋 Chép mã
+                </button>
+                <span class="order-date-text">• Đặt lúc: ${dateStr}</span>
+              </div>
+              <span class="order-badge-status ${st.badgeClass}">
+                ${st.label}
+              </span>
+            </div>
+
+            <!-- Cancel Reason Warning Callout if Cancelled -->
+            ${isCancelled ? `
+              <div class="cancel-reason-callout">
+                <strong>🚫 ĐƠN HÀNG ĐÃ BỊ HỦY:</strong> ${escapeHtml(order.cancelReason || 'Khách hàng yêu cầu hủy trên website')}
+                ${order.cancelledAt ? `<span style="font-size:0.75rem; opacity:0.8; margin-left:8px;">(Lúc: ${new Date(order.cancelledAt).toLocaleString('vi-VN')})</span>` : ''}
+              </div>
+            ` : ''}
+
+            <!-- 4-step Timeline -->
+            ${!isCancelled ? `
+              <div class="order-timeline-bar">
+                <div class="timeline-step ${st.step >= 1 ? 'active' : ''} ${st.step > 1 ? 'completed' : ''}">
+                  <div class="timeline-line"></div>
+                  <span class="timeline-label">1. Đã Nhận Đơn</span>
+                </div>
+                <div class="timeline-step ${st.step >= 2 ? 'active' : ''} ${st.step > 2 ? 'completed' : ''}">
+                  <div class="timeline-line"></div>
+                  <span class="timeline-label">2. Đang Đóng Gói</span>
+                </div>
+                <div class="timeline-step ${st.step >= 3 ? 'active' : ''} ${st.step > 3 ? 'completed' : ''}">
+                  <div class="timeline-line"></div>
+                  <span class="timeline-label">3. Giao Hỏa Tốc 2H</span>
+                </div>
+                <div class="timeline-step ${st.step >= 4 ? 'active' : ''}">
+                  <div class="timeline-line"></div>
+                  <span class="timeline-label">4. Giao Thành Công</span>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Products List -->
+            <div class="order-items-list">
+              ${items.map(it => {
+                const itemImg = it.image || 'assets/images/products/ao-khoac-argentina-trang.png';
+                const itemQty = Number(it.quantity) || 1;
+                const itemPrice = Number(it.price) || 0;
+                const lineTotal = itemPrice * itemQty;
+                const isItemReviewed = (order.reviewedItems || []).includes(it.productId);
+
+                return `
+                  <div class="order-item-row">
+                    <img src="${itemImg}" alt="${escapeHtml(it.title)}" class="order-item-img" onerror="this.src='assets/images/products/ao-khoac-argentina-trang.png'">
+                    <div class="order-item-details">
+                      <div class="order-item-title" title="${escapeHtml(it.title)}">${escapeHtml(it.title)}</div>
+                      <div class="order-item-tags">
+                        <span>Size: <strong style="color:#fff;">${it.size || 'M'}</strong></span>
+                        <span>Số lượng: <strong style="color:#fff;">x${itemQty}</strong></span>
+                        ${isItemReviewed ? `<span style="color:#fbbf24; font-weight:700;">★ Đã đánh giá</span>` : ''}
+                      </div>
+                    </div>
+                    <div class="order-item-price-col">
+                      <div class="order-item-total-price">${window.formatVND ? window.formatVND(lineTotal) : lineTotal.toLocaleString('vi-VN') + '₫'}</div>
+                      <div class="order-item-unit-price">${window.formatVND ? window.formatVND(itemPrice) : itemPrice.toLocaleString('vi-VN') + '₫'}/sp</div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Meta details (Shipping & Payment) -->
+            <div class="order-meta-grid">
+              <div>
+                <div class="order-meta-line">👤 Người nhận: <strong>${escapeHtml(order.customerName || 'Khách hàng')}</strong> • 📞 <strong>${escapeHtml(order.customerPhone || '')}</strong></div>
+                <div class="order-meta-line">📍 Địa chỉ nhận: <strong>${escapeHtml(order.address || '')}${order.district ? ', ' + escapeHtml(order.district) : ''}</strong></div>
+                ${order.shippingNote ? `<div class="order-meta-line">📝 Ghi chú: <em>${escapeHtml(order.shippingNote)}</em></div>` : ''}
+              </div>
+              <div style="text-align:right;">
+                <div class="order-meta-line">💳 Phương thức: <strong>${order.paymentMethod === 'vietqr' ? 'VietQR (Quét mã Napas247)' : 'COD (Thu tiền khi nhận)'}</strong></div>
+                <div class="order-meta-line">📦 Phí giao hàng: <strong>${order.shippingFee === 0 ? '<span style="color:var(--accent-green);">Miễn phí</span>' : (window.formatVND ? window.formatVND(order.shippingFee || 30000) : '30.000₫')}</strong></div>
+                <div style="margin-top:6px;">
+                  <span style="font-size:0.8125rem; color:var(--text-muted);">Tổng thanh toán: </span>
+                  <span class="order-total-highlight">${totalVND}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="order-actions-bar">
+              <div class="order-actions-left">
+                <!-- NÚT HỦY ĐƠN HÀNG (Hiển thị khi đơn chưa hoàn tất/chưa hủy) -->
+                ${canCancel ? `
+                  <button type="button" class="btn-cancel-order" onclick="openCancelModal('${order.id}')" title="Hủy đơn hàng này">
+                    <span>🚫</span> <span>Hủy Đơn Hàng</span>
+                  </button>
+                ` : ''}
+
+                <!-- NÚT ĐÁNH GIÁ (Hiển thị cho đơn hàng) -->
+                <button type="button" class="btn-review-order" onclick="openReviewModal('${order.id}')" title="Đánh giá chất lượng sản phẩm">
+                  <span>⭐</span> <span>Đánh Giá Sản Phẩm</span>
+                </button>
+
+                <!-- Xem mã VietQR nếu chọn VietQR -->
+                ${order.paymentMethod === 'vietqr' ? `
+                  <button type="button" class="btn-vietqr-pay" onclick="openVietQRModal('${order.id}', ${order.totalAmount || 0})">
+                    <span>📱</span> <span>Quét Lại VietQR</span>
+                  </button>
+                ` : ''}
+              </div>
+
+              <div class="order-actions-right">
+                <button type="button" class="btn-reorder" onclick="reorderItems('${order.id}')">
+                  <span>🔄</span> <span>Mua Lại Đơn Này</span>
+                </button>
+                <a href="tel:0342767002" class="btn btn-outline-white" style="padding:8px 14px; font-size:0.775rem; border-color:rgba(255,255,255,0.15); color:var(--accent-gold);">
+                  <span>📞 Cần Hỗ Trợ</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // 4. Lọc theo trạng thái tab
+    function filterOrdersByStatus(status, btn) {
+      currentFilterStatus = status;
+      document.querySelectorAll('.order-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderOrdersList();
+    }
+
+    // Cập nhật số đếm trên các tabs
+    function updateTabCounters() {
+      const all = myOrdersList.length;
+      const pending = myOrdersList.filter(o => o.status === 'pending').length;
+      const processing = myOrdersList.filter(o => o.status === 'confirmed' || o.status === 'shipping').length;
+      const completed = myOrdersList.filter(o => o.status === 'completed').length;
+      const cancelled = myOrdersList.filter(o => o.status === 'cancelled').length;
+
+      document.getElementById('tab-count-all').textContent = all;
+      document.getElementById('tab-count-pending').textContent = pending;
+      document.getElementById('tab-count-processing').textContent = processing;
+      document.getElementById('tab-count-completed').textContent = completed;
+      document.getElementById('tab-count-cancelled').textContent = cancelled;
+
+      const headerBadge = document.getElementById('header-orders-badge');
+      if (headerBadge) {
+        const activeCount = pending + processing;
+        if (activeCount > 0) {
+          headerBadge.textContent = activeCount;
+          headerBadge.style.display = 'block';
+        } else {
+          headerBadge.style.display = 'none';
+        }
+      }
+    }
+
+    // 5. MODAL HỦY ĐƠN HÀNG
+    function openCancelModal(orderId) {
+      currentCancelOrderId = orderId;
+      document.getElementById('cancel-modal-order-id').textContent = '#' + orderId;
+      document.getElementById('cancel-reason-select').selectedIndex = 0;
+      document.getElementById('cancel-note-input').value = '';
+      const btn = document.getElementById('btn-confirm-cancel');
+      btn.disabled = false;
+      btn.textContent = 'Xác Nhận Hủy Đơn';
+
+      document.getElementById('cancel-order-modal').classList.add('active');
+    }
+
+    function closeCancelModal() {
+      document.getElementById('cancel-order-modal').classList.remove('active');
+      currentCancelOrderId = null;
+    }
+
+    // XÁC NHẬN HỦY ĐƠN HÀNG -> GỬI API -> TELEGRAM BÁO ĐỎ
+    async function confirmCancelOrder() {
+      if (!currentCancelOrderId) return;
+      const reasonSelect = document.getElementById('cancel-reason-select').value;
+      const noteInput = document.getElementById('cancel-note-input').value.trim();
+      const fullReason = noteInput ? `${reasonSelect} (${noteInput})` : reasonSelect;
+
+      const btn = document.getElementById('btn-confirm-cancel');
+      btn.disabled = true;
+      btn.textContent = 'Đang xử lý hủy đơn...';
+
+      try {
+        const res = await fetch(`/api/orders/${encodeURIComponent(currentCancelOrderId)}/cancel`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reason: fullReason })
+        });
+
+        const data = await res.json();
+        if (data.success && data.order) {
+          // Cập nhật danh sách local
+          const idx = myOrdersList.findIndex(o => o.id === data.order.id);
+          if (idx > -1) {
+            myOrdersList[idx] = data.order;
+          }
+          localStorage.setItem('nt_my_orders', JSON.stringify(myOrdersList));
+
+          closeCancelModal();
+          window.showToast(`Đã hủy đơn hàng #${data.order.id} thành công! Hệ thống đã gửi báo cáo về Telegram của shop.`, 'success');
+          updateTabCounters();
+          renderOrdersList();
+        } else {
+          window.showToast(data.message || 'Không thể hủy đơn hàng này!', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Xác Nhận Hủy Đơn';
+        }
+      } catch (err) {
+        console.error('[Cancel Order Error]', err);
+        // Fallback local update nếu offline
+        const idx = myOrdersList.findIndex(o => o.id === currentCancelOrderId);
+        if (idx > -1) {
+          myOrdersList[idx].status = 'cancelled';
+          myOrdersList[idx].cancelReason = fullReason;
+          myOrdersList[idx].cancelledAt = new Date().toISOString();
+          localStorage.setItem('nt_my_orders', JSON.stringify(myOrdersList));
+          closeCancelModal();
+          window.showToast(`Đã ghi nhận yêu cầu hủy đơn #${currentCancelOrderId}!`, 'success');
+          updateTabCounters();
+          renderOrdersList();
+        } else {
+          window.showToast('Lỗi kết nối khi hủy đơn! Vui lòng gọi hotline 0342.767.002.', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Xác Nhận Hủy Đơn';
+        }
+      }
+    }
+
+    // 6. MODAL ĐÁNH GIÁ SẢN PHẨM
+    function setupStarRatingPicker() {
+      const container = document.getElementById('review-stars-container');
+      const stars = container.querySelectorAll('.star-item');
+      const descText = document.getElementById('star-desc-text');
+      const descMap = {
+        1: 'Rất tệ (1 sao)',
+        2: 'Chưa hài lòng (2 sao)',
+        3: 'Bình thường (3 sao)',
+        4: 'Hài lòng (4 sao)',
+        5: 'Rất hài lòng & đẹp xuất sắc (5 sao)'
+      };
+
+      stars.forEach(s => {
+        s.addEventListener('mouseover', () => {
+          const val = Number(s.getAttribute('data-star'));
+          stars.forEach(st => {
+            st.classList.toggle('hovered', Number(st.getAttribute('data-star')) <= val);
+          });
+        });
+
+        s.addEventListener('mouseout', () => {
+          stars.forEach(st => st.classList.remove('hovered'));
+        });
+
+        s.addEventListener('click', () => {
+          selectedRatingStars = Number(s.getAttribute('data-star'));
+          stars.forEach(st => {
+            st.classList.toggle('active', Number(st.getAttribute('data-star')) <= selectedRatingStars);
+          });
+          descText.textContent = descMap[selectedRatingStars] || `${selectedRatingStars} sao`;
+        });
+      });
+    }
+
+    function openReviewModal(orderId) {
+      const order = myOrdersList.find(o => o.id === orderId);
+      if (!order) return;
+
+      currentReviewOrder = order;
+      const firstItem = (order.items && order.items[0]) || { title: 'Sản phẩm Nguyen Tu Fashion', image: 'assets/images/products/ao-khoac-argentina-trang.png', size: 'M' };
+      currentReviewProduct = firstItem;
+
+      document.getElementById('review-prod-img').src = firstItem.image || 'assets/images/products/ao-khoac-argentina-trang.png';
+      document.getElementById('review-prod-title').textContent = firstItem.title;
+      document.getElementById('review-prod-meta').textContent = `Size: ${firstItem.size || 'M'} • Mã đơn: ${order.id}`;
+
+      document.getElementById('review-author-name').value = order.customerName || '';
+      document.getElementById('review-author-phone').value = order.customerPhone || '';
+      document.getElementById('review-comment-input').value = '';
+
+      // Reset stars to 5
+      selectedRatingStars = 5;
+      document.querySelectorAll('#review-stars-container .star-item').forEach(s => s.classList.add('active'));
+      document.getElementById('star-desc-text').textContent = 'Rất hài lòng & đẹp xuất sắc (5 sao)';
+
+      const btn = document.getElementById('btn-submit-review');
+      btn.disabled = false;
+      btn.textContent = 'Gửi Đánh Giá Ngay';
+
+      document.getElementById('review-order-modal').classList.add('active');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('review-order-modal').classList.remove('active');
+      currentReviewOrder = null;
+      currentReviewProduct = null;
+    }
+
+    async function submitOrderReview() {
+      if (!currentReviewOrder) return;
+      const name = document.getElementById('review-author-name').value.trim();
+      const phone = document.getElementById('review-author-phone').value.trim();
+      const comment = document.getElementById('review-comment-input').value.trim();
+
+      const btn = document.getElementById('btn-submit-review');
+      btn.disabled = true;
+      btn.textContent = 'Đang gửi đánh giá...';
+
+      const payload = {
+        productId: currentReviewProduct.productId,
+        name: name || currentReviewOrder.customerName,
+        phone: phone || currentReviewOrder.customerPhone,
+        rating: selectedRatingStars,
+        comment: comment || 'Sản phẩm rất đẹp đúng chất streetwear, đóng gói cẩn thận!',
+        size: currentReviewProduct.size || 'M'
+      };
+
+      try {
+        const res = await fetch(`/api/orders/${encodeURIComponent(currentReviewOrder.id)}/review`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          // Cập nhật reviewedItems trong local
+          const targetOrd = myOrdersList.find(o => o.id === currentReviewOrder.id);
+          if (targetOrd) {
+            targetOrd.reviewedItems = targetOrd.reviewedItems || [];
+            if (!targetOrd.reviewedItems.includes(currentReviewProduct.productId)) {
+              targetOrd.reviewedItems.push(currentReviewProduct.productId);
+            }
+            localStorage.setItem('nt_my_orders', JSON.stringify(myOrdersList));
+          }
+
+          closeReviewModal();
+          window.showToast('Cảm ơn bạn đã đánh giá! Phản hồi của bạn đã được ghi nhận.', 'success');
+          renderOrdersList();
+        } else {
+          window.showToast(data.message || 'Lỗi gửi đánh giá!', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Gửi Đánh Giá Ngay';
+        }
+      } catch (err) {
+        console.warn('Review API fallback:', err);
+        closeReviewModal();
+        window.showToast('Cảm ơn bạn đã gửi đánh giá cho sản phẩm!', 'success');
+      }
+    }
+
+    // 7. Mua lại sản phẩm từ đơn hàng
+    function reorderItems(orderId) {
+      const order = myOrdersList.find(o => o.id === orderId);
+      if (!order || !order.items || order.items.length === 0) {
+        window.showToast('Không tìm thấy thông tin sản phẩm!', 'error');
+        return;
+      }
+
+      order.items.forEach(it => {
+        window.addToCart(it.productId, Number(it.quantity) || 1, it.size || 'M', it.color || '#111');
+      });
+
+      window.showToast(`Đã thêm ${order.items.length} món từ đơn #${orderId} vào giỏ hàng!`, 'success');
+      setTimeout(() => {
+        window.location.href = 'cart.html';
+      }, 700);
+    }
+
+    // 8. Quét lại mã VietQR
+    function openVietQRModal(orderId, totalAmount) {
+      let bankId = '970422'; // MB Bank
+      let accountNo = '0988888888';
+      let template = 'compact2';
+      let accountName = 'NGUYEN TU FASHION';
+
+      const encodedAccName = encodeURIComponent(accountName);
+      const addInfo = encodeURIComponent(orderId);
+      const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-${template}.png?amount=${totalAmount}&addInfo=${addInfo}&accountName=${encodedAccName}`;
+
+      document.getElementById('vietqr-view-img').src = qrUrl;
+      document.getElementById('vq-acc').textContent = accountNo;
+      document.getElementById('vq-memo').textContent = orderId;
+      document.getElementById('vq-amount').textContent = window.formatVND ? window.formatVND(totalAmount) : totalAmount.toLocaleString('vi-VN') + '₫';
+
+      document.getElementById('vietqr-view-modal').classList.add('active');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+
+</body>
+</html>
