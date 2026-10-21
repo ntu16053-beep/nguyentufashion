@@ -72,7 +72,7 @@
       </div>
 
       <div class="announcement-group">
-        <a href="javascript:void(0)" onclick="window.openOrderTrackingModal()" class="announcement-item" style="color:var(--accent-gold); font-weight:700;">📦 Tra Cứu Đơn</a>
+        <a href="orders.html" class="announcement-item" style="color:var(--accent-gold); font-weight:700;">📦 Đơn Hàng Của Bạn</a>
         <a href="#size-calc" class="announcement-item">📐 Bảng Tính Size</a>
         <a href="contact.html" class="announcement-item">🏪 Showroom Khánh Nhạc</a>
         <a href="tel:0342767002" class="announcement-item">📞 Hotline: 0342.767.002</a>
@@ -112,20 +112,19 @@
         <a href="products.html?category=shoes" class="nav-link">Sneakers</a>
         <a href="#lookbook" class="nav-link">Lookbook</a>
         <a href="blog.html" class="nav-link">Bài Viết</a>
-        <a href="orders.html" class="nav-link">Đơn Hàng Của Bạn</a>
         <a href="contact.html" class="nav-link">Liên Hệ</a>
       </nav>
 
       <!-- Nav Actions -->
       <div class="nav-actions">
         <!-- Order Tracking Button -->
-        <button class="action-btn header-track-btn" title="Đơn hàng của bạn" onclick="event.preventDefault(); window.openMyOrdersModal();" onclick="window.openOrderTrackingModal()" style="position:relative;">
+        <a href="orders.html" class="action-btn header-track-btn" title="Đơn hàng của bạn" aria-label="Đơn hàng của bạn" style="position:relative;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
             <line x1="12" y1="22.08" x2="12" y2="12"></line>
           </svg>
-        </button>
+        </a>
         <!-- Live Instant Search -->
         <button class="action-btn" title="Tìm kiếm sản phẩm" onclick="window.openSearchModal()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -144,11 +143,7 @@
 
         <!-- Cart Drawer Button -->
         
-        <!-- NÚT NỔI BẬT: ĐƠN HÀNG CỦA BẠN -->
-        <a href="orders.html" class="header-my-orders-btn" title="Xem đơn hàng của bạn">
-          <span class="btn-badge-dot"></span>
-          <span>📦 Đơn Hàng Của Bạn</span>
-        </a>
+        
 
         <button class="action-btn" title="Giỏ hàng" onclick="window.openCartDrawer()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -229,27 +224,27 @@
     <!-- ==========================================
          SPOTLIGHT SECTION: ĐƠN HÀNG CỦA BẠN
          ========================================== -->
-    <section class="container" style="margin: 28px auto 10px;">
-      <div style="background: linear-gradient(135deg, rgba(65, 8, 20, 0.95) 0%, rgba(20, 3, 7, 0.95) 100%); border: 1.5px solid rgba(255, 51, 75, 0.5); border-radius: 16px; padding: 22px 26px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
-        <div style="display: flex; align-items: center; gap: 16px;">
-          <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(255, 51, 75, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border: 1.5px solid var(--accent-red); flex-shrink: 0;">
+    <section class="container" style="margin: 32px auto 16px;">
+      <div style="background: linear-gradient(135deg, rgba(34, 4, 11, 0.88) 0%, rgba(18, 2, 5, 0.95) 100%); border: 1px solid rgba(255, 51, 75, 0.35); border-radius: 14px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);">
+        <div style="display: flex; align-items: center; gap: 14px; min-width: 280px; flex: 1;">
+          <div style="width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 51, 75, 0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 1px solid rgba(255, 51, 75, 0.4); flex-shrink: 0;">
             📦
           </div>
           <div>
-            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin: 0 0 4px; letter-spacing: 0.02em;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; text-transform: uppercase; color: #ffffff; margin: 0 0 4px; letter-spacing: 0.03em;">
               ĐƠN HÀNG CỦA BẠN
             </h3>
-            <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0;">
-              Sản phẩm bạn đã đặt mua sẽ xuất hiện tại đây. Có thể theo dõi lộ trình 2H, hủy đơn trực tuyến (báo về Telegram) hoặc gửi đánh giá.
+            <p style="color: var(--text-secondary); font-size: 0.8125rem; margin: 0; line-height: 1.4;">
+              Theo dõi lộ trình giao hàng hỏa tốc 2H, xem sản phẩm đã mua, hủy đơn trực tuyến hoặc gửi đánh giá.
             </p>
           </div>
         </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <a href="orders.html" class="btn btn-primary" style="padding: 12px 22px; font-weight: 800; font-size: 0.875rem; box-shadow: 0 4px 16px rgba(255, 51, 75, 0.45); display: inline-flex; align-items: center; gap: 8px;">
-            <span>👉 BẤM VÀO ĐÂY ĐỂ XEM ĐƠN HÀNG</span>
+          <a href="orders.html" class="btn btn-primary" style="padding: 10px 20px; font-weight: 800; font-size: 0.8125rem; display: inline-flex; align-items: center; gap: 6px;">
+            <span>Xem Đơn Hàng</span> <span>→</span>
           </a>
-          <button onclick="window.openMyOrdersModal()" class="btn btn-outline-white" style="padding: 12px 18px; font-size: 0.875rem;">
-            🔍 Tra Cứu Nhanh
+          <button onclick="window.openMyOrdersModal()" class="btn btn-outline-white" style="padding: 10px 16px; font-size: 0.8125rem; border-color: rgba(255, 255, 255, 0.2);">
+            Tra Cứu Nhanh
           </button>
         </div>
       </div>
@@ -1200,11 +1195,7 @@
   <script src="assets/js/chat-widget.js"></script>
   <script src="assets/js/hero-cinematic.js?v=1.0"></script>
 
-  <!-- FLOATING NỔI BẬT GÓC MÀN HÌNH: ĐƠN HÀNG CỦA BẠN -->
-  <a href="orders.html" class="floating-my-orders-widget" title="Xem đơn hàng của bạn">
-    <span class="pulse-dot"></span>
-    <span>📦 Đơn Hàng Của Bạn</span>
-  </a>
+  
 
 </body>
 </html>
