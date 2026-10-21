@@ -20,7 +20,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 20,
+        "M": 19,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -1643,7 +1643,7 @@
       "totalAmount": 300000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "cancelled",
+      "status": "confirmed",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T19:03:27.963Z",
       "timeline": [
@@ -1656,6 +1656,11 @@
           "status": "cancelled",
           "time": "2026-10-21T19:03:44.365Z",
           "note": "Khách hàng hủy đơn: Đổi ý không còn nhu cầu mua nữa"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:25.027Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ],
       "cancelledAt": "2026-10-21T19:03:44.365Z",
@@ -1685,7 +1690,7 @@
       "totalAmount": 395000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "cancelled",
+      "status": "confirmed",
       "shippingNote": "Đơn test hủy tự động",
       "createdAt": "2026-10-21T18:56:07.980Z",
       "timeline": [
@@ -1698,6 +1703,11 @@
           "status": "cancelled",
           "time": "2026-10-21T18:56:09.150Z",
           "note": "Khách hàng hủy đơn: Khách đổi ý muốn lấy size XL màu đen"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:26.925Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ],
       "cancelledAt": "2026-10-21T18:56:09.150Z",
