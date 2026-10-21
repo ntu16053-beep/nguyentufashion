@@ -1632,45 +1632,92 @@ a.announcement-item:hover {
    SMART SIZE FIT CALCULATOR FOR GEN Z
    ========================================================================== */
 .size-calculator-section {
-  padding: 70px 0;
-  background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+  padding: 48px 0;
+  background: linear-gradient(180deg, #180307 0%, #0d0103 100%);
   color: #ffffff;
+  position: relative;
 }
 
 .calc-wrapper {
-  max-width: 860px;
+  max-width: 820px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
-  padding: 40px;
+  padding: 30px 34px;
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.calc-header-block {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calc-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.calc-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 900;
+  margin: 8px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.calc-subtitle {
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 .calc-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 36px;
-  margin-top: 30px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 26px;
+  align-items: center;
 }
 
 .calc-slider-group {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .calc-slider-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.875rem;
+  align-items: center;
+  font-size: 0.8125rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #e5e5e5;
 }
 
 .calc-slider-val {
   color: var(--accent-gold);
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
 }
 
 input[type=range] {
@@ -1678,77 +1725,124 @@ input[type=range] {
   appearance: none;
   width: 100%;
   height: 6px;
-  border-radius: 3px;
-  background: #333338;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
   outline: none;
+  transition: background 0.2s;
 }
 
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #ffffff;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(255,255,255,0.5);
-  transition: transform 0.1s ease;
+  border: 3px solid var(--accent-red);
+  box-shadow: 0 0 10px rgba(255, 51, 75, 0.5);
+  transition: transform 0.15s ease;
 }
 
-input[type=range]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+input[type=range]::-webkit-slider-thumb:hover,
+input[type=range]::-webkit-slider-thumb:active {
+  transform: scale(1.18);
+}
+
+.calc-pref-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #d4d4d8;
+  letter-spacing: 0.04em;
 }
 
 .fit-preference-group {
   display: flex;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.28);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .fit-btn {
   flex: 1;
-  padding: 10px;
+  padding: 8px 8px;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: var(--radius-sm);
-  color: #ccc;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  color: #a1a1aa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .fit-btn.active {
-  background: #8b1528;
+  background: var(--accent-red);
   color: #ffffff;
-  border-color: #ff334b;
-  box-shadow: 0 0 10px rgba(255, 51, 75, 0.4);
+  box-shadow: 0 2px 10px rgba(255, 51, 75, 0.4);
 }
 
 .calc-result-box {
-  background: rgba(255,255,255,0.06);
-  border: 1px dashed rgba(255,255,255,0.25);
+  background: linear-gradient(145deg, rgba(255, 51, 75, 0.1) 0%, rgba(30, 4, 8, 0.75) 100%);
+  border: 1.5px solid rgba(255, 51, 75, 0.35);
   border-radius: var(--radius-md);
-  padding: 30px;
+  padding: 22px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-result-tag {
+  font-size: 0.6875rem;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
 }
 
 .calc-size-badge {
   font-family: var(--font-heading);
-  font-size: 3.5rem;
+  font-size: 2.6rem;
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
-  margin: 10px 0;
-  text-shadow: 0 0 20px rgba(255,255,255,0.3);
+  margin: 6px 0;
+  white-space: nowrap !important;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 16px rgba(255, 51, 75, 0.5);
 }
 
 .calc-feedback {
-  font-size: 0.875rem;
-  color: #a3a3a3;
-  margin-bottom: 16px;
+  font-size: 0.8rem;
+  color: #e4e4e7;
+  line-height: 1.45;
+  margin: 0 0 14px;
+  max-width: 260px;
+}
+
+.calc-cta-btn {
+  font-size: 0.8125rem !important;
+  font-weight: 800 !important;
+  padding: 9px 18px !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+  white-space: nowrap !important;
+  width: 100% !important;
+  max-width: 240px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* ==========================================================================
@@ -3359,6 +3453,114 @@ input[type=range]::-webkit-slider-thumb:hover {
     padding: 5px 12px !important;
     font-size: 0.75rem !important;
     border-radius: 6px !important;
+  }
+
+  /* 10. SMART SIZE CALCULATOR (Thu gọn, chuẩn tỷ lệ màn hình điện thoại) */
+  .size-calculator-section {
+    padding: 24px 0 28px !important;
+  }
+
+  .calc-wrapper {
+    padding: 16px 14px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    margin: 0 !important;
+  }
+
+  .calc-header-block {
+    margin-bottom: 14px !important;
+  }
+
+  .calc-tag-pill {
+    font-size: 0.65rem !important;
+    padding: 2px 8px !important;
+  }
+
+  .calc-title {
+    font-size: 1.15rem !important;
+    margin: 5px 0 3px !important;
+    letter-spacing: 0 !important;
+  }
+
+  .calc-subtitle {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+    max-width: 320px !important;
+  }
+
+  .calc-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 0 !important;
+  }
+
+  .calc-slider-group {
+    margin-bottom: 10px !important;
+  }
+
+  .calc-slider-label {
+    font-size: 0.78rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .calc-slider-val {
+    font-size: 0.875rem !important;
+    padding: 1px 6px !important;
+  }
+
+  input[type=range] {
+    height: 5px !important;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .calc-pref-label {
+    font-size: 0.6875rem !important;
+    margin-bottom: 5px !important;
+  }
+
+  .fit-preference-group {
+    padding: 3px !important;
+    gap: 5px !important;
+  }
+
+  .fit-btn {
+    padding: 7px 6px !important;
+    font-size: 0.7rem !important;
+    border-radius: 6px !important;
+  }
+
+  .calc-result-box {
+    padding: 14px 12px !important;
+    border-radius: 12px !important;
+    margin-top: 4px !important;
+  }
+
+  .calc-result-tag {
+    font-size: 0.625rem !important;
+  }
+
+  .calc-size-badge {
+    font-size: 2.1rem !important; /* Chuẩn 1 dòng, không bao giờ bị gãy thành 2 dòng như cũ */
+    margin: 4px 0 2px !important;
+    white-space: nowrap !important;
+  }
+
+  .calc-feedback {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+    margin: 0 0 10px !important;
+    max-width: 100% !important;
+  }
+
+  .calc-cta-btn {
+    height: 38px !important;
+    font-size: 0.78rem !important;
+    max-width: 100% !important;
+    padding: 8px 16px !important;
   }
 
 }

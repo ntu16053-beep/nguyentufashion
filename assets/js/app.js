@@ -1556,6 +1556,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (sizeOutput) sizeOutput.textContent = `SIZE ${baseSize}`;
+    const ctaBtn = document.querySelector('.calc-cta-btn');
+    if (ctaBtn) {
+      ctaBtn.innerHTML = `<span>Chọn Đồ Size ${baseSize} Ngay →</span>`;
+    }
     if (feedbackOutput) {
       const fitDescriptions = {
         oversized: 'Form áo thả suông rộng rủ, vai trễ phóng khoáng chuẩn vibe streetwear sành điệu.',

@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css?v=9.1">
+  <link rel="stylesheet" href="assets/css/style.css?v=9.2">
   <link rel="stylesheet" href="assets/css/pages.css?v=6.0">
 </head>
 <body>
@@ -524,21 +524,21 @@
     <section class="size-calculator-section" id="size-calc">
       <div class="container">
         <div class="calc-wrapper">
-          <div style="text-align:center;">
-            <span style="color:var(--accent-gold); font-size:0.75rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase;">Size Recommender</span>
-            <h2 style="font-family:var(--font-heading); font-size:2rem; font-weight:900; margin:6px 0 10px; text-transform:uppercase;">Công Cụ Gợi Ý Size Chuẩn Form</h2>
-            <p style="font-size:0.875rem; color:#a1a1aa; max-width:520px; margin:0 auto;">Kéo thanh chiều cao và cân nặng để tìm size áo chuẩn dáng nhất theo phong cách streetwear bạn thích.</p>
+          <div class="calc-header-block">
+            <span class="calc-tag-pill">⚡ FIT ADVISOR • TƯ VẤN FORM</span>
+            <h2 class="calc-title">TÌM SIZE CHUẨN FORM STREETWEAR</h2>
+            <p class="calc-subtitle">Kéo chiều cao & cân nặng để hệ thống gợi ý size chuẩn phom đẹp nhất.</p>
           </div>
 
           <div class="calc-grid">
-            <div>
+            <div class="calc-inputs-col">
               <!-- Height slider -->
               <div class="calc-slider-group">
                 <div class="calc-slider-label">
                   <span>Chiều cao của bạn:</span>
                   <span class="calc-slider-val" id="calc-height-val">172 cm</span>
                 </div>
-                <input type="range" id="calc-height" min="150" max="190" value="172">
+                <input type="range" id="calc-height" min="150" max="190" value="172" aria-label="Chiều cao">
               </div>
 
               <!-- Weight slider -->
@@ -547,27 +547,27 @@
                   <span>Cân nặng của bạn:</span>
                   <span class="calc-slider-val" id="calc-weight-val">63 kg</span>
                 </div>
-                <input type="range" id="calc-weight" min="40" max="95" value="63">
+                <input type="range" id="calc-weight" min="40" max="95" value="63" aria-label="Cân nặng">
               </div>
 
               <!-- Fit preference -->
-              <div>
-                <div style="font-size:0.8125rem; font-weight:700; text-transform:uppercase; margin-bottom:8px; color:#e5e5e5;">Gu mặc mong muốn:</div>
+              <div class="calc-preference-wrap">
+                <div class="calc-pref-label">GU MẶC MONG MUỐN:</div>
                 <div class="fit-preference-group">
-                  <button class="fit-btn" onclick="window.setFitPreference('slim', this)">Ôm nhẹ</button>
-                  <button class="fit-btn" onclick="window.setFitPreference('regular', this)">Vừa vặn</button>
-                  <button class="fit-btn active" onclick="window.setFitPreference('oversized', this)">Oversized Rộng</button>
+                  <button type="button" class="fit-btn" onclick="window.setFitPreference('slim', this)">Ôm nhẹ</button>
+                  <button type="button" class="fit-btn" onclick="window.setFitPreference('regular', this)">Vừa vặn</button>
+                  <button type="button" class="fit-btn active" onclick="window.setFitPreference('oversized', this)">Oversize Rộng</button>
                 </div>
               </div>
             </div>
 
             <!-- Result Box -->
             <div class="calc-result-box">
-              <span style="font-size:0.8125rem; color:#bbb; text-transform:uppercase; letter-spacing:0.08em;">Gợi ý size tối ưu cho bạn</span>
+              <span class="calc-result-tag">GỢI Ý SIZE TỐI ƯU CHO BẠN</span>
               <div class="calc-size-badge" id="calc-size-output">SIZE L</div>
               <p class="calc-feedback" id="calc-feedback-text">Form áo thả suông rộng rủ, vai trễ phóng khoáng chuẩn vibe streetwear sành điệu.</p>
-              <button class="btn btn-primary" style="font-size:0.8125rem; padding:10px 24px;" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
-                Chọn Đồ Size Này Ngay
+              <button type="button" class="btn btn-primary calc-cta-btn" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
+                <span>Chọn Đồ Size Này Ngay →</span>
               </button>
             </div>
           </div>
