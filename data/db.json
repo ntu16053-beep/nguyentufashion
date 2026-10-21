@@ -1888,7 +1888,7 @@
       "totalAmount": 358000,
       "paymentMethod": "cod",
       "paymentStatus": "paid",
-      "status": "completed",
+      "status": "confirmed",
       "shippingNote": "Khách đã nhận hàng và khen chất vải tốt",
       "createdAt": "2026-10-13T15:20:00Z",
       "timeline": [
@@ -1911,6 +1911,11 @@
           "status": "completed",
           "time": "2026-10-13T17:15:00Z",
           "note": "Giao hàng thành công - Thu tiền COD 358.000₫"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:35.504Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ]
     }
