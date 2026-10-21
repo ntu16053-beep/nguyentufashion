@@ -1740,7 +1740,7 @@
       "totalAmount": 310000,
       "paymentMethod": "cod",
       "paymentStatus": "paid",
-      "status": "completed",
+      "status": "shipping",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T12:27:18.785Z",
       "timeline": [
@@ -1758,6 +1758,11 @@
           "status": "completed",
           "time": "2026-10-21T19:17:41.759Z",
           "note": "Đơn hàng đã được giao thành công"
+        },
+        {
+          "status": "shipping",
+          "time": "2026-10-21T19:19:01.673Z",
+          "note": "Shipper hỏa tốc Ninh Bình đang giao hàng đến bạn"
         }
       ]
     },
