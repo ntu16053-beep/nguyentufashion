@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css?v=9.0">
-  <link rel="stylesheet" href="assets/css/pages.css?v=6.0">
+  <link rel="stylesheet" href="assets/css/style.css?v=9.1">
+  <link rel="stylesheet" href="assets/css/pages.css?v=7.0">
 </head>
 <body>
 
@@ -137,7 +137,7 @@
   </header>
 
   <!-- BREADCRUMB STRIP -->
-  <div style="background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--border-light); padding: 14px 0;">
+  <div class="product-breadcrumb-bar">
     <div class="container">
       <nav class="breadcrumb-nav" style="justify-content: flex-start; margin-bottom: 0;">
         <a href="index.html">Trang Chủ</a>
@@ -159,7 +159,8 @@
         <!-- LEFT: GALLERY -->
         <div class="gallery-sticky-wrap">
           <div class="main-image-viewport" id="main-viewport">
-                        <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Chi tiết sản phẩm" id="detail-main-img">
+            <span class="gallery-counter-pill" id="gallery-counter">1 / 4</span>
+            <img src="assets/images/products/ao-khoac-argentina-trang.png" alt="Chi tiết sản phẩm" id="detail-main-img">
           </div>
 
           <div class="thumb-gallery-strip" id="thumb-strip">
@@ -170,36 +171,41 @@
         <!-- RIGHT: PRODUCT INFO & PURCHASE PANEL -->
         <div class="product-info-panel">
           <div class="product-brand-tag">
-            <span>⚡ NGUYEN TU EXCLUSIVE • NINH BÌNH DROP</span>
+            <span class="brand-tag-exclusive">⚡ NGUYEN TU EXCLUSIVE • NINH BÌNH DROP</span>
+            <span class="brand-tag-guarantee">✓ CHÍNH HÃNG 100%</span>
           </div>
 
           <h1 class="product-detail-title" id="detail-title">Đang tải sản phẩm...</h1>
 
           <div class="product-meta-row">
-            <div class="rating-stars-gold">
+            <div class="rating-stars-gold" onclick="window.scrollToReviews()" title="Xem đánh giá từ khách hàng">
               <span id="detail-stars">★★★★★</span>
               <strong style="color:#fff; margin-left:4px;" id="detail-rating-num">5.0</strong>
+              <span class="meta-reviews-text">(<span id="detail-reviews-num">186 Đánh Giá</span>)</span>
             </div>
-            <span>•</span>
-            <span id="detail-reviews-num">186 Đánh Giá</span>
-            <span>•</span>
-            <span>Mã: <code id="detail-sku" style="color:var(--text-primary); font-weight:700;">NT-01</code></span>
+            <span class="meta-dot-sep">•</span>
+            <span class="meta-sku-pill">Mã: <code id="detail-sku">NT-01</code></span>
+            <span class="meta-dot-sep">•</span>
+            <span class="meta-sold-pill">🔥 Đã bán 250+</span>
           </div>
 
+          <!-- Elevated Price Card -->
           <div class="product-price-section">
-            <span class="price-current" id="detail-price">0₫</span>
-            <span class="price-old" id="detail-old-price">0₫</span>
-            <span class="price-discount-pill" id="detail-discount-pill">Giảm 20%</span>
+            <div class="price-digits-row">
+              <span class="price-current" id="detail-price">0₫</span>
+              <span class="price-old" id="detail-old-price">0₫</span>
+              <span class="price-discount-pill" id="detail-discount-pill">Giảm 20%</span>
+            </div>
+            <div class="price-incentive-line">
+              <span class="incentive-badge">⚡ Ninh Bình Drop</span>
+              <span>Freeship đơn từ 299K • Nhập <strong>NINHBINH</strong> giảm 15%</span>
+            </div>
           </div>
-
-          <p class="product-desc-brief" id="detail-brief-desc">
-            Chất liệu cao cấp thoáng khí, chuẩn form thời trang đường phố Gen Z.
-          </p>
 
           <!-- Color Selector -->
           <div class="selector-group">
             <div class="selector-header">
-              <span class="selector-label">Màu Sắc: <strong id="selected-color-name" style="color:var(--accent-red);">Mặc định</strong></span>
+              <span class="selector-label">MÀU SẮC: <strong id="selected-color-name" style="color:var(--accent-red); margin-left:4px;">Mặc định</strong></span>
             </div>
             <div class="color-chips-row" id="color-chips-row">
               <!-- Dynamically populated -->
@@ -209,31 +215,41 @@
           <!-- Size Selector -->
           <div class="selector-group">
             <div class="selector-header">
-              <span class="selector-label">Chọn Size: <strong id="selected-size-label" style="color:var(--accent-red);">M</strong></span>
-              <span class="size-guide-link" onclick="window.openSizeCalculatorModal()">📐 Bảng tính size chuẩn</span>
+              <span class="selector-label">CHỌN SIZE: <strong id="selected-size-label" style="color:var(--accent-red); margin-left:4px;">M</strong></span>
+              <button type="button" class="size-guide-link" onclick="window.openSizeCalculatorModal()">📐 Bảng tính size chuẩn</button>
             </div>
             <div class="size-pill-row" id="size-pill-row">
               <!-- Sizes -->
             </div>
             <div class="stock-indicator-row" id="stock-indicator">
-              <span>●</span> <span id="stock-text">Còn 25 sản phẩm trong kho (Giao 2H)</span>
+              <span class="stock-pulse-dot"></span>
+              <span id="stock-text">Còn 25 sản phẩm trong kho (Giao 2H)</span>
             </div>
+          </div>
+
+          <!-- Concise Highlight Box -->
+          <div class="product-highlight-box">
+            <div class="highlight-title">ĐẶC ĐIỂM NỔI BẬT</div>
+            <p class="product-desc-brief" id="detail-brief-desc">
+              Chất liệu cao cấp thoáng khí, chuẩn form thời trang đường phố Gen Z.
+            </p>
           </div>
 
           <!-- Quantity & Purchase Actions -->
           <div class="purchase-actions-row">
             <div class="qty-counter">
-              <button class="qty-btn" onclick="window.adjustDetailQty(-1)">-</button>
-              <input type="text" id="detail-qty-val" class="qty-input" value="1" readonly>
-              <button class="qty-btn" onclick="window.adjustDetailQty(1)">+</button>
+              <button class="qty-btn" onclick="window.adjustDetailQty(-1)" aria-label="Giảm số lượng">-</button>
+              <input type="text" id="detail-qty-val" class="qty-input" value="1" readonly aria-label="Số lượng">
+              <button class="qty-btn" onclick="window.adjustDetailQty(1)" aria-label="Tăng số lượng">+</button>
             </div>
 
             <button class="btn-add-cart" id="btn-detail-addcart" onclick="window.handleDetailAddToCart()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               <span>Thêm Giỏ Hàng</span>
             </button>
 
             <button class="btn-buy-now" id="btn-detail-buynow" onclick="window.handleDetailBuyNow()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               <span>Mua Ngay Hỏa Tốc</span>
             </button>
           </div>
@@ -241,29 +257,29 @@
           <!-- Store Perks -->
           <div class="detail-perks-box">
             <div class="perk-item">
-              <span class="perk-icon">⚡</span>
-              <div>
+              <div class="perk-icon-wrap">⚡</div>
+              <div class="perk-info">
                 <strong>Hỏa Tốc 2H Ninh Bình</strong>
                 <p>Nội thành TP. Ninh Bình & Yên Khánh</p>
               </div>
             </div>
             <div class="perk-item">
-              <span class="perk-icon">📦</span>
-              <div>
+              <div class="perk-icon-wrap">📦</div>
+              <div class="perk-info">
                 <strong>Freeship Toàn Tỉnh</strong>
                 <p>Cho đơn hàng từ 299.000₫</p>
               </div>
             </div>
             <div class="perk-item">
-              <span class="perk-icon">🔄</span>
-              <div>
+              <div class="perk-icon-wrap">🔄</div>
+              <div class="perk-info">
                 <strong>Đổi Size 7 Ngày</strong>
                 <p>Shipper đến tận nhà đổi size mới</p>
               </div>
             </div>
             <div class="perk-item">
-              <span class="perk-icon">🛡️</span>
-              <div>
+              <div class="perk-icon-wrap">🛡️</div>
+              <div class="perk-info">
                 <strong>Đồng Kiểm Khi Nhận</strong>
                 <p>Kiểm tra ưng ý mới thanh toán COD</p>
               </div>
@@ -689,8 +705,8 @@
       if (p.oldPrice && p.oldPrice > p.price) {
         document.getElementById('detail-old-price').textContent = window.formatVND(p.oldPrice);
         const percent = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
-        document.getElementById('detail-discount-pill').textContent = `Tiết kiệm ${percent}%`;
-        document.getElementById('detail-discount-pill').style.display = 'inline-block';
+        document.getElementById('detail-discount-pill').textContent = `Giảm ${percent}%`;
+        document.getElementById('detail-discount-pill').style.display = 'inline-flex';
       } else {
         document.getElementById('detail-old-price').style.display = 'none';
         document.getElementById('detail-discount-pill').style.display = 'none';
@@ -717,13 +733,24 @@
       const thumbStrip = document.getElementById('thumb-strip');
       const imagesList = [p.image];
       if (p.imageHover && p.imageHover !== p.image) imagesList.push(p.imageHover);
-      // Add extra views
-      imagesList.push(p.image);
-      imagesList.push(p.imageHover || p.image);
+      // Ensure at least 3 views for balanced aesthetic gallery
+      if (imagesList.length < 3) {
+        imagesList.push(p.image);
+        if (p.imageHover && p.imageHover !== p.image) {
+          imagesList.push(p.imageHover);
+        } else {
+          imagesList.push(p.image);
+        }
+      }
+
+      const galleryCounter = document.getElementById('gallery-counter');
+      if (galleryCounter) {
+        galleryCounter.textContent = `1 / ${imagesList.length}`;
+      }
 
       thumbStrip.innerHTML = imagesList.map((img, idx) => `
-        <div class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="window.switchMainImage('${img}', this)">
-          <img src="${img}" alt="Thumbnail ${idx}">
+        <div class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="window.switchMainImage('${img}', this, ${idx + 1}, ${imagesList.length})" role="button" aria-label="Xem ảnh ${idx + 1}">
+          <img src="${img}" alt="Thumbnail ${idx + 1}">
         </div>
       `).join('');
 
@@ -740,15 +767,30 @@
       // Sizes
       const sizeRow = document.getElementById('size-pill-row');
       const sizes = Array.isArray(p.sizes) && p.sizes.length > 0 ? p.sizes : (typeof p.sizes === 'string' ? p.sizes.split(',').map(s => s.trim()).filter(Boolean) : ['M', 'L', 'XL', 'XXL']);
-      selectedSize = sizes[0];
-      sizeRow.innerHTML = sizes.map((s, idx) => `
-        <button type="button" class="size-btn-pill ${idx === 0 ? 'active' : ''}" onclick="window.selectSize('${s}', this)" aria-label="Size ${s}">${s}</button>
-      `).join('');
-      document.getElementById('selected-size-label').textContent = sizes[0];
+      const stockMap = (p.stock && typeof p.stock === 'object') ? p.stock : {};
+
+      // Select first in-stock size, fallback to first size
+      const firstInStock = sizes.find(s => stockMap[s] === undefined || Number(stockMap[s]) > 0) || sizes[0];
+      selectedSize = firstInStock;
+
+      sizeRow.innerHTML = sizes.map(s => {
+        const isOut = stockMap[s] !== undefined && Number(stockMap[s]) <= 0;
+        const isActive = s === firstInStock;
+        return `
+          <button type="button" class="size-btn-pill ${isActive ? 'active' : ''} ${isOut ? 'is-out-of-stock' : ''}" 
+                  onclick="window.selectSize('${s}', this)" 
+                  aria-label="Size ${s}" 
+                  title="${isOut ? 'Tạm thời hết size ' + s : 'Còn hàng'}"
+                  style="${isOut ? 'opacity:0.65; text-decoration:line-through; position:relative;' : ''}">
+            ${s}${isOut ? ' <span style="font-size:0.65rem; color:#f87171; text-decoration:none; display:inline-block; margin-left:2px; font-weight:700;">(Hết)</span>' : ''}
+          </button>
+        `;
+      }).join('');
+      document.getElementById('selected-size-label').textContent = firstInStock;
 
       // Update initial stock & active state for default size
-      const firstSizeBtn = sizeRow.querySelector('.size-btn-pill');
-      window.selectSize(sizes[0], firstSizeBtn);
+      const defaultSizeBtn = sizeRow.querySelector('.size-btn-pill.active') || sizeRow.querySelector('.size-btn-pill');
+      window.selectSize(firstInStock, defaultSizeBtn);
 
       // Reviews
       if (typeof loadProductReviews === 'function') {
@@ -756,10 +798,25 @@
       }
     }
 
-    window.switchMainImage = function (src, el) {
+    window.switchMainImage = function (src, el, idx, total) {
       document.getElementById('detail-main-img').src = src;
       document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
+      if (el) el.classList.add('active');
+      const counter = document.getElementById('gallery-counter');
+      if (counter && idx && total) {
+        counter.textContent = `${idx} / ${total}`;
+      }
+    };
+
+    window.scrollToReviews = function() {
+      const reviewTab = document.querySelector('.tab-nav-item:last-child') || document.querySelectorAll('.tab-nav-item')[3];
+      if (reviewTab) {
+        window.switchDetailTab('reviews', reviewTab);
+      }
+      const revSection = document.querySelector('.product-tabs-section');
+      if (revSection) {
+        revSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     };
 
     window.selectColor = function (color, el) {
@@ -785,13 +842,13 @@
       const addBtn = document.getElementById('btn-detail-addcart');
 
       if (qtyAvail <= 0) {
-        document.getElementById('stock-text').innerHTML = '<span style="color:#f87171; font-weight:700;">⚠️ Tạm thời hết size này (Đang về thêm)</span>';
-        if (buyBtn) { buyBtn.disabled = true; buyBtn.style.opacity = '0.5'; }
-        if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; }
+        document.getElementById('stock-text').innerHTML = '<span style="color:#f87171; font-weight:700;">⚠️ Tạm thời hết size ' + size + ' (Đang về thêm hàng)</span>';
+        if (buyBtn) { buyBtn.disabled = true; buyBtn.style.opacity = '0.5'; buyBtn.style.cursor = 'not-allowed'; }
+        if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; addBtn.style.cursor = 'not-allowed'; }
       } else {
         document.getElementById('stock-text').innerHTML = `Còn <strong>${qtyAvail}</strong> sản phẩm trong kho (Giao 2H)`;
-        if (buyBtn) { buyBtn.disabled = false; buyBtn.style.opacity = '1'; }
-        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = '1'; }
+        if (buyBtn) { buyBtn.disabled = false; buyBtn.style.opacity = '1'; buyBtn.style.cursor = 'pointer'; }
+        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = '1'; addBtn.style.cursor = 'pointer'; }
       }
     };
 
@@ -807,6 +864,16 @@
     let _isAddingToCart = false;
     window.handleDetailAddToCart = function () {
       if (!currentProduct || _isAddingToCart) return;
+      const stockMap = currentProduct.stock || {};
+      const qtyAvail = stockMap[selectedSize] !== undefined ? Number(stockMap[selectedSize]) : 20;
+      if (qtyAvail <= 0) {
+        if (typeof window.showToast === 'function') {
+          window.showToast('⚠️ Size ' + selectedSize + ' hiện đã hết hàng, vui lòng chọn size khác!', 'warning');
+        } else {
+          alert('⚠️ Size ' + selectedSize + ' hiện đã hết hàng, vui lòng chọn size khác!');
+        }
+        return;
+      }
       _isAddingToCart = true;
       window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
       if (typeof window.openCartDrawer === 'function') {
@@ -990,20 +1057,30 @@
     // Mobile Sticky Buy Bar Initialization
     function initMobileStickyBar() {
       const bar = document.getElementById('mobile-sticky-bar');
-      const mainActions = document.querySelector('.product-actions-group');
+      const mainActions = document.querySelector('.purchase-actions-row');
       if (!bar || !mainActions) return;
+
+      const chatContainer = document.getElementById('floating-chat-container');
 
       window.addEventListener('scroll', () => {
         if (window.innerWidth > 768) {
           bar.style.display = 'none';
+          document.body.classList.remove('has-sticky-bar');
+          if (chatContainer) chatContainer.classList.remove('pushed-up');
           return;
         }
 
         const rect = mainActions.getBoundingClientRect();
-        if (rect.bottom < 0) {
+        if (rect.bottom < 50) {
           bar.style.display = 'block';
+          bar.classList.add('visible');
+          document.body.classList.add('has-sticky-bar');
+          if (chatContainer) chatContainer.classList.add('pushed-up');
         } else {
           bar.style.display = 'none';
+          bar.classList.remove('visible');
+          document.body.classList.remove('has-sticky-bar');
+          if (chatContainer) chatContainer.classList.remove('pushed-up');
         }
       }, { passive: true });
     }

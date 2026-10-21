@@ -937,14 +937,18 @@
 
         <div style="margin-bottom:14px;">
           <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:#fff;">Chọn Kích Cỡ:</label>
-          <div style="display:flex; gap:8px;" id="qv-size-group">
-            ${sizes.map((s, idx) => `
-              <button class="size-btn-pill ${idx === 0 ? 'active' : ''}" style="padding:6px 14px; font-size:0.8125rem;" onclick="
+          <div style="display:flex; gap:8px; flex-wrap:wrap;" id="qv-size-group">
+            ${sizes.map((s, idx) => {
+              const sm = (prod.stock && typeof prod.stock === 'object') ? prod.stock : {};
+              const isOut = sm[s] !== undefined && Number(sm[s]) <= 0;
+              return `
+              <button class="size-btn-pill ${idx === 0 ? 'active' : ''}" style="padding:6px 14px; font-size:0.8125rem; ${isOut ? 'opacity:0.65; text-decoration:line-through;' : ''}" onclick="
                 document.querySelectorAll('#qv-size-group button').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 window._qvSelectedSize = '${s}';
-              ">${s}</button>
-            `).join('')}
+              ">${s}${isOut ? ' (Hết)' : ''}</button>
+              `;
+            }).join('')}
           </div>
         </div>
 
@@ -955,6 +959,11 @@
         <div style="display:flex; gap:10px;">
           <button class="btn btn-primary" style="flex:1; height:46px; font-weight:800;" onclick="
             const s = window._qvSelectedSize || '${sizes[0]}';
+            const sm = (prod.stock && typeof prod.stock === 'object') ? prod.stock : {};
+            if (sm[s] !== undefined && Number(sm[s]) <= 0) {
+              alert('Size ' + s + ' tạm thời đã hết hàng! Vui lòng chọn size khác.');
+              return;
+            }
             window.addToCart('${prod.id}', s, '#111111', 1);
             document.getElementById('quick-view-modal').classList.remove('active');
           ">Thêm Vào Giỏ Hàng</button>

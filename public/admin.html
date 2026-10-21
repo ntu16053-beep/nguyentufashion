@@ -1004,42 +1004,87 @@
     }
   </style>
 
-  <!-- EDIT PRODUCT PRICE MODAL -->
+  <!-- EDIT PRODUCT PRICE & SIZE MODAL -->
   <div class="modal-overlay" id="edit-price-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
-    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:460px; box-shadow:0 16px 40px rgba(0,0,0,0.8); position:relative; z-index:1000000;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
-        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Chỉnh Sửa Giá Sản Phẩm</h3>
-        <button onclick="window.closeEditPriceModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:26px; width:92%; max-width:520px; max-height:92vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8); position:relative; z-index:1000000;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Chỉnh Sửa Giá & Size Sản Phẩm</h3>
+        <button onclick="window.closeEditPriceModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer; line-height:1;">&times;</button>
       </div>
 
-      <div style="display:flex; gap:14px; align-items:center; margin-bottom:20px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; gap:14px; align-items:center; margin-bottom:18px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
         <img id="edit-p-thumb" src="" alt="Thumbnail" style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
-        <div>
+        <div style="flex:1; min-width:0;">
           <div style="font-size:0.75rem; color:var(--accent-gold); font-weight:700;" id="edit-p-code">NT-01</div>
-          <h4 style="font-size:0.875rem; font-weight:700; line-height:1.4; color:#fff;" id="edit-p-title">Tên sản phẩm</h4>
+          <h4 style="font-size:0.875rem; font-weight:700; line-height:1.4; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="edit-p-title">Tên sản phẩm</h4>
         </div>
       </div>
 
       <input type="hidden" id="edit-p-id">
 
-      <div style="margin-bottom:16px;">
-        <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:#fff;">Giá Bán Hiện Tại (VNĐ) <span style="color:var(--accent-red)">*</span></label>
-        <input type="number" id="edit-p-price" class="custom-input" placeholder="Ví dụ: 350000" style="width:100%; padding:10px 14px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:1rem; font-weight:700;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div>
+          <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:#fff;">Giá Bán Hiện Tại (VNĐ) <span style="color:var(--accent-red)">*</span></label>
+          <input type="number" id="edit-p-price" class="custom-input" placeholder="Ví dụ: 350000" style="width:100%; padding:9px 12px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.95rem; font-weight:700;">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:var(--text-secondary);">Giá Gốc Niêm Yết (VNĐ)</label>
+          <input type="number" id="edit-p-oldprice" class="custom-input" placeholder="Ví dụ: 450000" style="width:100%; padding:9px 12px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.95rem;">
+        </div>
       </div>
 
-      <div style="margin-bottom:16px;">
-        <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:var(--text-secondary);">Giá Gốc / Giá Gạch Niêm Yết (VNĐ)</label>
-        <input type="number" id="edit-p-oldprice" class="custom-input" placeholder="Ví dụ: 450000 (để trống nếu không giảm giá)" style="width:100%; padding:10px 14px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.9375rem;">
-      </div>
-
-      <div style="margin-bottom:22px;">
+      <div style="margin-bottom:18px;">
         <label style="display:block; font-size:0.8125rem; font-weight:700; margin-bottom:6px; color:var(--text-secondary);">Huy Hiệu Sản Phẩm</label>
-        <select id="edit-p-badge" class="custom-select" style="width:100%; padding:10px 14px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.875rem;">
+        <select id="edit-p-badge" class="custom-select" style="width:100%; padding:9px 12px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.875rem;">
           <option value="">Không có huy hiệu</option>
           <option value="hot">🔥 Bán chạy (HOT)</option>
           <option value="sale">🏷️ Giảm giá sốc (SALE)</option>
           <option value="new">✨ Hàng mới về (NEW)</option>
         </select>
+      </div>
+
+      <!-- SIZE MANAGEMENT SECTION -->
+      <div style="background:rgba(0,0,0,0.38); border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:14px; margin-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="font-size:0.85rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:6px;">
+              <span>👕 Quản Lý Size & Kho Hàng</span>
+            </label>
+            <span id="edit-size-count-badge" style="background:rgba(239,68,68,0.2); color:var(--accent-red); font-size:0.7rem; padding:2px 8px; border-radius:12px; font-weight:800;">0 size</span>
+          </div>
+          <div style="display:flex; gap:8px; font-size:0.72rem;">
+            <button type="button" onclick="window.setAllEditSizesStock(true)" style="background:none; border:none; color:#4ade80; font-weight:700; cursor:pointer; text-decoration:underline; padding:0;">Bật còn hàng tất cả</button>
+            <span style="color:#555;">|</span>
+            <button type="button" onclick="window.setAllEditSizesStock(false)" style="background:none; border:none; color:#f87171; font-weight:700; cursor:pointer; text-decoration:underline; padding:0;">Báo hết tất cả</button>
+          </div>
+        </div>
+
+        <div style="font-size:0.75rem; color:#aaa; margin-bottom:10px; line-height:1.4;">
+          💡 Bấm nút <span style="color:#4ade80; font-weight:700;">[Còn hàng]</span> / <span style="color:#f87171; font-weight:700;">[Hết size]</span> để chuyển trạng thái. Bấm <strong style="color:#f87171;">✕</strong> để xóa hẳn size khỏi sản phẩm.
+        </div>
+
+        <!-- Dynamic Size Items List -->
+        <div id="edit-sizes-list" style="display:flex; flex-direction:column; gap:6px; max-height:180px; overflow-y:auto; padding-right:4px;">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Add Size Input & Quick Suggestions -->
+        <div style="margin-top:12px; padding-top:12px; border-top:1px dashed rgba(255,255,255,0.12);">
+          <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-secondary); margin-bottom:6px;">
+            ➕ Thêm size mới cho sản phẩm này:
+          </label>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="edit-new-size-input" class="custom-input" placeholder="Nhập size mới (VD: 3XL, S, 44...)" style="flex:1; padding:8px 12px; border-radius:6px; background:#190206; color:#fff; border:1px solid var(--border-light); font-size:0.875rem;" onkeydown="if(event.key==='Enter'){event.preventDefault();window.addEditSize();}">
+            <button type="button" class="btn btn-primary" style="padding:8px 14px; font-size:0.8125rem; font-weight:700; white-space:nowrap;" onclick="window.addEditSize()">+ Thêm</button>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:6px; margin-top:8px; flex-wrap:wrap;">
+            <span style="font-size:0.7rem; color:var(--text-muted);">Gợi ý thêm nhanh:</span>
+            <div id="edit-quick-sizes-chips" style="display:flex; gap:4px; flex-wrap:wrap;">
+              <!-- Quick suggestion chips -->
+            </div>
+          </div>
+        </div>
       </div>
 
       <div style="display:flex; gap:12px;">
@@ -1576,6 +1621,12 @@
             <td>
               <strong>${p.title}</strong>
               ${badgeHTML}
+              <div style="margin-top:5px; display:flex; gap:4px; flex-wrap:wrap; align-items:center;">
+                ${(p.sizes || []).map(s => {
+                  const isOut = p.stock && p.stock[s] !== undefined && Number(p.stock[s]) <= 0;
+                  return `<span style="font-size:0.6875rem; padding:1px 6px; border-radius:4px; font-weight:700; background:${isOut ? 'rgba(239,68,68,0.18)' : 'rgba(255,255,255,0.08)'}; color:${isOut ? '#fca5a5' : '#e2e8f0'}; border:1px solid ${isOut ? 'rgba(239,68,68,0.35)' : 'rgba(255,255,255,0.12)'}; ${isOut ? 'text-decoration:line-through;' : ''}">${s}${isOut ? ' (Hết)' : ''}</span>`;
+                }).join('')}
+              </div>
             </td>
             <td><span style="font-size:0.8125rem; color:var(--text-secondary);">${p.categoryName || p.category}</span></td>
             <td>
@@ -1586,7 +1637,7 @@
             <td style="text-align:center;">
               <div style="display:flex; gap:6px; justify-content:center;">
                 <button class="btn btn-dark" style="padding:6px 12px; font-size:0.75rem; display:inline-flex; align-items:center; gap:4px;" onclick="window.openEditPriceModal('${p.id}')">
-                  ✏️ Sửa Giá
+                  ✏️ Sửa Giá & Size
                 </button>
                 <button class="btn btn-dark" style="padding:6px 10px; font-size:0.75rem; color:#f87171; border-color:rgba(239,68,68,0.4);" onclick="window.deleteAdminProduct('${p.id}', '${safeTitle}')" title="Xóa sản phẩm">
                   🗑️ Xóa
@@ -1837,11 +1888,15 @@
       }
     };
 
+    window._editModalSizes = [];
+    window._editModalStock = {};
+    window._editModalCategory = '';
+
     window.openEditPriceModal = function (id) {
       console.log('openEditPriceModal clicked:', id);
       const modal = document.getElementById('edit-price-modal');
       if (!modal) {
-        alert('Không tìm thấy cửa sổ chỉnh sửa giá!');
+        alert('Không tìm thấy cửa sổ chỉnh sửa giá & size!');
         return;
       }
 
@@ -1859,6 +1914,37 @@
       document.getElementById('edit-p-oldprice').value = p.oldPrice || '';
       document.getElementById('edit-p-badge').value = p.badge || '';
 
+      // Tải danh sách size & tồn kho
+      let currentSizes = [];
+      if (Array.isArray(p.sizes)) {
+        currentSizes = p.sizes.map(s => String(s).trim()).filter(Boolean);
+      } else if (typeof p.sizes === 'string') {
+        currentSizes = p.sizes.split(',').map(s => s.trim()).filter(Boolean);
+      }
+      if (currentSizes.length === 0) {
+        currentSizes = ['M', 'L', 'XL', 'XXL'];
+      }
+
+      let currentStock = {};
+      if (p.stock && typeof p.stock === 'object') {
+        currentStock = { ...p.stock };
+      }
+      currentSizes.forEach(s => {
+        if (currentStock[s] === undefined) {
+          currentStock[s] = 20;
+        }
+      });
+
+      window._editModalSizes = [...currentSizes];
+      window._editModalStock = { ...currentStock };
+      window._editModalCategory = p.category || '';
+
+      const input = document.getElementById('edit-new-size-input');
+      if (input) input.value = '';
+
+      window.renderEditModalSizes();
+      window.renderEditQuickSizesChips();
+
       modal.classList.add('active');
       modal.style.display = 'flex';
       modal.style.opacity = '1';
@@ -1875,6 +1961,147 @@
       }
     };
 
+    window.renderEditModalSizes = function () {
+      const container = document.getElementById('edit-sizes-list');
+      const badgeCount = document.getElementById('edit-size-count-badge');
+      if (!container) return;
+
+      const sizes = window._editModalSizes || [];
+      const stock = window._editModalStock || {};
+
+      if (badgeCount) {
+        badgeCount.textContent = `${sizes.length} size`;
+      }
+
+      if (sizes.length === 0) {
+        container.innerHTML = `
+          <div style="padding:14px; text-align:center; color:var(--text-muted); font-size:0.8125rem; background:rgba(255,255,255,0.02); border-radius:6px; border:1px dashed rgba(255,255,255,0.1);">
+            ⚠️ Hiện chưa có size nào. Hãy nhập size hoặc chọn gợi ý bên dưới để thêm size!
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = sizes.map(s => {
+        const isOutOfStock = stock[s] !== undefined && Number(stock[s]) <= 0;
+        return `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); border:1px solid ${isOutOfStock ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.08)'}; border-radius:6px; padding:7px 12px; transition:all 0.15s ease;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="display:inline-block; min-width:38px; padding:3px 8px; background:${isOutOfStock ? 'rgba(239,68,68,0.18)' : 'rgba(255,255,255,0.12)'}; border:1px solid ${isOutOfStock ? 'rgba(239,68,68,0.35)' : 'rgba(255,255,255,0.15)'}; border-radius:4px; font-weight:800; font-size:0.875rem; text-align:center; color:${isOutOfStock ? '#fca5a5' : '#fff'}; ${isOutOfStock ? 'text-decoration:line-through;' : ''}">
+                ${s}
+              </span>
+              <span style="font-size:0.8125rem; font-weight:600; color:${isOutOfStock ? '#f87171' : '#4ade80'};">
+                ${isOutOfStock ? '🔴 Đã hết size (Khách không thể đặt)' : '🟢 Còn hàng'}
+              </span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button type="button" onclick="window.toggleEditSizeStock('${s}')" title="${isOutOfStock ? 'Bấm để đổi thành Còn Hàng' : 'Bấm để báo Hết Size'}" style="padding:5px 12px; border-radius:5px; font-size:0.75rem; font-weight:700; cursor:pointer; border:1px solid ${isOutOfStock ? 'rgba(239,68,68,0.45)' : 'rgba(34,197,94,0.45)'}; background:${isOutOfStock ? 'rgba(239,68,68,0.22)' : 'rgba(34,197,94,0.18)'}; color:${isOutOfStock ? '#fca5a5' : '#4ade80'}; transition:all 0.15s ease;">
+                ${isOutOfStock ? 'Chuyển: Còn hàng' : 'Báo: Hết size'}
+              </button>
+              <button type="button" onclick="window.removeEditSize('${s}')" title="Xóa bỏ size ${s} khỏi sản phẩm" style="width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:4px; color:#bbb; cursor:pointer; font-size:1rem; font-weight:700; line-height:1; transition:all 0.15s ease;" onmouseover="this.style.color='#f87171';this.style.borderColor='rgba(239,68,68,0.5)';this.style.background='rgba(239,68,68,0.15)';" onmouseout="this.style.color='#bbb';this.style.borderColor='rgba(255,255,255,0.12)';this.style.background='rgba(255,255,255,0.06)';">
+                &times;
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    window.toggleEditSizeStock = function (size) {
+      const stock = window._editModalStock || {};
+      const isOut = stock[size] !== undefined && Number(stock[size]) <= 0;
+      if (isOut) {
+        stock[size] = 20; // Đổi thành còn hàng
+      } else {
+        stock[size] = 0; // Đánh dấu hết hàng
+      }
+      window._editModalStock = stock;
+      window.renderEditModalSizes();
+    };
+
+    window.removeEditSize = function (size) {
+      if (window._editModalSizes.length <= 1) {
+        if (!confirm(`Bạn đang xóa size cuối cùng "${size}". Sản phẩm sẽ không còn size nào để khách chọn. Bạn có chắc không?`)) {
+          return;
+        }
+      }
+      window._editModalSizes = (window._editModalSizes || []).filter(s => s !== size);
+      if (window._editModalStock) {
+        delete window._editModalStock[size];
+      }
+      window.renderEditModalSizes();
+      window.renderEditQuickSizesChips();
+    };
+
+    window.addEditSize = function (customSize) {
+      const input = document.getElementById('edit-new-size-input');
+      let val = customSize || (input ? input.value : '');
+      val = (val || '').trim();
+      if (!val) {
+        alert('Vui lòng nhập tên size cần thêm (VD: S, 3XL, 42...)');
+        if (input) input.focus();
+        return;
+      }
+      val = val.toUpperCase();
+
+      window._editModalSizes = window._editModalSizes || [];
+      window._editModalStock = window._editModalStock || {};
+
+      if (window._editModalSizes.some(s => s.toUpperCase() === val)) {
+        alert(`Size "${val}" đã có trong danh sách!`);
+        if (input) input.value = '';
+        return;
+      }
+
+      window._editModalSizes.push(val);
+      window._editModalStock[val] = 20; // Mặc định size mới thêm là Còn hàng
+      if (input) input.value = '';
+
+      window.renderEditModalSizes();
+      window.renderEditQuickSizesChips();
+    };
+
+    window.setAllEditSizesStock = function (inStock) {
+      const sizes = window._editModalSizes || [];
+      window._editModalStock = window._editModalStock || {};
+      sizes.forEach(s => {
+        window._editModalStock[s] = inStock ? 20 : 0;
+      });
+      window.renderEditModalSizes();
+    };
+
+    window.renderEditQuickSizesChips = function () {
+      const chipsContainer = document.getElementById('edit-quick-sizes-chips');
+      if (!chipsContainer) return;
+
+      const cat = window._editModalCategory || '';
+      let candidates = [];
+      if (cat === 'shoes') {
+        candidates = ['38', '39', '40', '41', '42', '43', '44'];
+      } else if (cat === 'pants' || cat === 'short') {
+        candidates = ['28', '29', '30', '31', '32', '34', '36', 'M', 'L', 'XL', '2XL'];
+      } else if (cat === 'bag' || cat === 'hat') {
+        candidates = ['Freesize', 'Standard', 'Mini', '55cm', '26cm'];
+      } else {
+        // Áo thun, áo khoác, nỉ, sơ mi, tracksuit
+        candidates = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', 'Freesize'];
+      }
+
+      const existing = (window._editModalSizes || []).map(s => s.toUpperCase());
+      const availableToAdd = candidates.filter(c => !existing.includes(c.toUpperCase()));
+
+      if (availableToAdd.length === 0) {
+        chipsContainer.innerHTML = '<span style="font-size:0.75rem; color:#888;">(Đã đủ các size phổ biến)</span>';
+        return;
+      }
+
+      chipsContainer.innerHTML = availableToAdd.slice(0, 8).map(c => `
+        <button type="button" onclick="window.addEditSize('${c}')" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px; cursor:pointer; transition:all 0.15s ease;" onmouseover="this.style.background='var(--accent-red)';this.style.borderColor='var(--accent-red)';" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.borderColor='rgba(255,255,255,0.15)';">
+          + ${c}
+        </button>
+      `).join('');
+    };
+
     window.saveProductPrice = async function () {
       const id = document.getElementById('edit-p-id').value;
       const price = Number(document.getElementById('edit-p-price').value);
@@ -1887,6 +2114,15 @@
         return;
       }
 
+      const sizes = window._editModalSizes || [];
+      const stock = window._editModalStock || {};
+
+      if (sizes.length === 0) {
+        if (!confirm('Sản phẩm hiện không có size nào. Bạn có chắc chắn muốn lưu không?')) {
+          return;
+        }
+      }
+
       const saveBtn = document.getElementById('btn-save-price');
       saveBtn.disabled = true;
       saveBtn.textContent = 'Đang lưu...';
@@ -1897,12 +2133,14 @@
         found.price = price;
         found.oldPrice = oldPrice;
         found.badge = badge;
+        found.sizes = [...sizes];
+        found.stock = { ...stock };
       }
 
       // 2. Lưu vào localStorage để ghi nhớ trên toàn bộ trình duyệt
       try {
         const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
-        overrides[id] = { price, oldPrice, badge };
+        overrides[id] = { price, oldPrice, badge, sizes: [...sizes], stock: { ...stock } };
         localStorage.setItem('nguyentu_price_overrides', JSON.stringify(overrides));
 
         localStorage.setItem('nguyentu_cached_products', JSON.stringify(window.ALL_PRODUCTS));
@@ -1913,7 +2151,7 @@
         const res = await fetch(`/api/products/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ price, oldPrice, badge })
+          body: JSON.stringify({ price, oldPrice, badge, sizes, stock })
         });
         if (res.status === 401) {
           alert('Phiên làm việc quản trị đã hết hạn. Vui lòng đăng nhập lại!');
@@ -1925,14 +2163,14 @@
         console.warn('API sync warning:', err);
       }
 
-      // 4. Phát sự kiện cho toàn bộ website cập nhật giá ngay lập tức
+      // 4. Phát sự kiện cho toàn bộ website cập nhật giá và size ngay lập tức
       try {
         window.dispatchEvent(new CustomEvent('productsUpdated', { detail: window.ALL_PRODUCTS }));
       } catch (e) {}
 
       window.loadAdminProducts();
       window.closeEditPriceModal();
-      window.showToast(`✅ Đã cập nhật thành công giá mới: ${window.formatVND(price)}!`, 'success');
+      window.showToast(`✅ Đã cập nhật thành công giá & size cho sản phẩm!`, 'success');
 
       saveBtn.disabled = false;
       saveBtn.textContent = 'Lưu Thay Đổi';

@@ -740,15 +740,30 @@
       // Sizes
       const sizeRow = document.getElementById('size-pill-row');
       const sizes = Array.isArray(p.sizes) && p.sizes.length > 0 ? p.sizes : (typeof p.sizes === 'string' ? p.sizes.split(',').map(s => s.trim()).filter(Boolean) : ['M', 'L', 'XL', 'XXL']);
-      selectedSize = sizes[0];
-      sizeRow.innerHTML = sizes.map((s, idx) => `
-        <button type="button" class="size-btn-pill ${idx === 0 ? 'active' : ''}" onclick="window.selectSize('${s}', this)" aria-label="Size ${s}">${s}</button>
-      `).join('');
-      document.getElementById('selected-size-label').textContent = sizes[0];
+      const stockMap = (p.stock && typeof p.stock === 'object') ? p.stock : {};
+
+      // Select first in-stock size, fallback to first size
+      const firstInStock = sizes.find(s => stockMap[s] === undefined || Number(stockMap[s]) > 0) || sizes[0];
+      selectedSize = firstInStock;
+
+      sizeRow.innerHTML = sizes.map(s => {
+        const isOut = stockMap[s] !== undefined && Number(stockMap[s]) <= 0;
+        const isActive = s === firstInStock;
+        return `
+          <button type="button" class="size-btn-pill ${isActive ? 'active' : ''} ${isOut ? 'is-out-of-stock' : ''}" 
+                  onclick="window.selectSize('${s}', this)" 
+                  aria-label="Size ${s}" 
+                  title="${isOut ? 'Tạm thời hết size ' + s : 'Còn hàng'}"
+                  style="${isOut ? 'opacity:0.65; text-decoration:line-through; position:relative;' : ''}">
+            ${s}${isOut ? ' <span style="font-size:0.65rem; color:#f87171; text-decoration:none; display:inline-block; margin-left:2px; font-weight:700;">(Hết)</span>' : ''}
+          </button>
+        `;
+      }).join('');
+      document.getElementById('selected-size-label').textContent = firstInStock;
 
       // Update initial stock & active state for default size
-      const firstSizeBtn = sizeRow.querySelector('.size-btn-pill');
-      window.selectSize(sizes[0], firstSizeBtn);
+      const defaultSizeBtn = sizeRow.querySelector('.size-btn-pill.active') || sizeRow.querySelector('.size-btn-pill');
+      window.selectSize(firstInStock, defaultSizeBtn);
 
       // Reviews
       if (typeof loadProductReviews === 'function') {
@@ -785,13 +800,13 @@
       const addBtn = document.getElementById('btn-detail-addcart');
 
       if (qtyAvail <= 0) {
-        document.getElementById('stock-text').innerHTML = '<span style="color:#f87171; font-weight:700;">⚠️ Tạm thời hết size này (Đang về thêm)</span>';
-        if (buyBtn) { buyBtn.disabled = true; buyBtn.style.opacity = '0.5'; }
-        if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; }
+        document.getElementById('stock-text').innerHTML = '<span style="color:#f87171; font-weight:700;">⚠️ Tạm thời hết size ' + size + ' (Đang về thêm hàng)</span>';
+        if (buyBtn) { buyBtn.disabled = true; buyBtn.style.opacity = '0.5'; buyBtn.style.cursor = 'not-allowed'; }
+        if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; addBtn.style.cursor = 'not-allowed'; }
       } else {
         document.getElementById('stock-text').innerHTML = `Còn <strong>${qtyAvail}</strong> sản phẩm trong kho (Giao 2H)`;
-        if (buyBtn) { buyBtn.disabled = false; buyBtn.style.opacity = '1'; }
-        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = '1'; }
+        if (buyBtn) { buyBtn.disabled = false; buyBtn.style.opacity = '1'; buyBtn.style.cursor = 'pointer'; }
+        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = '1'; addBtn.style.cursor = 'pointer'; }
       }
     };
 
@@ -807,6 +822,16 @@
     let _isAddingToCart = false;
     window.handleDetailAddToCart = function () {
       if (!currentProduct || _isAddingToCart) return;
+      const stockMap = currentProduct.stock || {};
+      const qtyAvail = stockMap[selectedSize] !== undefined ? Number(stockMap[selectedSize]) : 20;
+      if (qtyAvail <= 0) {
+        if (typeof window.showToast === 'function') {
+          window.showToast('⚠️ Size ' + selectedSize + ' hiện đã hết hàng, vui lòng chọn size khác!', 'warning');
+        } else {
+          alert('⚠️ Size ' + selectedSize + ' hiện đã hết hàng, vui lòng chọn size khác!');
+        }
+        return;
+      }
       _isAddingToCart = true;
       window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
       if (typeof window.openCartDrawer === 'function') {

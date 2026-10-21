@@ -435,11 +435,21 @@ app.put('/api/products/:id', requireAdminAuth, async (req, res) => {
     newOldPrice = (req.body.oldPrice === null || req.body.oldPrice === '') ? null : Number(req.body.oldPrice);
   }
 
+  let newSizes = current.sizes;
+  if (req.body.sizes !== undefined) {
+    if (Array.isArray(req.body.sizes)) {
+      newSizes = req.body.sizes.map(s => String(s).trim()).filter(Boolean);
+    } else if (typeof req.body.sizes === 'string') {
+      newSizes = req.body.sizes.split(',').map(s => s.trim()).filter(Boolean);
+    }
+  }
+
   const updated = {
     ...current,
     ...req.body,
     price: newPrice,
     oldPrice: newOldPrice,
+    sizes: newSizes,
     stock: req.body.stock !== undefined ? req.body.stock : current.stock,
     badge: req.body.badge !== undefined ? req.body.badge : current.badge,
     updatedAt: new Date().toISOString()
