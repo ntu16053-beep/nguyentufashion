@@ -20,7 +20,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 19,
+        "M": 20,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -1643,7 +1643,7 @@
       "totalAmount": 300000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "pending",
+      "status": "cancelled",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T19:03:27.963Z",
       "timeline": [
@@ -1651,8 +1651,15 @@
           "status": "pending",
           "time": "2026-10-21T19:03:27.963Z",
           "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        },
+        {
+          "status": "cancelled",
+          "time": "2026-10-21T19:03:44.365Z",
+          "note": "Khách hàng hủy đơn: Đổi ý không còn nhu cầu mua nữa"
         }
-      ]
+      ],
+      "cancelledAt": "2026-10-21T19:03:44.365Z",
+      "cancelReason": "Đổi ý không còn nhu cầu mua nữa"
     },
     {
       "id": "NT-NB7789",
