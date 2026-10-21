@@ -786,16 +786,21 @@
       selectedQty = val;
     };
 
+    let _isAddingToCart = false;
     window.handleDetailAddToCart = function () {
-      if (!currentProduct) return;
+      if (!currentProduct || _isAddingToCart) return;
+      _isAddingToCart = true;
       window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
       if (typeof window.openCartDrawer === 'function') {
         window.openCartDrawer();
       }
+      setTimeout(() => { _isAddingToCart = false; }, 600);
     };
 
+    let _isSubmittingBuyNow = false;
     window.handleDetailBuyNow = function () {
-      if (!currentProduct) return;
+      if (!currentProduct || _isSubmittingBuyNow) return;
+      _isSubmittingBuyNow = true;
       window.addToCart(currentProduct.id, selectedSize, selectedColor, selectedQty, currentProduct);
       window.location.href = 'checkout.html';
     };
