@@ -52,6 +52,53 @@
     }).format(num).replace('₫', 'đ');
   };
 
+  window.getColorVietnameseName = function (hex) {
+    if (!hex) return 'Mặc định';
+    const cleanHex = String(hex).toLowerCase().trim();
+    const map = {
+      '#111111': 'Đen Classic',
+      '#000000': 'Đen',
+      '#1e1e1e': 'Đen Nhám',
+      '#0f172a': 'Đen Chàm',
+      '#18181b': 'Đen Khói',
+      '#ffffff': 'Trắng Basic',
+      '#f7f4ec': 'Trắng Kem Vintage',
+      '#f4f1ea': 'Kem Retro',
+      '#fef3c7': 'Kem Vani',
+      '#f8fafc': 'Trắng Sữa',
+      '#f5f5f5': 'Trắng Xám',
+      '#f1f5f9': 'Xanh Khói Nhạt',
+      '#826656': 'Nâu Cacao Mocha',
+      '#78350f': 'Nâu Cà Phê',
+      '#451a03': 'Nâu Trầm',
+      '#4b4f58': 'Xám Khói',
+      '#e5e5e5': 'Ghi Sáng',
+      '#e2e8f0': 'Ghi Bạc',
+      '#75aadb': 'Xanh AFA Argentina',
+      '#38bdf8': 'Xanh Baby',
+      '#60a5fa': 'Xanh Denim',
+      '#2563eb': 'Xanh Coban',
+      '#1e3a5f': 'Xanh Midnight Navy',
+      '#1e3a8a': 'Xanh Navy Đậm',
+      '#004d98': 'Xanh Blaugrana',
+      '#a50044': 'Đỏ Rượu Barca',
+      '#581c2b': 'Đỏ Mận Bordeaux',
+      '#4e0d19': 'Đỏ Burgundy Nguyen Tu',
+      '#5a0d1d': 'Đỏ Rượu Vang',
+      '#dc2626': 'Đỏ Tươi',
+      '#ff334b': 'Đỏ Neon',
+      '#eab308': 'Vàng Hoàng Gia',
+      '#d97706': 'Vàng Bò Da Lộn',
+      '#fbbf24': 'Vàng Kim',
+      '#059669': 'Xanh Ngọc Lục Bảo',
+      '#ec4899': 'Hồng Pastel'
+    };
+    if (map[cleanHex]) return map[cleanHex];
+    if (cleanHex.startsWith('#')) return 'Màu ' + cleanHex.toUpperCase();
+    return cleanHex;
+  };
+
+
   // Toast Notification
   window.showToast = function (message, type = 'success', actionLink = null, actionText = null) {
     let container = document.getElementById('toast-container');

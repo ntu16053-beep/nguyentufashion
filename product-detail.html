@@ -228,12 +228,12 @@
               <button class="qty-btn" onclick="window.adjustDetailQty(1)">+</button>
             </div>
 
-            <button class="btn-add-cart" onclick="window.handleDetailAddToCart()">
+            <button class="btn-add-cart" id="btn-detail-addcart" onclick="window.handleDetailAddToCart()">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               <span>Thêm Giỏ Hàng</span>
             </button>
 
-            <button class="btn-buy-now" onclick="window.handleDetailBuyNow()">
+            <button class="btn-buy-now" id="btn-detail-buynow" onclick="window.handleDetailBuyNow()">
               <span>Mua Ngay Hỏa Tốc</span>
             </button>
           </div>
@@ -586,6 +586,16 @@
 
   <!-- DETAIL PAGE LOGIC -->
   <script>
+    window.getColorVietnameseName = window.getColorVietnameseName || function(hex) {
+      if (!hex) return 'Mặc định';
+      const m = {
+        '#111111': 'Đen Classic', '#ffffff': 'Trắng Basic', '#f7f4ec': 'Trắng Kem Vintage',
+        '#826656': 'Nâu Cacao Mocha', '#75aadb': 'Xanh Argentina', '#38bdf8': 'Xanh Baby',
+        '#a50044': 'Đỏ Rượu Barca', '#4e0d19': 'Đỏ Burgundy', '#dc2626': 'Đỏ Tươi'
+      };
+      return m[String(hex).toLowerCase()] || (String(hex).startsWith('#') ? 'Màu ' + hex : hex);
+    };
+
     let currentProduct = null;
     let selectedSize = 'M';
     let selectedColor = '#111111';
@@ -724,19 +734,26 @@
       colorRow.innerHTML = colors.map((c, idx) => `
         <div class="color-chip-ball ${idx === 0 ? 'active' : ''}" style="background-color:${c};" onclick="window.selectColor('${c}', this)" title="${c}"></div>
       `).join('');
-      document.getElementById('selected-color-name').textContent = window.getColorVietnameseName(colors[0]);
+      const firstColorName = (typeof window.getColorVietnameseName === 'function') ? window.getColorVietnameseName(colors[0]) : colors[0];
+      document.getElementById('selected-color-name').textContent = firstColorName;
 
       // Sizes
       const sizeRow = document.getElementById('size-pill-row');
       const sizes = Array.isArray(p.sizes) && p.sizes.length > 0 ? p.sizes : (typeof p.sizes === 'string' ? p.sizes.split(',').map(s => s.trim()).filter(Boolean) : ['M', 'L', 'XL', 'XXL']);
       selectedSize = sizes[0];
       sizeRow.innerHTML = sizes.map((s, idx) => `
-        <button class="size-btn-pill ${idx === 0 ? 'active' : ''}" onclick="window.selectSize('${s}', this)">${s}</button>
+        <button type="button" class="size-btn-pill ${idx === 0 ? 'active' : ''}" onclick="window.selectSize('${s}', this)" aria-label="Size ${s}">${s}</button>
       `).join('');
       document.getElementById('selected-size-label').textContent = sizes[0];
 
-      // Reviews sample
-      renderSampleReviews(p);
+      // Update initial stock & active state for default size
+      const firstSizeBtn = sizeRow.querySelector('.size-btn-pill');
+      window.selectSize(sizes[0], firstSizeBtn);
+
+      // Reviews
+      if (typeof loadProductReviews === 'function') {
+        loadProductReviews(p.id);
+      }
     }
 
     window.switchMainImage = function (src, el) {
@@ -747,7 +764,8 @@
 
     window.selectColor = function (color, el) {
       selectedColor = color;
-      document.getElementById('selected-color-name').textContent = window.getColorVietnameseName(color);
+      const colorName = (typeof window.getColorVietnameseName === 'function') ? window.getColorVietnameseName(color) : color;
+      document.getElementById('selected-color-name').textContent = colorName;
       document.querySelectorAll('.color-chip-ball').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
     };
@@ -756,7 +774,7 @@
       selectedSize = size;
       document.getElementById('selected-size-label').textContent = size;
       document.querySelectorAll('.size-btn-pill').forEach(b => b.classList.remove('active'));
-      el.classList.add('active');
+      if (el) el.classList.add('active');
 
       const stockBadge = document.getElementById('sticky-size-badge');
       if (stockBadge) stockBadge.textContent = 'Size ' + size;
