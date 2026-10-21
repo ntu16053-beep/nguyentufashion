@@ -522,8 +522,9 @@
       const overrides = JSON.parse(localStorage.getItem('nguyentu_price_overrides') || '{}');
       if (productList && Object.keys(overrides).length > 0) {
         productList.forEach(p => {
-          if (overrides[p.id]) {
-            Object.assign(p, overrides[p.id]);
+          const matchKey = Object.keys(overrides).find(k => k.toLowerCase() === (p.id || '').toLowerCase());
+          if (matchKey) {
+            Object.assign(p, overrides[matchKey]);
           }
         });
       }

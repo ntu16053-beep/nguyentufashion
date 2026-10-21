@@ -375,7 +375,8 @@ app.get('/api/products', (req, res) => {
 // GET /api/products/:id
 app.get('/api/products/:id', (req, res) => {
   const db = readDB();
-  const product = (db.products || []).find(p => p.id === req.params.id);
+  const searchId = (req.params.id || '').toLowerCase();
+  const product = (db.products || []).find(p => (p.id || '').toLowerCase() === searchId);
   if (!product) {
     return res.status(404).json({ success: false, message: 'Sản phẩm không tồn tại' });
   }
@@ -423,7 +424,8 @@ app.post('/api/products', requireAdminAuth, (req, res) => {
 // PUT /api/products/:id (Admin update)
 app.put('/api/products/:id', requireAdminAuth, async (req, res) => {
   const db = readDB();
-  const idx = (db.products || []).findIndex(p => p.id === req.params.id);
+  const searchId = (req.params.id || '').toLowerCase();
+  const idx = (db.products || []).findIndex(p => (p.id || '').toLowerCase() === searchId);
   if (idx === -1) {
     return res.status(404).json({ success: false, message: 'Không tìm thấy sản phẩm' });
   }

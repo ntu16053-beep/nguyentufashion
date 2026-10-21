@@ -937,7 +937,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
       localStorage.removeItem('nguyentu_deleted_product_ids');
     } catch (e) {}
-    if (!currentList || currentList.length < 50) {
+    if (!currentList || currentList.length === 0) {
       currentList = (window.DEFAULT_PRODUCTS || []).slice();
     }
 
@@ -1041,7 +1041,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div class="product-info">
-            <span class="product-category">${p.categoryName}</span>
+            <span class="product-category">${p.categoryName || 'Streetwear'}</span>
             <h3 class="product-title" title="${p.title}">
               <a href="product-detail.html?id=${p.id}" style="color:inherit; text-decoration:none;">${p.title}</a>
             </h3>
@@ -1057,7 +1057,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div class="product-swatches">
-              ${p.colors.map(c => `<span class="swatch" style="background-color: ${c}"></span>`).join('')}
+              ${(p.colors || ['#111111']).map(c => `<span class="swatch" style="background-color: ${c}"></span>`).join('')}
             </div>
           </div>
         </article>

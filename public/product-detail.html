@@ -643,8 +643,13 @@
       // Find in all products or fetch by API
       let prod = null;
       if (!isDeleted) {
-        prod = (window.ALL_PRODUCTS || []).find(p => p.id === prodId);
-        if (!prod) {
+        const targetId = (prodId || '').toLowerCase();
+        prod = (window.ALL_PRODUCTS || []).find(p => (p.id || '').toLowerCase() === targetId);
+        if (prod && window.applyPriceOverrides) {
+        window.applyPriceOverrides([prod]);
+      }
+
+      if (!prod) {
           try {
             const res = await fetch(`/api/products/${prodId}`);
             if (res.ok) {
