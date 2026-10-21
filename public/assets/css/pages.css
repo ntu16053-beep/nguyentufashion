@@ -2729,17 +2729,20 @@ body.has-sticky-bar .floating-chat-container,
   }
 
   /* Transform HTML Table into Responsive Modern Cart Cards */
-  .cart-table {
+  .cart-items-card .cart-table,
+  .cart-layout .cart-table {
     display: block !important;
     width: 100% !important;
     border: none !important;
   }
 
-  .cart-table thead {
+  .cart-items-card .cart-table thead,
+  .cart-layout .cart-table thead {
     display: none !important;
   }
 
-  .cart-table tbody {
+  .cart-items-card .cart-table tbody,
+  .cart-layout .cart-table tbody {
     display: block !important;
     width: 100% !important;
   }
