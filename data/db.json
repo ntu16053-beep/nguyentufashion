@@ -17,13 +17,15 @@
         "M",
         "L",
         "XL",
-        "XXL"
+        "XXL",
+        "3XL"
       ],
       "stock": {
         "M": 19,
         "L": 34,
         "XL": 25,
-        "XXL": 15
+        "XXL": 15,
+        "3XL": 20
       },
       "colors": [
         "#ffffff",
@@ -33,7 +35,7 @@
       "description": "Chất liệu vải dù gió 2 lớp cao cấp cản gió và chống nước nhẹ. Logo Adidas mạ vàng thêu nổi cùng huy hiệu AFA 3 sao World Cup danh giá. Phối sọc xanh lượn sóng biểu tượng hai bên tay áo.",
       "isActive": true,
       "createdAt": "2026-10-18T10:00:00Z",
-      "updatedAt": "2026-10-20T20:02:31.742Z"
+      "updatedAt": "2026-10-21T14:27:20.718Z"
     },
     {
       "id": "nt-02",
