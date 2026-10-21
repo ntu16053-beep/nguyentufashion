@@ -20,7 +20,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 19,
+        "M": 18,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -1619,6 +1619,41 @@
     }
   ],
   "orders": [
+    {
+      "id": "NT-NB3366",
+      "customerName": "nguyên văn tú",
+      "customerPhone": "0987653333",
+      "district": "Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H), Ninh Bình",
+      "address": "ynyunyjrmhj",
+      "items": [
+        {
+          "productId": "nt-01",
+          "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
+          "size": "M",
+          "color": "#ffffff",
+          "price": 300000,
+          "quantity": 1,
+          "image": "assets/images/products/ao-khoac-argentina-trang.png"
+        }
+      ],
+      "subtotal": 300000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 0,
+      "totalAmount": 300000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "pending",
+      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
+      "createdAt": "2026-10-21T19:20:14.625Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-10-21T19:20:14.625Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        }
+      ]
+    },
     {
       "id": "NT-NB8978",
       "customerName": "nguyên văn tú",
