@@ -20,7 +20,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 20,
+        "M": 19,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -1620,6 +1620,41 @@
   ],
   "orders": [
     {
+      "id": "NT-NB8978",
+      "customerName": "nguyên văn tú",
+      "customerPhone": "mntynhyyjytjy",
+      "district": "Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H), Ninh Bình",
+      "address": "ynyunyjrmhj",
+      "items": [
+        {
+          "productId": "nt-01",
+          "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
+          "size": "M",
+          "color": "#ffffff",
+          "price": 300000,
+          "quantity": 1,
+          "image": "assets/images/products/ao-khoac-argentina-trang.png"
+        }
+      ],
+      "subtotal": 300000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 0,
+      "totalAmount": 300000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "pending",
+      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
+      "createdAt": "2026-10-21T19:03:27.963Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-10-21T19:03:27.963Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        }
+      ]
+    },
+    {
       "id": "NT-NB7789",
       "customerName": "Nguyễn Văn Test",
       "customerPhone": "0988112233",
@@ -1643,7 +1678,7 @@
       "totalAmount": 395000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "pending",
+      "status": "cancelled",
       "shippingNote": "Đơn test hủy tự động",
       "createdAt": "2026-10-21T18:56:07.980Z",
       "timeline": [
@@ -1651,7 +1686,17 @@
           "status": "pending",
           "time": "2026-10-21T18:56:07.980Z",
           "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        },
+        {
+          "status": "cancelled",
+          "time": "2026-10-21T18:56:09.150Z",
+          "note": "Khách hàng hủy đơn: Khách đổi ý muốn lấy size XL màu đen"
         }
+      ],
+      "cancelledAt": "2026-10-21T18:56:09.150Z",
+      "cancelReason": "Khách đổi ý muốn lấy size XL màu đen",
+      "reviewedItems": [
+        "nt-jk-01"
       ]
     },
     {
@@ -2146,6 +2191,19 @@
     }
   ],
   "reviews": [
+    {
+      "id": "rev-1792608970180",
+      "productId": "nt-jk-01",
+      "orderId": "NT-NB7789",
+      "name": "Nguyễn Văn Test",
+      "phone": "098****233",
+      "rating": 5,
+      "comment": "Áo chất gió dày dặn 2 lớp, form rất đẹp, nhân viên hỗ trợ đổi size nhiệt tình!",
+      "size": "L",
+      "fitFeedback": "true_to_size",
+      "createdAt": "2026-10-21T18:56:10.180Z",
+      "isVerifiedPurchase": true
+    },
     {
       "id": "rev-01",
       "productId": "nt-01",
