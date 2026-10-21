@@ -76,6 +76,75 @@
       pointer-events: auto !important;
     }
 
+    .modal-card-structured {
+      background: #240409;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
+      width: 92%;
+      max-width: 540px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      z-index: 1000000;
+      padding: 0 !important;
+    }
+    .modal-header-fixed {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 22px;
+      background: rgba(30, 4, 8, 0.98);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+    .modal-header-fixed h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin: 0;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .modal-close-corner-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 1.15rem;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .modal-close-corner-btn:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      color: #fff;
+      transform: scale(1.06);
+    }
+    .modal-body-scrollable {
+      padding: 20px 22px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-footer-fixed {
+      display: flex;
+      gap: 12px;
+      padding: 14px 22px;
+      background: rgba(30, 4, 8, 0.98);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -85,10 +154,9 @@
     }
 
     .admin-layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
       min-height: 100vh;
       width: 100%;
+      position: relative;
     }
     .admin-aside {
       background: #1c0408;
@@ -96,10 +164,29 @@
       padding: 24px 16px;
       display: flex;
       flex-direction: column;
+      width: 240px;
       height: 100vh;
-      position: sticky;
+      height: 100dvh;
+      position: fixed;
       top: 0;
+      left: 0;
+      bottom: 0;
       overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 100;
+      box-sizing: border-box;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(220, 38, 38, 0.4) transparent;
+    }
+    .admin-aside::-webkit-scrollbar {
+      width: 4px;
+    }
+    .admin-aside::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .admin-aside::-webkit-scrollbar-thumb {
+      background: rgba(220, 38, 38, 0.4);
+      border-radius: 4px;
     }
     .admin-aside-header {
       display: flex;
@@ -295,9 +382,12 @@
       color: #fff;
     }
     .admin-main-area {
+      margin-left: 240px;
+      width: calc(100% - 240px);
+      min-height: 100vh;
       padding: 30px;
-      overflow-y: auto;
       min-width: 0;
+      box-sizing: border-box;
     }
     .stat-card-grid {
       display: grid;
@@ -734,6 +824,8 @@
       }
       .admin-main-area {
         display: block !important;
+        grid-column: auto !important;
+        margin-left: 0 !important;
         padding: 14px 12px calc(90px + env(safe-area-inset-bottom, 0px)) 12px !important;
         width: 100% !important;
         max-width: 100vw !important;
@@ -1279,11 +1371,11 @@
   </div>
 
   <!-- CREATE ARTICLE MODAL -->
-  <div class="modal-overlay" id="create-article-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+  <div class="modal-overlay" id="create-article-modal" onclick="if(event.target===this)document.getElementById('create-article-modal').style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
     <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:620px; max-height:90vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
         <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Viết Bài Mới Cho Tạp Chí</h3>
-        <button onclick="document.getElementById('create-article-modal').style.display='none'" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+        <button type="button" class="modal-close-corner-btn" onclick="document.getElementById('create-article-modal').style.display='none'" aria-label="Đóng" title="Đóng (Esc)">✕</button>
       </div>
 
       <div class="form-control-wrap" style="margin-bottom:14px;">
@@ -1343,12 +1435,18 @@
   </style>
 
   <!-- EDIT PRODUCT PRICE & SIZE MODAL -->
-  <div class="modal-overlay" id="edit-price-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
-    <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:26px; width:92%; max-width:520px; max-height:92vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8); position:relative; z-index:1000000;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Chỉnh Sửa Giá & Size Sản Phẩm</h3>
-        <button onclick="window.closeEditPriceModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer; line-height:1;">&times;</button>
+  <div class="modal-overlay" id="edit-price-modal" onclick="if(event.target===this)window.closeEditPriceModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+    <div class="modal-card modal-card-structured">
+      <!-- FIXED HEADER (Always visible) -->
+      <div class="modal-header-fixed">
+        <h3 style="display:flex; align-items:center; gap:8px;">
+          <span>🏷️ Chỉnh Sửa Giá & Size</span>
+        </h3>
+        <button type="button" class="modal-close-corner-btn" onclick="window.closeEditPriceModal()" aria-label="Đóng cửa sổ" title="Đóng (Esc)">✕</button>
       </div>
+
+      <!-- SCROLLABLE BODY -->
+      <div class="modal-body-scrollable">
 
       <div style="display:flex; gap:14px; align-items:center; margin-bottom:18px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
         <img id="edit-p-thumb" src="" alt="Thumbnail" style="width:52px; height:52px; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
@@ -1425,19 +1523,22 @@
         </div>
       </div>
 
-      <div style="display:flex; gap:12px;">
-        <button class="btn btn-dark" style="flex:1; padding:10px;" onclick="window.closeEditPriceModal()">Hủy Bỏ</button>
-        <button class="btn btn-primary" style="flex:1; padding:10px;" id="btn-save-price" onclick="window.saveProductPrice()">Lưu Thay Đổi</button>
+      </div><!-- /.modal-body-scrollable -->
+
+      <!-- FIXED FOOTER (Always visible) -->
+      <div class="modal-footer-fixed">
+        <button type="button" class="btn btn-dark" style="flex:1; padding:10px;" onclick="window.closeEditPriceModal()">Hủy Bỏ</button>
+        <button type="button" class="btn btn-primary" style="flex:1; padding:10px;" id="btn-save-price" onclick="window.saveProductPrice()">Lưu Thay Đổi</button>
       </div>
     </div>
   </div>
 
   <!-- CREATE PRODUCT MODAL -->
-  <div class="modal-overlay" id="create-product-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+  <div class="modal-overlay" id="create-product-modal" onclick="if(event.target===this)window.closeCreateProductModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
     <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:92%; max-width:620px; max-height:90vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
         <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Thêm Sản Phẩm Mới Vào Hệ Thống</h3>
-        <button onclick="window.closeCreateProductModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+        <button type="button" class="modal-close-corner-btn" onclick="window.closeCreateProductModal()" aria-label="Đóng" title="Đóng (Esc)">✕</button>
       </div>
 
       <div class="form-control-wrap" style="margin-bottom:14px;">
@@ -1511,11 +1612,11 @@
   </div>
 
   <!-- CREATE COUPON MODAL -->
-  <div class="modal-overlay" id="create-coupon-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+  <div class="modal-overlay" id="create-coupon-modal" onclick="if(event.target===this)window.closeCreateCouponModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
     <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:500px; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
         <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Tạo Mã Khuyến Mãi Mới</h3>
-        <button onclick="window.closeCreateCouponModal()" style="font-size:1.6rem; color:#fff; background:none; border:none; cursor:pointer;">&times;</button>
+        <button type="button" class="modal-close-corner-btn" onclick="window.closeCreateCouponModal()" aria-label="Đóng" title="Đóng (Esc)">✕</button>
       </div>
 
       <div class="form-control-wrap" style="margin-bottom:14px;">
@@ -2330,6 +2431,8 @@
 
       window.renderEditModalSizes();
       window.renderEditQuickSizesChips();
+      const mBody = modal.querySelector('.modal-body-scrollable');
+      if (mBody) mBody.scrollTop = 0;
 
       modal.classList.add('active');
       modal.style.display = 'flex';
@@ -3193,6 +3296,17 @@
         alert('Lỗi in hóa đơn: ' + e.message);
       }
     };
+
+    // Close modals on Escape key press
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.closeEditPriceModal();
+        window.closeCreateProductModal();
+        window.closeCreateCouponModal();
+        const artModal = document.getElementById('create-article-modal');
+        if (artModal) artModal.style.display = 'none';
+      }
+    });
 
     document.addEventListener('DOMContentLoaded', async () => {
       // Auto-login if previously logged in with valid token
