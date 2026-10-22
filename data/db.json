@@ -1,6 +1,38 @@
 {
   "products": [
     {
+      "id": "nt-2505",
+      "title": "dfheuehfuewh",
+      "category": "jacket",
+      "categoryName": "Áo Khoác Gió & Nỉ",
+      "price": 550000,
+      "oldPrice": 40000,
+      "rating": 5,
+      "reviews": 0,
+      "badge": "new",
+      "isLocal": true,
+      "image": "áo khoác",
+      "imageHover": "áo khoác",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "stock": {
+        "M": 20,
+        "L": 20,
+        "XL": 10
+      },
+      "colors": [
+        "#111111",
+        "#f5f5f0"
+      ],
+      "description": "vải mịn",
+      "isActive": true,
+      "createdAt": "2026-10-22T07:47:03.474Z"
+    },
+    {
       "id": "nt-01",
       "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
       "category": "jacket",
@@ -20,7 +52,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 20,
+        "M": 18,
         "L": 34,
         "XL": 25,
         "XXL": 15
@@ -1620,6 +1652,41 @@
   ],
   "orders": [
     {
+      "id": "NT-NB3366",
+      "customerName": "nguyên văn tú",
+      "customerPhone": "0987653333",
+      "district": "Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H), Ninh Bình",
+      "address": "ynyunyjrmhj",
+      "items": [
+        {
+          "productId": "nt-01",
+          "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
+          "size": "M",
+          "color": "#ffffff",
+          "price": 300000,
+          "quantity": 1,
+          "image": "assets/images/products/ao-khoac-argentina-trang.png"
+        }
+      ],
+      "subtotal": 300000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 0,
+      "totalAmount": 300000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "pending",
+      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
+      "createdAt": "2026-10-21T19:20:14.625Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-10-21T19:20:14.625Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        }
+      ]
+    },
+    {
       "id": "NT-NB8978",
       "customerName": "nguyên văn tú",
       "customerPhone": "mntynhyyjytjy",
@@ -1643,7 +1710,7 @@
       "totalAmount": 300000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "cancelled",
+      "status": "confirmed",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T19:03:27.963Z",
       "timeline": [
@@ -1656,6 +1723,11 @@
           "status": "cancelled",
           "time": "2026-10-21T19:03:44.365Z",
           "note": "Khách hàng hủy đơn: Đổi ý không còn nhu cầu mua nữa"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:25.027Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ],
       "cancelledAt": "2026-10-21T19:03:44.365Z",
@@ -1685,7 +1757,7 @@
       "totalAmount": 395000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "cancelled",
+      "status": "confirmed",
       "shippingNote": "Đơn test hủy tự động",
       "createdAt": "2026-10-21T18:56:07.980Z",
       "timeline": [
@@ -1698,6 +1770,11 @@
           "status": "cancelled",
           "time": "2026-10-21T18:56:09.150Z",
           "note": "Khách hàng hủy đơn: Khách đổi ý muốn lấy size XL màu đen"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:26.925Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ],
       "cancelledAt": "2026-10-21T18:56:09.150Z",
@@ -1729,8 +1806,8 @@
       "shippingFee": 30000,
       "totalAmount": 310000,
       "paymentMethod": "cod",
-      "paymentStatus": "unpaid",
-      "status": "pending",
+      "paymentStatus": "paid",
+      "status": "shipping",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T12:27:18.785Z",
       "timeline": [
@@ -1738,6 +1815,21 @@
           "status": "pending",
           "time": "2026-10-21T12:27:18.785Z",
           "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:28.558Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
+        },
+        {
+          "status": "completed",
+          "time": "2026-10-21T19:17:41.759Z",
+          "note": "Đơn hàng đã được giao thành công"
+        },
+        {
+          "status": "shipping",
+          "time": "2026-10-21T19:19:01.673Z",
+          "note": "Shipper hỏa tốc Ninh Bình đang giao hàng đến bạn"
         }
       ]
     },
@@ -1774,7 +1866,7 @@
       "totalAmount": 824500,
       "paymentMethod": "vietqr",
       "paymentStatus": "paid",
-      "status": "shipping",
+      "status": "confirmed",
       "shippingNote": "Giao hỏa tốc 2H trước 17h chiều tại Lương Văn Tụy",
       "createdAt": "2026-10-18T09:15:00Z",
       "timeline": [
@@ -1792,6 +1884,11 @@
           "status": "shipping",
           "time": "2026-10-18T10:10:00Z",
           "note": "Shipper hỏa tốc Ninh Bình đang giao hàng"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:30.652Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ]
     },
@@ -1868,7 +1965,7 @@
       "totalAmount": 358000,
       "paymentMethod": "cod",
       "paymentStatus": "paid",
-      "status": "completed",
+      "status": "confirmed",
       "shippingNote": "Khách đã nhận hàng và khen chất vải tốt",
       "createdAt": "2026-10-13T15:20:00Z",
       "timeline": [
@@ -1891,6 +1988,11 @@
           "status": "completed",
           "time": "2026-10-13T17:15:00Z",
           "note": "Giao hàng thành công - Thu tiền COD 358.000₫"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-10-21T19:15:35.504Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
         }
       ]
     }
