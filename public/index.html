@@ -13,8 +13,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css?v=9.2">
-  <link rel="stylesheet" href="assets/css/pages.css?v=6.0">
+  <link rel="stylesheet" href="assets/css/style.css?v=10.0">
+  <link rel="stylesheet" href="assets/css/pages.css?v=10.0">
+  <link rel="stylesheet" href="assets/css/clothing-rack.css?v=1.0">
 </head>
 <body>
 
@@ -224,31 +225,26 @@
     <!-- ==========================================
          SPOTLIGHT SECTION: ĐƠN HÀNG CỦA BẠN
          ========================================== -->
-    <section class="container" style="margin: 32px auto 16px;">
-      <div style="background: linear-gradient(135deg, rgba(34, 4, 11, 0.88) 0%, rgba(18, 2, 5, 0.95) 100%); border: 1px solid rgba(255, 51, 75, 0.35); border-radius: 14px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);">
-        <div style="display: flex; align-items: center; gap: 14px; min-width: 280px; flex: 1;">
-          <div style="width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 51, 75, 0.15); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 1px solid rgba(255, 51, 75, 0.4); flex-shrink: 0;">
-            📦
-          </div>
-          <div>
-            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; text-transform: uppercase; color: #ffffff; margin: 0 0 4px; letter-spacing: 0.03em;">
-              ĐƠN HÀNG CỦA BẠN
-            </h3>
-            <p style="color: var(--text-secondary); font-size: 0.8125rem; margin: 0; line-height: 1.4;">
-              Theo dõi lộ trình giao hàng hỏa tốc 2H, xem sản phẩm đã mua, hủy đơn trực tuyến hoặc gửi đánh giá.
-            </p>
-          </div>
+    <div class="container order-spotlight-section" style="padding-top: 8px; padding-bottom: 2px;">
+      <div class="order-spotlight-bar" style="background: linear-gradient(135deg, rgba(34,4,11,0.92) 0%, rgba(18,2,5,0.96) 100%); border: 1px solid rgba(255,51,75,0.22); border-radius: 999px; padding: 6px 10px 6px 8px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.25);">
+        <!-- Icon -->
+        <div class="order-spotlight-icon" style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,51,75,0.14); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; border: 1px solid rgba(255,51,75,0.3); flex-shrink: 0;">📦</div>
+        <!-- Text -->
+        <div style="flex: 1; min-width: 0;">
+          <div class="order-spotlight-title" style="font-size: 0.74rem; font-weight: 800; color: #fff; letter-spacing: 0.01em; line-height: 1.15;">Đơn hàng của bạn</div>
+          <div class="order-spotlight-sub" style="color: rgba(255,255,255,0.52); font-size: 0.64rem; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Theo dõi · Tra cứu · Đánh giá</div>
         </div>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <a href="orders.html" class="btn btn-primary" style="padding: 10px 20px; font-weight: 800; font-size: 0.8125rem; display: inline-flex; align-items: center; gap: 6px;">
-            <span>Xem Đơn Hàng</span> <span>→</span>
+        <!-- Actions — cùng hàng, không wrap -->
+        <div class="order-spotlight-actions" style="display: flex; align-items: center; gap: 5px; flex-shrink: 0;">
+          <a href="orders.html" class="btn-spotlight-primary" style="display: inline-flex; align-items: center; gap: 3px; background: linear-gradient(135deg, #e8203a 0%, #b81429 100%); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 6px 10px; border-radius: 999px; text-decoration: none; white-space: nowrap; line-height: 1;">
+            Xem đơn <span>→</span>
           </a>
-          <button onclick="window.openMyOrdersModal()" class="btn btn-outline-white" style="padding: 10px 16px; font-size: 0.8125rem; border-color: rgba(255, 255, 255, 0.2);">
-            Tra Cứu Nhanh
+          <button onclick="window.openMyOrdersModal()" class="btn-spotlight-ghost" style="display: inline-flex; align-items: center; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); font-size: 0.68rem; font-weight: 600; padding: 6px 9px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); cursor: pointer; white-space: nowrap; line-height: 1;">
+            Tra cứu
           </button>
         </div>
       </div>
-    </section>
+    </div>
 
 
 
@@ -356,6 +352,99 @@
         </div>
       </div>
     </section>
+
+    <!-- ==========================================
+         3D INTERACTIVE CLOTHING RACK (VIRTUAL SHOWROOM 2026)
+         ========================================== -->
+    <section class="nt-rack-section" id="virtual-rack" aria-label="Tủ Đồ Tương Tác 3D">
+      <div class="nt-rack-spotlight"></div>
+      <div class="nt-rack-floor-glow"></div>
+
+      <div class="nt-rack-header">
+        <div class="nt-rack-title-group">
+          <div class="nt-rack-eyebrow">
+            <span class="nt-rack-eyebrow-dot"></span>
+            <span>Virtual Showroom 2026 • Interactive Rack</span>
+          </div>
+          <h2 class="nt-rack-heading">Tủ Đồ Treo <span>Tương Tác 3D</span></h2>
+        </div>
+
+        <div class="nt-rack-controls-top" role="tablist" aria-label="Lọc theo loại áo trên giá treo">
+          <button type="button" class="nt-rack-filter-btn active" data-rack-cat="all">Tất Cả Trên Giá (12)</button>
+          <button type="button" class="nt-rack-filter-btn" data-rack-cat="jacket">Áo Khoác</button>
+          <button type="button" class="nt-rack-filter-btn" data-rack-cat="shirt">Áo Sơ Mi</button>
+          <button type="button" class="nt-rack-filter-btn" data-rack-cat="tee">Áo Thun</button>
+        </div>
+      </div>
+
+      <!-- 3D Hanging Rack Stage -->
+      <div class="nt-rack-stage" id="nt-rack-stage">
+        <!-- Metallic Horizontal Rack Rail -->
+        <div class="nt-rack-bar-container">
+          <div class="nt-rack-bracket left"></div>
+          <div class="nt-rack-bracket right"></div>
+          <div class="nt-rack-bar-rod"></div>
+        </div>
+
+        <!-- Prev / Next Navigation Buttons -->
+        <button type="button" class="nt-rack-nav-btn prev" id="nt-rack-prev" aria-label="Áo trước">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="nt-rack-nav-btn next" id="nt-rack-next" aria-label="Áo tiếp theo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <!-- Dynamic Hanging Garments -->
+        <div class="nt-rack-items-layer" id="nt-rack-items-layer"></div>
+      </div>
+
+      <!-- Active Center Garment Info & Controls -->
+      <div class="nt-rack-info-panel">
+        <div class="nt-rack-counter-pill">
+          <span id="nt-rack-cat-label">Áo Sơ Mi Denim</span>
+          <span>•</span>
+          <span id="nt-rack-counter">3 / 12</span>
+        </div>
+
+        <h3 class="nt-rack-product-title" id="nt-rack-title">Áo Sơ Mi Denim Louis Vuitton Damier Caro Xanh</h3>
+
+        <div class="nt-rack-price-row">
+          <span class="nt-rack-price-current" id="nt-rack-price-current">420.000₫</span>
+          <span class="nt-rack-price-old" id="nt-rack-price-old">520.000₫</span>
+        </div>
+
+        <!-- Front / Back 180° Flip Pill -->
+        <div>
+          <div class="nt-rack-view-toggle" role="group" aria-label="Xoay mặt trước hoặc mặt sau">
+            <button type="button" class="nt-view-side-btn active" id="nt-view-front-btn">FRONT (MẶT TRƯỚC)</button>
+            <button type="button" class="nt-view-side-btn" id="nt-view-back-btn">BACK (MẶT SAU)</button>
+          </div>
+        </div>
+
+        <div class="nt-rack-actions-row">
+          <button type="button" class="nt-rack-btn-primary" id="nt-rack-buy-btn">
+            <span>⚡ Chọn Size &amp; Mua Ngay</span>
+          </button>
+          <button type="button" class="nt-rack-btn-secondary" id="nt-rack-inspect-btn">
+            <span>🔍 Xem Chi Tiết Trên Móc (Đổi Màu / Xoay)</span>
+          </button>
+        </div>
+
+        <div class="nt-rack-hint">
+          <span>↔️ Kéo chuột, vuốt ngang Trackpad hoặc chạm vào áo hai bên để lướt giá treo • Bấm vào áo chính giữa để đổi màu qua Tag</span>
+        </div>
+      </div>
+
+      <!-- Luxury Scrolling Marquee Ticker (Bottom of Rack) -->
+      <div class="nt-rack-ticker" aria-hidden="true">
+        <div class="nt-rack-ticker-track">
+          <div class="nt-rack-ticker-item">NGUYEN TU VIRTUAL SHOWROOM 2026 <span>✦</span> VUỐT NGANG ĐỂ LƯỚT GIÁ TREO ĐỒ <span>✦</span> HỎA TỐC 2H NINH BÌNH <span>✦</span> ĐỔI SIZE MIỄN PHÍ 7 NGÀY <span>✦</span> IT'S US, NEVER THEM <span>✦</span></div>
+          <div class="nt-rack-ticker-item">NGUYEN TU VIRTUAL SHOWROOM 2026 <span>✦</span> VUỐT NGANG ĐỂ LƯỚT GIÁ TREO ĐỒ <span>✦</span> HỎA TỐC 2H NINH BÌNH <span>✦</span> ĐỔI SIZE MIỄN PHÍ 7 NGÀY <span>✦</span> IT'S US, NEVER THEM <span>✦</span></div>
+        </div>
+      </div>
+    </section>
+
+
 
     <!-- ==========================================
          FEATURED BANNER CARDS (ELEVN / FASHIONABLE STYLE)
@@ -1192,6 +1281,7 @@
   <!-- Main JavaScript Files -->
   <script src="assets/js/common.js?v=6.0"></script>
   <script src="assets/js/app.js?v=6.1"></script>
+  <script src="assets/js/clothing-rack.js?v=1.0"></script>
   <script src="assets/js/chat-widget.js"></script>
   <script src="assets/js/hero-cinematic.js?v=1.0"></script>
 

@@ -1,0 +1,666 @@
+/* ==========================================================================
+   NGUYEN TU FASHION — 3D INTERACTIVE CLOTHING RACK (DARK LUXURY EDITION)
+   Inspired by 2026 Immersive Virtual Showroom Experience
+   ========================================================================== */
+
+.nt-rack-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 38%, rgba(255, 51, 75, 0.16) 0%, rgba(120, 12, 32, 0.22) 45%, rgba(18, 2, 6, 0.98) 100%),
+    linear-gradient(180deg, #1a0308 0%, #0e0104 52%, #1c0309 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 51, 75, 0.25);
+  padding: 44px 0 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Studio Top Spotlight Glow */
+.nt-rack-spotlight {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 680px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(255, 230, 210, 0.13) 0%, rgba(255, 51, 75, 0.08) 42%, transparent 72%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floor Reflection Glow */
+.nt-rack-floor-glow {
+  position: absolute;
+  bottom: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  height: 90px;
+  background: radial-gradient(ellipse at center, rgba(255, 51, 75, 0.22) 0%, rgba(251, 191, 36, 0.06) 45%, transparent 75%);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Header & Filter Bar */
+.nt-rack-header {
+  position: relative;
+  z-index: 10;
+  max-width: var(--container-width, 1320px);
+  margin: 0 auto 18px;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nt-rack-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nt-rack-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent-gold, #fbbf24);
+}
+
+.nt-rack-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-red, #ff334b);
+  box-shadow: 0 0 10px var(--accent-red, #ff334b);
+  animation: ntRackPulse 2s infinite;
+}
+
+@keyframes ntRackPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.65; }
+}
+
+.nt-rack-heading {
+  font-family: var(--font-heading, 'Be Vietnam Pro', sans-serif);
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.nt-rack-heading span {
+  background: linear-gradient(90deg, #ff4d64 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nt-rack-controls-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nt-rack-filter-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nt-rack-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.nt-rack-filter-btn.active {
+  background: linear-gradient(135deg, #ff334b 0%, #c8102e 100%);
+  border-color: rgba(255, 120, 140, 0.6);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 51, 75, 0.35);
+}
+
+/* ==========================================================================
+   RACK STAGE & METALLIC BAR
+   ========================================================================== */
+.nt-rack-stage {
+  position: relative;
+  width: 100%;
+  height: 490px;
+  perspective: 1400px;
+  z-index: 5;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.nt-rack-stage:active {
+  cursor: grabbing;
+}
+
+/* Brushed Chrome & Champagne Gold Horizontal Clothing Bar */
+.nt-rack-bar-container {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.nt-rack-bar-rod {
+  position: absolute;
+  top: 7px;
+  left: -2%;
+  width: 104%;
+  height: 10px;
+  background: linear-gradient(
+    180deg,
+    #52525b 0%,
+    #e4e4e7 22%,
+    #ffffff 42%,
+    #71717a 68%,
+    #27272a 90%,
+    #a1a1aa 100%
+  );
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.75),
+    0 1px 0 rgba(255, 255, 255, 0.45) inset;
+}
+
+/* Left & Right Studio Wall Brackets */
+.nt-rack-bracket {
+  position: absolute;
+  top: -40px;
+  width: 12px;
+  height: 54px;
+  background: linear-gradient(90deg, #3f3f46, #d4d4d8 48%, #27272a);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+}
+.nt-rack-bracket.left { left: 8%; }
+.nt-rack-bracket.right { right: 8%; }
+
+.nt-rack-bracket::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  width: 20px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fbbf24 0%, #b45309 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   GARMENTS TRACK & HANGING ITEMS
+   ========================================================================== */
+.nt-rack-items-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.nt-rack-item {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 310px;
+  height: 390px;
+  margin-left: -155px;
+  transform-origin: 50% 22px; /* Pivot right on the metallic bar! */
+  transform-style: preserve-3d;
+  pointer-events: auto;
+  cursor: pointer;
+  will-change: transform, filter, opacity;
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+
+/* Hanger SVG positioned at the top of the garment */
+.nt-hanger-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 76px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.nt-hanger-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.65));
+}
+
+/* Garment Image Wrapper */
+.nt-garment-body {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  margin-top: 32px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Flip state when viewing BACK in Inspect Mode */
+.nt-rack-item.is-flipped .nt-garment-body {
+  transform: rotateY(180deg);
+}
+
+.nt-garment-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.78));
+  transition: filter 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* Back-view overlay badge when flipped 180deg */
+.nt-garment-back-badge {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleX(-1); /* Counter-mirror text on 180deg flip */
+  background: rgba(15, 3, 7, 0.86);
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65);
+}
+
+.nt-rack-item.is-flipped .nt-garment-back-badge {
+  opacity: 1;
+}
+
+.nt-garment-back-badge strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--accent-gold, #fbbf24);
+  letter-spacing: 0.12em;
+}
+
+.nt-garment-back-badge span {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   HANGING COLOR TAGS (INSPECT MODE — LIKE VIDEO 00:06–00:12)
+   ========================================================================== */
+.nt-hanging-tags {
+  position: absolute;
+  top: 48px;
+  right: -56px;
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(-16px) scale(0.9);
+  pointer-events: none;
+  transition: all 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nt-rack-stage.inspect-mode .nt-rack-item.is-center .nt-hanging-tags {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.nt-color-tag {
+  position: relative;
+  width: 38px;
+  height: 82px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.65);
+  transform-origin: top center;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* String connecting tag to hanger */
+.nt-color-tag::before {
+  content: '';
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  width: 1.5px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateX(-50%);
+}
+
+/* Metallic grommet hole on tag */
+.nt-color-tag-hole {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1a0308;
+  border: 1.5px solid rgba(251, 191, 36, 0.8);
+}
+
+.nt-color-tag-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nt-color-tag:hover {
+  transform: rotate(-4deg) translateY(2px);
+}
+
+.nt-color-tag.active {
+  border-color: var(--accent-gold, #fbbf24);
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.35), 0 12px 24px rgba(0, 0, 0, 0.8);
+  transform: translateY(4px);
+}
+
+/* Blur non-center items when in inspect mode */
+.nt-rack-stage.inspect-mode .nt-rack-item:not(.is-center) {
+  filter: blur(9px) brightness(0.28) !important;
+  opacity: 0.45 !important;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   LEFT / RIGHT NAVIGATION ARROWS
+   ========================================================================== */
+.nt-rack-nav-btn {
+  position: absolute;
+  top: 46%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(24, 4, 9, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 30;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nt-rack-nav-btn:hover {
+  background: var(--accent-red, #ff334b);
+  border-color: #ff6b7d;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.nt-rack-nav-btn.prev { left: max(16px, 4vw); }
+.nt-rack-nav-btn.next { right: max(16px, 4vw); }
+
+/* ==========================================================================
+   BOTTOM PRODUCT INFO PANEL (ACTIVE CENTER GARMENT)
+   ========================================================================== */
+.nt-rack-info-panel {
+  position: relative;
+  z-index: 20;
+  max-width: 680px;
+  margin: -18px auto 26px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.nt-rack-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 8px;
+}
+
+.nt-rack-product-title {
+  font-family: var(--font-heading, 'Be Vietnam Pro', sans-serif);
+  font-size: clamp(1rem, 2vw, 1.28rem);
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+  min-height: 1.5em;
+  transition: opacity 0.2s ease;
+}
+
+.nt-rack-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.nt-rack-price-current {
+  font-size: 1.12rem;
+  font-weight: 900;
+  color: var(--accent-gold, #fbbf24);
+}
+
+.nt-rack-price-old {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.42);
+  text-decoration: line-through;
+}
+
+/* FRONT / BACK Toggle (Visible in Inspect Mode or Always Accessible) */
+.nt-rack-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 3px;
+  margin-bottom: 14px;
+  gap: 4px;
+}
+
+.nt-view-side-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nt-view-side-btn.active {
+  background: #ffffff;
+  color: #120205;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.nt-rack-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nt-rack-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff334b 0%, #d41432 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 130, 145, 0.5);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 51, 75, 0.38);
+  transition: all 0.25s ease;
+}
+
+.nt-rack-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(255, 51, 75, 0.55);
+}
+
+.nt-rack-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nt-rack-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-gold, #fbbf24);
+}
+
+.nt-rack-hint {
+  margin-top: 10px;
+  font-size: 0.71rem;
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   BOTTOM MARQUEE TICKER (LIKE THE NEON TICKER IN THE REEL)
+   ========================================================================== */
+.nt-rack-ticker {
+  width: 100%;
+  background: linear-gradient(90deg, #ff2a44 0%, #e11d38 50%, #ff2a44 100%);
+  color: #ffffff;
+  padding: 8px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  position: relative;
+  z-index: 10;
+}
+
+.nt-rack-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ntRackMarquee 26s linear infinite;
+}
+
+.nt-rack-ticker-item {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 0 22px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nt-rack-ticker-item span {
+  color: var(--accent-gold, #fbbf24);
+}
+
+@keyframes ntRackMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nt-rack-section {
+    padding-top: 28px;
+  }
+  .nt-rack-stage {
+    height: 390px;
+  }
+  .nt-rack-item {
+    width: 240px;
+    height: 310px;
+    margin-left: -120px;
+  }
+  .nt-garment-body {
+    height: 265px;
+    margin-top: 28px;
+  }
+  .nt-hanger-wrap {
+    width: 120px;
+    height: 62px;
+  }
+  .nt-hanging-tags {
+    right: -34px;
+    top: 38px;
+  }
+  .nt-color-tag {
+    width: 32px;
+    height: 68px;
+  }
+  .nt-rack-bracket {
+    display: none;
+  }
+}

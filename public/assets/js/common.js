@@ -917,13 +917,13 @@
           ` : ''}
 
           <!-- Receiver & Address info -->
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.8125rem; margin-bottom:12px; background:rgba(0,0,0,0.25); padding:10px 12px; border-radius:8px;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:0.8125rem; margin-bottom:12px; background:rgba(0,0,0,0.25); padding:10px 12px; border-radius:8px;">
             <div>
               <div style="color:var(--text-muted); margin-bottom:3px;">Người nhận: <strong style="color:#fff;">${order.customerName || 'Khách hàng'}</strong></div>
               <div style="color:var(--text-muted); margin-bottom:3px;">SĐT: <strong style="color:#fff;">${order.customerPhone}</strong></div>
               <div style="color:var(--text-muted);">Địa chỉ: <span style="color:#ddd;">${order.address || ''}${order.district ? ', ' + order.district : ''}</span></div>
             </div>
-            <div style="text-align:right;">
+            <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:6px;">
               <div style="color:var(--text-muted); margin-bottom:3px;">Thanh toán: <strong style="color:#fff;">${order.paymentMethod === 'vietqr' ? 'VietQR' : 'COD'}</strong></div>
               <div style="color:var(--text-muted); margin-bottom:3px;">Ngày tạo: <span style="color:#ddd;">${order.createdAt ? new Date(order.createdAt).toLocaleDateString('vi-VN') : 'Mới đây'}</span></div>
               <div style="font-size:0.95rem; color:#fff; margin-top:4px;">Tổng tiền: <strong style="color:var(--accent-red);">${totalStr}</strong></div>
@@ -1191,4 +1191,80 @@
     }
   });
 
+  // Auto-inject missing Mobile Drawer & Mobile Bottom Nav on storefront pages
+  function ensureMobileNavigationElements() {
+    if (!document.querySelector('.header')) return; // Skip admin page
+    if (!document.getElementById('mobile-nav-drawer')) {
+      const backdrop = document.createElement('div');
+      backdrop.className = 'mobile-drawer-backdrop';
+      backdrop.id = 'mobile-drawer-backdrop';
+      backdrop.setAttribute('onclick', 'window.closeMobileMenu()');
+      document.body.appendChild(backdrop);
+
+      const drawer = document.createElement('aside');
+      drawer.className = 'mobile-nav-drawer';
+      drawer.id = 'mobile-nav-drawer';
+      drawer.innerHTML = `
+        <div class="drawer-header">
+          <a href="index.html" class="drawer-brand">
+            <img src="assets/images/logo.png" alt="Logo" class="drawer-logo">
+            <div class="drawer-brand-text">
+              <span class="drawer-brand-name">NGUYENTU</span>
+              <span class="drawer-brand-sub">NINH BINH STREETWEAR</span>
+            </div>
+          </a>
+          <button class="drawer-close-btn" onclick="window.closeMobileMenu()" aria-label="Đóng">&times;</button>
+        </div>
+        <div class="drawer-body">
+          <nav class="drawer-nav-list">
+            <a href="index.html" class="drawer-nav-item"><span class="drawer-nav-icon">🏠</span> Trang Chủ</a>
+            <a href="products.html" class="drawer-nav-item"><span class="drawer-nav-icon">👕</span> Tất Cả Sản Phẩm</a>
+            <a href="orders.html" class="drawer-nav-item" style="color:var(--accent-gold); font-weight:800;"><span class="drawer-nav-icon">📦</span> Đơn Hàng Của Bạn (Tra cứu & Hủy)</a>
+            <a href="blog.html" class="drawer-nav-item"><span class="drawer-nav-icon">📰</span> Tạp Chí Streetwear</a>
+            <a href="contact.html" class="drawer-nav-item"><span class="drawer-nav-icon">📍</span> Hệ Thống Showroom</a>
+          </nav>
+        </div>
+      `;
+      document.body.appendChild(drawer);
+    }
+
+    if (!document.querySelector('.mobile-bottom-nav') && !document.getElementById('mobile-sticky-bar')) {
+      const path = (window.location.pathname || '').toLowerCase();
+      const isProducts = path.includes('products');
+      const isOrders = path.includes('orders');
+      const isContact = path.includes('contact');
+      const isHome = !isProducts && !isOrders && !isContact;
+
+      const bottomNav = document.createElement('nav');
+      bottomNav.className = 'mobile-bottom-nav';
+      bottomNav.innerHTML = `
+        <a href="index.html" class="mobile-nav-item ${isHome ? 'active' : ''}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Trang Chủ</span>
+        </a>
+        <a href="products.html" class="mobile-nav-item ${isProducts ? 'active' : ''}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Sản Phẩm</span>
+        </a>
+        <a href="orders.html" class="mobile-nav-item ${isOrders ? 'active' : ''}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <span>Đơn Hàng</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" onclick="window.openCartDrawer()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span>Giỏ Hàng</span>
+        </a>
+        <a href="contact.html" class="mobile-nav-item ${isContact ? 'active' : ''}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <span>Liên Hệ</span>
+        </a>
+      `;
+      document.body.appendChild(bottomNav);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureMobileNavigationElements);
+  } else {
+    ensureMobileNavigationElements();
+  }
 })();
