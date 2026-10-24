@@ -1,5 +1,5 @@
-﻿/**
- * NGUYEN TU FASHION â€” 3D INTERACTIVE CLOTHING RACK (ATELIER SHOWROOM 2026)
+/**
+ * NGUYEN TU FASHION — 3D INTERACTIVE CLOTHING RACK (ATELIER SHOWROOM 2026)
  * Photorealistic Walnut/Chrome Hanger + True 2-Sided Front/Back 3D Garments
  */
 (function () {
@@ -8,9 +8,9 @@
   const RACK_ITEMS = [
     {
       id: 'nt-11',
-      title: 'Ão KhoÃ¡c Denim Louis Vuitton Äen ThÃªu Logo LV',
+      title: 'Áo Khoác Denim Louis Vuitton Đen Thêu Logo LV',
       category: 'jacket',
-      categoryLabel: 'Ão KhoÃ¡c Denim',
+      categoryLabel: 'Áo Khoác Denim',
       price: 490000,
       oldPrice: 620000,
       cutout: 'assets/images/rack/ao-khoac-denim-lv-den.png',
@@ -25,9 +25,9 @@
     },
     {
       id: 'nt-05',
-      title: 'Ão KhoÃ¡c Ná»‰ Adidas Beckenbauer Retro Kem Cacao',
+      title: 'Áo Khoác Nỉ Adidas Beckenbauer Retro Kem Cacao',
       category: 'jacket',
-      categoryLabel: 'Ão KhoÃ¡c Retro',
+      categoryLabel: 'Áo Khoác Retro',
       price: 470000,
       oldPrice: 580000,
       cutout: 'assets/images/rack/ao-khoac-adidas-beckenbauer-kem.png',
@@ -42,9 +42,9 @@
     },
     {
       id: 'nt-07',
-      title: 'Ão SÆ¡ Mi Denim Louis Vuitton Damier Caro Xanh',
+      title: 'Áo Sơ Mi Denim Louis Vuitton Damier Caro Xanh',
       category: 'shirt',
-      categoryLabel: 'SÆ¡ Mi Denim',
+      categoryLabel: 'Sơ Mi Denim',
       price: 420000,
       oldPrice: 520000,
       cutout: 'assets/images/rack/ao-so-mi-lv-damier-denim.png',
@@ -59,9 +59,9 @@
     },
     {
       id: 'nt-43',
-      title: 'Ão Thun Louis Vuitton PhÃ¡c Tháº£o Chim & Ruy BÄƒng Kem',
+      title: 'Áo Thun Louis Vuitton Phác Thảo Chim & Ruy Băng Kem',
       category: 'tee',
-      categoryLabel: 'Ão Thun Luxury',
+      categoryLabel: 'Áo Thun Luxury',
       price: 420000,
       oldPrice: 510000,
       cutout: 'assets/images/rack/ao-thun-lv-chim-va-ruy-bang-kem.png',
@@ -76,9 +76,9 @@
     },
     {
       id: 'nt-29',
-      title: 'Ão SÆ¡ Mi Denim LV CÃºc Ngá»c Trai ThÃªu Cameo',
+      title: 'Áo Sơ Mi Denim LV Cúc Ngọc Trai Thêu Cameo',
       category: 'shirt',
-      categoryLabel: 'SÆ¡ Mi Cao Cáº¥p',
+      categoryLabel: 'Sơ Mi Cao Cấp',
       price: 480000,
       oldPrice: 590000,
       cutout: 'assets/images/rack/ao-so-mi-denim-lv-cuc-ngoc-trai-theu-cameo.png',
@@ -93,9 +93,9 @@
     },
     {
       id: 'nt-01',
-      title: 'Ão KhoÃ¡c GiÃ³ Adidas Argentina "AFA 3 Sao" Tráº¯ng',
+      title: 'Áo Khoác Gió Adidas Argentina "AFA 3 Sao" Trắng',
       category: 'jacket',
-      categoryLabel: 'Ão KhoÃ¡c Thá»ƒ Thao',
+      categoryLabel: 'Áo Khoác Thể Thao',
       price: 480000,
       oldPrice: 580000,
       cutout: 'assets/images/rack/ao-khoac-argentina-trang.png',
@@ -110,9 +110,9 @@
     },
     {
       id: 'nt-23',
-      title: 'Ão Thun Louis Vuitton Monogram All-Over NÃ¢u CÃ  PhÃª',
+      title: 'Áo Thun Louis Vuitton Monogram All-Over Nâu Cà Phê',
       category: 'tee',
-      categoryLabel: 'Ão Thun Monogram',
+      categoryLabel: 'Áo Thun Monogram',
       price: 380000,
       oldPrice: 460000,
       cutout: 'assets/images/rack/ao-thun-lv-monogram-nau-coffee.png',
@@ -127,9 +127,9 @@
     },
     {
       id: 'nt-26',
-      title: 'Ão SÆ¡ Mi Louis Vuitton Monogram Hoa Ren Hawaii',
+      title: 'Áo Sơ Mi Louis Vuitton Monogram Hoa Ren Hawaii',
       category: 'shirt',
-      categoryLabel: 'SÆ¡ Mi Resort',
+      categoryLabel: 'Sơ Mi Resort',
       price: 420000,
       oldPrice: 520000,
       cutout: 'assets/images/rack/ao-so-mi-lv-monogram-hoa-ren-hawaii.png',
@@ -144,9 +144,9 @@
     },
     {
       id: 'nt-41',
-      title: 'Ão Thun Louis Vuitton Há»™p Chá»¯ Xáº¿p HÃ¬nh Building Blocks',
+      title: 'Áo Thun Louis Vuitton Hộp Chữ Xếp Hình Building Blocks',
       category: 'tee',
-      categoryLabel: 'Ão Thun Streetwear',
+      categoryLabel: 'Áo Thun Streetwear',
       price: 380000,
       oldPrice: 460000,
       cutout: 'assets/images/rack/ao-thun-lv-xep-hinh-building-blocks-trang.png',
@@ -160,9 +160,9 @@
     },
     {
       id: 'nt-30',
-      title: 'Ão SÆ¡ Mi Safari Louis Vuitton Káº» Sá»c DÃ¢y RÃºt Eo',
+      title: 'Áo Sơ Mi Safari Louis Vuitton Kẻ Sọc Dây Rút Eo',
       category: 'shirt',
-      categoryLabel: 'SÆ¡ Mi DÃ i Tay',
+      categoryLabel: 'Sơ Mi Dài Tay',
       price: 430000,
       oldPrice: 530000,
       cutout: 'assets/images/rack/ao-so-mi-lv-ke-soc-safari-day-rut-eo.png',
@@ -176,9 +176,9 @@
     },
     {
       id: 'nt-27',
-      title: 'Ão SÆ¡ Mi Tráº¯ng DÃ i Tay Louis Vuitton Logo Glitch Pixel',
+      title: 'Áo Sơ Mi Trắng Dài Tay Louis Vuitton Logo Glitch Pixel',
       category: 'shirt',
-      categoryLabel: 'SÆ¡ Mi CÃ´ng Sá»Ÿ',
+      categoryLabel: 'Sơ Mi Công Sở',
       price: 390000,
       oldPrice: 490000,
       cutout: 'assets/images/rack/ao-so-mi-lv-trang-dai-tay-logo-pixel.png',
@@ -192,9 +192,9 @@
     },
     {
       id: 'nt-22',
-      title: 'Ão Thun Louis Vuitton Tráº¯ng Classic Dáº­p VÃ¢n ChÃ¬m',
+      title: 'Áo Thun Louis Vuitton Trắng Classic Dập Vân Chìm',
       category: 'tee',
-      categoryLabel: 'Ão Thun Minimal',
+      categoryLabel: 'Áo Thun Minimal',
       price: 340000,
       oldPrice: 420000,
       cutout: 'assets/images/rack/ao-thun-lv-trang-classic-minimal.png',
@@ -211,7 +211,7 @@
   const ASSET_VER = '?v=6.0';
 
   function formatVND(amount) {
-    return Number(amount || 0).toLocaleString('vi-VN') + 'â‚«';
+    return Number(amount || 0).toLocaleString('vi-VN') + '₫';
   }
 
   function wrapOffset(diff, length) {
@@ -270,7 +270,7 @@
           <div class="nt-color-tag ${tIdx === 0 ? 'active' : ''}"
                data-tag-idx="${tIdx}"
                style="background:${t.bg}; color:${t.text};"
-               title="Äá»•i mÃ u: ${t.name}">
+               title="Đổi màu: ${t.name}">
             <span class="nt-color-tag-hole"></span>
             <span class="nt-color-tag-label">${t.name}</span>
           </div>
@@ -283,7 +283,7 @@
               <img class="nt-garment-img front-img" src="${item.cutout}${ASSET_VER}" alt="${item.title}" draggable="false" />
             </div>
             <div class="nt-garment-face back">
-              <img class="nt-garment-img back-img" src="${item.backCutout}${ASSET_VER}" alt="${item.title} - Máº·t sau" draggable="false" />
+              <img class="nt-garment-img back-img" src="${item.backCutout}${ASSET_VER}" alt="${item.title} - Mặt sau" draggable="false" />
             </div>
           </div>
         `;
@@ -373,8 +373,8 @@
       }
       if (inspectBtn) {
         inspectBtn.innerHTML = isInspectMode
-          ? '<span>âœ• Thu Nhá» Vá» GiÃ¡ Treo</span>'
-          : '<span>ðŸ” Xem Chi Tiáº¿t TrÃªn MÃ³c (Äá»•i MÃ u / Xoay)</span>';
+          ? '<span>✕ Thu Nhỏ Về Giá Treo</span>'
+          : '<span>🔍 Xem Chi Tiết Trên Móc (Đổi Màu / Xoay)</span>';
       }
     }
 
