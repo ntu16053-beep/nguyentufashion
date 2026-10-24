@@ -232,12 +232,12 @@
 
 .nt-rack-item {
   position: absolute;
-  top: 30px; /* Hanger top hook loop at y=8px lands right at 30+8=38px on top of the steel bar! */
+  top: 28px; /* Embedded 3D chrome hook loop at y=10..15px lands right on top of the steel rail (38..43px)! */
   left: 50%;
   width: 336px;
   height: 382px;
   margin-left: -168px;
-  transform-origin: 50% 12px; /* Pivot right on the steel rail (30+12=42px) */
+  transform-origin: 50% 13px; /* Pivot right on the steel rail (28+13=41px) */
   transform-style: preserve-3d;
   pointer-events: auto;
   cursor: pointer;
@@ -245,35 +245,13 @@
   transition: filter 0.35s ease, opacity 0.35s ease;
 }
 
-/* Photorealistic Walnut & Chrome Hanger tucked INSIDE the garment collar */
-.nt-hanger-wrap {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 152px;
-  height: 83px;
-  z-index: 1; /* Behind garment shoulders so wooden wings tuck inside the shirt! */
-  pointer-events: none;
-}
-
-.nt-hanger-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
-  pointer-events: none;
-  -webkit-user-drag: none;
-}
-
-/* 3D Two-Sided Garment Body (Front Cutout + Back Cutout) */
+/* 3D Two-Sided Garment Body (Front Cutout + Back Cutout with In-Collar Hanger) */
 .nt-garment-body {
   position: relative;
   z-index: 2;
   width: 100%;
-  height: 342px;
-  margin-top: 25px; /* Collar top meets hanger right at the wooden neck block (y=36px)! */
+  height: 378px;
+  margin-top: 0;
   transform-style: preserve-3d;
   transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -635,17 +613,14 @@
     height: 360px;
   }
   .nt-rack-item {
+    top: 29px;
     width: 252px;
     height: 304px;
     margin-left: -126px;
   }
   .nt-garment-body {
-    height: 262px;
-    margin-top: 20px;
-  }
-  .nt-hanger-wrap {
-    width: 118px;
-    height: 64px;
+    height: 296px;
+    margin-top: 0;
   }
   .nt-hanging-tags {
     right: -32px;

@@ -208,7 +208,7 @@
     }
   ];
 
-  const HANGER_SRC = 'assets/images/rack/studio-hanger.png';
+  const ASSET_VER = '?v=5.0';
 
   function formatVND(amount) {
     return Number(amount || 0).toLocaleString('vi-VN') + '₫';
@@ -277,16 +277,13 @@
         `).join('');
 
         el.innerHTML = `
-          <div class="nt-hanger-wrap">
-            <img class="nt-hanger-img" src="${HANGER_SRC}" alt="" draggable="false" />
-          </div>
           <div class="nt-hanging-tags">${tagsHtml}</div>
           <div class="nt-garment-body">
             <div class="nt-garment-face front">
-              <img class="nt-garment-img front-img" src="${item.cutout}" alt="${item.title}" draggable="false" />
+              <img class="nt-garment-img front-img" src="${item.cutout}${ASSET_VER}" alt="${item.title}" draggable="false" />
             </div>
             <div class="nt-garment-face back">
-              <img class="nt-garment-img back-img" src="${item.backCutout}" alt="${item.title} - Mặt sau" draggable="false" />
+              <img class="nt-garment-img back-img" src="${item.backCutout}${ASSET_VER}" alt="${item.title} - Mặt sau" draggable="false" />
             </div>
           </div>
         `;
