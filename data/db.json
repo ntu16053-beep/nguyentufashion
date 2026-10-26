@@ -2019,17 +2019,6 @@
       "isActive": true,
       "usageCount": 55,
       "expiry": "2026-12-31"
-    },
-    {
-      "code": "NGUYENTUFASHION",
-      "description": "giảm 25% cho đơn từ 200K trở lên",
-      "discountPercent": 4,
-      "discountAmount": 0,
-      "minOrder": 0,
-      "maxDiscount": 50000,
-      "isActive": true,
-      "usageCount": 0,
-      "expiry": "2026-12-31"
     }
   ],
   "settings": {
