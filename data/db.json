@@ -1643,7 +1643,7 @@
       "totalAmount": 300000,
       "paymentMethod": "cod",
       "paymentStatus": "unpaid",
-      "status": "confirmed",
+      "status": "pending",
       "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
       "createdAt": "2026-10-21T19:20:14.625Z",
       "timeline": [
@@ -1656,6 +1656,11 @@
           "status": "confirmed",
           "time": "2026-10-23T16:18:19.429Z",
           "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
+        },
+        {
+          "status": "pending",
+          "time": "2026-10-26T06:54:56.060Z",
+          "note": "Đơn hàng đang chờ xác nhận"
         }
       ]
     },
