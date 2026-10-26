@@ -123,6 +123,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
       user-select: none;
+
       flex-shrink: 0;
     }
     .modal-close-corner-btn:hover {
@@ -376,6 +377,7 @@
       margin-bottom: 6px;
       transition: all var(--transition-fast);
       user-select: none;
+
     }
     .admin-nav-item:hover, .admin-nav-item.active {
       background: var(--accent-red);
@@ -1371,11 +1373,11 @@
   </div>
 
   <!-- CREATE ARTICLE MODAL -->
-  <div class="modal-overlay" id="create-article-modal" onclick="if(event.target===this)document.getElementById('create-article-modal').style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
+  <div class="modal-overlay" id="create-article-modal" onclick="if(event.target===this)window.closeCreateArticleModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:999999; align-items:center; justify-content:center;">
     <div class="modal-card" style="background:#240409; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:28px; width:90%; max-width:620px; max-height:90vh; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.8);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
         <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; text-transform:uppercase;">Viết Bài Mới Cho Tạp Chí</h3>
-        <button type="button" class="modal-close-corner-btn" onclick="document.getElementById('create-article-modal').style.display='none'" aria-label="Đóng" title="Đóng (Esc)">✕</button>
+        <button type="button" class="modal-close-corner-btn" onclick="window.closeCreateArticleModal()" aria-label="Đóng" title="Đóng (Esc)">✕</button>
       </div>
 
       <div class="form-control-wrap" style="margin-bottom:14px;">
@@ -1415,7 +1417,7 @@
       </div>
 
       <div style="display:flex; gap:12px;">
-        <button class="btn btn-dark" style="flex:1;" onclick="document.getElementById('create-article-modal').style.display='none'">Hủy Bỏ</button>
+        <button class="btn btn-dark" style="flex:1;" onclick="window.closeCreateArticleModal()">Hủy Bỏ</button>
         <button class="btn btn-primary" style="flex:1;" onclick="window.submitCreateAdminArticle()">Đăng Bài Viết</button>
       </div>
     </div>
@@ -2162,7 +2164,7 @@
       const modal = document.getElementById('create-product-modal');
       if (modal) {
         modal.classList.remove('active');
-        modal.style.display = 'none';
+        modal.style.setProperty('display', 'none', 'important');
         modal.style.opacity = '0';
         modal.style.visibility = 'hidden';
         modal.style.pointerEvents = 'none';
@@ -2444,7 +2446,7 @@
       const modal = document.getElementById('edit-price-modal');
       if (modal) {
         modal.classList.remove('active');
-        modal.style.display = 'none';
+        modal.style.setProperty('display', 'none', 'important');
         modal.style.opacity = '0';
         modal.style.visibility = 'hidden';
       }
@@ -2758,7 +2760,7 @@
       const modal = document.getElementById('create-coupon-modal');
       if (modal) {
         modal.classList.remove('active');
-        modal.style.display = 'none';
+        modal.style.setProperty('display', 'none', 'important');
         modal.style.opacity = '0';
         modal.style.visibility = 'hidden';
         modal.style.pointerEvents = 'none';
@@ -3130,7 +3132,7 @@
       const modal = document.getElementById('create-article-modal');
       if (modal) {
         modal.classList.remove('active');
-        modal.style.display = 'none';
+        modal.style.setProperty('display', 'none', 'important');
         modal.style.opacity = '0';
         modal.style.visibility = 'hidden';
         modal.style.pointerEvents = 'none';
@@ -3303,8 +3305,8 @@
         window.closeEditPriceModal();
         window.closeCreateProductModal();
         window.closeCreateCouponModal();
-        const artModal = document.getElementById('create-article-modal');
-        if (artModal) artModal.style.display = 'none';
+        window.closeCreateArticleModal();
+
       }
     });
 
