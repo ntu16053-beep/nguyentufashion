@@ -240,6 +240,7 @@
     const backBtn = document.getElementById('nt-view-back-btn');
     const prevBtn = document.getElementById('nt-rack-prev');
     const nextBtn = document.getElementById('nt-rack-next');
+    const swatchesPreviewEl = document.getElementById('nt-rack-swatches-preview');
 
     if (!stage || !itemsLayer) return;
 
@@ -259,15 +260,44 @@
 
     let domNodes = [];
 
+    function applyGarmentColor(itemIndex, tagIndex) {
+      const item = activeItems[itemIndex];
+      const el = domNodes[itemIndex];
+      if (!item || !el) return;
+      item.activeTagIdx = tagIndex;
+
+      const tagObj = item.tags[tagIndex];
+      if (!tagObj) return;
+
+      const frontImg = el.querySelector('.front-img');
+      const backImg = el.querySelector('.back-img');
+      const tagEls = el.querySelectorAll('.nt-color-tag');
+
+      tagEls.forEach(x => x.classList.remove('active'));
+      const activeTagEl = el.querySelector(`.nt-color-tag[data-tag-idx="${tagIndex}"]`);
+      if (activeTagEl) activeTagEl.classList.add('active');
+
+      const filterVal = `${tagObj.filter !== 'none' ? tagObj.filter : ''} drop-shadow(0 22px 28px rgba(0,0,0,0.85))`;
+      if (frontImg) frontImg.style.filter = filterVal;
+      if (backImg) backImg.style.filter = filterVal;
+
+      if (swatchesPreviewEl) {
+        swatchesPreviewEl.querySelectorAll('.nt-swatch-dot').forEach((sDot, idx) => {
+          sDot.classList.toggle('active', idx === tagIndex);
+        });
+      }
+    }
+
     function renderItems() {
       itemsLayer.innerHTML = '';
       domNodes = activeItems.map((item, idx) => {
         const el = document.createElement('div');
         el.className = 'nt-rack-item';
         el.dataset.index = idx;
+        item.activeTagIdx = item.activeTagIdx || 0;
 
         const tagsHtml = (item.tags || []).map((t, tIdx) => `
-          <div class="nt-color-tag ${tIdx === 0 ? 'active' : ''}"
+          <div class="nt-color-tag ${tIdx === item.activeTagIdx ? 'active' : ''}"
                data-tag-idx="${tIdx}"
                style="background:${t.bg}; color:${t.text};"
                title="Đổi màu: ${t.name}">
@@ -288,22 +318,13 @@
           </div>
         `;
 
-        const frontImg = el.querySelector('.front-img');
-        const backImg = el.querySelector('.back-img');
-
         // Tag click handler updates both front & back faces simultaneously
         const tagEls = el.querySelectorAll('.nt-color-tag');
         tagEls.forEach(tagEl => {
           tagEl.addEventListener('click', (e) => {
             e.stopPropagation();
             const tIdx = Number(tagEl.dataset.tagIdx);
-            const tagObj = item.tags[tIdx];
-            if (!tagObj) return;
-            tagEls.forEach(x => x.classList.remove('active'));
-            tagEl.classList.add('active');
-            const filterVal = `${tagObj.filter !== 'none' ? tagObj.filter : ''} drop-shadow(0 22px 28px rgba(0,0,0,0.85))`;
-            if (frontImg) frontImg.style.filter = filterVal;
-            if (backImg) backImg.style.filter = filterVal;
+            applyGarmentColor(idx, tIdx);
           });
         });
 
@@ -314,6 +335,7 @@
           const stepDiff = wrapOffset(clickedIdx - targetIndex, activeItems.length);
           if (Math.abs(stepDiff) > 0.15) {
             exitInspectMode();
+            setFlipSide(false);
             targetIndex = Math.round(targetIndex + stepDiff);
           } else {
             toggleInspectMode();
@@ -340,6 +362,35 @@
       if (priceOldEl) priceOldEl.textContent = item.oldPrice ? formatVND(item.oldPrice) : '';
       if (counterEl) counterEl.textContent = `${clamped + 1} / ${len}`;
       if (categoryLabelEl) categoryLabelEl.textContent = item.categoryLabel;
+
+      // Render Available Color Swatches Preview
+      if (swatchesPreviewEl) {
+        const tags = item.tags || [];
+        if (tags.length > 1) {
+          swatchesPreviewEl.innerHTML = `
+            <span class="nt-swatches-title">Phối màu (${tags.length}):</span>
+            <div class="nt-swatches-dots">
+              ${tags.map((t, tIdx) => `
+                <button type="button" class="nt-swatch-dot ${tIdx === (item.activeTagIdx || 0) ? 'active' : ''}"
+                        style="background:${t.bg};"
+                        data-swatch-idx="${tIdx}"
+                        title="${t.name}">
+                </button>
+              `).join('')}
+            </div>
+          `;
+          swatchesPreviewEl.querySelectorAll('.nt-swatch-dot').forEach(sDot => {
+            sDot.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const sIdx = Number(sDot.dataset.swatchIdx);
+              applyGarmentColor(clamped, sIdx);
+            });
+          });
+          swatchesPreviewEl.style.display = 'inline-flex';
+        } else {
+          swatchesPreviewEl.style.display = 'none';
+        }
+      }
 
       domNodes.forEach((node, idx) => {
         if (idx === clamped) {
@@ -374,7 +425,7 @@
       if (inspectBtn) {
         inspectBtn.innerHTML = isInspectMode
           ? '<span>✕ Thu Nhỏ Về Giá Treo</span>'
-          : '<span>🔍 Xem Chi Tiết Trên Móc (Đổi Màu / Xoay)</span>';
+          : '<span>🔍 Xem Chi Tiết &amp; Đổi Màu</span>';
       }
     }
 
@@ -396,11 +447,14 @@
         swayAngle += (targetSway - swayAngle) * 0.22;
 
         const isMobile = window.innerWidth <= 768;
-        const baseSpacing = isMobile ? 114 : 164;
+        const baseSpacing = isMobile ? 102 : 152;
 
         const discreteCenter = modIndex(currentIndex, len);
         if (discreteCenter !== lastActiveDiscrete) {
           lastActiveDiscrete = discreteCenter;
+          if (isFlippedBack) {
+            setFlipSide(false);
+          }
           updateActiveInfo(discreteCenter);
         }
 
@@ -411,18 +465,19 @@
 
           const sign = offset < 0 ? -1 : 1;
           const spread = absOff < 1
-            ? offset * (baseSpacing * 1.16)
-            : sign * (baseSpacing * 1.16 + (absOff - 1) * (baseSpacing * 0.72));
+            ? offset * (baseSpacing * 1.10)
+            : sign * (baseSpacing * 1.10 + (absOff - 1) * (baseSpacing * 0.78));
 
-          const rotY = Math.max(-56, Math.min(56, offset * -46));
+          // Natural boutique garment angle (not paper-thin flat)
+          const rotY = Math.max(-34, Math.min(34, offset * -28));
 
           const scale = isInspectMode && i === discreteCenter
-            ? 1.12
-            : Math.max(0.74, 1.06 - absOff * 0.1);
+            ? 1.10
+            : Math.max(0.76, 1.05 - absOff * 0.08);
 
           const translateZ = isInspectMode && i === discreteCenter
-            ? 85
-            : Math.max(-180, 36 - absOff * 52);
+            ? 75
+            : Math.max(-150, 30 - absOff * 44);
 
           const itemSway = swayAngle * Math.max(0.35, 1 - absOff * 0.15);
 
@@ -502,12 +557,14 @@
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
         exitInspectMode();
+        setFlipSide(false);
         targetIndex = Math.round(targetIndex) - 1;
       });
     }
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
         exitInspectMode();
+        setFlipSide(false);
         targetIndex = Math.round(targetIndex) + 1;
       });
     }
