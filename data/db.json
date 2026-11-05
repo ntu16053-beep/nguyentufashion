@@ -817,7 +817,7 @@
         "XXL"
       ],
       "stock": {
-        "M": 20,
+        "M": 19,
         "L": 32,
         "XL": 26,
         "XXL": 15
@@ -1616,6 +1616,46 @@
     }
   ],
   "orders": [
+    {
+      "id": "NT-NB2214",
+      "customerName": "nguyên văn tú",
+      "customerPhone": "0987653333",
+      "district": "Huyện Yên Khánh (Showroom Khánh Nhạc - Ship 2H), Ninh Bình",
+      "address": "xóm 10",
+      "items": [
+        {
+          "productId": "nt-25",
+          "title": "Áo Thun Louis Vuitton Đỏ Mận Thêu Hoa Floral NGUYEN TU Edition",
+          "size": "M",
+          "color": "#4e0d19",
+          "price": 390000,
+          "quantity": 1,
+          "image": "assets/images/products/ao-thun-lv-do-man-theu-hoa-floral.png"
+        }
+      ],
+      "subtotal": 390000,
+      "discountAmount": 0,
+      "couponCode": null,
+      "shippingFee": 0,
+      "totalAmount": 390000,
+      "paymentMethod": "cod",
+      "paymentStatus": "unpaid",
+      "status": "confirmed",
+      "shippingNote": "Giao hỏa tốc 2H tại Ninh Bình",
+      "createdAt": "2026-11-05T20:38:45.993Z",
+      "timeline": [
+        {
+          "status": "pending",
+          "time": "2026-11-05T20:38:45.993Z",
+          "note": "Đơn hàng mới tạo - Chờ shop gọi xác nhận"
+        },
+        {
+          "status": "confirmed",
+          "time": "2026-11-05T20:39:15.330Z",
+          "note": "Shop đã duyệt đơn & đang tiến hành đóng gói"
+        }
+      ]
+    },
     {
       "id": "NT-NB9901",
       "customerName": "nguyên văn tú",
