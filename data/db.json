@@ -72,7 +72,7 @@
       "title": "Áo Khoác Gió FC Barcelona Retro Heritage Kem Phối Sọc Blaugrana",
       "category": "jacket",
       "categoryName": "Áo Khoác Gió Retro",
-      "price": 400000,
+      "price": 300000,
       "oldPrice": 590000,
       "rating": 4.9,
       "reviews": 142,
@@ -82,15 +82,11 @@
       "imageHover": "assets/images/products/ao-khoac-barca-retro.png",
       "sizes": [
         "M",
-        "L",
-        "XL",
-        "2XL"
+        "L"
       ],
       "stock": {
         "M": 15,
-        "L": 25,
-        "XL": 18,
-        "2XL": 20
+        "L": 25
       },
       "colors": [
         "#f4f1ea",
@@ -100,7 +96,7 @@
       "description": "Phiên bản retro huyền thoại của FC Barcelona với sắc trắng kem vintage. Bo cổ và gấu dệt sọc Senyera đỏ vàng cùng phối màu Blaugrana biểu tượng. Phom suông rộng phóng khoáng.",
       "isActive": true,
       "createdAt": "2026-10-18T12:00:00Z",
-      "updatedAt": "2026-10-21T17:41:12.451Z"
+      "updatedAt": "2026-11-05T20:41:36.130Z"
     },
     {
       "id": "nt-04",
