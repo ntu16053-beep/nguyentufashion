@@ -5,7 +5,7 @@
       "title": "Áo Khoác Gió Adidas Argentina 2024/25 \"AFA 3 Sao\" Trắng",
       "category": "jacket",
       "categoryName": "Áo Khoác Gió Thể Thao",
-      "price": 300000,
+      "price": 3500000,
       "oldPrice": 580000,
       "rating": 5,
       "reviews": 4,
@@ -17,13 +17,15 @@
         "M",
         "L",
         "XL",
-        "XXL"
+        "XXL",
+        "3XL"
       ],
       "stock": {
-        "M": 17,
+        "M": 19,
         "L": 34,
         "XL": 25,
-        "XXL": 15
+        "XXL": 15,
+        "3XL": 20
       },
       "colors": [
         "#ffffff",
@@ -33,7 +35,7 @@
       "description": "Chất liệu vải dù gió 2 lớp cao cấp cản gió và chống nước nhẹ. Logo Adidas mạ vàng thêu nổi cùng huy hiệu AFA 3 sao World Cup danh giá. Phối sọc xanh lượn sóng biểu tượng hai bên tay áo.",
       "isActive": true,
       "createdAt": "2026-10-18T10:00:00Z",
-      "updatedAt": "2026-10-21T14:36:13.405Z"
+      "updatedAt": "2026-11-05T20:40:44.011Z"
     },
     {
       "id": "nt-02",
