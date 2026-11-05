@@ -40,7 +40,7 @@
       "title": "Bộ Quần Áo Thể Thao Tracksuit Adidas Argentina \"AFA 3 Sao\" Đen",
       "category": "tracksuit",
       "categoryName": "Bộ Nỉ Thể Thao",
-      "price": 650000,
+      "price": 400000,
       "oldPrice": 790000,
       "rating": 4.9,
       "reviews": 214,
@@ -49,16 +49,12 @@
       "image": "assets/images/products/bo-the-thao-argentina-den.png",
       "imageHover": "assets/images/products/bo-the-thao-argentina-den.png",
       "sizes": [
-        "M",
-        "L",
-        "XL",
-        "XXL"
+        "XXL",
+        "3XL"
       ],
       "stock": {
-        "M": 18,
-        "L": 28,
-        "XL": 22,
-        "XXL": 12
+        "XXL": 12,
+        "3XL": 20
       },
       "colors": [
         "#111111",
@@ -66,7 +62,8 @@
       ],
       "description": "Nguyên bộ tracksuit thể thao gồm áo khoác kéo khóa cổ cao và quần dài thể thao bo gấu. Chất vải thun nỉ Poly dệt kim co giãn 4 chiều, giữ ấm tốt và tôn dáng cực đỉnh.",
       "isActive": true,
-      "createdAt": "2026-10-18T11:00:00Z"
+      "createdAt": "2026-10-18T11:00:00Z",
+      "updatedAt": "2026-11-05T20:30:05.924Z"
     },
     {
       "id": "nt-03",
